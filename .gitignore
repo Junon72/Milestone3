@@ -1,0 +1,18 @@
+### VisualStudioCode ###
+# https://stackoverflow.com/a/57749909/11890599
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+**/.history
+
+# Environment
+# https://djangowaves.com/tips-tricks/gitignore-for-a-python-project/
+.venv
+
+# Mac/OSX
+.DS_Store
