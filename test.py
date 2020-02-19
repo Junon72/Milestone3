@@ -1,4 +1,4 @@
-### test.py file was used to create tests for the installation of python and 
+### test.py file was used to create tests for the installation of python and python modules ##
 
 ## Test for python installation, version and the path ##
 # import sys

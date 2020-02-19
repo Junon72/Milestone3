@@ -207,3 +207,7 @@ Temporary Items
 # Virtual environment
 # https://djangowaves.com/tips-tricks/gitignore-for-a-python-project/
 .venv
+
+# Document working folder
+
+.dev_doc/*
