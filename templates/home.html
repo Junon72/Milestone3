@@ -8,5 +8,11 @@
 </head>
 <body>
     <h1>Home Page</h1>
+    {% for class in classes %}
+        <p>We did: {{ class.class_name }}</p>
+        <p>For the sake of {{ class.class_description }}</p>
+        <p>And boy did we work those {{ class.main_element }}</p>
+        <p>In that fabulous day of {{ class.log_date }}</p> 
+    {% endfor %}
 </body>
 </html>
