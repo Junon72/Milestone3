@@ -6,7 +6,7 @@ app = Flask(__name__)
 data = [
     {'class_name': 'Monday Groove',
      'class_description': 'Let it loose and sweat it out',
-     'main_element': 'Shakey shake moves',
+     'main_element': 'Shaky shake moves',
      'log_date': 'March 7, 2020'},
     {'class_name': 'Tuesday Tango',
      'class_description': 'Get down and dirty',
@@ -22,7 +22,7 @@ def home():
 
 @app.route('/about')           
 def about():             
-    return render_template('about.html')
+    return render_template('about.html', title='About')
 
 
 

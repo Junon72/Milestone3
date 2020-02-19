@@ -1,18 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Classapp/ Home</title>
-</head>
-<body>
+
+{% extends "base.html"%}
+{% block content %}
     <h1>Home Page</h1>
     {% for class in classes %}
-        <p>We did: {{ class.class_name }}</p>
+        <p>We did: <em>{{ class.class_name }}</em></p>
         <p>For the sake of {{ class.class_description }}</p>
         <p>And boy did we work those {{ class.main_element }}</p>
         <p>In that fabulous day of {{ class.log_date }}</p> 
     {% endfor %}
-</body>
-</html>
+{% endblock content %}
