@@ -1,7 +1,7 @@
 
 {% extends "base.html"%}
 {% block content %}
-    <h1>Home Page</h1>
+    <h1>Welcome to Classapp</h1>
     {% for class in classes %}
         <p>We did: <em>{{ class.class_name }}</em></p>
         <p>For the sake of {{ class.class_description }}</p>
