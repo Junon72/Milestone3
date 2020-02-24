@@ -1,11 +1,21 @@
 <!-- JavaScript -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".button-collapse").sideNav();
+        $('.collapsible').collapsible({
+            onOpen: function(el) { 
+                $('.accordion_arrow').html('expand_less');
+            },
+            onClose: function(el) { 
+                $('.accordion_arrow').html('expand_more');
+            }
+    });
+        $('.button-collapse').sideNav();
     });
 
 </script>
