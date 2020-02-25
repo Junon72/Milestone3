@@ -2,4 +2,7 @@
 {% extends "base.html"%}
 {% block content %}
     <h1>Welcome to Classapp</h1>
+    {% for class in classes %}
+    <p>{{ class }}</p>
+    {% endfor %}
 {% endblock content %}

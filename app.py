@@ -1,46 +1,35 @@
 import os                  
-from flask import Flask, render_template, url_for    
+import pymongo
+from pymongo import MongoClient
+from flask import Flask, render_template, redirect, request, url_for
+from config import Config
+from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 
-app = Flask(__name__)      
+app = Flask(__name__) 
+app.config.from_object(Config)     
 
-data = [
-    {'class_name': 'Monday Groove',
-     'class_description': 'Let it loose and sweat it out',
-     'main_element': 'Shaky shake moves',
-     'log_date': 'March 7, 2020'},
-    {'class_name': 'Tuesday Tango',
-     'class_description': 'Get down and dirty',
-     'main_element': 'Roses and shiny shoes',
-     'log_date': 'March 8, 2020'},
-    {'class_name': 'Monday Funk',
-     'class_description': 'Funky monkeys monday feast',
-     'main_element': 'The boom start for your week',
-     'log_date': 'March 14, 2020'}
-]
+# MongoDB name
+# app.config['MONGO_DBNAME'] = 'classapp'
+# MongoDB URI / Assign db
+# client = MongoClient(Config.MONGO_URI)
+# db = client.classapp
 
-series_data = [
-    {'series_name': 'Funky mondays',
-     'class_name': 'Monday Groove',
-     'class_description': 'Let it loose and sweat it out'
-    },
-    {'series_name': 'Funky mondays',
-     'class_name': 'Monday funk',
-     'class_description': 'Funky monkeys monday feast'}
-]
 
+mongo = PyMongo(app)
 
 @app.route('/')
 @app.route('/home')           
 def home():             
-    return render_template('home.html')
+    return render_template('home.html', classes = mongo.db.classes.find({}, {"CLASSES.class_name": 1}))
 
 @app.route('/about')           
 def about():             
     return render_template('about.html', title='About')
 
-@app.route('/classes')           
-def classes():             
-    return render_template('classes.html', title='Classes', classes=data)
+@app.route('/get_classes')           
+def get_classes():             
+    return render_template('classes.html', title='Classes', classes = mongo.db.classes.find({}, {"CLASSES":1}))
 
 @app.route('/series')           
 def series():             
