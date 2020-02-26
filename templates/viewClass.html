@@ -1,6 +1,49 @@
 {% extends "base.html"%}
 {% block content %}
-    <h1>View Class</h1>
-    
+<h1>{{ this_class.class_name }}</h1>
+
+<h5>Description</h5>
+<p>{{ this_class.class_description }}</p>
+<h5>Main Elements</h5>
+<p>{{ this_class.class_description }}</p>
+<h5>Secondary Elements</h5>
+<p>{{ this_class.class_description }}</p>
+
+<div class="container-fluid no-gutters pl-3">
+    <div class="row">
+        <div class="col-3 no-gutters pl-0">
+            <h5>Series</h5>
+        </div>
+        <div class="col no-gutters">
+            something
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3 no-gutters pl-0">
+            <h5>Playlist Link</h5>
+        </div>
+        <div class="col no-gutters">
+            something
+        </div>
+    </div>
+</div>
+
+<h5>Exercises:</h5>
+<ul class="collapsible" data-collapsible="accordion">
+    {% for exercise in exercises %}
+    <li class="classes">
+        <div class="collapsible-header">
+            <div class="class_header col">
+                <i class="material-icons accordion_arrow">expand_more</i>
+                <strong>{{ exercise.exercise_name }}</strong>
+            </div>
+        </div>
+        <div class="collapsible-body">
+            <span>{{ exercise.exercise_description }} </span>
+    </li>
     {% endfor %}
+</ul>
+
+
+
 {% endblock content %}

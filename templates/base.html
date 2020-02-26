@@ -6,6 +6,8 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <!-- General standard links -->
         {% include 'head.html' %}
+        <!-- General custom styles -->
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
 
         {% if title %}
         <title>Classapp - {{ title }}</title>

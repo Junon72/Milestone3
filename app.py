@@ -138,6 +138,34 @@ def classes():
     	flash("You must be logged in!")
     	return redirect(url_for('index'))
 
+@app.route('/view_class/<class_id>')
+def view_class(class_id):
+    this_class = classes_collection.find_one({'_id': ObjectId(class_id)})
+    exercises = classes_collection.find({'username': session['user'] }, {'EXERCISES': 1})
+    print(exercises)
+    return render_template('viewClass.html', 
+                               title = 'Class',  
+                               this_class = this_class,
+                               exercises = classes_collection.find_one({'_id': ObjectId(class_id)}, {'EXERCISES': 1}))
+
+
+@app.route('/add_class')
+def add_class():
+	return render_template('classes.html')
+
+@app.route('/edit_class/<class_id>')
+def edit_class(class_id):
+	return render_template('editClass.html')
+
+@app.route('/delete_class/<class_id>')
+def delete_class(class_id):
+	return render_template('editClass.html')
+
+
+@app.route('/copy_class/<class_id>')
+def copy_class(class_id):
+	return render_template('editClass.html')
+
 
 @app.route('/series')           
 def series():             
