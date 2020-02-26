@@ -1,0 +1,29 @@
+body {
+    background-color: whitesmoke;
+    margin-top: 1rem;
+}
+
+.brand-logo {
+    margin-left: 3rem;
+}
+
+@media screen and (max-width: 994px) {
+    .brand-logo {
+        margin-left: 0;
+    }
+}
+
+#alerts {
+    position: absolute;
+    display: none;
+    min-height: 50px;
+    top: 95%;
+    left: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+}
+
+#alerts p {
+    margin: 10px 0px;
+}

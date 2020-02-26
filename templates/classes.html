@@ -1,17 +1,18 @@
 {% extends "base.html"%}
 {% block content %}
 <h1>Classes</h1>
+<p>You have created <b> </b> classes</p>
 <ul class="collapsible" data-collapsible="accordion">
     {% for class in classes %}
     <li class="classes">
         <div class="collapsible-header">
             <div class="class_header col">
                 <i class="material-icons accordion_arrow">expand_more</i>
-                <strong>{{ class.class_name }}</strong>
+                <strong>{{ classes.class_name }}</strong>
             </div>
         </div>
         <div class="collapsible-body">
-            <span>{{ class.class_description }}</span>
+            <span>{{ classes.class_description }}</span>
         </div>
     </li>
     {% endfor %}

@@ -2,23 +2,41 @@
 <header class="header">
     <nav class="navigation" role="navigation">
         <div class="nav-wrapper grey darken-3">
-            <a href="{{ url_for('home') }}" class="brand-logo left-align"><img src="static/img/classapp_logo.png" alt="Logo" id="logo" class="responsive-img"></a>
+            <a href="{{ url_for('classes') }}" class="brand-logo left-align"><img src="static/img/classapp_logo.png"
+                    alt="Logo" id="logo" class="responsive-img"></a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="{{ url_for('about') }}">About</a></li>
-                <li><a href="{{ url_for('get_classes') }}">Classes</a></li>
+                <li><a href="{{ url_for('index') }}">Login</a></li>
+                <li><a href="{{ url_for('classes') }}">Home</a></li>
                 <li><a href="{{ url_for('series') }}">Series</a></li>
-                <li><a href="{{ url_for('home') }}">Logout</a></li>
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+
             </ul>
         </div>
+
+
+        <!-- Flashed messages alerts modal -->
+        <div id="alerts" class="container-fluid">
+                <div class="row justify-content-around">
+                    <div id="messages">
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        {% for message in messages %}
+                        <p class="text-center">{{ message }}</p>
+                        {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
     </nav>
 
     <ul class="side-nav" id="mobile-demo">
-            <li><a href="{{ url_for('home') }}">Home</a></li>
-                <li><a href="{{ url_for('about') }}">About</a></li>
-                <li><a href="{{ url_for('get_classes') }}">Classes</a></li>
-                <li><a href="{{ url_for('series') }}">Series</a></li>
-                <li><a href="{{ url_for('home') }}">Logout</a></li>
+        <li><a href="{{ url_for('index') }}">Login</a></li>
+        <li><a href="{{ url_for('classes') }}">Home</a></li>
+        <li><a href="{{ url_for('series') }}">Series</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
     </ul>
 </header>

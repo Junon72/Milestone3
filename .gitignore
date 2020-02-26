@@ -210,7 +210,7 @@ Temporary Items
 
 # Mongo URI
 env.py
-config.py
+*config.py
 
 # Document working folder
 
