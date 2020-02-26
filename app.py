@@ -7,6 +7,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 app = Flask(__name__) 
 app.config.from_object(Config)     
 
@@ -18,37 +19,48 @@ mongo = PyMongo(app)
 users_collection = mongo.db.users
 classes_collection = mongo.db.classes
 
+#array = list(users_collection.find())
+#print(array)
+
 @app.route('/')
 
 # Login
 @app.route('/index', methods=['GET'])
 def index():
-	# Check if user is not logged in already
+	# Check if user is logged in already
 	if 'user' in session:
 		user_in_db = users_collection.find_one({"username": session['user']})
 		if user_in_db:
-			# If so redirect user to his/her collection of classes/ home page
+			# If in session redirect user to his/her collection of classes/ home page
 			flash("You are logged in already!")
 			return redirect(url_for('classes', user=user_in_db['username']))
 	else:
 		# Render the page for user to be able to log in
-		return render_template("index.html", title="Login", current_users=users_collection.find())
+		return render_template("index.html", title="Login", current_users=list(users_collection.find()))
 
 # Check user login details from login form
 @app.route('/user_auth', methods=['POST'])
 def user_auth():
 	form = request.form.to_dict()
+	print('this form')
+	print(form)
 	user_in_db = users_collection.find_one({'username': form['username']})
+	print('this user')
+	print(user_in_db)
 	# Check for user in database
 	if user_in_db:
 		# If passwords match (hashed / real password)
 		if check_password_hash(user_in_db['password'], form['password']):
+			print(form['password'])
 			# Log user in (add to session)
 			session['user'] = form['username']
+			print('this session user')
+			print(session['user'])
 			return redirect(url_for('classes', user=user_in_db['username']))
 			
 		else:
 			flash("Wrong password or user name!")
+			print('oops!')
 			return redirect(url_for('index'))
 	else:
 		flash("You must be registered!")
@@ -93,7 +105,7 @@ def register():
 					return redirect(url_for('register'))
 
 		else:
-			flash("The password are not identical!")
+			flash("The passwords are not identical!")
 			return redirect(url_for('register'))
 		
 	return render_template('register.html', title='Register')
