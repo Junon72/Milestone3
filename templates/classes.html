@@ -1,7 +1,7 @@
 {% extends "base.html"%}
 {% block content %}
 <h1>Classes</h1>
-<p>You have created <b> </b> classes</p>
+<p>You have created <b> </b> classes {{ current_user.username }}</p>
 <ul class="collapsible" data-collapsible="accordion">
     {% for class in classes %}
     <li class="classes">
@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="collapsible-body">
-            <span>{{ class.classes }}</span>
+            <span>{{ class.class_description }}</span>
         </div>
     </li>
     {% endfor %}

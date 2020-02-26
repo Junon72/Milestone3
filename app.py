@@ -124,13 +124,16 @@ def classes():
     if 'user' in session:
         # If so get the user classes and pass them to a template
         user_in_db = users_collection.find_one({'username': session['user']})
-        user = user_in_db
+        user = session['user']
         print(user)
         classes=classes_collection.find({'username': user})
         print(classes)
         for one in classes:           
         	print(one)
-        return render_template('classes.html', title='Classes', classes=classes_collection.find({'username': user}))
+        return render_template('classes.html', 
+                               title = 'Classes', 
+                               current_user = users_collection.find_one({'username': session['user']}), 
+                               classes = classes_collection.find({'username': session['user']}))
     else:
     	flash("You must be logged in!")
     	return redirect(url_for('index'))
