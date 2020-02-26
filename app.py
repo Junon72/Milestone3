@@ -51,7 +51,7 @@ def user_auth():
 	if user_in_db:
 		# If passwords match (hashed / real password)
 		if check_password_hash(user_in_db['password'], form['password']):
-			print(form['password'])
+			print('this is not see')
 			# Log user in (add to session)
 			session['user'] = form['username']
 			print('this session user')
@@ -124,7 +124,7 @@ def classes():
       if 'user' in session:
             # If so get the user classes and pass them to a template
             user_in_db = users_collection.find_one({'username': session['user']})
-            return render_template('classes.html', title='Classes', user=user_in_db, classes=classes_collection.find())
+            return render_template('classes.html', title='Classes', user=user_in_db, classes=classes_collection.find({'username': user_in_db}))
       else:
             flash("You must be logged in!")
             return redirect(url_for('index'))
