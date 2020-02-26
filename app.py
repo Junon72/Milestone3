@@ -120,14 +120,20 @@ def logout():
 
 @app.route('/classes')           
 def classes():          
-      # Check if user is logged in
-      if 'user' in session:
-            # If so get the user classes and pass them to a template
-            user_in_db = users_collection.find_one({'username': session['user']})
-            return render_template('classes.html', title='Classes', user=user_in_db, classes=classes_collection.find({'username': user_in_db}))
-      else:
-            flash("You must be logged in!")
-            return redirect(url_for('index'))
+    # Check if user is logged in
+    if 'user' in session:
+        # If so get the user classes and pass them to a template
+        user_in_db = users_collection.find_one({'username': session['user']})
+        user = user_in_db
+        print(user)
+        classes=classes_collection.find({'username': user})
+        print(classes)
+        for one in classes:           
+        	print(one)
+        return render_template('classes.html', title='Classes', classes=classes_collection.find({'username': user}))
+    else:
+    	flash("You must be logged in!")
+    	return redirect(url_for('index'))
 
 
 @app.route('/series')           
