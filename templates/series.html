@@ -1,9 +1,48 @@
 {% extends "base.html"%}
+
 {% block content %}
-    <h1>Series</h1>
+<h3>Series</h3>
+<p>You have created <b> </b> series {{ current_user.username }}</p>
+<ul class="collapsible" data-collapsible="accordion">
     {% for series in series %}
-        <p>Series name: <b>{{ series.series_name }}</b></p>
-        <p>Class name: {{ series.class_name }}</p>
-        <p>Description: <em>{{ series.class_description }}</em></p>
+    <li class="accordion_list">
+        <div class="collapsible-header">
+            <div class="list_header col">
+                <i class="material-icons accordion_arrow">expand_more</i>
+                <strong>{{ series.series_name }}</strong>
+            </div>
+        </div>
+        <div class="collapsible-body">
+            <span>{{ series.series_description }}</span>
+
+            <!-- Tool buttons for series -->
+            <div class="fixed-action-btn horizontal click-to-toggle">
+                <a class="btn-floating btn-medium red tooltipped" data-position="top" data-delay="50"
+                    data-tooltip="Open tools">
+                    <i class="medium material-icons">build</i></a>
+                <ul>
+                    <li><a href="{{ url_for('view_series', series_id=series._id) }}"
+                            class="btn-floating yellow darken-2 tooltipped" data-position="top" data-delay="50"
+                            data-tooltip="View series">
+                            <i class="material-icons">
+                                remove_red_eye</i></a></li>
+                    <li><a href="{{ url_for('edit_series', series_id=series_id) }}"
+                            class="btn-floating green tooltipped" data-position="top" data-delay="50"
+                            data-tooltip="Edit class series">
+                            <i class="material-icons">edit</i></a></li>
+                    <li><a href="{{ url_for('delete_cseries', series_id=series._id) }}"
+                            class="btn-floating red tooltipped" data-position="top" data-delay="50"
+                            data-tooltip="Delete class series">
+                            <i class="material-icons">delete</i></a></li>
+                </ul>
+            </div>
+        </div>
+    </li>
     {% endfor %}
+</ul>
+<!-- Button to add a new class -->
+<a href="{{ url_for('add_series') }}" class="btn-small waves-effect waves-light blue tooltipped" data-position="right"
+    data-delay="50" data-tooltip="Add a new class series">
+    <i class="material-icons left">library_add</i>Add New Class Series</a>
+{% endfor %}
 {% endblock content %}

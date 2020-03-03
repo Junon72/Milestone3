@@ -17,7 +17,7 @@ body {
     position: absolute;
     display: none;
     min-height: 50px;
-    top: 95%;
+    top: 80%;
     left: 0;
     z-index: 999;
     background-color: rgba(0, 0, 0, 0.5);

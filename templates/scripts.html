@@ -3,21 +3,36 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
+        // Materialize Collapsible 
         $('.collapsible').collapsible({
-            onOpen: function(el) { 
+            onOpen: function (el) {
                 $('.accordion_arrow').html('expand_less');
             },
-            onClose: function(el) { 
+            onClose: function (el) {
                 $('.accordion_arrow').html('expand_more');
             }
-    });
+        });
+        // Materialize Navigation 
         $('.button-collapse').sideNav();
+        // Materialize Forms Select Many
+        $('select').material_select();        
+        // Materialize textarea update vith input values
+        Materialize.updateTextFields();
+        // Materialize Date Picker
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15, // Creates a dropdown of 15 years to control year,
+            today: 'Today',
+            clear: 'Clear',
+            close: 'Ok',
+            closeOnSelect: false, // Close upon selecting a date,
+            container: undefined // ex. 'body' will append picker to body
+        });
     });
-
 </script>
 <!-- Main JS-->
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>

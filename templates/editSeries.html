@@ -1,6 +1,56 @@
 {% extends "base.html"%}
 {% block content %}
-    <h1>Edit Series</h1>
-    
-    {% endfor %}
+
+<h3>Edit Class Series</h3>
+<!-- ADD CLASS SERIES-->
+<section class="series_form">
+    <form class="col s12 l6" action="{{ url_for('update_series'), username=session['user'] }}" method="POST"
+        id="add_series_form" autocomplete="off">
+
+        <!-- ADD SERIES NAME -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">bookmark</i>
+                <input id="series_name" name="series_name" type="text" class="validate" placeholder="Class series name"
+                    required="required">
+                <label for="series_name">Class Series Name</label>
+            </div>
+        </div>
+
+        <!-- ADD SERIES DESCRIPTION -->
+        <div class="row">
+            <div class="input-field col s12 l6">
+                <i class="material-icons prefix">description</i>
+                <textarea class="materialize-textarea form-control" id="add_series_description"
+                    name="series_description" placeholder="Description"></textarea>
+                <label for="series_description" class="list-label ml-2">Description</label>
+            </div>
+        </div>
+
+    <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
+    <!-- SAVE inserts the content and returns to SERIES VIEW  - .save() the changes to an existing exercise with an existing _id and sub-document _id,s-->
+    <!-- CANCEL does not save the content and returns to the SERIES VIEW- .get() series without changes -->
+    <div class="divider">
+        <div class="section">
+            <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                        <a href="{{ url_for('update_series') }}"
+                            class="btn-small waves-effect waves-light green tooltipped save" type="submit"
+                            name="save_log" data-position="bottom" data-delay="50" data-tooltip="Save and go back">
+                            <i class="material-icons left">save</i>Save</a>
+
+                        <!-- Return to classes view -->
+                        <a href="{{ url_for('series') }}"
+                            class="btn-small waves-effect waves-light grey tooltipped cancel" type="submit"
+                            name="back_to_series" data-position="bottom" data-delay="50"
+                            data-tooltip="Cancel and go back">
+                            Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
 {% endblock content %}

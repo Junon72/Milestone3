@@ -8,7 +8,9 @@ from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-app = Flask(__name__) 
+app = Flask(__name__, 
+            template_folder="templates") 
+
 app.config.from_object(Config)     
 
 
@@ -99,7 +101,7 @@ def register():
 				if user_in_db:
 					# Log user in (add to session)
 					session['user'] = user_in_db['username']
-					return redirect(url_for('index', user=user_in_db['username']))
+					return redirect(url_for('/index', user=user_in_db['username']))
 				else:
 					flash("There was a problem registering you, please try again")
 					return redirect(url_for('register'))
@@ -108,7 +110,7 @@ def register():
 			flash("The passwords are not identical!")
 			return redirect(url_for('register'))
 		
-	return render_template('register.html', title='Register')
+	return render_template(url_for('register'), title='Register')
 
 # Log out
 @app.route('/logout')
@@ -130,48 +132,203 @@ def classes():
         print(classes)
         for one in classes:           
         	print(one)
-        return render_template('classes.html', 
+        return render_template('classes.html',
                                title = 'Classes', 
                                current_user = users_collection.find_one({'username': session['user']}), 
                                classes = classes_collection.find({'username': session['user']}))
     else:
     	flash("You must be logged in!")
     	return redirect(url_for('index'))
+ 
+############################### 
+### Handling Classes / CRUD ###
 
+# VIEW CLASS
 @app.route('/view_class/<class_id>')
 def view_class(class_id):
     this_class = classes_collection.find_one({'_id': ObjectId(class_id)})
-    exercises = classes_collection.find({'username': session['user'] }, {'EXERCISES': 1})
+    exercises = classes_collection.find({'EXERCISES':{'exercise_name': 1}})
     print(exercises)
     return render_template('viewClass.html', 
                                title = 'Class',  
                                this_class = this_class,
-                               exercises = classes_collection.find_one({'_id': ObjectId(class_id)}, {'EXERCISES': 1}))
+                               exercises = classes_collection.find({'_id': ObjectId(class_id)}, {'EXERCISES': 1}))
 
-
+# ADD CLASS
 @app.route('/add_class')
 def add_class():
-	return render_template('classes.html')
+	return render_template('addClass.html', title="New Class")
 
-@app.route('/edit_class/<class_id>')
+# insert() CLASS COMES HERE
+@app.route('/insert_class')
+def insert_class():
+    return redirect(url_for('classes'))
+
+# EDIT CLASS
+@app.route('/edit_class/<class_id>', methods={"POST"})
 def edit_class(class_id):
-	return render_template('editClass.html')
+    this_class =  classes_collection.find_one({"_id": ObjectId(class_id)})
+    return render_template('editClass.html', title="Edit Class", this_class = this_class, exercises = classes_collection.find({'_id': ObjectId(class_id)}, {'class_colletion.EXERCISES': True}))
 
-@app.route('/delete_class/<class_id>')
-def delete_class(class_id):
-	return render_template('editClass.html')
+# save() CLASS COMES HERE -> 
+@app.route('/save_class', methods=['POST'])
+def save_class():
+	print("Class was saved")
+	return redirect(url_for('view_class'))
 
+# DELETE CLASS - remove() -> to view
+@app.route('/delete_class')
+def delete_class():
+    print("Class was deleted")
+    return redirect(url_for('classes'))
 
-@app.route('/copy_class/<class_id>')
-def copy_class(class_id):
-	return render_template('editClass.html')
+# DUPLICATE CLASS -> to form
+@app.route('/copy_class')
+def copy_class():
+    print("Class was duplicated")
+    return redirect(url_for('editClass'), title="Edit Class(copy)")
+    # Get the class and populate the form with some additional information - add (copy) in name value 
 
+##########################
+## Handling Logs / CRUD ##
 
+ # ADD LOG
+@app.route('/add_log', methods=['POST'])
+def add_log():
+    print('Log was added')
+    return render_template(url_for('addLog'))
+                 
+# insert() log
+@app.route('/insert_log', methods=['POST'])
+def insert_log():
+    print('Log was inserted')
+    return redirect(url_for('editClass'))
+
+# DELETE LOG - remove()
+@app.route('/delete_log')           
+def delete_log():
+    print('Log was deleted')
+    return redirect(url_for('editClass'), title='Edit Class')
+
+#################################
+### Handling Exercises / CRUD ###
+
+# ADD EXERCISE
+@app.route('/add_exercise')
+def add_exercise():
+    print("Exercise was added")
+    return render_template('addExercise.html', title='New exercise')
+
+# insert() exercise
+@app.route('/insert_exercise')
+def insert_exercise():
+    print("Exercise was inserted")
+    return redirect(url_for('edit_class'))
+
+# EDIT EXERCISE
+@app.route('/edit_exercise', methods=['GET', 'POST'])
+def edit_exercise():
+    print('Exercise was edited')
+    return render_template(url_for('editExercise'), title='Edit exercise')
+
+# update() EXERCISE COMES HERE
+@app.route('/update_exercise', methods=['POST'])
+def update_exercise():
+	print("Exercise was updated")
+	return redirect(url_for('edit_class'))
+
+# DELETE EXERCISE
+@app.route('/delete_exercise')
+def delete_exercise():
+    print("Exercise was deleted")
+    return redirect(url_for('editClass'), title='Edit Class')
+
+####################################
+### Handling Music Tracks / CRUD ###
+
+ # ADD MUSIC TRACK
+@app.route('/add_track', methods=['POST'])
+def add_track():
+    print("Track was added")
+    return render_template(url_for('addTrack'), title="Music Track")
+
+# insert() track
+@app.route('/insert_track', methods=['POST'])
+def insert_track():
+    print("Track was inserted")
+    return redirect(url_for('edit_exercise'), title='Edit Exercise')
+
+# DELETE MUSIC  TRACK- remove() 
+@app.route('/delete_track')
+def delete_track():
+    print("Track was deleted")
+    return redirect(url_for('editExercise'), title='Edit Exercise')
+
+####################################
+### Handling Video Links / CRUD ###
+
+# ADD VIDEO LINK
+@app.route('/add_link', methods=['POST'])
+def add_link():
+    print("Link was added")
+    return render_template(url_for('addLog'))
+
+# insert() link
+@app.route('/insert_link', methods=['POST'])
+def insert_link():
+    print("Link was inserted")
+    return redirect(url_for('edit_exercise'), title='Edit Exercise')
+
+# DELETE MUSIC - remove()
+@app.route('/delete_link')
+def delete_link():
+    print("Link was deleted")
+    return redirect(url_for('edit_exercise'), title='Edit Exercise')
+
+####################################
+### Handling Class Series / CRUD ###
+
+# VIEW CLASS SERIES
 @app.route('/series')           
-def series():             
-    return render_template('series.html', title='Series')
+def series(): 
+    print("Series view opened")            
+    return render_template(url_for('series'), title='Series')
 
+# VIEW CLASSES IN SERIES
+@app.route('/view_classes_in_series', methods=['GET'])           
+def view_classes_in_series(): 
+    print("Classes in series view opened")            
+    return render_template(url_for('classes'), title='Classes in series')
 
+# ADD CLASS SERIES
+@app.route('/add_series', methods=['POST'])
+def add_series():
+    print("Series was added")
+    return render_template(url_for('addSeries'), title="Add Series")
+
+# insert() series
+@app.route('/insert_series', methods=['POST'])
+def insert_series():
+    print("Series was inserted")
+    return redirect(url_for('series', title='Series'))
+
+# EDIT SERIES
+@app.route('/edit_series', methods=['GET'])
+def edit_series():
+    print('Exercise was edited')
+    return render_template(url_for('editSeries'), title='Edit series')
+
+# update() SERIES COMES HERE
+@app.route('/update_series', methods=['POST'])
+def update_series():
+    print("Series was updated")
+    return redirect(url_for('series'), title='Series')
+
+# DELETE CLASS SERIES - remove()
+@app.route('/delete_series', methods=['GET'])
+def delete_series():
+    print("Series was deleted")
+    return redirect(url_for('series'), title='Series')
 
 
 if __name__ == '__main__': 

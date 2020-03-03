@@ -1,0 +1,109 @@
+{% block content %}
+
+<!-- EXERCISE FORM SECTIONs -->
+<section class="exercise_form">
+        <!-- ADD EXERCISE NAME -->
+        <div class="row">
+            <div class="input-field col s12 l10">
+                <i class="material-icons prefix">bookmark</i>
+                <input type="text" class="form-control text-capitalize validate" id="add_exercise_name"
+                    name="exercise_name" placeholder="Exercise name">
+                <label for="add_exercise_name" class="list-label ml-2">Exercise name</label>
+            </div>
+        </div>
+        <!-- ADD EXERCISE DESCRIPTION -->
+        <div class="row">
+            <div class="input-field col s12 l10">
+                <i class="material-icons prefix">description</i>
+                <textarea class="materialize-textarea form-control validate" id="add_exercise_description"
+                    name="exercise_description" placeholder="Description of the exercise"
+                    required="required"></textarea>
+                <label for="add_exercise_description" class="list-label ml-2">Exercise description</label>
+            </div>
+        </div>
+        <!-- ADD COMMENT -->
+        <div class="row">
+            <div class="input-field col s12 l10">
+                <i class="material-icons prefix">comment</i>
+                <textarea class="materialize-textarea form-control" id="add_comment" name="comment"
+                    placeholder="Comment"></textarea>
+                <label for="add_comment" class="list-label ml-2">Comment</label>
+            </div>
+        </div>
+        <!-- ADD AIM -->
+        <div class="row">
+            <div class="input-field col s12 l10">
+                <i class="material-icons prefix">star</i>
+                <textarea class="materialize-textarea form-control" id="add_aim" name="aim"
+                    placeholder="What is the aim of the exercise"></textarea>
+                <label for="add_aim" class="list-label ml-2">Aim</label>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- MUSIC TRACKS SECTION-->
+    <br>
+    <section class="class_logs p-3">
+        <!--ADD/DELETE MUSIC TRACKS-->
+        <div class="row">
+            <div class="col s12 l10">
+                <h5>Music Tracks:</h5>
+                <ul class="collection with-header">
+                    {% for track in tracks %}
+                    <li class="collection-header">
+                        <i class="material-icons circle black prefix">music_note</i>
+                        <div>
+                            <h6>{{ track.track_title }}</h6>
+                            <a href="{{ url_for('delete_log', log_id=log._id) }}" class="secondary-content">
+                                <i class="material-icons tooltipped" data-position="top" data-delay="50"
+                                    data-tooltip="Delete track">delete</i></a>
+                        </div>
+                    </li>
+                    <li class="collection-item">
+                        <i class="material-icons circle black prefix">playlist_play</i>
+                        <p>{{ track.track_url }}</p>
+                    </li>
+                    <li class="collection-item track-text"><em>{{ track.track_text }}</em></li>
+                    {% endfor %}
+                </ul>
+                <br>
+            </div>
+        </div>
+        <a href="{{ url_for('add_track') }}" class="btn-small waves-effect waves-light blue tooltipped" type="submit"
+            name="save_add_log" data-position="right" data-delay="50" data-tooltip="Add a new track">
+            <i class="material-icons left">plus_one</i>Add Music Track</a>
+    </section>
+
+    <!-- VIDEO LINKS SECTION-->
+    <br>
+    <section class="class_logs p-3">
+        <!--ADD/DELETE VIDEO LINKS-->
+        <div class="row">
+            <div class="col s12 l10">
+                <h5>Video Links:</h5>
+                <ul class="collection with-header">
+                    {% for link in video_links %}
+                    <li class="collection-header">
+                        <i class="material-icons circle black prefix">video_library</i>
+                        <div>
+                            <h6>{{ link.video_url }}</h6>
+                            <a href="{{ url_for('delete_log', log_id=log._id) }}" class="secondary-content">
+                                <i class="material-icons tooltipped" data-position="top" data-delay="50"
+                                    data-tooltip="Delete link">delete</i></a>
+                        </div>
+                    </li>
+                    <li class="collection-item track-text"><em>{{ link.video_text }}</em></li>
+                    {% endfor %}
+                </ul>
+                <br>
+            </div>
+        </div>
+        <a href="{{ url_for('add_log') }}" class="btn-small waves-effect waves-light blue tooltipped" type="submit"
+            name="save_add_log" data-position="right" data-delay="50" data-tooltip="Add a new video link">
+            <i class="material-icons left">plus_one</i>Add Video Link</a>
+    </section>
+
+
+
+    {% endblock %}

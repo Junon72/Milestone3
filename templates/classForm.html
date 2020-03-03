@@ -1,0 +1,150 @@
+{% block content %}
+<!-- CLASS FORM SECTIONS -->
+<section class="class_form">
+        <!-- ADD CLASS NAME -->
+        <div class="row">
+            <div class="input-field col s12 l10">
+                <i class="material-icons prefix">bookmark</i>
+                <input type="text" class="form-control text-capitalize validate" id="add_class_name" name="class_name"
+                    placeholder="Class name" required="required">
+                <label for="add_class_name" class="list-label ml-2">Class name</label>
+            </div>
+        </div>
+
+        <!-- ADD CLASS DESCRIPTION -->
+        <div class="row">
+            <div class="input-field col s12 l10">
+                <i class="material-icons prefix">description</i>
+                <textarea class="materialize-textarea form-control" id="add_class_description" name="class_description"
+                    placeholder="Description of the class" required="required"></textarea>
+                <label for="add_class_description" class="list-label ml-2">Class description</label>
+            </div>
+        </div>
+
+        <!-- ADD MAIN ELEMENTS -->
+        <div class="row">
+            <div class="input-field col s12 l10">
+                <i class="material-icons prefix">vpn_key</i>
+                <textarea class="materialize-textarea form-control" id="add_main_elements" name="main_elements"
+                    placeholder="Main elements to work on the class"></textarea>
+                <label for="add_main_elements" class="list-label ml-2">Main elements</label>
+            </div>
+        </div>
+
+        <!-- ADD OTHER ELEMENTS -->
+        <div class="row">
+            <div class="input-field col s12 l10">
+                <i class="material-icons prefix">more</i>
+                <textarea class="materialize-textarea form-control" id="add_other_elements" name="other_elements"
+                    placeholder="Other helpful elements to work with"></textarea>
+                <label for="add_main_elements" class="list-label ml-2">Other helpful elements</label>
+            </div>
+        </div>
+
+        <!-- ADD PLAYLIST LINK -->
+        <div class="row">
+            <div class="input-field col s12 l10">
+                <i class="material-icons prefix">playlist_add_check</i>
+                <input type="text" class="form-control text-capitalize validate" id="add_playlist_link"
+                    name="playlist_link" placeholder="Add a playlist Link">
+                <label for="add_playlist_link" class="list-label ml-2">Playlist link</label>
+            </div>
+        </div>
+
+        <!-- ADD SERIES SELECTION -->
+        <h6>Select class series</h6>
+        <div class="input-field col s12 l10" class="custom-select" id="add_series_name" name="series_name">
+            <select multiple>
+                <option value="" disabled selected>Select series(s)</option>
+                <option value="None">None</option>
+                {% for serial in series_list %}
+                <option value="{{ serial }}"> {{ serial }} </option>
+              {% endfor %}
+            </select>
+            <label for="add_series_name" class="list-label ml-2"></label>
+        </div>
+        <br>
+
+        <!--ADD NOTES -->
+        <div class="row">
+            <div class="input-field col s1">
+                <i class="material-icons prefix">note</i>
+                <textarea class="materialize-textarea" id="add_class_notes" name="class_notes"
+                    placeholder="Notes"></textarea>
+                <label for="add_class_notes" class="list-label ml-2">Notes</label>
+            </div>
+        </div>
+</section>
+
+<!--EXERCISES SECTION-->
+<section class="exercises_section p-3">
+    <div class="row">
+        <div class="col s12 l10">
+            <h5>Exercises:</h5>
+            <ul class="collapsible" data-collapsible="accordion">
+                {% for exercise in exercises %}
+                <li class="accordion_list">
+                    <div class="collapsible-header">
+                        <div class="list_header col">
+                            <i class="material-icons accordion_arrow">expand_more</i>
+                            <strong>{{ exercise.exercise_name }}</strong>
+                        </div>
+                    </div>
+                    <div class="collapsible-body">
+                        <span>{{ exercise.exercise_description }} </span>
+                        <!-- Tool buttons for the classes -->
+                        <div class="fixed-action-btn horizontal click-to-toggle">
+                            <a class="btn-floating btn-medium red">
+                                <i class="medium material-icons">menu</i>
+                            </a>
+                            <ul>
+                                <li><a href="{{ url_for('view_exercise', exercise_id=exercise._id) }}"
+                                        class="btn-floating yellow darken-2"><i
+                                            class="material-icons">remove_red_eye</i></a>
+                                </li>
+                                <li><a href="{{ url_for('edit_exercise', exercise_id=exercise._id) }}"
+                                        class="btn-floating green"><i class="material-icons">edit</i></a></li>
+                                <li><a href="{{ url_for('delete_exercise', exercise_id=exercise._id) }}"
+                                        class="btn-floating red"><i class="material-icons">delete</i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <a href="{{ url_for('add_exercise') }}" class="btn-small waves-effect waves-light blue tooltipped" name="save_add_exercise" data-position="right" data-delay="50" data-tooltip="Add a new exercise">
+        <i class="material-icons left">library_add</i>Add Exercise
+    </a>
+</section>
+
+<!-- CLASS LOGS SECTION -->
+<br>
+<section class="class_logs p-3">
+    <!--ADD/DELETE LOGS-->
+    <div class="row">
+        <div class="col s12 l10">
+            <h5>Logs:</h5>
+            <ul class="collection with-header">
+                {% for log in class_logs %}
+                <li class="collection-header">
+                    <i class="material-icons circle black prefix">date_range</i>
+                    <div>
+                        <h6>{{ log.log_date }}</h6>
+                        <a href="{{ url_for('delete_log', log_id=log._id) }}" class="secondary-content">
+                            <i class="material-icons tooltipped" data-position="top" data-delay="50"
+                                data-tooltip="Delete log">delete</i></a>
+                    </div>
+                </li>
+                <li class="collection-item log-text"><em>{{ log.log_text }}</em></li>
+                {% endfor %}
+            </ul>
+            <br>
+        </div>
+    </div>
+    <a href="{{ url_for('add_log') }}" class="btn-small waves-effect waves-light blue tooltipped" type="submit" name="save_add_log" data-position="right" data-delay="50" data-tooltip="Add a new log">
+        <i class="material-icons left">library_add</i>Add Log</a>
+</section>
+
+{% endblock %}
