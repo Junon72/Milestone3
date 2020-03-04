@@ -63,7 +63,7 @@
 
         <!-- ADD SERIES SELECTION -->
         <h6>Select class series</h6>
-        <div class="input-field col s12 l10" class="custom-select" id="add_series_name" name="series_name">
+        <div class="input-field col s12 l10 add-series" id="add_series_name" name="series_name">
             <select multiple>
                 <option value="" disabled selected>Select series(s)</option>
                 <option value="None">None</option>
@@ -91,40 +91,11 @@
         <div class="row">
             <div class="col s12 l10">
                 <h5>Exercises:</h5>
-                <ul class="collapsible" data-collapsible="accordion">
-                    {% for exercise in exercises %}
-                    <li class="accordion_list">
-                        <div class="collapsible-header">
-                            <div class="list_header col">
-                                <i class="material-icons accordion_arrow">expand_more</i>
-                                <strong>{{ exercise.exercise_name }}</strong>
-                            </div>
-                        </div>
-                        <div class="collapsible-body">
-                            <span>{{ exercise.exercise_description }} </span>
-                            <!-- Tool buttons for the classes -->
-                            <div class="fixed-action-btn horizontal click-to-toggle">
-                                <a class="btn-floating btn-medium red">
-                                    <i class="medium material-icons">menu</i>
-                                </a>
-                                <ul>
-                                    <li><a href="{{ url_for('view_exercise', exercise_id=exercise._id) }}"
-                                            class="btn-floating yellow darken-2"><i
-                                                class="material-icons">remove_red_eye</i></a>
-                                    </li>
-                                    <li><a href="{{ url_for('edit_exercise', exercise_id=exercise._id) }}"
-                                            class="btn-floating green"><i class="material-icons">edit</i></a></li>
-                                    <li><a href="{{ url_for('delete_exercise', exercise_id=exercise._id) }}"
-                                            class="btn-floating red"><i class="material-icons">delete</i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </li>
-                    {% endfor %}
-                </ul>
+                <br>
+                <strong>You haven't created any exercises yet</strong>
             </div>
         </div>
-        <a href="{{ url_for('add_exercise') }}" class="btn-small waves-effect waves-light blue tooltipped"
+        <a href="{{ url_for('classes') }}" class="btn-small waves-effect waves-light blue tooltipped"
             name="save_add_exercise" data-position="right" data-delay="50" data-tooltip="Add a new exercise">
             <i class="material-icons left">library_add</i>Add Exercise
         </a>
@@ -138,9 +109,10 @@
             <div class="col s12 l10">
                 <h5>Logs:</h5>
                 <br>
+                <strong>You haven't created any logs yet</strong>
             </div>
         </div>
-        <a href="{{ url_for('add_log') }}" class="btn-small waves-effect waves-light blue tooltipped" type="submit"
+        <a href="{{ url_for('classes') }}" class="btn-small waves-effect waves-light blue tooltipped" type="submit"
             name="save_add_log" data-position="right" data-delay="50" data-tooltip="Add a new log">
             <i class="material-icons left">library_add</i>Add Log</a>
     </section>
@@ -155,7 +127,7 @@
             <div class="row">
                 <div class="col d-flex justify-content-end">
                     <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                        name="action" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                        name="action" data-position="top" data-delay="50" data-tooltip="Save and view">
                         <i class="material-icons left">save</i>Save</button>
 
                     <!-- Return to classes view -->

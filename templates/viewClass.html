@@ -2,37 +2,40 @@
 
 {% block content %}
 <h3>{{ this_class.class_name }}</h3>
-
+<br>
 <h5>Description</h5>
 <p>{{ this_class.class_description }}</p>
+<br>
 <h5>Main Elements</h5>
 <p>{{ this_class.class_description }}</p>
+<br>
 <h5>Secondary Elements</h5>
 <p>{{ this_class.class_description }}</p>
-
+<br>
 <div class="container-fluid no-gutters pl-3">
     <div class="row">
         <div class="col-3 no-gutters pl-0">
-            <h5>Series</h5>
+            <h6><b>Series</b></h6>
         </div>
         <div class="col no-gutters valign-wrapper">
-            something
+            <em>something</em>
         </div>
     </div>
     <div class="row">
         <div class="col-3 no-gutters pl-0">
-            <h5>Playlist Link</h5>
+            <h6><b>Playlist Link</b></h6>
         </div>
         <div class="col no-gutters valign-wrapper">
-            something
+                <em>something</em>
         </div>
     </div>
 </div>
 <div class="divider"> </div>
 <h5>Exercises:</h5>
-<!--{% for exercises in this_class recursive %}-->
+<br>
+
 <ul class="collapsible popout" data-collapsible="accordion">
-    <!---{% if this_class.exercises %}-->
+
     {% for exercise in this_class.exercises %}
     <li class="this_class">
         <div class="collapsible-header">
@@ -47,15 +50,14 @@
     </li>
     {% endfor %}
 </ul>
-<!---{% endif %}-->
-<!--{% endfor %}-->
+
 <!-- BOTTOM BUTTON  'GO BACK' TO NAVIGATE TO THE PREVIOUS PAGE -->
 <!-- SAVE inserts the content and returns to SERIES VIEW  - .save() the changes to an existing exercise with an existing _id and sub-document _id,s-->
 <div class="divider"></div>
 <div class="section">
     <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
         <div class="row">
-            <div class="col d-flex justify-content-end">
+            <div class="col d-flex justify-content-beginning">
                 <a href="{{ url_for('classes') }}" class="btn-small waves-effect waves-light black tooltipped go_back"
                     name="go_back" data-position="bottom" data-delay="50" data-tooltip="Go back">
                     <i class="material-icons left">chevron_left</i>Go back</a>

@@ -23,9 +23,10 @@ mongo = PyMongo(app)
 
 users_collection = mongo.db.users
 classes_collection = mongo.db.classes
-
+series_collection = mongo.db.series
 #array = list(users_collection.find())
 #print(array)
+
 
 @app.route('/')
 
@@ -38,10 +39,10 @@ def index():
 		if user_in_db:
 			# If in session redirect user to his/her collection of classes/ home page
 			flash("You are logged in already!")
-			return redirect(url_for('classes', user=user_in_db['username']))
+			return redirect(url_for('classes', user = user_in_db['username']))
 	else:
 		# Render the page for user to be able to log in
-		return render_template("index.html", title="Login", current_users=list(users_collection.find()))
+		return render_template("index.html", title = "Login", current_users = list(users_collection.find()))
 
 # Check user login details from login form
 @app.route('/user_auth', methods=['POST'])
@@ -129,10 +130,10 @@ def classes():
     if 'user' in session:
         # If so get the user classes and pass them to a template
         user_in_db = users_collection.find_one({'username': session['user']})
-        user = session['user']
-        print(user)
-        classes = classes_collection.find({'username': user})
-        print(classes)
+        username = session['user']
+        # print(user)
+        classes = classes_collection.find({'username': username})
+        # print(classes)
         return render_template('classes.html',
                                title = 'Classes', 
                                current_user = users_collection.find_one({'username': session['user']}), 
@@ -156,18 +157,31 @@ def view_class(class_id):
 # ADD CLASS
 @app.route('/add_class')
 def add_class():
-	return render_template('addClass.html', title="New Class")
+    
+    def get_series_document(username):
+        username = session['user']
+        series = series_collection.find({'username': username})
+        return render_template('addClass.html', title="New Class", series = series)
 
 # insert() CLASS COMES HERE
-@app.route('/insert_class')
+@app.route('/insert_class', methods=['POST'])
 def insert_class():
-    print("Class was inserted")
-    return redirect(url_for('classes'))
+    username = session['user']
+    print(username)
+    new_class = {'class_name': request.form.get('class_name'),
+                 'class_description': request.form.get('class_description'),
+                 'main_elements': request.form.get('main_elements'),
+                 'other_elements': request.form.get('other_elements'),
+                 'playlist_link': request.form.get('playlist_link'),
+                 'series_name': request.form.get('series_name'),
+                 'class_notes': request.form.get('class_notes')}
+    print(new_class)
+    return render_template('viewClass.html')
 
 # EDIT CLASS
 @app.route('/edit_class/<class_id>')
 def edit_class(class_id):
-    this_class =  classes_collection.find_one({"_id": ObjectId(class_id)})
+    this_class =  classes_collection.find({"_id": ObjectId(class_id)})
     return render_template('editClass.html', title="Edit Class", this_class = this_class)
 
 
