@@ -206,11 +206,11 @@ Temporary Items
 
 # Virtual environment
 # https://djangowaves.com/tips-tricks/gitignore-for-a-python-project/
-.venv
+# .venv
 
 # Mongo URI
-env.py
-*config.py
+# env.py
+# *config.py
 
 # Document working folder
 
