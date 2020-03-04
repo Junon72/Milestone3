@@ -1,7 +1,7 @@
 {% extends "base.html"%}
 
 {% block content %}
-<h1>{{ this_class.class_name }}</h1>
+<h3>{{ this_class.class_name }}</h3>
 
 <h5>Description</h5>
 <p>{{ this_class.class_description }}</p>
@@ -15,7 +15,7 @@
         <div class="col-3 no-gutters pl-0">
             <h5>Series</h5>
         </div>
-        <div class="col no-gutters">
+        <div class="col no-gutters valign-wrapper">
             something
         </div>
     </div>
@@ -23,16 +23,18 @@
         <div class="col-3 no-gutters pl-0">
             <h5>Playlist Link</h5>
         </div>
-        <div class="col no-gutters">
+        <div class="col no-gutters valign-wrapper">
             something
         </div>
     </div>
 </div>
-
+<div class="divider"> </div>
 <h5>Exercises:</h5>
+<!--{% for exercises in this_class recursive %}-->
 <ul class="collapsible popout" data-collapsible="accordion">
-    {% for exercise in exercises %}
-    <li class="classes">
+    <!---{% if this_class.exercises %}-->
+    {% for exercise in this_class.exercises %}
+    <li class="this_class">
         <div class="collapsible-header">
             <div class="class_header col">
                 <i class="material-icons accordion_arrow">expand_more</i>
@@ -45,6 +47,8 @@
     </li>
     {% endfor %}
 </ul>
+<!---{% endif %}-->
+<!--{% endfor %}-->
 <!-- BOTTOM BUTTON  'GO BACK' TO NAVIGATE TO THE PREVIOUS PAGE -->
 <!-- SAVE inserts the content and returns to SERIES VIEW  - .save() the changes to an existing exercise with an existing _id and sub-document _id,s-->
 <div class="divider"></div>

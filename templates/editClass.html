@@ -3,35 +3,34 @@
 <h1>Edit Class</h1>
 
 <!-- CLASS FORM -->
-<form class="col s12" method="POST" action="{{ url_for('update_class', class_id=class._id }}" id="edit_class_form"
+<form class="col s12" method="POST" action="{{ url_for('save_class', class_id=this_class._id) }}" id="edit_class_form"
     autocomplete="off">
     <!-- Disabled autocompletion -->
-
+    {% include 'classForm.html' %}
 
     <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
     <!-- SAVE inserts the content and returns to CLASSES VIEW  - .insert() new document with new class _id and sub-document _id,s-->
     <!-- CANCEL does not save the content and returns to the CLASSes VIEW - .get() classes without changes -->
-    <div class="divider">
+    <div class="divider"> </div>
         <div class="section">
             <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
                 <div class="row">
                     <div class="col d-flex justify-content-end">
                         <button
-                            class="btn-small waves-effect waves-light green tooltipped save" type="submit"
+                            class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
                             name="action" data-position="top" data-delay="50" data-tooltip="Save and go back">
                             <i class="material-icons left">save</i>Save
                         </button>
 
                         <!-- Return to classes view -->
-                        <a href="{{ url_for('view_class, class_id=class._id) }}"
+                        <a href="{{ url_for('classes') }}"
                             class="btn-small waves-effect waves-light grey tooltipped cancel"
-                            name="back_to_class" data-position="top" data-delay="50"
-                            data-tooltip="Cancel and go back">
+                            type="submit" value="Cancel" formnovalidate name="back_to_class" 
+                            data-position="top" data-delay="50" data-tooltip="Cancel and go back">
                             Cancel</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </form>
 {% endblock content %}

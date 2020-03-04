@@ -2,16 +2,19 @@ import os
 import pymongo
 from pymongo import MongoClient
 from flask import Flask, render_template, redirect, request, url_for, session, flash
-from config import Config
+from flask_debugtoolbar import DebugToolbarExtension
+from config import Config 
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+import json
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
 app = Flask(__name__, 
             template_folder="templates") 
 
-app.config.from_object(Config)     
+app.config.from_object(Config)
+toolbar = DebugToolbarExtension(app)    
 
 
 mongo = PyMongo(app)
@@ -128,10 +131,8 @@ def classes():
         user_in_db = users_collection.find_one({'username': session['user']})
         user = session['user']
         print(user)
-        classes=classes_collection.find({'username': user})
+        classes = classes_collection.find({'username': user})
         print(classes)
-        for one in classes:           
-        	print(one)
         return render_template('classes.html',
                                title = 'Classes', 
                                current_user = users_collection.find_one({'username': session['user']}), 
@@ -147,12 +148,10 @@ def classes():
 @app.route('/view_class/<class_id>')
 def view_class(class_id):
     this_class = classes_collection.find_one({'_id': ObjectId(class_id)})
-    exercises = classes_collection.find({'EXERCISES':{'exercise_name': 1}})
-    print(exercises)
+    print(this_class)
     return render_template('viewClass.html', 
                                title = 'Class',  
-                               this_class = this_class,
-                               exercises = classes_collection.find({'_id': ObjectId(class_id)}, {'EXERCISES': 1}))
+                               this_class = this_class)
 
 # ADD CLASS
 @app.route('/add_class')
@@ -162,19 +161,22 @@ def add_class():
 # insert() CLASS COMES HERE
 @app.route('/insert_class')
 def insert_class():
+    print("Class was inserted")
     return redirect(url_for('classes'))
 
 # EDIT CLASS
-@app.route('/edit_class/<class_id>', methods={"POST"})
+@app.route('/edit_class/<class_id>')
 def edit_class(class_id):
     this_class =  classes_collection.find_one({"_id": ObjectId(class_id)})
-    return render_template('editClass.html', title="Edit Class", this_class = this_class, exercises = classes_collection.find({'_id': ObjectId(class_id)}, {'class_colletion.EXERCISES': True}))
+    return render_template('editClass.html', title="Edit Class", this_class = this_class)
+
 
 # save() CLASS COMES HERE -> 
-@app.route('/save_class', methods=['POST'])
+@app.route('/save_class')
 def save_class():
-	print("Class was saved")
-	return redirect(url_for('view_class'))
+    
+    print("Class was saved")
+    return redirect(url_for('view_class'))
 
 # DELETE CLASS - remove() -> to view
 @app.route('/delete_class')
@@ -186,17 +188,17 @@ def delete_class():
 @app.route('/copy_class')
 def copy_class():
     print("Class was duplicated")
-    return redirect(url_for('editClass'), title="Edit Class(copy)")
+    return redirect(url_for('save_class'), title="Edit Class(copy)")
     # Get the class and populate the form with some additional information - add (copy) in name value 
 
 ##########################
 ## Handling Logs / CRUD ##
 
  # ADD LOG
-@app.route('/add_log', methods=['POST'])
+@app.route('/add_log')
 def add_log():
     print('Log was added')
-    return render_template(url_for('addLog'))
+    return render_template('addLog.html')
                  
 # insert() log
 @app.route('/insert_log', methods=['POST'])
@@ -214,16 +216,17 @@ def delete_log():
 ### Handling Exercises / CRUD ###
 
 # ADD EXERCISE
-@app.route('/add_exercise')
-def add_exercise():
+@app.route('/add_exercise/<class_id>')
+def add_exercise(class_id):
+    this_class =  classes_collection.find_one({"_id": ObjectId(class_id)})
     print("Exercise was added")
-    return render_template('addExercise.html', title='New exercise')
+    return render_template('addExercise.html', title='New exercise', this_class = this_class)
 
 # insert() exercise
-@app.route('/insert_exercise')
-def insert_exercise():
-    print("Exercise was inserted")
-    return redirect(url_for('edit_class'))
+# @app.route('/insert_exercise/<class_id>')
+# def insert_exercise(class_id):
+    # print("Exercise was inserted")
+    # return redirect(url_for('edit_class'))
 
 # EDIT EXERCISE
 @app.route('/edit_exercise', methods=['GET', 'POST'])
