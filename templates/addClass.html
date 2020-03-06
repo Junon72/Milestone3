@@ -7,7 +7,10 @@
 <form class="col s12" method="POST" action="{{ url_for('insert_class', username=session['user']) }}" id="add_class_form"
     autocomplete="off">
     <!-- Disabled autocompletion -->
-
+    <!-- HIDDEN INPUTS -->
+    <input type="hidden" id="username" name="username" value="{{ username }}">
+    <input type="hidden" id="user_id" name="user_id" value="{{ user_id._id }}">
+    <p>{{ user_id._id }}</p>
     <!-- FORM SECTIONS -->
     <!-- CLASS FORM SECTIONS -->
     <section class="class_form">
@@ -54,26 +57,36 @@
         <!-- ADD PLAYLIST LINK -->
         <div class="row">
             <div class="input-field col s12 l10">
-                <i class="material-icons prefix">playlist_add_check</i>
+                <i class="material-icons prefix">featured_play_list</i>
+                <input type="text" class="form-control text-capitalize validate" id="add_playlist_title"
+                    name="playlist_title" placeholder="Add a playlist Title">
+                <label for="add_playlist_link" class="list-label ml-2">Playlist</label>
                 <input type="text" class="form-control text-capitalize validate" id="add_playlist_link"
                     name="playlist_link" placeholder="Add a playlist Link">
-                <label for="add_playlist_link" class="list-label ml-2">Playlist link</label>
             </div>
         </div>
 
         <!-- ADD SERIES SELECTION -->
-        <h6>Select class series</h6>
-        <div class="input-field col s12 l10 add-series" id="add_series_name" name="series_name">
-            <select multiple>
-                <option value="" disabled selected>Select series(s)</option>
-                <option value="None">None</option>
-                {% for serial in series_list %}
-                <option value="{{ serial }}"> {{ serial }} </option>
-                {% endfor %}
-            </select>
-            <label for="add_series_name" class="list-label ml-2"></label>
-        </div>
-        <br>
+        <section class="series_selector">
+            <div class="divider"> </div>
+            <br>
+            <div class="row">
+                <div class="input-field col s12 l10 add-series">
+                    <i class="material-icons prefix">playlist_add_check</i>
+                    {% for serial in series %}
+                    {% for name in serial.class_series %}
+                    <select multiple name="series" id="add_series_name">
+                        <option value="" disabled selected>Select series(s)</option>
+                        <option value="{{ name }}"> {{ name.series_name }} </option>
+                    </select>
+                    <label for="add_series_name" class="list-label ml-2">Select class series</label>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="divider"> </div>
+            <br>
+        </section>
 
         <!--ADD NOTES -->
         <div class="row">
@@ -88,6 +101,7 @@
 
     <!--EXERCISES SECTION-->
     <section class="exercises_section p-3">
+        <div class="divider"> </div>
         <div class="row">
             <div class="col s12 l10">
                 <h5>Exercises:</h5>
@@ -102,8 +116,9 @@
     </section>
 
     <!-- CLASS LOGS SECTION -->
-    <br>
     <section class="class_logs p-3">
+        <br>
+        <div class="divider"> </div>
         <!--ADD/DELETE LOGS-->
         <div class="row">
             <div class="col s12 l10">
@@ -121,8 +136,9 @@
     <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
     <!-- SAVE inserts the content and returns to CLASSES VIEW  - .insert() new document with new class _id and sub-document _id,s-->
     <!-- CANCEL does not save the content and returns to the CLASSes VIEW - .get() classes without changes -->
-    <div class="divider"> </div>
     <div class="section">
+        <div class="divider"> </div>
+        <br>
         <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
             <div class="row">
                 <div class="col d-flex justify-content-end">

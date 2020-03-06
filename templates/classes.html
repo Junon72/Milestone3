@@ -2,7 +2,7 @@
 
 {% block content %}
 <h3>Classes</h3>
-<p>You have created <b> </b> classes {{ current_user.username }}</p>
+<p>You have created <b> </b> classes {{ username.username }}</p>
 <ul class="collapsible" data-collapsible="accordion">
     {% for class in classes %}
     <li class="accordion_list">
@@ -12,35 +12,27 @@
                 <strong>{{ class.class_name }}</strong>
             </div>
         </div>
+
         <div class="collapsible-body">
             <span>{{ class.class_description }} </span>
-            
+
             <!-- Tool buttons for the classes -->
             <div class="fixed-action-btn horizontal click-to-toggle">
-                <a class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50"
-                    data-tooltip="Open tools">
-                    <i class="medium material-icons">build</i></a>
-                <ul>
-                    <li><a href="{{ url_for('view_class', class_id=class._id) }}"
-                            class="btn-floating yellow darken-2 tooltipped" data-position="top" data-delay="50"
-                            data-tooltip="View class">
-                            <i class="material-icons">remove_red_eye</i></a></li>
-                    <li><a href="{{ url_for('edit_class', class_id=class._id) }}" class="btn-floating green tooltipped"
-                            data-position="top" data-delay="50" data-tooltip="Edit class">
-                            <i class="material-icons">edit</i></a></li>
-                    <li><a href="{{ url_for('delete_class', class_id=class._id) }}" class="btn-floating red tooltipped"
-                            data-position="top" data-delay="50" data-tooltip="Delete class">
-                            <i class="material-icons">delete</i></a></li>
-                    <li><a href="{{ url_for('copy_class', class_id=class._id) }}"
-                            class="btn-floating blue-lighten-2 tooltipped" data-position="top" data-delay="50"
-                            data-tooltip="Duplicate class">
-                            <i class="material-icons">content_copy</i></a></li>
-                </ul>
-            </div>
+                    <a class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50"
+                        data-tooltip="Open tools">
+                        <i class="medium material-icons">build</i></a>
+                    <ul>
+                        <li><a href="{{ url_for('view_class', class_id=class._id) }}"
+                                class="btn-floating yellow darken-2 tooltipped" data-position="top" data-delay="50"
+                                data-tooltip="View class">
+                                <i class="material-icons">remove_red_eye</i></a></li>
+                    </ul>
+                </div>
         </div>
     </li>
     {% endfor %}
 </ul>
+
 <!-- Button to add a new class -->
 <a href="{{ url_for('add_class') }}" class="btn-small waves-effect waves-light blue tooltipped" data-position="right"
     data-delay="50" data-tooltip="Add a new class">

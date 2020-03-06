@@ -10,6 +10,7 @@ import json
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
+
 app = Flask(__name__, 
             template_folder="templates") 
 
@@ -62,7 +63,7 @@ def user_auth():
 			session['user'] = form['username']
 			print('this session user')
 			print(session['user'])
-			return redirect(url_for('classes', user=user_in_db['username']))
+			return redirect(url_for('classes', username=user_in_db['username']))
 			
 		else:
 			flash("Wrong password or user name!")
@@ -136,7 +137,7 @@ def classes():
         # print(classes)
         return render_template('classes.html',
                                title = 'Classes', 
-                               current_user = users_collection.find_one({'username': session['user']}), 
+                               username = username, 
                                classes = classes_collection.find({'username': session['user']}))
     else:
     	flash("You must be logged in!")
@@ -149,39 +150,61 @@ def classes():
 @app.route('/view_class/<class_id>')
 def view_class(class_id):
     this_class = classes_collection.find_one({'_id': ObjectId(class_id)})
+    username = session['user']
     print(this_class)
+    print(class_id)
     return render_template('viewClass.html', 
                                title = 'Class',  
-                               this_class = this_class)
+                               this_class = this_class,
+                               username = username)
 
 # ADD CLASS
 @app.route('/add_class')
 def add_class():
-    
-    def get_series_document(username):
-        username = session['user']
-        series = series_collection.find({'username': username})
-        return render_template('addClass.html', title="New Class", series = series)
+    username = session['user']
+    user_id = users_collection.find_one({'username': session['user']})
+    print(user_id)
+    series = series_collection.find({'username': username})
+    print(series)
+    return render_template('addClass.html', title="New Class", 
+                           user_id = user_id, username = username, series = series)
 
 # insert() CLASS COMES HERE
 @app.route('/insert_class', methods=['POST'])
 def insert_class():
+    
     username = session['user']
     print(username)
     new_class = {'class_name': request.form.get('class_name'),
                  'class_description': request.form.get('class_description'),
                  'main_elements': request.form.get('main_elements'),
                  'other_elements': request.form.get('other_elements'),
+                 'playlist_title': request.form.get('playlist_title'),
                  'playlist_link': request.form.get('playlist_link'),
-                 'series_name': request.form.get('series_name'),
-                 'class_notes': request.form.get('class_notes')}
+                 'series': request.form.getlist('name'),
+                 'class_notes': request.form.get('class_notes'),
+                 'exercises': [],
+                 'logs': [],
+                 'user_id': request.form.get('user_id'),
+                 'username': request.form.get('username')}
+    
     print(new_class)
-    return render_template('viewClass.html')
+    inserted_class = classes_collection.insert_one(new_class)
+    print(inserted_class)
+    class_id = inserted_class.inserted_id
+    print(class_id)
+    return redirect(url_for('view_class', class_id=class_id, username=username, ))
 
 # EDIT CLASS
 @app.route('/edit_class/<class_id>')
 def edit_class(class_id):
+    username = session['user']
+    user_id = users_collection.find_one({'username': session['user']})
+    print(user_id)
     this_class =  classes_collection.find({"_id": ObjectId(class_id)})
+    print(this_class)
+    series = series_collection.find({'username': username})
+    print(series)
     return render_template('editClass.html', title="Edit Class", this_class = this_class)
 
 
@@ -234,7 +257,7 @@ def delete_log():
 def add_exercise(class_id):
     this_class =  classes_collection.find_one({"_id": ObjectId(class_id)})
     print("Exercise was added")
-    return render_template('addExercise.html', title='New exercise', this_class = this_class)
+    return render_template('addExercise.html', title='New exercise', this_class = this_class, class_id=class_id)
 
 # insert() exercise
 # @app.route('/insert_exercise/<class_id>')

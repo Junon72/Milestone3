@@ -1,82 +1,92 @@
 {% block content %}
 <!-- CLASS FORM SECTIONS -->
 <section class="class_form">
-        <!-- ADD CLASS NAME -->
-        <div class="row">
-            <div class="input-field col s12 l10">
-                <i class="material-icons prefix">bookmark</i>
-                <input type="text" class="form-control text-capitalize validate" id="add_class_name" name="class_name"
-                    placeholder="Class name" required="required">
-                <label for="add_class_name" class="list-label ml-2">Class name</label>
-            </div>
+    <!-- ADD CLASS NAME -->
+    <div class="row">
+        <div class="input-field col s12 l10">
+            <i class="material-icons prefix">bookmark</i>
+            <input type="text" class="form-control text-capitalize validate" id="add_class_name" name="class_name"
+                placeholder="Class name" required="required">
+            <label for="add_class_name" class="list-label ml-2">Class name</label>
         </div>
+    </div>
 
-        <!-- ADD CLASS DESCRIPTION -->
-        <div class="row">
-            <div class="input-field col s12 l10">
-                <i class="material-icons prefix">description</i>
-                <textarea class="materialize-textarea form-control" id="add_class_description" name="class_description"
-                    placeholder="Description of the class" required="required"></textarea>
-                <label for="add_class_description" class="list-label ml-2">Class description</label>
-            </div>
+    <!-- ADD CLASS DESCRIPTION -->
+    <div class="row">
+        <div class="input-field col s12 l10">
+            <i class="material-icons prefix">description</i>
+            <textarea class="materialize-textarea form-control" id="add_class_description" name="class_description"
+                placeholder="Description of the class" required="required"></textarea>
+            <label for="add_class_description" class="list-label ml-2">Class description</label>
         </div>
+    </div>
 
-        <!-- ADD MAIN ELEMENTS -->
-        <div class="row">
-            <div class="input-field col s12 l10">
-                <i class="material-icons prefix">vpn_key</i>
-                <textarea class="materialize-textarea form-control" id="add_main_elements" name="main_elements"
-                    placeholder="Main elements to work on the class"></textarea>
-                <label for="add_main_elements" class="list-label ml-2">Main elements</label>
-            </div>
+    <!-- ADD MAIN ELEMENTS -->
+    <div class="row">
+        <div class="input-field col s12 l10">
+            <i class="material-icons prefix">vpn_key</i>
+            <textarea class="materialize-textarea form-control" id="add_main_elements" name="main_elements"
+                placeholder="Main elements to work on the class"></textarea>
+            <label for="add_main_elements" class="list-label ml-2">Main elements</label>
         </div>
+    </div>
 
-        <!-- ADD OTHER ELEMENTS -->
-        <div class="row">
-            <div class="input-field col s12 l10">
-                <i class="material-icons prefix">more</i>
-                <textarea class="materialize-textarea form-control" id="add_other_elements" name="other_elements"
-                    placeholder="Other helpful elements to work with"></textarea>
-                <label for="add_main_elements" class="list-label ml-2">Other helpful elements</label>
-            </div>
+    <!-- ADD OTHER ELEMENTS -->
+    <div class="row">
+        <div class="input-field col s12 l10">
+            <i class="material-icons prefix">more</i>
+            <textarea class="materialize-textarea form-control" id="add_other_elements" name="other_elements"
+                placeholder="Other helpful elements to work with"></textarea>
+            <label for="add_main_elements" class="list-label ml-2">Other helpful elements</label>
         </div>
+    </div>
 
-        <!-- ADD PLAYLIST LINK -->
-        <div class="row">
-            <div class="input-field col s12 l10">
-                <i class="material-icons prefix">playlist_add_check</i>
-                <input type="text" class="form-control text-capitalize validate" id="add_playlist_link"
-                    name="playlist_link" placeholder="Add a playlist Link">
-                <label for="add_playlist_link" class="list-label ml-2">Playlist link</label>
-            </div>
+    <!-- ADD PLAYLIST LINK -->
+    <div class="row">
+        <div class="input-field col s12 l10">
+            <i class="material-icons prefix">featured_play_listk</i>
+            <input type="text" class="form-control text-capitalize validate" id="add_playlist_title"
+                name="playlist_title" placeholder="Add a playlist Title">
+            <label for="add_playlist_link" class="list-label ml-2">Playlist link</label>
+            <input type="text" class="form-control text-capitalize validate" id="add_playlist_link" name="playlist_link"
+                placeholder="Add a playlist Link">
+            <label for="add_playlist_link" class="list-label ml-2">Playlist link</label>
         </div>
+    </div>
+    <br>
 
-        <!-- ADD SERIES SELECTION -->
+    <!-- ADD SERIES SELECTION -->
+    <div class="divider"> </div>
+    <div class="row">
         <h6>Select class series</h6>
         <div class="input-field col s12 l10" class="custom-select" id="add_series_name" name="series_name">
+            <i class="material-icons prefix">playlist_add_check</i>
             <select multiple>
                 <option value="" disabled selected>Select series(s)</option>
                 <option value="None">None</option>
                 {% for serial in series_list %}
                 <option value="{{ serial }}"> {{ serial }} </option>
-              {% endfor %}
+                {% endfor %}
             </select>
             <label for="add_series_name" class="list-label ml-2"></label>
         </div>
-        <br>
+    </div>
+    <div class="divider"> </div>
+    <br>
 
-        <!--ADD NOTES -->
-        <div class="row">
-            <div class="input-field col s1">
-                <i class="material-icons prefix">note</i>
-                <textarea class="materialize-textarea" id="add_class_notes" name="class_notes"
-                    placeholder="Notes"></textarea>
-                <label for="add_class_notes" class="list-label ml-2">Notes</label>
-            </div>
+    <!--ADD NOTES -->
+    <div class="row">
+        <div class="input-field col s12">
+            <i class="material-icons prefix">note</i>
+            <textarea class="materialize-textarea" id="add_class_notes" name="class_notes"
+                placeholder="Notes"></textarea>
+            <label for="add_class_notes" class="list-label ml-2">Notes</label>
         </div>
+    </div>
 </section>
 
 <!--EXERCISES SECTION-->
+<div class="divider"> </div>
 <section class="exercises_section p-3">
     <div class="row">
         <div class="col s12 l10">
@@ -114,13 +124,14 @@
             </ul>
         </div>
     </div>
-    <a href="{{ url_for('add_exercise') }}" class="btn-small waves-effect waves-light blue tooltipped" name="save_add_exercise" data-position="right" data-delay="50" data-tooltip="Add a new exercise">
+    <a href="{{ url_for('add_exercise') }}" class="btn-small waves-effect waves-light blue tooltipped"
+        name="save_add_exercise" data-position="right" data-delay="50" data-tooltip="Add a new exercise">
         <i class="material-icons left">library_add</i>Add Exercise
     </a>
 </section>
-
-<!-- CLASS LOGS SECTION -->
 <br>
+<!-- CLASS LOGS SECTION -->
+<div class="divider"> </div>
 <section class="class_logs p-3">
     <!--ADD/DELETE LOGS-->
     <div class="row">
@@ -143,7 +154,8 @@
             <br>
         </div>
     </div>
-    <a href="{{ url_for('add_log') }}" class="btn-small waves-effect waves-light blue tooltipped" type="submit" name="save_add_log" data-position="right" data-delay="50" data-tooltip="Add a new log">
+    <a href="{{ url_for('add_log') }}" class="btn-small waves-effect waves-light blue tooltipped" type="submit"
+        name="save_add_log" data-position="right" data-delay="50" data-tooltip="Add a new log">
         <i class="material-icons left">library_add</i>Add Log</a>
 </section>
 

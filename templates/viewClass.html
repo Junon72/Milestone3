@@ -1,7 +1,13 @@
 {% extends "base.html"%}
 
+ <!-- HIDDEN INPUTS -->
+ <input type="hidden" id="username" name="username" value="{{ username }}">
+ <input type="hidden" id="user_id" name="user_id" value="{{ user_id._id }}">
+ <input type="hidden" id="class_id" name="class_id" value="{{ class_id }}">
+ <p>{{ user_id._id }}</p>
+
 {% block content %}
-<h3>{{ this_class.class_name }}</h3>
+<h3>{{ this_class.class_name | upper}}</h3>
 <br>
 <h5>Description</h5>
 <p>{{ this_class.class_description }}</p>
@@ -12,55 +18,115 @@
 <h5>Secondary Elements</h5>
 <p>{{ this_class.class_description }}</p>
 <br>
+<!-- PLAYLIST LINK -->
 <div class="container-fluid no-gutters pl-3">
     <div class="row">
-        <div class="col-3 no-gutters pl-0">
-            <h6><b>Series</b></h6>
+        <div class="col-md-3 no-gutters pl-0">
+            <h5>Playlist:</h5>
         </div>
-        <div class="col no-gutters valign-wrapper">
-            <em>something</em>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-3 no-gutters pl-0">
-            <h6><b>Playlist Link</b></h6>
-        </div>
-        <div class="col no-gutters valign-wrapper">
-                <em>something</em>
+        <div class="col-auto no-gutters valign-wrapper">
+            <a href="{{ this_class.playlist_link }}">
+            <em>{{ this_class.playlist_title }}</em></a>
+
         </div>
     </div>
 </div>
+<!-- COLLECTION OF THE CLASS SERIES THE CLASS BELONGS TO -->
 <div class="divider"> </div>
-<h5>Exercises:</h5>
+<div class="row">
+    <div class="col s12">
+            <h5>Class series:</h5>
+            <br>
+        <ul class="collection with-header">
+            <li class="collection-item">
+                <div><em>Mondays</em><a href="#!" class="secondary-content tooltipped" data-position="left" data-delay="50"
+                        data-tooltip="Go to this series"><i class="material-icons">chevron_right</i></a></div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="divider"> </div>
+<br>
+<h5>Notes</h5>
+<p>{{ this_class.class_notes }}</p>
 <br>
 
-<ul class="collapsible popout" data-collapsible="accordion">
 
-    {% for exercise in this_class.exercises %}
-    <li class="this_class">
-        <div class="collapsible-header">
-            <div class="class_header col">
-                <i class="material-icons accordion_arrow">expand_more</i>
-                <strong>{{ exercise.exercise_name }}</strong>
+
+<!-- EXERCISES SECTION IN CLASS VIEW -->
+<section class="exercises">
+    <div class="divider"> </div>
+    <br>
+    <h5>Exercises:</h5>
+    <br>
+    <ul class="collapsible popout" data-collapsible="accordion">
+        {% for exercise in this_class.exercises %}
+        <li class="this_class">
+            <div class="collapsible-header">
+                <div class="class_header col">
+                    <i class="material-icons accordion_arrow">expand_more</i>
+                    <strong>{{ exercise.exercise_name }}</strong>
+                </div>
             </div>
+            <div class="collapsible-body">
+                <span>{{ exercise.exercise_description }} </span>
+            </div>
+        </li>
+        {% endfor %}
+        <div class="fixed-action-btn horizontal click-to-toggle">
+            <a class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50"
+                data-tooltip="Open tools">
+                <i class="medium material-icons">build</i></a>
+            <ul>
+                <li><a href="{{ url_for('edit_class', class_id=this_class._id) }}" class="btn-floating green tooltipped"
+                        data-position="top" data-delay="50" data-tooltip="Edit class">
+                        <i class="material-icons">edit</i></a></li>
+                <li><a href="{{ url_for('delete_class', class_id=this_class._id) }}" class="btn-floating red tooltipped"
+                        data-position="top" data-delay="50" data-tooltip="Delete class">
+                        <i class="material-icons">delete</i></a></li>
+                <li><a href="{{ url_for('copy_class', class_id=this_class._id) }}"
+                        class="btn-floating blue-lighten-2 tooltipped" data-position="top" data-delay="50"
+                        data-tooltip="Duplicate class">
+                        <i class="material-icons">content_copy</i></a></li>
+            </ul>
         </div>
-        <div class="collapsible-body">
-            <span>{{ exercise.exercise_description }} </span>
-        </div>
-    </li>
-    {% endfor %}
-</ul>
+    </ul>
+</section>
 
+<!-- LOGS SECTION IN CLASS VIEW -->
+<section class="logs">
+    <div class="divider"> </div>
+    <br>
+    <h5>Logs:</h5>
+    <br>
+    <ul class="collapsible popout" data-collapsible="accordion">
+        {% for log in this_class.logs %}
+        <li class="this_class">
+            <div class="collapsible-header">
+                <div class="class_header col">
+                    <i class="material-icons accordion_arrow">expand_more</i>
+                    <strong>{{ exercise.exercise_name }}</strong>
+                </div>
+            </div>
+            <div class="collapsible-body">
+                <span>{{ exercise.exercise_description }} </span>
+            </div>
+        </li>
+
+        {% endfor %}
+
+    </ul>
+</section>
 <!-- BOTTOM BUTTON  'GO BACK' TO NAVIGATE TO THE PREVIOUS PAGE -->
 <!-- SAVE inserts the content and returns to SERIES VIEW  - .save() the changes to an existing exercise with an existing _id and sub-document _id,s-->
 <div class="divider"></div>
 <div class="section">
-    <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
+    <div class="container bottom_actions ml-0 mr-0 mt-6 mb-10 w-100">
         <div class="row">
             <div class="col d-flex justify-content-beginning">
                 <a href="{{ url_for('classes') }}" class="btn-small waves-effect waves-light black tooltipped go_back"
                     name="go_back" data-position="bottom" data-delay="50" data-tooltip="Go back">
-                    <i class="material-icons left">chevron_left</i>Go back</a>
+                    <i class="material-icons left">chevron_left</i>Back to Classes</a>
             </div>
         </div>
     </div>
