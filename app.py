@@ -150,13 +150,13 @@ def classes():
 @app.route('/view_class/<class_id>')
 def view_class(class_id):
     this_class = classes_collection.find_one({'_id': ObjectId(class_id)})
-    username = session['user']
+    class_id = class_id
     print(this_class)
     print(class_id)
     return render_template('viewClass.html', 
-                               title = 'Class',  
-                               this_class = this_class,
-                               username = username)
+                               title = 'Class',
+                               class_id = class_id,  
+                               this_class = this_class)
 
 # ADD CLASS
 @app.route('/add_class')
@@ -181,19 +181,20 @@ def insert_class():
                  'other_elements': request.form.get('other_elements'),
                  'playlist_title': request.form.get('playlist_title'),
                  'playlist_link': request.form.get('playlist_link'),
-                 'series': request.form.getlist('name'),
+                 'series': request.form.to_dict({'name'}),
                  'class_notes': request.form.get('class_notes'),
-                 'exercises': [],
-                 'logs': [],
+                 'exercises': [{}],
+                 'logs': [{}],
                  'user_id': request.form.get('user_id'),
                  'username': request.form.get('username')}
     
     print(new_class)
     inserted_class = classes_collection.insert_one(new_class)
     print(inserted_class)
+    this_class = inserted_class
     class_id = inserted_class.inserted_id
     print(class_id)
-    return redirect(url_for('view_class', class_id=class_id, username=username, ))
+    return redirect(url_for('view_class', class_id=class_id, username=username, this_class=this_class ))
 
 # EDIT CLASS
 @app.route('/edit_class/<class_id>')
@@ -203,9 +204,11 @@ def edit_class(class_id):
     print(user_id)
     this_class =  classes_collection.find({"_id": ObjectId(class_id)})
     print(this_class)
+    class_id = class_id
+    print(class_id)
     series = series_collection.find({'username': username})
     print(series)
-    return render_template('editClass.html', title="Edit Class", this_class = this_class)
+    return render_template('editClass.html', title="Edit Class", this_class = this_class, class_id = class_id)
 
 
 # save() CLASS COMES HERE -> 
@@ -216,16 +219,18 @@ def save_class():
     return redirect(url_for('view_class'))
 
 # DELETE CLASS - remove() -> to view
-@app.route('/delete_class')
-def delete_class():
-    print("Class was deleted")
-    return redirect(url_for('classes'))
+@app.route('/delete_class/<class_id>')
+def delete_class(class_id):
+    deleted_class = classes_collection.remove({'_id': ObjectId(class_id)})
+    print(deleted_class)
+    return redirect(url_for('classes',
+                               title = 'Classes'))
 
 # DUPLICATE CLASS -> to form
 @app.route('/copy_class')
 def copy_class():
     print("Class was duplicated")
-    return redirect(url_for('save_class'), title="Edit Class(copy)")
+    return redirect(url_for('save_class', title="Edit Class(copy)"))
     # Get the class and populate the form with some additional information - add (copy) in name value 
 
 ##########################
@@ -237,17 +242,17 @@ def add_log():
     print('Log was added')
     return render_template('addLog.html')
                  
-# insert() log
+# save() log
 @app.route('/insert_log', methods=['POST'])
 def insert_log():
     print('Log was inserted')
-    return redirect(url_for('editClass'))
+    return redirect(url_for('editClass', title='Edit Class'))
 
 # DELETE LOG - remove()
 @app.route('/delete_log')           
 def delete_log():
     print('Log was deleted')
-    return redirect(url_for('editClass'), title='Edit Class')
+    return redirect(url_for('editClass', title='Edit Class')
 
 #################################
 ### Handling Exercises / CRUD ###

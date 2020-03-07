@@ -1,57 +1,85 @@
 {% extends "base.html"%}
 
- <!-- HIDDEN INPUTS -->
- <input type="hidden" id="username" name="username" value="{{ username }}">
- <input type="hidden" id="user_id" name="user_id" value="{{ user_id._id }}">
- <input type="hidden" id="class_id" name="class_id" value="{{ class_id }}">
- <p>{{ user_id._id }}</p>
-
 {% block content %}
-<h3>{{ this_class.class_name | upper}}</h3>
-<br>
-<h5>Description</h5>
-<p>{{ this_class.class_description }}</p>
-<br>
-<h5>Main Elements</h5>
-<p>{{ this_class.class_description }}</p>
-<br>
-<h5>Secondary Elements</h5>
-<p>{{ this_class.class_description }}</p>
-<br>
-<!-- PLAYLIST LINK -->
-<div class="container-fluid no-gutters pl-3">
+
+<!-- MAIN CLASS INFO -->
+<section class="class-info">
+    <!-- CLASS TITLE -->
     <div class="row">
-        <div class="col-md-3 no-gutters pl-0">
+        <div class="class-title col s12 m10 l6">
+            <h3>{{ this_class.class_name | upper}}</h3>
+        </div>
+    </div>
+    <!-- CLASS DESCRIPTION -->
+    <div class="row">
+        <div class="class-title col s12 m10 l6">
+            <h5> Description</h5>
+            <span>{{ this_class.class_description}}</span>
+        </div>
+    </div>
+    <!-- MAIN ELEMENTS -->
+    <div class="row">
+        <div class="class-title col s12 m10 l6">
+            <h5> Main Elements</h5>
+            <span>{{ this_class.main_elements}}</span>
+        </div>
+    </div>
+    <!-- OTHER ELEMENTS -->
+    <div class="row">
+        <div class="class-title col s12 m10 l6">
+            <h5>Other Elements</h5>
+            <span>{{ this_class.other_elements}}</span>
+        </div>
+    </div>
+    <!-- CLASS NOTES -->
+    <div class="row">
+        <div class="class-title col s12 m10 l6">
+            <h5> Class Notes</h5>
+            <span>{{ this_class.class_notes}}</span>
+        </div>
+    </div>
+</section>
+
+<!-- PLAYLIST LINK -->
+<section class="links">
+    <div class="divider"> </div>
+    <br>
+    <div class="row">
+        <div class="col-md-3">
             <h5>Playlist:</h5>
         </div>
-        <div class="col-auto no-gutters valign-wrapper">
-            <a href="{{ this_class.playlist_link }}">
-            <em>{{ this_class.playlist_title }}</em></a>
-
-        </div>
-    </div>
-</div>
-<!-- COLLECTION OF THE CLASS SERIES THE CLASS BELONGS TO -->
-<div class="divider"> </div>
-<div class="row">
-    <div class="col s12">
-            <h5>Class series:</h5>
-            <br>
-        <ul class="collection with-header">
-            <li class="collection-item">
-                <div><em>Mondays</em><a href="#!" class="secondary-content tooltipped" data-position="left" data-delay="50"
-                        data-tooltip="Go to this series"><i class="material-icons">chevron_right</i></a></div>
-            </li>
+        <ul class="col-md-9 collection">
+            <a href="{{ this_class.playlist_link }}" target="_blank" class="collection-item tooltipped"
+                data-position="top" data-delay="50"
+                data-tooltip="Go to this playlist"><em>{{ this_class.playlist_title }}</em></a>
         </ul>
     </div>
-</div>
-<div class="divider"> </div>
-<br>
-<h5>Notes</h5>
-<p>{{ this_class.class_notes }}</p>
-<br>
+</section>
 
-
+<!-- COLLECTION OF THE CLASS SERIES THE CLASS BELONGS TO -->
+<section class="series">
+    <div class="divider"> </div>
+    <br>
+    <div class="row">
+        <div class="col-md-3">
+            <h5>Class series:</h5>
+        </div>
+        <ul class="col-md-9 collection">
+            {% if this_class.series %}
+            {% for series in this_class.series %}
+            <a href="#!" target="_blank" class="collection-item tooltipped" data-position="top" data-delay="50"
+                data-tooltip="Go to this series"><em>{{ series.series_name }}</em></a>
+            {% endfor %}
+            {% else %}
+            <li class="collection-item">
+                <a href="#!" target="_blank" class="collection-item tooltipped" data-position="top" data-delay="50"
+                    data-tooltip="Go to this series"><em>None</em></a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</section>
+<br>
 
 <!-- EXERCISES SECTION IN CLASS VIEW -->
 <section class="exercises">
@@ -59,38 +87,90 @@
     <br>
     <h5>Exercises:</h5>
     <br>
+    {% if this_class.exercises %}
     <ul class="collapsible popout" data-collapsible="accordion">
         {% for exercise in this_class.exercises %}
         <li class="this_class">
             <div class="collapsible-header">
                 <div class="class_header col">
                     <i class="material-icons accordion_arrow">expand_more</i>
-                    <strong>{{ exercise.exercise_name }}</strong>
+                    <strong class="accordion-title">{{ exercise.exercise_name }}</strong>
                 </div>
             </div>
+            <!-- EXERCISES CONTENT -->
             <div class="collapsible-body">
-                <span>{{ exercise.exercise_description }} </span>
+                <div class="row">
+                    <div class="col s12 m12">
+                        <ul class="collapsible" data-collapsible="expandable">
+                            <li>
+                                <div class="collapsible-header active">
+                                    <i class="material-icons">description</i>Description</div>
+                                <div class="collapsible-body">
+                                    <p>{{ exercise.exercise_description }}</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header">
+                                    <i class="material-icons">comment</i>Comment</div>
+                                <div class="collapsible-body">
+                                    <p>{{ exercise.exercise_comment }}</p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="collapsible-header">
+                                    <i class="material-icons">star</i>Aim</div>
+                                <div class="collapsible-body">
+                                    <p>{{ exercise.exercise_aim }}</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <!-- MUSIc TRACK COLLECTION -->
+
+                        <ul class="collection with-header">
+                            <li class="collection-header"><i class="material-icons">music_note</i> Music tracks</li>
+                            {% for exercise in this_class.exercises %}
+                            {% for track in exercise.tracks %}
+                            <a href="{{ track.track_link }}" target="_blank" class="collection-item tooltipped"
+                                data-position="top" data-delay="50" data-tooltip="Go to this music track">
+                                <span class="title">{{ track.track_title }} &nbsp;</span>
+                                <em>/ &nbsp; {{ track.track_comment }}</em></a>
+                            {% else %}
+                            <li class="collection-item">
+                                <em>You haven't added any music tracks yet</em>
+                            </li>
+                            {% endfor %}
+                            {% endfor %}
+                        </ul>
+
+                        <!-- VIDEO LINK COLLECTION -->
+                        <div class="divider"></div>
+                        <ul class="collection with-header">
+                            <li class="collection-header"><i class="material-icons">video_library</i> Videos</li>
+                            {% for exercise in this_class.exercises %}
+                            {% for link in exercise.video_links %}
+                            <a href="{{ link.video_link }}" target="_blank" class="collection-item tooltipped"
+                                data-position="left" data-delay="50" data-tooltip="Go to this video">
+                                {{ link.video_title }}
+                            </a>
+
+                            {% else %}
+                            <li class="collection-item">
+                                <em>You haven't added any videos yet</em>
+                            </li>
+                            {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             </div>
         </li>
         {% endfor %}
-        <div class="fixed-action-btn horizontal click-to-toggle">
-            <a class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50"
-                data-tooltip="Open tools">
-                <i class="medium material-icons">build</i></a>
-            <ul>
-                <li><a href="{{ url_for('edit_class', class_id=this_class._id) }}" class="btn-floating green tooltipped"
-                        data-position="top" data-delay="50" data-tooltip="Edit class">
-                        <i class="material-icons">edit</i></a></li>
-                <li><a href="{{ url_for('delete_class', class_id=this_class._id) }}" class="btn-floating red tooltipped"
-                        data-position="top" data-delay="50" data-tooltip="Delete class">
-                        <i class="material-icons">delete</i></a></li>
-                <li><a href="{{ url_for('copy_class', class_id=this_class._id) }}"
-                        class="btn-floating blue-lighten-2 tooltipped" data-position="top" data-delay="50"
-                        data-tooltip="Duplicate class">
-                        <i class="material-icons">content_copy</i></a></li>
-            </ul>
-        </div>
     </ul>
+    {% else %}
+    <div class="mb-6">
+        <strong class="mb-6">You haven't created any exercises yet</strong>
+    </div>
+    {% endif %}
 </section>
 
 <!-- LOGS SECTION IN CLASS VIEW -->
@@ -99,27 +179,55 @@
     <br>
     <h5>Logs:</h5>
     <br>
+    {% if this_class.logs %}
     <ul class="collapsible popout" data-collapsible="accordion">
         {% for log in this_class.logs %}
         <li class="this_class">
             <div class="collapsible-header">
                 <div class="class_header col">
                     <i class="material-icons accordion_arrow">expand_more</i>
-                    <strong>{{ exercise.exercise_name }}</strong>
+                    <strong>{{ log.log_date }}</strong> &nbsp; / &nbsp; <em> {{ log.log_tag }} </em>
                 </div>
             </div>
             <div class="collapsible-body">
-                <span>{{ exercise.exercise_description }} </span>
+                <span> {{ log.log_text }} </span>
             </div>
         </li>
-
         {% endfor %}
-
     </ul>
+    {% else %}
+    <ul class="collection">
+        <div class="not-added-yet">
+            <em>You haven't added any videos yet</em>
+        </div>
+    </ul>
+    <br>
+    {% endif %}
 </section>
-<!-- BOTTOM BUTTON  'GO BACK' TO NAVIGATE TO THE PREVIOUS PAGE -->
-<!-- SAVE inserts the content and returns to SERIES VIEW  - .save() the changes to an existing exercise with an existing _id and sub-document _id,s-->
+
+<!-- TOOLS BUTTON FOR THE TOOLS: EDIT/DELETE/DUPLICATE-->
+<section class="tools">
+    <div class="fixed-action-btn horizontal click-to-toggle">
+        <a class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50" data-tooltip="Open tools">
+            <i class="medium material-icons">build</i></a>
+        <ul>
+            <li><a href="{{ url_for('edit_class', class_id=this_class._id) }}" class="btn-floating green tooltipped"
+                    data-position="top" data-delay="50" data-tooltip="Edit class">
+                    <i class="material-icons">edit</i></a></li>
+            <li><a href="{{ url_for('delete_class', class_id=this_class._id) }}" class="btn-floating red tooltipped"
+                    data-position="top" data-delay="50" data-tooltip="Delete class">
+                    <i class="material-icons">delete</i></a></li>
+            <li><a href="{{ url_for('copy_class', class_id=this_class._id) }}"
+                    class="btn-floating blue-lighten-2 tooltipped" data-position="top" data-delay="50"
+                    data-tooltip="Duplicate class">
+                    <i class="material-icons">content_copy</i></a></li>
+        </ul>
+    </div>
+</section>
+
+<!-- BOTTOM BUTTON  'BACK TO CLASSES' TO NAVIGATE TO THE PREVIOUS PAGE CLASSES VIEW -->
 <div class="divider"></div>
+<br>
 <div class="section">
     <div class="container bottom_actions ml-0 mr-0 mt-6 mb-10 w-100">
         <div class="row">

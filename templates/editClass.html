@@ -3,7 +3,7 @@
 <h1>Edit Class</h1>
 
 <!-- CLASS FORM -->
-<form class="col s12" method="POST" action="{{ url_for('save_class', class_id=this_class._id) }}" id="edit_class_form"
+<form class="col s12" method="POST" action="{{ url_for('save_class', class_id=class_id, username=session['user']) }}" id="edit_class_form"
     autocomplete="off">
     <!-- Disabled autocompletion -->
     {% include 'classForm.html' %}
