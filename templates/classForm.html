@@ -124,15 +124,17 @@
             </ul>
         </div>
     </div>
-    <a href="{{ url_for('add_exercise') }}" class="btn-small waves-effect waves-light blue tooltipped"
-        name="save_add_exercise" data-position="right" data-delay="50" data-tooltip="Add a new exercise">
-        <i class="material-icons left">library_add</i>Add Exercise
-    </a>
+    <section class="add-button">
+        <a href="{{ url_for('add_exercise') }}" class="btn-small waves-effect waves-light blue tooltipped"
+            name="save_add_exercise" data-position="right" data-delay="50" data-tooltip="Add a new exercise">
+            <i class="material-icons left">library_add</i>Add Exercise
+        </a>
+    </section>
 </section>
 <br>
 <!-- CLASS LOGS SECTION -->
-<div class="divider"> </div>
 <section class="class_logs p-3">
+    <div class="divider"> </div>
     <!--ADD/DELETE LOGS-->
     <div class="row">
         <div class="col s12 l10">
@@ -154,9 +156,10 @@
             <br>
         </div>
     </div>
-    <a href="{{ url_for('add_log') }}" class="btn-small waves-effect waves-light blue tooltipped" type="submit"
-        name="save_add_log" data-position="right" data-delay="50" data-tooltip="Add a new log">
-        <i class="material-icons left">library_add</i>Add Log</a>
+    <section class="add-button">
+        <a href="{{ url_for('add_log') }}" class="btn-small waves-effect waves-light blue tooltipped" type="submit"
+            name="save_add_log" data-position="right" data-delay="50" data-tooltip="Add a new log">
+            <i class="material-icons left">library_add</i>Add Log</a>
+    </section>
 </section>
-
 {% endblock %}

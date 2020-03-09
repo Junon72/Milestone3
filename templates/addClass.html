@@ -13,7 +13,7 @@
     <p>{{ user_id._id }}</p>
     <!-- FORM SECTIONS -->
     <!-- CLASS FORM SECTIONS -->
-    <section class="class_form">
+    <section class="class-form">
         <!-- ADD CLASS NAME -->
         <div class="row">
             <div class="input-field col s12 l10">
@@ -74,35 +74,33 @@
                     name="playlist_link" placeholder="Add a playlist Link">
             </div>
         </div>
-
-        <!-- ADD SERIES SELECTION -->
-        <section class="series_selector">
-            <div class="divider"> </div>
-            <br>
-            <div class="row">
-                <div class="input-field col s12 l10 add-series">
-                    <i class="material-icons prefix">playlist_add_check</i>
-                    {% for serial in series %}
-                    {% for name in serial.class_series %}
-                    <select multiple name="series" id="series">
-                        <option value="" disabled selected>Select series</option>
-                        <option value="{{ name }}"> {{ name.series_name }} </option>
-                    </select>
-                    <label for="series" class="list-label ml-2">Select class series</label>
-                    {% endfor %}
-                    {% endfor %}
-                </div>
+    </section>
+    <!-- ADD SERIES SELECTION -->
+    <section class="series-selector">
+        <div class="divider"> </div>
+        <br>
+        <div class="row">
+            <div class="input-field col s12 l10 add-series">
+                <i class="material-icons prefix">playlist_add_check</i>
+                {% for serial in series %}
+                {% for name in serial.class_series %}
+                <select multiple name="series" id="series">
+                    <option value="" disabled selected>Select series</option>
+                    <option value="{{ name.series_name, name._id }}"> {{ name.series_name }} </option>
+                </select>
+                <label for="series" class="list-label ml-2">Select class series</label>
+                {% endfor %}
+                {% endfor %}
             </div>
-            <div class="divider"> </div>
-            <br>
-        </section>
-
+        </div>
+        <div class="divider"> </div>
+        <br>
     </section>
 
+
     <!--EXERCISES SECTION-->
-    <section class="exercises_section p-3">
+    <section class="exercises-section p-3">
         <input type="hidden" id="exercises" name="exercises" value="[]">
-        <div class="divider"> </div>
         <div class="row">
             <div class="col s12 l10">
                 <h5>Exercises:</h5>
@@ -110,6 +108,8 @@
                 <strong>You haven't created any exercises yet</strong>
             </div>
         </div>
+    </section>
+    <section class="add-button">
         <a href="{{ url_for('classes') }}" class="btn-small waves-effect waves-light blue tooltipped"
             name="save_add_exercise" data-position="right" data-delay="50" data-tooltip="Add a new exercise">
             <i class="material-icons left">library_add</i>Add Exercise
@@ -117,7 +117,7 @@
     </section>
 
     <!-- CLASS LOGS SECTION -->
-    <section class="class_logs p-3">
+    <section class="class-logs p-3">
         <input type="hidden" id="logs" name="logs" value="[]">
         <br>
         <div class="divider"> </div>
@@ -129,6 +129,8 @@
                 <strong>You haven't created any logs yet</strong>
             </div>
         </div>
+    </section>
+    <section class="add-button">
         <a href="{{ url_for('classes') }}" class="btn-small waves-effect waves-light blue tooltipped" type="submit"
             name="save_add_log" data-position="right" data-delay="50" data-tooltip="Add a new log">
             <i class="material-icons left">library_add</i>Add Log</a>
@@ -138,7 +140,7 @@
     <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
     <!-- SAVE inserts the content and returns to CLASSES VIEW  - .insert() new document with new class _id and sub-document _id,s-->
     <!-- CANCEL does not save the content and returns to the CLASSes VIEW - .get() classes without changes -->
-    <div class="section">
+    <section class="button-nav">
         <div class="divider"> </div>
         <br>
         <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
@@ -156,6 +158,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </form>
 {% endblock content %}

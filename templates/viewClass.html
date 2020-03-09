@@ -1,7 +1,7 @@
 {% extends "base.html"%}
 
 {% block content %}
-
+<div class="row mt-15"></div>
 <!-- MAIN CLASS INFO -->
 <section class="class-info">
     <!-- CLASS TITLE -->
@@ -18,26 +18,37 @@
         </div>
     </div>
     <!-- MAIN ELEMENTS -->
+    {% if this_class.main_elements %}
     <div class="row">
         <div class="class-title col s12 m10 l6">
             <h5> Main Elements</h5>
             <span>{{ this_class.main_elements}}</span>
         </div>
     </div>
+    {% endif %}
     <!-- OTHER ELEMENTS -->
+    {% if this_class.other_elements %}
     <div class="row">
         <div class="class-title col s12 m10 l6">
             <h5>Other Elements</h5>
             <span>{{ this_class.other_elements}}</span>
         </div>
     </div>
+    {% endif %}
     <!-- CLASS NOTES -->
     <div class="row">
         <div class="class-title col s12 m10 l6">
             <h5> Class Notes</h5>
+            {% if this_class.notes %}
             <span>{{ this_class.class_notes}}</span>
         </div>
     </div>
+    {% else %}
+    <div class="mb-6">
+            <strong class="mb-6">You haven't add any notes yet</strong>
+        </div>
+        <br>
+    {% endif %}
 </section>
 
 <!-- PLAYLIST LINK -->
@@ -49,9 +60,15 @@
             <h5>Playlist:</h5>
         </div>
         <ul class="col-md-9 collection">
+            {% if this_class.playlist %}
             <a href="{{ this_class.playlist_link }}" target="_blank" class="collection-item tooltipped"
                 data-position="top" data-delay="50"
                 data-tooltip="Go to this playlist"><em>{{ this_class.playlist_title }}</em></a>
+            {% else %}
+            
+                    <a class="collection-item"><em>None</em></a>
+               
+            {% endif %}
         </ul>
     </div>
 </section>
@@ -71,10 +88,8 @@
                 data-tooltip="Go to this series"><em>{{ series.series_name }}</em></a>
             {% endfor %}
             {% else %}
-            <li class="collection-item">
                 <a href="#!" target="_blank" class="collection-item tooltipped" data-position="top" data-delay="50"
                     data-tooltip="Go to this series"><em>None</em></a>
-            </li>
             {% endif %}
         </ul>
     </div>
@@ -172,6 +187,7 @@
     </div>
     {% endif %}
 </section>
+<br>
 
 <!-- LOGS SECTION IN CLASS VIEW -->
 <section class="logs">
@@ -196,11 +212,9 @@
         {% endfor %}
     </ul>
     {% else %}
-    <ul class="collection">
-        <div class="not-added-yet">
-            <em>You haven't added any videos yet</em>
+    <div class="mb-6">
+            <strong class="mb-6">You haven't added any logs yet</strong>
         </div>
-    </ul>
     <br>
     {% endif %}
 </section>

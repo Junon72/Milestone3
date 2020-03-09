@@ -40,25 +40,26 @@
         <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
         <!-- SAVE inserts the content and returns to CLASS FORM  - .insert() new document with new exercise _id -->
         <!-- CANCEL does not save the content and returns to the CLASS FORM - .get() the class without changes -->
-        <div class="divider"> </div>
-            <div class="section">
-                <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
-                    <div class="row">
-                        <div class="col s12 offset-l6">
-                            <a href="{{ url_for('insert_track') }}" class="btn waves-effect waves-light green tooltipped mr-2"
-                                type="submit" name="save_log" data-position="top" data-delay="50"
-                                data-tooltip="Save and go back">
-                                <i class="material-icons left">save</i>Save</a>
+        <section class="button-nav">
+            <div class="divider"> </div>
+            <br>
+            <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
+                <div class="row">
+                    <div class="col s12 offset-l6">
+                        <a href="{{ url_for('insert_track') }}"
+                            class="btn waves-effect waves-light green tooltipped mr-2" type="submit" name="save_log"
+                            data-position="top" data-delay="50" data-tooltip="Save and go back">
+                            <i class="material-icons left">save</i>Save</a>
 
-                            <!-- Check the exercise _id and repopulate the add_exercise form -->
-                            <a href="{{ url_for('edit_exercise') }}" class="btn waves-effect waves-light grey tooltipped"
-                                type="submit" name="back_to_class" data-position="top" data-delay="50"
-                                data-tooltip="Cancel and go back">
-                                <i class="material-icons left">chevron_left</i>Cancel</a>
-                        </div>
+                        <!-- Check the exercise _id and repopulate the add_exercise form -->
+                        <a href="{{ url_for('edit_exercise') }}" class="btn waves-effect waves-light grey tooltipped"
+                            type="submit" name="back_to_class" data-position="top" data-delay="50"
+                            data-tooltip="Cancel and go back">
+                            <i class="material-icons left">chevron_left</i>Cancel</a>
                     </div>
                 </div>
             </div>
+        </section>
     </form>
 </section>
 {% endblock %}

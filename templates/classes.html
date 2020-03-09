@@ -1,23 +1,28 @@
 {% extends "base.html"%}
 
 {% block content %}
-<h3>Classes</h3>
-<p>You have created <b> </b> classes {{ username.username }}</p>
-<ul class="collapsible" data-collapsible="accordion">
-    {% for class in classes %}
-    <li class="accordion_list">
-        <div class="collapsible-header">
-            <div class="list_header col">
-                <i class="material-icons accordion_arrow">expand_more</i>
-                <strong>{{ class.class_name }}</strong>
+<div class="row top-spacer mt-10"></div>
+<!-- SERIES VIEW -->
+<section class="series-view">
+    <h3>Classes</h3>
+    <p>You have created <b> </b> classes {{ username.username }}</p>
+</section>
+<section class="series-view-content">
+    <ul class="collapsible" data-collapsible="accordion">
+        {% for class in classes %}
+        <li class="accordion_list">
+            <div class="collapsible-header">
+                <div class="list_header col">
+                    <i class="material-icons accordion_arrow">expand_more</i>
+                    <strong>{{ class.class_name }}</strong>
+                </div>
             </div>
-        </div>
 
-        <div class="collapsible-body">
-            <span>{{ class.class_description }} </span>
+            <div class="collapsible-body">
+                <span>{{ class.class_description }} </span>
 
-            <!-- Tool buttons for the classes -->
-            <div class="fixed-action-btn horizontal click-to-toggle">
+                <!-- Tool buttons for the classes -->
+                <div class="fixed-action-btn horizontal click-to-toggle">
                     <a class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50"
                         data-tooltip="Open tools">
                         <i class="medium material-icons">build</i></a>
@@ -28,14 +33,13 @@
                                 <i class="material-icons">remove_red_eye</i></a></li>
                     </ul>
                 </div>
-        </div>
-    </li>
-    {% endfor %}
-</ul>
-
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</section>
 <!-- Button to add a new class -->
 <a href="{{ url_for('add_class') }}" class="btn-small waves-effect waves-light blue tooltipped" data-position="right"
     data-delay="50" data-tooltip="Add a new class">
     <i class="material-icons left">library_add</i>Add New Class</a>
-
 {% endblock content %}
