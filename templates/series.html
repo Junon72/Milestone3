@@ -5,19 +5,19 @@
 <!-- CLASSES VIEW -->
 <section class="classes-view-title">
     <h3>Series</h3>
-    {% for series in series %}
-    {% if series %}
-    <p>You have created <b> {{ series.class_series|length }} </b> series {{ username }}</p>
 </section>
 <section class="classes-view-content">
     <ul class="collapsible" data-collapsible="accordion">
-        
+        {% for series in series %}
+        {% if series %}
         {% for serial in series.class_series %}
+        <p>{{ series._id }}</p>
         <li class="accordion_list">
             <div class="collapsible-header">
                 <div class="list_header col">
                     <i class="material-icons accordion_arrow">expand_more</i>
                     <strong>{{ serial.series_name }}</strong>
+                    <p>{{ serial._id }}</p>
                 </div>
             </div>
             <div class="collapsible-body">
@@ -29,15 +29,15 @@
                         data-tooltip="Open tools">
                         <i class="medium material-icons">build</i></a>
                     <ul>
-                        <li><a href="{{ url_for('view_classes_in_series', series_id = serial._id) }}"
+                        <li><a href="{{ url_for('view_classes_in_series') }}"
                                 class="btn-floating yellow darken-2 tooltipped" data-position="top" data-delay="50"
-                                data-tooltip="View series">
+                                data-tooltip="View class series">
                                 <i class="material-icons">
                                     remove_red_eye</i></a></li>
-                        <li><a href="{{ url_for('edit_series') }}" class="btn-floating green tooltipped"
-                                data-position="top" data-delay="50" data-tooltip="Edit class series">
+                        <li><a href="{{ url_for('edit_series', series_doc = series._id, series_id = serial._id) }}" class="btn-floating green tooltipped"
+                                data-position="top" data-delay="50" data-tooltip="Edit series">
                                 <i class="material-icons">edit</i></a></li>
-                        <li><a href="{{ url_for('delete_series') }}" class="btn-floating red tooltipped"
+                        <li><a href="{{ url_for('delete_series', series_doc = series._id, series_id = serial._id) }}" class="btn-floating red tooltipped"
                                 data-position="top" data-delay="50" data-tooltip="Delete class series">
                                 <i class="material-icons">delete</i></a></li>
                     </ul>

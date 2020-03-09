@@ -183,8 +183,8 @@ def insert_class():
                  'playlist_link': request.form.get('playlist_link'),
                  'series': request.form.to_dict({'series'}),
                  'class_notes': request.form.get('class_notes'),
-                 'exercises': [{}],
-                 'logs': [{}],
+                 'exercises': [],
+                 'logs': [],
                  'user_id': request.form.get('user_id'),
                  'username': request.form.get('username')}
     
@@ -372,58 +372,67 @@ def series():
            
 
 # VIEW CLASSES IN SERIES
-@app.route('/view_classes_in_series', methods=['GET'])           
+
+@app.route('/view_classes_in_series')           
 def view_classes_in_series(): 
     print("Classes in series view opened")            
-    return render_template(url_for('classes'), title='Classes in series')
+    return render_template('classes.html')
 
 # ADD CLASS SERIES
 @app.route('/add_series')
 def add_series():
     username = session['user']
-    user_id = users_collection.find_one({'username': session['user']})
+    user_id = users_collection.find_one({'username': session['user']}, {'_id': 1})
     print(user_id)
+    # This checks if the user already has a document in series collection, if not a document will be added.
+    # https://stackoverflow.com/questions/25163658/mongodb-return-true-if-document-exists: answer by Xavier Guihot led to the right path with this.
+    if series_collection.count_documents({'username': session['user']}, limit = 1) ==0:
+        user_series_set = {
+            'user_id': user_id,
+            'username': username,
+            'classes': []
+            }
+        inserted_set = series_collection.insert_one(user_series_set)
+        doc = inserted_set.inserted_id
+        print(doc)
     return render_template('addSeries.html', title="Add Series", user_id = user_id, username = username)
 
-# insert() series
+# insert() series/ update_one() in class_series []
 @app.route('/insert_series', methods=['POST'])
 def insert_series():
     
     username = session['user']
     print(username)
-    new_series = {'series_name': request.form.get('class_name'),
-                 'series_description': request.form.get('class_description'),
-                 'classes': [{}]
-                 }
-    
-    print(new_series)
-    series_dict = new_series.to_dict()
-    inserted_series = series_collection.insert({'username': username}, { 'class_series' :{ '$push': {series_dict}}})
-    series_id = inserted_series.inserted_id
-    print(series_id)
-    return redirect(url_for('view_class', series_id=series_id, username=username ))
-    
-    
-    print("Series was inserted")
-    return redirect(url_for('series', title='Series'))
+    new_series = {
+        '_id': ObjectId(),
+        'series_name': request.form.get('series_name'),
+        'series_description': request.form.get('series_description'),
+        'class_series': []
+        }    
+    inserted_series = series_collection.update_one({'username': username}, { '$addToSet' :{ 'class_series':new_series}})
+    print(inserted_series)
+    return redirect(url_for('series', title='Series', username=username ))
 
 # EDIT SERIES
-@app.route('/edit_series', methods=['GET'])
-def edit_series():
-    print('Exercise was edited')
-    return render_template(url_for('editSeries'), title='Edit series')
+@app.route('/edit_series/<series_doc>/<series_id>')
+def edit_series(series_doc, series_id):
+    username = session['user']
+    this_series = series_collection.find_one({'username': username})
+    print(this_series)
+    return render_template('editSeries.html', title='Edit series')
 
 # update() SERIES COMES HERE
-@app.route('/update_series', methods=['POST'])
-def update_series():
-    print("Series was updated")
-    return redirect(url_for('series'), title='Series')
+@app.route('/update_series/<series_doc>/<series_id>', methods=['POST'])
+def update_series(series_doc, series_id):
+    print(series_doc, series_id)
+    return redirect(url_for('series'))
 
 # DELETE CLASS SERIES - remove()
-@app.route('/delete_series', methods=['GET'])
-def delete_series():
-    print("Series was deleted")
-    return redirect(url_for('series'), title='Series')
+@app.route('/delete_series/<series_doc>/<series_id>')
+def delete_series(series_doc, series_id):
+    deleted_series = series_collection.update_one({'_id': ObjectId(series_doc)}, { '$pull' : { 'class_series' : {'_id': ObjectId(series_id)}}} )
+    print(deleted_series)
+    return redirect(url_for('series'))
 
 
 if __name__ == '__main__': 

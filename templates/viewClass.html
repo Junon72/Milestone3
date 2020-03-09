@@ -143,7 +143,7 @@
 
                         <ul class="collection with-header">
                             <li class="collection-header"><i class="material-icons">music_note</i> Music tracks</li>
-                            {% for exercise in this_class.exercises %}
+                            
                             {% for track in exercise.tracks %}
                             <a href="{{ track.track_link }}" target="_blank" class="collection-item tooltipped"
                                 data-position="top" data-delay="50" data-tooltip="Go to this music track">
@@ -154,14 +154,14 @@
                                 <em>You haven't added any music tracks yet</em>
                             </li>
                             {% endfor %}
-                            {% endfor %}
+                           
                         </ul>
 
                         <!-- VIDEO LINK COLLECTION -->
                         <div class="divider"></div>
                         <ul class="collection with-header">
                             <li class="collection-header"><i class="material-icons">video_library</i> Videos</li>
-                            {% for exercise in this_class.exercises %}
+                        
                             {% for link in exercise.video_links %}
                             <a href="{{ link.video_link }}" target="_blank" class="collection-item tooltipped"
                                 data-position="left" data-delay="50" data-tooltip="Go to this video">
@@ -172,7 +172,7 @@
                             <li class="collection-item">
                                 <em>You haven't added any videos yet</em>
                             </li>
-                            {% endfor %}
+                           
                             {% endfor %}
                         </ul>
                     </div>
