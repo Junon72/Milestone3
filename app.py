@@ -201,14 +201,13 @@ def insert_class():
 def edit_class(class_id):
     username = session['user']
     user_data = users_collection.find_one({'username': session['user']})
-    print(user_id)
     this_class =  classes_collection.find({"_id": ObjectId(class_id)})
     print(this_class)
     class_id = class_id
     print(class_id)
     series = series_collection.find({'username': username})
     print(series)
-    return render_template('editClass.html', title="Edit Class", this_class = this_class, class_id = class_id)
+    return render_template('editClass.html', title="Edit Class", this_class = this_class, class_id = class_id, series = series)
 
 
 # save() CLASS COMES HERE -> 

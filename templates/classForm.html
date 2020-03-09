@@ -41,6 +41,16 @@
         </div>
     </div>
 
+    <!-- ADD OTHER ELEMENTS -->
+    <div class="row">
+        <div class="input-field col s12 l10">
+            <i class="material-icons prefix">more</i>
+            <textarea class="materialize-textarea form-control" id="add_other_elements" name="other_elements"
+                placeholder="Other helpful elements to work with"></textarea>
+            <label for="add_main_elements" class="list-label ml-2">Other helpful elements</label>
+        </div>
+    </div>
+
     <!-- ADD PLAYLIST LINK -->
     <div class="row">
         <div class="input-field col s12 l10">
@@ -54,35 +64,27 @@
         </div>
     </div>
     <br>
-
-    <!-- ADD SERIES SELECTION -->
+</section>
+<!-- ADD SERIES SELECTION -->
+<section class="series-selector">
     <div class="divider"> </div>
+    <br>
     <div class="row">
-        <h6>Select class series</h6>
-        <div class="input-field col s12 l10" id="add_series_name" name="series_name">
+        <div class="input-field col s12 l10 add-series">
             <i class="material-icons prefix">playlist_add_check</i>
-            <select multiple>
-                <option value="" disabled selected>Select series(s)</option>
-                <option value="None">None</option>
-                {% for serial in series_list %}
-                <option value="{{ serial }}"> {{ serial }} </option>
-                {% endfor %}
+            {% for serial in series %}
+            {% for name in serial.class_series %}
+            <select multiple name="series" id="series">
+                <option value="" disabled selected>Select series</option>
+                <option value="{{ name.series_name, name._id }}"> {{ name.series_name }} </option>
             </select>
-            <label for="add_series_name" class="list-label ml-2"></label>
+            <label for="series" class="list-label ml-2">Select class series</label>
+            {% endfor %}
+            {% endfor %}
         </div>
     </div>
     <div class="divider"> </div>
     <br>
-
-    <!--ADD NOTES -->
-    <div class="row">
-        <div class="input-field col s12">
-            <i class="material-icons prefix">note</i>
-            <textarea class="materialize-textarea" id="add_class_notes" name="class_notes"
-                placeholder="Notes"></textarea>
-            <label for="add_class_notes" class="list-label ml-2">Notes</label>
-        </div>
-    </div>
 </section>
 
 <!--EXERCISES SECTION-->
@@ -125,8 +127,9 @@
         </div>
     </div>
     <section class="add-button">
-        <a href="{{ url_for('add_exercise') }}" class="btn-small waves-effect waves-light blue tooltipped"
-            name="save_add_exercise" data-position="right" data-delay="50" data-tooltip="Add a new exercise">
+        <a href="{{ url_for('add_exercise', class_id=class_id) }}"
+            class="btn-small waves-effect waves-light blue tooltipped" name="save_add_exercise" data-position="right"
+            data-delay="50" data-tooltip="Add a new exercise">
             <i class="material-icons left">library_add</i>Add Exercise
         </a>
     </section>
@@ -157,8 +160,8 @@
         </div>
     </div>
     <section class="add-button">
-        <a href="{{ url_for('add_log') }}" class="btn-small waves-effect waves-light blue tooltipped" type="submit"
-            name="save_add_log" data-position="right" data-delay="50" data-tooltip="Add a new log">
+        <a href="{{ url_for('add_log', class_id=class_id) }}" class="btn-small waves-effect waves-light blue tooltipped"
+            type="submit" name="save_add_log" data-position="right" data-delay="50" data-tooltip="Add a new log">
             <i class="material-icons left">library_add</i>Add Log</a>
     </section>
 </section>
