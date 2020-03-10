@@ -104,7 +104,7 @@
                     </div>
                     <div class="collapsible-body">
                         <span>{{ exercise.exercise_description }} </span>
-                        <!-- Tool buttons for the classes -->
+                        <!-- Tool buttons for the classes 
                         <div class="fixed-action-btn horizontal click-to-toggle">
                             <a class="btn-floating btn-medium red">
                                 <i class="medium material-icons">menu</i>
@@ -119,20 +119,20 @@
                                 <li><a href="{{ url_for('delete_exercise', exercise_id=exercise._id) }}"
                                         class="btn-floating red"><i class="material-icons">delete</i></a></li>
                             </ul>
-                        </div>
+                        </div>-->
                     </div>
                 </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
-    <section class="add-button">
+    <!---<section class="add-button">
         <a href="{{ url_for('add_exercise', class_id=class_id) }}"
             class="btn-small waves-effect waves-light blue tooltipped" name="save_add_exercise" data-position="right"
             data-delay="50" data-tooltip="Add a new exercise">
             <i class="material-icons left">library_add</i>Add Exercise
         </a>
-    </section>
+    </section>-->
 </section>
 <br>
 <!-- CLASS LOGS SECTION -->

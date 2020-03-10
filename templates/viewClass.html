@@ -45,9 +45,9 @@
     </div>
     {% else %}
     <div class="mb-6">
-            <strong class="mb-6">You haven't add any notes yet</strong>
-        </div>
-        <br>
+        <strong class="mb-6">You haven't add any notes yet</strong>
+    </div>
+    <br>
     {% endif %}
 </section>
 
@@ -65,9 +65,9 @@
                 data-position="top" data-delay="50"
                 data-tooltip="Go to this playlist"><em>{{ this_class.playlist_title }}</em></a>
             {% else %}
-            
-                    <a class="collection-item"><em>None</em></a>
-               
+
+            <a class="collection-item"><em>None</em></a>
+
             {% endif %}
         </ul>
     </div>
@@ -88,8 +88,8 @@
                 data-tooltip="Go to this series"><em>{{ series.series_name }}</em></a>
             {% endfor %}
             {% else %}
-                <a href="#!" target="_blank" class="collection-item tooltipped" data-position="top" data-delay="50"
-                    data-tooltip="Go to this series"><em>None</em></a>
+            <a href="#!" target="_blank" class="collection-item tooltipped" data-position="top" data-delay="50"
+                data-tooltip="Go to this series"><em>None</em></a>
             {% endif %}
         </ul>
     </div>
@@ -138,12 +138,25 @@
                                     <p>{{ exercise.exercise_aim }}</p>
                                 </div>
                             </li>
+                            <!-- Tool buttons for the classes -->
+                            <div class="fixed-action-btn horizontal">
+                                <a class="btn-floating btn-medium red">
+                                    <i class="medium material-icons">menu</i>
+                                </a>
+                                <ul>
+                                    <li><a href="{{ url_for('edit_exercise', exercise_id=exercise._id) }}"
+                                            class="btn-floating green"><i class="material-icons">edit</i></a></li>
+                                    <li><a href="{{ url_for('delete_exercise', exercise_id=exercise._id) }}"
+                                            class="btn-floating red"><i class="material-icons">delete</i></a></li>
+                                </ul>
+                            </div>
+
                         </ul>
                         <!-- MUSIc TRACK COLLECTION -->
 
                         <ul class="collection with-header">
                             <li class="collection-header"><i class="material-icons">music_note</i> Music tracks</li>
-                            
+
                             {% for track in exercise.tracks %}
                             <a href="{{ track.track_link }}" target="_blank" class="collection-item tooltipped"
                                 data-position="top" data-delay="50" data-tooltip="Go to this music track">
@@ -154,14 +167,14 @@
                                 <em>You haven't added any music tracks yet</em>
                             </li>
                             {% endfor %}
-                           
+
                         </ul>
 
                         <!-- VIDEO LINK COLLECTION -->
                         <div class="divider"></div>
                         <ul class="collection with-header">
                             <li class="collection-header"><i class="material-icons">video_library</i> Videos</li>
-                        
+
                             {% for link in exercise.video_links %}
                             <a href="{{ link.video_link }}" target="_blank" class="collection-item tooltipped"
                                 data-position="left" data-delay="50" data-tooltip="Go to this video">
@@ -172,7 +185,7 @@
                             <li class="collection-item">
                                 <em>You haven't added any videos yet</em>
                             </li>
-                           
+
                             {% endfor %}
                         </ul>
                     </div>
@@ -213,8 +226,8 @@
     </ul>
     {% else %}
     <div class="mb-6">
-            <strong class="mb-6">You haven't added any logs yet</strong>
-        </div>
+        <strong class="mb-6">You haven't added any logs yet</strong>
+    </div>
     <br>
     {% endif %}
 </section>

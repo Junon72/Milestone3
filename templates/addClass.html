@@ -4,13 +4,14 @@
 
 
 <!-- CLASS FORM -->
-<form class="col s12" method="POST" action="{{ url_for('insert_class', username=session['user']) }}" id="add_class_form"
+<form class="col s12" method="POST" action="{{ url_for('insert_class', username=username) }}" id="add_class_form"
     autocomplete="off">
     <!-- Disabled autocompletion -->
     <!-- HIDDEN INPUTS -->
     <input type="hidden" id="username" name="username" value="{{ username }}">
     <input type="hidden" id="user_id" name="user_id" value="{{ user_id._id }}">
     <p>{{ user_id._id }}</p>
+    <p>{{ username }}</p>
     <!-- FORM SECTIONS -->
     <!-- CLASS FORM SECTIONS -->
     <section class="class-form">
@@ -86,7 +87,7 @@
                 {% for name in serial.class_series %}
                 <select multiple name="series" id="series">
                     <option value="" disabled selected>Select series</option>
-                    <option value="{{ name.series_name, name._id }}"> {{ name.series_name }} </option>
+                    <option value="{{ name.series_name }}"> {{ name.series_name }} </option>
                 </select>
                 <label for="series" class="list-label ml-2">Select class series</label>
                 {% endfor %}

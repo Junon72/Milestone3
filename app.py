@@ -82,7 +82,7 @@ def register():
 		return redirect(url_for('classes'))
 	if request.method == 'POST':
 		form = request.form.to_dict()
-		# Check if the password and password1 actually match 
+		# Check if the password1 and password2 actually match 
 		if form['password'] == form['password']:
 			# If matched find the user in db
 			user = users_collection.find_one({"username" : form['username']})
@@ -169,10 +169,9 @@ def add_class():
     return render_template('addClass.html', title="New Class", 
                            user_id = user_id, username = username, series = series)
 
-# insert() CLASS COMES HERE
+# insert() CLASS FROM save COMES HERE
 @app.route('/insert_class', methods=['POST'])
 def insert_class():
-    
     username = session['user']
     print(username)
     new_class = {'class_name': request.form.get('class_name'),
@@ -181,7 +180,7 @@ def insert_class():
                  'other_elements': request.form.get('other_elements'),
                  'playlist_title': request.form.get('playlist_title'),
                  'playlist_link': request.form.get('playlist_link'),
-                 'series': request.form.to_dict({'series'}),
+                 'series': request.form.getlist('series'),
                  'class_notes': request.form.get('class_notes'),
                  'exercises': [],
                  'logs': [],
@@ -276,7 +275,7 @@ def add_exercise(class_id):
 # @app.route('/insert_exercise/<class_id>')
 # def insert_exercise(class_id):
     # print("Exercise was inserted")
-    # return redirect(url_for('edit_class'))
+    # return redirect(url_for('edit_class', class_id=class_id))
 
 # EDIT EXERCISE
 @app.route('/edit_exercise', methods=['GET', 'POST'])
@@ -392,6 +391,7 @@ def add_series():
             'username': username,
             'classes': []
             }
+        
         inserted_set = series_collection.insert_one(user_series_set)
         doc = inserted_set.inserted_id
         print(doc)
@@ -408,7 +408,14 @@ def insert_series():
         'series_name': request.form.get('series_name'),
         'series_description': request.form.get('series_description'),
         'class_series': []
-        }    
+        }
+    
+    # Check if the series name already exist.
+    series = series_collection.find_one({"series_name" : form['series_name']})
+    if series:
+        flash(f"{form['series_name']} already exists! Give the series a unique name.")
+        return redirect(url_for('add_series'))
+                                
     inserted_series = series_collection.update_one({'username': username}, { '$addToSet' :{ 'class_series':new_series}})
     print(inserted_series)
     return redirect(url_for('series', title='Series', username=username ))
