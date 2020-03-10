@@ -22,7 +22,7 @@
                 <span>{{ class.class_description }} </span>
 
                 <!-- Tool buttons for the classes -->
-                <div class="fixed-action-btn horizontal click-to-toggle">
+                <div class="fixed-action-btn horizontal">
                     <a class="btn-floating btn-large red tooltipped" data-position="top" data-delay="50"
                         data-tooltip="Open tools">
                         <i class="medium material-icons">build</i></a>
@@ -39,7 +39,17 @@
     </ul>
 </section>
 <!-- Button to add a new class -->
-<a href="{{ url_for('add_class') }}" class="btn-small waves-effect waves-light blue tooltipped" data-position="right"
-    data-delay="50" data-tooltip="Add a new class">
-    <i class="material-icons left">library_add</i>Add New Class</a>
+<div class="divider"></div>
+<br>
+<div class="section">
+    <div class="container bottom_actions w-100">
+        <div class="row">
+            <div class="col ml-n3 mb-6">
+                <a href="{{ url_for('add_class') }}" class="btn-small waves-effect waves-light blue tooltipped"
+                    data-position="right" data-delay="50" data-tooltip="Add a new class">
+                    <i class="material-icons left">library_add</i>Add New Class</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock content %}

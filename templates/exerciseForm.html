@@ -48,6 +48,7 @@
     <div class="row">
         <div class="col s12 l10">
             <h5>Music Tracks:</h5>
+            {% if exercise %}
             <ul class="collection with-header">
                 {% for track in exercise.tracks %}
                 <li class="collection-header">
@@ -66,7 +67,7 @@
                 <li class="collection-item track-text"><em>{{ track.track_text }}</em></li>
                 {% endfor %}
             </ul>
-            {% else }
+            {% else %}
             <br>
         </div>
     </div>
