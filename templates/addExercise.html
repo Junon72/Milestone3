@@ -1,6 +1,13 @@
 {% extends "base.html"%}
 {% block content %}
-<h3>Add New Exercise</h3>
+
+<section class="page-title">
+    <div class="row">
+        <div class="col mb-4 mt-2">
+            <h5>Add a New Exercise</h5>
+        </div>
+    </div>
+</section>
 
 <!-- EXERCISE FORM  -->
 <form class="col s12" method="POST" action="{{ url_for('insert_exercise', class_id=class_id) }}" id="add_exercise_form"
@@ -23,9 +30,10 @@
                         name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
                         <i class="material-icons left">save</i>Save</button>
 
-                    <a href="{{ url_for('edit_class') }}"
-                        class="btn-small waves-effect waves-light grey tooltipped cancel" type="submit" value="Cancel"
-                        formnovalidate name="back_to_class" data-position="top" data-delay="50"
+                    <!-- Return to classes view -->
+                    <a href="{{ url_for('classes') }}"
+                        class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
+                        value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
                         data-tooltip="Cancel and go back">
                         Cancel</a>
                 </div>

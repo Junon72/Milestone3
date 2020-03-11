@@ -1,11 +1,10 @@
 {% extends "base.html"%}
 
 {% block content %}
-<h1>Add a log</h1>
+<h3>Add a log</h3>
 <!-- ADD LOG -->
-<form class="col s12 l6" method="POST" action="{{ url_for('add_log', username=session['user']) }}" id="add_log_form"
+<form class="col s12 l6" method="POST" action="{{ url_for('insert_log', username=session['user'], class_id = class_id ) }}" id="add_log_form"
     autocomplete="off">
-
     <!-- ADD LOG DATE-->
     <section class="log_form">
         <div class="row">
@@ -18,10 +17,19 @@
         <!-- ADD LOG CONTENT-->
         <div class="row">
             <div class="input-field col s12 l6">
-                <i class="material-icons prefix">event_note</i>
-                <textarea class="materialize-textarea form-control" id="add_log" name="log_note" required="required"
+                <i class="material-icons prefix">label_outline</i>
+                <textarea class="materialize-textarea form-control" id="tag_log" name="log_tag" required="required"
                     placeholder=""></textarea>
-                <label for="add_log" class="list-label ml-2">Class log</label>
+                <label for="tag_log" class="list-label ml-2">Log Tag</label>
+            </div>
+        </div>
+        <!-- ADD LOG CONTENT-->
+        <div class="row">
+            <div class="input-field col s12 l6">
+                <i class="material-icons prefix">event_note</i>
+                <textarea class="materialize-textarea form-control" id="add_log" name="log_text" required="required"
+                    placeholder=""></textarea>
+                <label for="add_log" class="list-label ml-2">Log</label>
             </div>
         </div>
     </section>
@@ -32,16 +40,16 @@
         <div class="divider"> </div>
         <br>
         <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
-            <div class="row">
+            <div class="row no-gutters">
                 <div class="col d-flex justify-content-end">
-                    <a href="{{ url_for('insert_log') }}" class="btn waves-effect waves-light green tooltipped"
-                        type="submit" name="save_log" data-position="bottom" data-delay="50"
+                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2"
+                        type="submit" name="save_log" data-position="top" data-delay="50"
                         data-tooltip="Save and go back">
-                        <i class="material-icons left">save</i>Save</a>
+                        <i class="material-icons left">save</i>Save</button>
 
                     <!-- Check the class_id and repopulate the add_class form -->
-                    <a href="{{ url_for('edit_class') }}" class="btn waves-effect waves-light grey tooltipped"
-                        type="submit" name="back_to_class" data-position="bottom" data-delay="50"
+                    <a href="{{ url_for('view_class', class_id = class_id) }}" class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3"
+                        type="submit" value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
                         data-tooltip="Cancel and go back">
                         <i class="material-icons left">chevron_left</i>Cancel</a>
                 </div>

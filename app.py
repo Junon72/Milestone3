@@ -40,7 +40,7 @@ def index():
 		if user_in_db:
 			# If in session redirect user to his/her collection of classes/ home page
 			flash("You are logged in already!")
-			return redirect(url_for('classes', user = user_in_db['username']))
+			return redirect(url_for('classes', username = user_in_db['username']))
 	else:
 		# Render the page for user to be able to log in
 		return render_template("index.html", title = "Login", current_users = list(users_collection.find()))
@@ -149,6 +149,7 @@ def classes():
 # VIEW CLASS
 @app.route('/view_class/<class_id>')
 def view_class(class_id):
+    username = session['user']
     this_class = classes_collection.find_one({'_id': ObjectId(class_id)})
     class_id = class_id
     print(this_class)
@@ -156,7 +157,8 @@ def view_class(class_id):
     return render_template('viewClass.html', 
                                title = 'Class',
                                class_id = class_id,  
-                               this_class = this_class)
+                               this_class = this_class,
+                               username = username)
 
 # ADD CLASS
 @app.route('/add_class')
@@ -241,52 +243,62 @@ def copy_class():
 ## Handling Logs / CRUD ##
 
 # ADD LOG
-@app.route('/add_log/<class_id>')
-def add_log(class_id):
+@app.route('/add_log/<class_id>/<username>')
+def add_log(class_id, username):
     print(class_id)
-    return render_template('addLog.html')
+    return render_template('addLog.html', class_id = class_id, username = username)
                  
-# save() log
+# insert log - $addToSet{}
 @app.route('/insert_log/<class_id>', methods=['POST'])
 def insert_log(class_id):
     new_log = {
+        '_id': ObjectId(),
         'log_date': request.form.get('log_date'),
         'log_text': request.form.get('log_text'),
         'log_tag': request.form.get('log_tag')  
 	}
-    
-    inserted_log = classes_collection.save({_id: ObjectId(class_id)}, { '$push': {new_log}})
-    log_id = inserted_log.inserted_id
-    print(log_id)
-    return redirect(url_for('editClass', title='Edit Class', log_id = log_id, class_id = class_id))
+    inserted_log = classes_collection.update_one({'_id': ObjectId(class_id)}, { '$addToSet' :{ 'logs': new_log}})
+    print(inserted_log)
+    return redirect(url_for('view_class', class_id = class_id))
 
 # DELETE LOG - $pull{}
 @app.route('/delete_log/<class_id>/<log_id>')           
 def delete_log(class_id, log_id):
-    deleted_log = classes_collection.update({'_id': ObjectId(class_id)}, {'$pull': {'_id': ObjectId(log_id)}} )
+    deleted_log = classes_collection.update_one({'_id': ObjectId(class_id)}, {'$pull': { 'logs': {'_id': ObjectId(log_id)}}} )
     print(deleted_log)
-    return redirect(url_for('editClass', title='Edit Class'))
+    return redirect(url_for('view_class', class_id = class_id))
 
-#################################
-### Handling Exercises / CRUD ###
+
+###################################### Handling Exercises / CRUD #################################
 
 # ADD EXERCISE
 @app.route('/add_exercise/<class_id>')
 def add_exercise(class_id):
-    this_class =  classes_collection.find_one({"_id": ObjectId(class_id)})
-    print("Exercise was added")
-    return render_template('addExercise.html', title='New exercise', this_class = this_class, class_id=class_id)
+    return render_template('addExercise.html', title='New exercise', class_id=class_id)
 
-# insert() exercise
-# @app.route('/insert_exercise/<class_id>')
-# def insert_exercise(class_id):
-    # print("Exercise was inserted")
-    # return redirect(url_for('edit_class', class_id=class_id))
+# insert exercise - $addToSet()
+@app.route('/insert_exercise/<class_id>', methods=['POST'])
+def insert_exercise(class_id):
+    new_exercise = {
+        '_id': ObjectId(),
+        'exercise_name': request.form.get('exercise_name'),
+        'exercise_description': request.form.get('exercise_description'),
+        'exercise_comment': request.form.get('exercise_comment'),
+        'exercise_aim': request.form.get('exercise_aim'),
+        'tracks': [],
+        'links': []
+    }
+    inserted_exercise = classes_collection.update_one({'_id': ObjectId(class_id)}, { '$addToSet' :{ 'exercises': new_exercise}})
+    print(inserted_exercise)
+    return redirect(url_for('view_class', class_id=class_id))
 
 # EDIT EXERCISE
 @app.route('/edit_exercise', methods=['GET', 'POST'])
 def edit_exercise():
-    print('Exercise was edited')
+    new_exercise = {
+        '_id': ObjectId(),
+        'exercise_name': request
+    }
     return render_template(url_for('editExercise'), title='Edit exercise')
 
 # update() EXERCISE COMES HERE
@@ -299,10 +311,10 @@ def update_exercise():
 @app.route('/delete_exercise')
 def delete_exercise():
     print("Exercise was deleted")
-    return redirect(url_for('editClass'), title='Edit Class')
+    return redirect(url_for('view_class'))
 
-####################################
-### Handling Music Tracks / CRUD ###
+
+######################################  Handling Music Tracks / CRUD 
 
  # ADD MUSIC TRACK
 @app.route('/add_track/<class_id>/<exercise_id>', methods=['POST'])
@@ -331,8 +343,8 @@ def delete_track(class_id, exercise_id):
     print("Track was deleted")
     return redirect(url_for('editExercise'), title='Edit Exercise')
 
-####################################
-### Handling Video Links / CRUD ###
+
+##################################### Handling Video Links / CRUD 
 
 # ADD VIDEO LINK
 @app.route('/add_link', methods=['POST'])
@@ -352,8 +364,8 @@ def delete_link():
     print("Link was deleted")
     return redirect(url_for('edit_exercise'), title='Edit Exercise')
 
-####################################
-### Handling Class Series / CRUD ###
+
+###################################### Handling Class Series / CRUD #################################
 
 # VIEW CLASS SERIES
 @app.route('/series')           
@@ -403,7 +415,7 @@ def add_series():
         print(doc)
     return render_template('addSeries.html', title="Add Series", user_id = user_id, username = username)
 
-# insert() series/ update_one() in class_series []
+# insert series - $addToSet
 @app.route('/insert_series', methods=['POST'])
 def insert_series():
     

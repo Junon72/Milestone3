@@ -7,7 +7,7 @@
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">bookmark</i>
             <input type="text" class="form-control text-capitalize validate" id="add_exercise_name" name="exercise_name"
-                placeholder="Exercise name">
+                placeholder="Exercise name" required="required">
             <label for="add_exercise_name" class="list-label ml-2">Exercise name</label>
         </div>
     </div>
@@ -24,7 +24,7 @@
     <div class="row">
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">comment</i>
-            <textarea class="materialize-textarea form-control" id="add_comment" name="comment"
+            <textarea class="materialize-textarea form-control validate" id="add_comment" name="exercise_comment"
                 placeholder="Comment"></textarea>
             <label for="add_comment" class="list-label ml-2">Comment</label>
         </div>
@@ -33,22 +33,22 @@
     <div class="row">
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">star</i>
-            <textarea class="materialize-textarea form-control" id="add_aim" name="aim"
-                placeholder="What is the aim of the exercise"></textarea>
+            <textarea class="materialize-textarea form-control validate" id="add_aim" name="exercise_aim"
+                placeholder="Aim of the exercise"></textarea>
             <label for="add_aim" class="list-label ml-2">Aim</label>
         </div>
     </div>
-
 </section>
 
-<!-- MUSIC TRACKS SECTION-->
-<br>
-<section class="class_logs p-3">
+{% if exercise %}
+<section class="media music-tracks">
+    <!-- MUSIC TRACKS SECTION-->
+    <br>
     <!--ADD/DELETE MUSIC TRACKS-->
     <div class="row">
         <div class="col s12 l10">
-            <h5>Music Tracks:</h5>
-            {% if exercise %}
+            <h6>Music Tracks:</h6>
+            {% if track in exercises.tracks %}
             <ul class="collection with-header">
                 {% for track in exercise.tracks %}
                 <li class="collection-header">
@@ -68,23 +68,23 @@
                 {% endfor %}
             </ul>
             {% else %}
+            <div class="mb-6">
+                <strong class="mb-6">No music tracks added yet</strong>
+            </div>
+            {% endif %}
             <br>
         </div>
     </div>
 </section>
-<section class="add-button">
-    <a href="{{ url_for('add_track', class_id=class_id) }}" class="btn-small waves-effect waves-light blue tooltipped" type="submit"
-        name="save_add_log" data-position="right" data-delay="50" data-tooltip="Add a new track">
-        <i class="material-icons left">plus_one</i>Add Music Track</a>
-</section>
 
+<section class="media video-links">
 <!-- VIDEO LINKS SECTION-->
-<section class="video-links">
     <br>
     <!--ADD/DELETE VIDEO LINKS-->
     <div class="row">
         <div class="col s12 l10">
-            <h5>Video Links:</h5>
+            <h6>Video Links:</h6>
+            {% if link in exercises.video_links %}
             <ul class="collection with-header">
                 {% for link in exercise.video_links %}
                 <li class="collection-header">
@@ -99,14 +99,15 @@
                 <li class="collection-item track-text"><em>{{ link.video_text }}</em></li>
                 {% endfor %}
             </ul>
+            {% else %}
+            <div class="mb-6">
+                <strong class="mb-6">No videos added yet</strong>
+            </div>
+            {% endif %}
             <br>
         </div>
     </div>
 </section>
-<section class="add-button">
-    <a href="{{ url_for('add_log, class_id = class_id') }}" class="btn-small waves-effect waves-light blue tooltipped" type="submit"
-        name="save_add_log" data-position="right" data-delay="50" data-tooltip="Add a new video link">
-        <i class="material-icons left">plus_one</i>Add Video Link</a>
-</section>
+{% endif %}
 
 {% endblock %}
