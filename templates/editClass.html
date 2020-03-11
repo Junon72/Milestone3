@@ -1,6 +1,14 @@
 {% extends "base.html"%}
 {% block content %}
-<h1>Edit Class</h1>
+<!-- MAIN CLASS INFO -->
+<section class="class-info">
+    <!-- CLASS TITLE -->
+    <div class="row">
+        <div class="class-title col s12 m10 l6">
+            <h5>Edit Class {{ this_class.class_name | upper}}</h5>
+        </div>
+    </div>
+
 
 <!-- CLASS FORM -->
 <form class="col s12" method="POST" action="{{ url_for('save_class', class_id=class_id, username=session['user']) }}"
@@ -23,7 +31,7 @@
                     </button>
 
                     <!-- Return to classes view -->
-                    <a href="{{ url_for('classes') }}" class="btn-small waves-effect waves-light grey tooltipped cancel"
+                    <a href="{{ url_for('classes') }}" class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3"
                         type="submit" value="Cancel" formnovalidate name="back_to_class" data-position="top"
                         data-delay="50" data-tooltip="Cancel and go back">
                         Cancel</a>

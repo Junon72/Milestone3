@@ -76,7 +76,7 @@
             {% for name in serial.class_series %}
             <select multiple name="series" id="series">
                 <option value="" disabled selected>Select series</option>
-                <option value="{{ name.series_name, name._id }}"> {{ name.series_name }} </option>
+                <option value="{{ name.series_name }}"> {{ name.series_name }} </option>
             </select>
             <label for="series" class="list-label ml-2">Select class series</label>
             {% endfor %}
@@ -88,11 +88,11 @@
 </section>
 
 <!--EXERCISES SECTION-->
-<div class="divider"> </div>
 <section class="exercises_section p-3">
     <div class="row">
         <div class="col s12 l10">
-            <h5>Exercises:</h5>
+            <h6>Exercises:</h6>
+            {% if class_id.exercises %}
             <ul class="collapsible" data-collapsible="accordion">
                 {% for exercise in exercises %}
                 <li class="accordion_list">
@@ -108,17 +108,24 @@
                 </li>
                 {% endfor %}
             </ul>
+            {% else %}
+            <div class="mb-6">
+                <strong class="mb-6">No exercises added yet</strong>
+            </div>
+            {% endif %}
         </div>
     </div>
 </section>
 <br>
+<div class="divider"> </div>
 <!-- CLASS LOGS SECTION -->
+<br>
 <section class="class_logs p-3">
-    <div class="divider"> </div>
     <!--ADD/DELETE LOGS-->
     <div class="row">
         <div class="col s12 l10">
-            <h5>Logs:</h5>
+            <h6>Logs:</h6>
+            {% if logs %}
             <ul class="collection with-header">
                 {% for log in class_logs %}
                 <li class="collection-header">
@@ -133,6 +140,11 @@
                 <li class="collection-item log-text"><em>{{ log.log_text }}</em></li>
                 {% endfor %}
             </ul>
+            {% else %}
+            <div class="mb-6">
+                <strong class="mb-6">No logs added yet</strong>
+            </div>
+            {% endif %}
             <br>
         </div>
     </div>

@@ -180,7 +180,7 @@ def insert_class():
                  'other_elements': request.form.get('other_elements'),
                  'playlist_title': request.form.get('playlist_title'),
                  'playlist_link': request.form.get('playlist_link'),
-                 'series': request.form.getlist('series'),
+                 'series': [],
                  'class_notes': request.form.get('class_notes'),
                  'exercises': [],
                  'logs': [],
@@ -193,6 +193,12 @@ def insert_class():
     this_class = inserted_class
     class_id = inserted_class.inserted_id
     print(class_id)
+    series = request.form.getlist('series')
+    print(series)
+    classes_collection.update(
+        {'_id': ObjectId(class_id)},
+        { '$set': { 'series': series}})
+	
     return redirect(url_for('view_class', class_id=class_id, username=username, this_class=this_class ))
 
 # EDIT CLASS
