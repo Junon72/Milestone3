@@ -10,7 +10,7 @@
         </div>
     </div>
     <!-- CLASS DESCRIPTION -->
-    <div class="row">
+    <div class="row w-100">
         <div class="class-title col s12 m10 l6">
             <h6> Description</h6>
             <span>{{ this_class.class_description | capitalize}}</span>
@@ -19,7 +19,7 @@
 
     <!-- MAIN ELEMENTS -->
     {% if this_class.main_elements %}
-    <div class="row">
+    <div class="row w-100">
         <div class="class-title col s12 m10 l6 mt-1">
             <h6> Main Elements</h6>
             <span>{{ this_class.main_elements | capitalize}}</span>
@@ -28,7 +28,7 @@
     {% endif %}
     <!-- OTHER ELEMENTS -->
     {% if this_class.other_elements %}
-    <div class="row">
+    <div class="row w-100">
         <div class="class-title col s12 m10 l6 mt-1">
             <h6>Other Elements</h6>
             <span>{{ this_class.other_elements | capitalize}}</span>
@@ -37,7 +37,7 @@
     {% endif %}
     <!-- CLASS NOTES -->
     {% if this_class.notes %}
-    <div class="row">
+    <div class="row w-100">
         <div class="class-title col s12 m10 l6 mt-1">
             <h6> Class Notes</h6>
             <span>{{ this_class.class_notes | capitalize}}</span>
@@ -51,7 +51,7 @@
 <section class="links">
     <div class="divider"> </div>
     <br>
-    <div class="row">
+    <div class="row w-100">
         <div class="col-md-3 class-title">
             <h6>Playlist:</h6>
         </div>
@@ -74,7 +74,7 @@
 <section class="series">
     <div class="divider"> </div>
     <br>
-    <div class="row">
+    <div class="row w-100">
         <div class="col-md-3 class-title">
             <h6>Class series:</h6>
         </div>
@@ -98,7 +98,7 @@
     <h6>Exercises:</h6>
     <br>
     {% if this_class.exercises %}
-    <ul class="collapsible m-0 popout mr-n3 ml-n3" data-collapsible="accordion">
+    <ul class="collapsible mx-n3 p-0 popout" data-collapsible="accordion">
         {% for exercise in this_class.exercises %}
         <li class="this_class">
             <div class="collapsible-header">
@@ -107,10 +107,10 @@
                 </div>
             </div>
             <!-- EXERCISES CONTENT -->
-            <div class="collapsible-body pr-0 pl-0 pt-0">
-                <div class="row">
-                    <div class="col s12 m12">
-                        <ul class="collapsible z-depth-0 m-0" data-collapsible="expandable">
+            <div class="collapsible-body pt-2 pb-0 ml-1 px-0">
+                <div class="row w-100 no-gutters">
+                    <div class="col ml-1 mr-n3 container">
+                        <ul class="collapsible z-depth-0 p-0 m-0" data-collapsible="expandable">
                             <li>
                                 <div class="collapsible-header active">
                                     <i class="material-icons">description</i>Description</div>
@@ -134,7 +134,7 @@
                             </li>
                         </ul>
                         <!-- MUSIc TRACK COLLECTION -->
-                        <div class="track-wrap">
+                        <div class="track-wrap mt-2 ml-1">
                             <ul class="collection with-header">
                                 <li class="collection-header"><i class="material-icons">music_note</i> Music tracks</li>
 
@@ -144,8 +144,8 @@
                                     <span class="title">{{ track.track_title }} &nbsp;</span>
                                     <em>/ &nbsp; {{ track.track_comment | capitalize}}</em></a>
 
-                                <div class="row no-gutters mb-n3">
-                                    <div class="col log-tools mt-2 mr-n3 pr-0 d-flex justify-content-beginning">
+                                <div class="row w-100 no-gutters mb-n3">
+                                    <div class="col log-tools mt-2 d-flex justify-content-beginning">
                                         <a href="{{ url_for('edit_track', track_id=track._id, class_id=class_id) }}"
                                             class="waves-effect waves-green btn-flat tooltipped" data-position="top"
                                             data-delay="50" data-tooltip="Delete log"><i
@@ -165,39 +165,45 @@
                         </div>
                         <!-- VIDEO LINK COLLECTION -->
                         <div class="divider"></div>
-                        <ul class="collection with-header">
-                            <li class="collection-header"><i class="material-icons">video_library</i> Videos</li>
+                        <div class="link-wrap mt-2 ml-1">
+                            <ul class="collection with-header">
+                                <li class="collection-header"><i class="material-icons">video_library</i> Video Links
+                                </li>
 
-                            {% for link in exercise.video_links %}
-                            <a href="{{ link.video_link }}" target="_blank" class="collection-item tooltipped"
-                                data-position="left" data-delay="50" data-tooltip="Go to this video">
-                                {{ link.video_title | title}}
-                            </a>
+                                {% for link in exercise.video_links %}
+                                <a href="{{ link.video_link }}" target="_blank" class="collection-item tooltipped"
+                                    data-position="left" data-delay="50" data-tooltip="Go to this video">
+                                    {{ link.video_title | title}}
+                                </a>
 
-                            {% else %}
-                            <li class="collection-item">
-                                <em>No video links added yet</em>
-                            </li>
+                                {% else %}
+                                <li class="collection-item">
+                                    <em>No video links added yet</em>
+                                </li>
 
-                            {% endfor %}
-                        </ul>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <!-- Tool buttons for the classes -->
-                <div class="row no-gutters">
-                    <div class="col exercise-tools my-2 mx-2 d-flex justify-content-beginning">
+                <div class="row w-100 no-gutters">
+                    <div class="col exercise-tools my-1 justify-content-beginning">
                         <a href="{{ url_for('add_link', exercise_id=exercise._id, class_id=class_id) }}"
-                            class="waves-effect waves-green btn-small orange darken-1 ml-2 tooltipped" data-position="top"
-                            data-delay="50" data-tooltip="Add music track"><i class="small material-icons">music_note</i></a>
+                            class="waves-effect waves-green btn-small orange darken-1 ml-2 tooltipped"
+                            data-position="top" data-delay="50" data-tooltip="Add music track"><i
+                                class="small material-icons">music_note</i></a>
                         <a href="{{ url_for('add_track', exercise_id=exercise._id, class_id=class_id) }}"
-                            class="waves-effect waves-green btn-small indigo lighten-1 ml-2 tooltipped" data-position="top"
-                            data-delay="50" data-tooltip="Add video link"><i class="small material-icons">videocam</i></a>
+                            class="waves-effect waves-green btn-small indigo lighten-1 ml-2 tooltipped"
+                            data-position="top" data-delay="50" data-tooltip="Add video link"><i
+                                class="small material-icons">videocam</i></a>
                         <a href="{{ url_for('edit_exercise', exercise_id=exercise._id, class_id=class_id) }}"
                             class="waves-effect waves-green btn-small green ml-2 tooltipped" data-position="top"
                             data-delay="50" data-tooltip="Edit exercise"><i class="small material-icons">edit</i></a>
                         <a href="{{ url_for('delete_exercise', exercise_id=exercise._id, class_id=class_id) }}"
                             class="waves-effect waves-red btn-small ml-2 red tooltipped" data-position="top"
-                            data-delay="50" data-tooltip="Delete exercise"><i class="small material-icons">delete</i></a>
+                            data-delay="50" data-tooltip="Delete exercise"><i
+                                class="small material-icons">delete</i></a>
                     </div>
                 </div>
             </div>

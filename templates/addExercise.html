@@ -15,7 +15,46 @@
     <!-- Disabled autocompletion -->
 
     <!-- FORM SECTIONS-->
-    {% include 'exerciseForm.html' %}
+    <!-- EXERCISE FORM SECTIONs -->
+<section class="exercise_form">
+        <!-- ADD EXERCISE NAME -->
+        <div class="row w-100">
+            <div class="input-field col s12 m10 l6">
+                <i class="material-icons prefix">bookmark</i>
+                <input type="text" class="form-control text-capitalize validate" id="add_exercise_name"
+                    name="exercise_name" placeholder="Exercise name"
+                    required="required" validate>
+                <label for="add_exercise_name" class="list-label ml-2">Exercise name</label>
+            </div>
+        </div>
+        <!-- ADD EXERCISE DESCRIPTION -->
+        <div class="row w-100">
+            <div class="input-field col s12 m10 l6">
+                <i class="material-icons prefix">description</i>
+                <textarea class="materialize-textarea form-control validate" id="add_exercise_description"
+                    name="exercise_description" placeholder="Description" required="required"></textarea>
+                <label for="add_exercise_description" class="list-label ml-2">Exercise description</label>
+            </div>
+        </div>
+        <!-- ADD COMMENT -->
+        <div class="row w-100">
+            <div class="input-field col s12 m10 l6">
+                <i class="material-icons prefix">comment</i>
+                <input type="text" class="form-control text-capitalize validate" id="add_comment" name="exercise_comment"
+                    placeholder="Comment">
+                <label for="add_comment" class="list-label ml-2">Comment</label>
+            </div>
+        </div>
+        <!-- ADD AIM -->
+        <div class="row w-100">
+            <div class="input-field col s12 m10 l6">
+                <i class="material-icons prefix">star</i>
+                <input type="text" class="form-control text-capitalize validate" id="add_aim" name="exercise_aim"
+                    placeholder="Aim of the exercise">
+                <label for="add_aim" class="list-label ml-2">Aim</label>
+            </div>
+        </div>
+    </section>
 
     <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
     <!-- SAVE inserts the content and returns to CLASS FORM  - .insert() new document with new exercise _id and possible sub-document _id,s-->
