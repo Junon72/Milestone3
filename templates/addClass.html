@@ -12,12 +12,15 @@
     </div>
 </section>
 <!-- CLASS FORM -->
-<form class="col s12" method="POST" action="{{ url_for('insert_class', username=username) }}" id="add_class_form"
+<form class="col s12" method="POST" action="{{ url_for('insert_class', username = user.username, series = series) }}" id="add_class_form"
     autocomplete="off">
     <!-- Disabled autocompletion -->
+    {{ user._id }}
+    {{ series.class_series }}
+
     <!-- HIDDEN INPUTS -->
-    <input type="hidden" id="username" name="username" value="{{ username }}">
-    <input type="hidden" id="user_id" name="user_id" value="{{ user_id._id }}">
+    <input type="hidden" id="username" name="username" value="{{ user.username }}">
+    <input type="hidden" id="user_id" name="user_id" value="{{ user._id }}">
     <!-- FORM SECTIONS -->
     <!-- CLASS FORM SECTIONS -->
     <section class="class-form">
@@ -89,15 +92,15 @@
         <div class="row">
             <div class="input-field col s12 l10 add-series">
                 <i class="material-icons prefix">playlist_add_check</i>
-                {% for serial in series %}
-                {% for name in serial.class_series %}
+                
                 <select multiple name="series" id="series">
-                    <option value="" disabled selected>Select series</option>
-                    <option value="{{ name.series_name }}"> {{ name.series_name }} </option>
+                    <option value="" disabled>Select series</option>
+                    {% for name in series.class_series %}
+                    <option value="{{ name.series_name }}"> {{ name.series_name}} </option>
+                    {% endfor %}
                 </select>
                 <label for="series" class="list-label ml-2">Select class series</label>
-                {% endfor %}
-                {% endfor %}
+               
             </div>
         </div>
         <br>

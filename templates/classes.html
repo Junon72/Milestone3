@@ -15,7 +15,7 @@
         <li class="accordion_list">
             <div class="collapsible-header">
                 <div class="list_header col">
-                    <i class="material-icons accordion_arrow">expand_more</i>
+                    <!---<i class="material-icons accordion_arrow">expand_more</i>-->
                     <strong>{{ class.class_name }}</strong>
                 </div>
             </div>
@@ -25,25 +25,25 @@
 
                 <!-- TOOLS BUTTON FOR THE TOOLS: EDIT/DELETE/DUPLICATE/ADD EXERCISE/ ADD LOG-->
                 <section class="tools">
-                    <div class="fixed-action-btn horizontal">
-                        <a class="btn-floating btn-large red tooltipped" id="class-tools" data-position="top"
+                    <div class="fixed-action-btn vertical">
+                        <a class="btn-floating btn-large red tooltipped" id="class-tools" data-position="left"
                             data-delay="50" data-tooltip="Editor tools">
                             <i class="medium material-icons">build</i></a>
                         <ul>
                             <li><a href="{{ url_for('view_class', class_id=class._id, username = username) }}"
-                                    class="btn-floating yellow darken-2 tooltipped" data-position="top" data-delay="50"
+                                    class="btn-floating yellow darken-2 tooltipped" data-position="left" data-delay="50"
                                     data-tooltip="View class">
                                     <i class="material-icons">remove_red_eye</i></a></li>
                             <li><a href="{{ url_for('edit_class', class_id=class._id, username=username) }}"
-                                    class="btn-floating green tooltipped" data-position="top" data-delay="50"
+                                    class="btn-floating green tooltipped" data-position="left" data-delay="50"
                                     data-tooltip="Edit class">
                                     <i class="material-icons">edit</i></a></li>
                             <li><a href="{{ url_for('delete_class', class_id=class._id) }}"
-                                    class="btn-floating red tooltipped" data-position="top" data-delay="50"
+                                    class="btn-floating red tooltipped" data-position="left" data-delay="50"
                                     data-tooltip="Delete class">
                                     <i class="material-icons">delete</i></a></li>
                             <li><a href="{{ url_for('copy_class', class_id=class._id, username=username) }}"
-                                    class="btn-floating blue-lighten-2 tooltipped" data-position="top" data-delay="50"
+                                    class="btn-floating blue-lighten-2 tooltipped" data-position="left" data-delay="50"
                                     data-tooltip="Duplicate class">
                                     <i class="material-icons">content_copy</i></a></li>
                         </ul>
@@ -53,6 +53,7 @@
         </li>
         {% endfor %}
     </ul>
+    <br>
 </section>
 <!-- Button to add a new class -->
 <div class="divider"></div>

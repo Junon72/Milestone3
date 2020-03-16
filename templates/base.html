@@ -8,7 +8,7 @@
         {% include 'head.html' %}
         <!-- General custom styles -->
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
-
+                
         {% if title %}
         <title>Classapp - {{ title }}</title>
         {% else %}
@@ -20,7 +20,7 @@
         <!-- Navigation -->
         {% include 'navbar.html' %}
 
-        <div class="container pr-0">
+        <div class="container pl-0 pr-0">
                 <div class="row mt-15"></div>
             {% block content %} 
             {% endblock %}

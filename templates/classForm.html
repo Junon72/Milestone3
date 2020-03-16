@@ -1,12 +1,15 @@
 {% block content %}
 <!-- CLASS FORM SECTIONS -->
 <section class="class_form">
+    <!-- HIDDEN INPUTS -->
+    <input type="hidden" id="username" name="username" value="{{ user.username }}">
+    <input type="hidden" id="user_id" name="user_id" value="{{ user._id }}">
     <!-- ADD CLASS NAME -->
     <div class="row">
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">bookmark</i>
             <input type="text" class="form-control text-capitalize validate" id="add_class_name" name="class_name"
-                placeholder="Class name" required="required">
+                placeholder="Class name" required="required" validate value="{{ this_class.class_name }}">
             <label for="add_class_name" class="list-label ml-2">Class name</label>
         </div>
     </div>
@@ -16,7 +19,7 @@
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">description</i>
             <textarea class="materialize-textarea form-control" id="add_class_description" name="class_description"
-                placeholder="Description of the class" required="required"></textarea>
+                placeholder="Class description" required="required" validate value="{{ this_class.class_name }}"></textarea>
             <label for="add_class_description" class="list-label ml-2">Class description</label>
         </div>
     </div>
@@ -26,7 +29,7 @@
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">vpn_key</i>
             <textarea class="materialize-textarea form-control" id="add_main_elements" name="main_elements"
-                placeholder="Main elements to work on the class"></textarea>
+                placeholder="Main elements" value="{{this_class.main_elements}}"></textarea>
             <label for="add_main_elements" class="list-label ml-2">Main elements</label>
         </div>
     </div>
@@ -36,17 +39,7 @@
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">more</i>
             <textarea class="materialize-textarea form-control" id="add_other_elements" name="other_elements"
-                placeholder="Other helpful elements to work with"></textarea>
-            <label for="add_main_elements" class="list-label ml-2">Other helpful elements</label>
-        </div>
-    </div>
-
-    <!-- ADD OTHER ELEMENTS -->
-    <div class="row">
-        <div class="input-field col s12 l10">
-            <i class="material-icons prefix">more</i>
-            <textarea class="materialize-textarea form-control" id="add_other_elements" name="other_elements"
-                placeholder="Other helpful elements to work with"></textarea>
+                placeholder="Other helpful elements" value="{{this_class.other_elements}}"></textarea>
             <label for="add_main_elements" class="list-label ml-2">Other helpful elements</label>
         </div>
     </div>
@@ -56,10 +49,10 @@
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">featured_play_listk</i>
             <input type="text" class="form-control text-capitalize validate" id="add_playlist_title"
-                name="playlist_title" placeholder="Add a playlist Title">
+                name="playlist_title" placeholder="Add a playlist Title" value="{{this_class.playlist_title}}">
             <label for="add_playlist_link" class="list-label ml-2">Playlist link</label>
             <input type="text" class="form-control text-capitalize validate" id="add_playlist_link" name="playlist_link"
-                placeholder="Add a playlist Link">
+                placeholder="Add a playlist Link" value="{{this_class.playlist_link}}">
             <label for="add_playlist_link" class="list-label ml-2">Playlist link</label>
         </div>
     </div>
@@ -72,15 +65,13 @@
     <div class="row">
         <div class="input-field col s12 l10 add-series">
             <i class="material-icons prefix">playlist_add_check</i>
-            {% for serial in series %}
-            {% for name in serial.class_series %}
             <select multiple name="series" id="series">
-                <option value="" disabled selected>Select series</option>
+                <option value="" disabled>Select series</option>
+                {% for name in series.class_series %}
                 <option value="{{ name.series_name }}"> {{ name.series_name }} </option>
+                {% endfor %}
             </select>
             <label for="series" class="list-label ml-2">Select class series</label>
-            {% endfor %}
-            {% endfor %}
         </div>
     </div>
     <div class="divider"> </div>
@@ -88,7 +79,7 @@
 </section>
 
 <!--EXERCISES SECTION-->
-<section class="exercises_section p-3">
+<section class="exercises_section">
     <div class="row">
         <div class="col s12 l10">
             <h6>Exercises:</h6>
@@ -118,35 +109,45 @@
 </section>
 <br>
 <div class="divider"> </div>
-<!-- CLASS LOGS SECTION -->
-<br>
-<section class="class_logs p-3">
-    <!--ADD/DELETE LOGS-->
-    <div class="row">
-        <div class="col s12 l10">
-            <h6>Logs:</h6>
-            {% if logs %}
-            <ul class="collection with-header">
-                {% for log in class_logs %}
-                <li class="collection-header">
-                    <i class="material-icons circle black prefix">date_range</i>
-                    <div>
-                        <h6>{{ log.log_date }}</h6>
-                        <a href="{{ url_for('delete_log', log_id=log._id) }}" class="secondary-content">
-                            <i class="material-icons tooltipped" data-position="top" data-delay="50"
-                                data-tooltip="Delete log">delete</i></a>
-                    </div>
-                </li>
-                <li class="collection-item log-text"><em>{{ log.log_text }}</em></li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <div class="mb-6">
-                <strong class="mb-6">No logs added yet</strong>
+
+<!-- LOGS SECTION IN CLASS VIEW -->
+<section class="logs">
+    <div class="divider"> </div>
+    <br>
+    <h6>Logs:</h6>
+    <br>
+    {% if this_class.logs %}
+    <ul class="collapsible popout" data-collapsible="accordion">
+        {% for log in this_class.logs %}
+        <li class="this_class">
+            <div class="collapsible-header px-0">
+                <div class="class_header col">
+                    <!---<i class="material-icons accordion_arrow">expand_more</i>-->
+                    <strong>{{ log.log_date }}</strong> &nbsp; / &nbsp; <em> {{ log.log_tag | capitalize}} </em>
+                </div>
             </div>
-            {% endif %}
-            <br>
-        </div>
+            <div class="collapsible-body">
+                <div class="row">
+                    <div class="col no-gutters">
+                        <span> {{ log.log_text | capitalize}} </span>
+                    </div>
+                </div>
+                <!--<div class="row no-gutters mb-n3">
+                    <div class="col log-tools mt-2 mr-n3 pr-0 d-flex justify-content-beginning">
+                        <a href="{{ url_for('delete_log', log_id=log._id, class_id=class_id) }}"
+                            class="btn-floating btn-tiny red tooltipped" data-position="top" data-delay="50"
+                            data-tooltip="Delete log"><i class="material-icons">delete</i></a>
+                    </div>
+                </div>-->
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="mb-6">
+        <strong class="mb-6">No logs added yet</strong>
     </div>
+    {% endif %}
 </section>
+<br>
 {% endblock %}

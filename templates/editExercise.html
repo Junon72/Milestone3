@@ -1,29 +1,45 @@
 {% extends "base.html"%}
 {% block content %}
-    <h3>Edit Exercise</h3>
+<h3>Edit Exercise</h3>
 
 <!-- EXERCISE FORM  -->
-<form class="col s12" method="POST" action="{{ url_for('update_exercise', username=session['user']) }}"
-id="add_exercise_form" autocomplete="off">
-<!-- Disabled autocompletion -->
+<form class="col s12" method="POST"
+    action="{{ url_for('update_exercise', class_id=class_id, this_exercise = this_exercise, exercise_id = exercise_id, username=session['user']) }}" id="add_exercise_form"
+    autocomplete="off">
+    <!-- Disabled autocompletion -->
+    {{ this_exercise }}
+    <br>
+    {{ this_exercise.exercises }}
+    <br>
+    {% for exercise in this_exercise.exercises %}
+    {{ exercise.exercise_name }}
 
-<!-- FORM SECTIONS-->
-{% include 'exerciseForm.html' %}
+    {% endfor %}
+    <!-- FORM SECTIONS-->
+    {% include 'exerciseForm.html' %}
 
-<!-- BOTTOM BUTTONS SAVE/ CANCEL-->
-<!-- SAVE inserts the content and returns to CLASS FORM  - .save() the changes to an existing exercise with an existing _id and sub-document _id,s-->
-<!-- CANCEL does not save the content and returns to the CLASS FORM - .get() the class without changes -->
+    <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
+    <!-- SAVE inserts the content and returns to CLASS FORM  - .save() the changes to an existing exercise with an existing _id and sub-document _id,s-->
+    <!-- CANCEL does not save the content and returns to the CLASS FORM - .get() the class without changes -->
 
-<div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
-        <div class="col d-flex justify-content-end">
-            <a href="{{ url_for('add_exercise') }}" class="btn-small waves-effect waves-light green tooltipped save"
-                type="submit" name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
-                <i class="material-icons left">save</i>Save</a>
+    <section class="button-nav">
+        <div class="divider"> </div>
+        <br>
+        <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
+            <div class="row no-gutters">
+                <div class="col d-flex justify-content-end">
+                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                        name="action" data-position="top" data-delay="50" data-tooltip="Save and view">
+                        <i class="material-icons left">save</i>Save</button>
 
-            <a href="{{ url_for('edit_class') }}" class="btn-small waves-effect waves-light grey tooltipped cancel"
-                type="submit" name="back_to_class" data-position="top" data-delay="50" data-tooltip="Cancel and go back">
-                Cancel</a>
+                    <!-- Return to class view -->
+                    <a href="{{ url_for('view_class', class_id=class_id) }}"
+                        class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
+                        name="back_to_class" data-position="top" data-delay="50" data-tooltip="Cancel and go back">
+                        Cancel</a>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 </form>
 {% endblock content %}

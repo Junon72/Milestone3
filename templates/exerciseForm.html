@@ -6,8 +6,8 @@
     <div class="row">
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">bookmark</i>
-            <input type="text" class="form-control text-capitalize validate" id="add_exercise_name" name="exercise_name"
-                placeholder="Exercise name" required="required">
+            <input type="text" class="form-control text-capitalize validate" id="add_exercise_name" value="{{ this_exercise.exercise_name }}" name="exercise_name"
+                placeholder="Exercise name" required="required" validate>
             <label for="add_exercise_name" class="list-label ml-2">Exercise name</label>
         </div>
     </div>
@@ -16,7 +16,7 @@
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">description</i>
             <textarea class="materialize-textarea form-control validate" id="add_exercise_description"
-                name="exercise_description" placeholder="Description of the exercise" required="required"></textarea>
+                name="exercise_description" placeholder="Description" required="required"></textarea>
             <label for="add_exercise_description" class="list-label ml-2">Exercise description</label>
         </div>
     </div>
@@ -48,63 +48,47 @@
     <div class="row">
         <div class="col s12 l10">
             <h6>Music Tracks:</h6>
-            {% if track in exercises.tracks %}
             <ul class="collection with-header">
-                {% for track in exercise.tracks %}
                 <li class="collection-header">
-                    <i class="material-icons circle black prefix">music_note</i>
-                    <div>
-                        <h6>{{ track.track_title }}</h6>
-                        <a href="{{ url_for('delete_track', track_id=track._id) }}" class="secondary-content">
-                            <i class="material-icons tooltipped" data-position="top" data-delay="50"
-                                data-tooltip="Delete track">delete</i></a>
-                    </div>
+                    <i class="material-icons">music_note</i> Music tracks
                 </li>
+                {% for track in this_exercise.tracks %}
                 <li class="collection-item">
-                    <i class="material-icons circle black prefix">playlist_play</i>
-                    <p>{{ track.track_url }}</p>
+                    <span class="title">{{ track.track_title }} &nbsp;</span>
+                    <em>/ &nbsp; {{ track.track_comment | capitalize}}</em>
                 </li>
-                <li class="collection-item track-text"><em>{{ track.track_text }}</em></li>
+                {% else %}
+                <li class="mb-6">
+                    <strong class="mb-6">No music tracks added yet</strong>
+                </li>
                 {% endfor %}
             </ul>
-            {% else %}
-            <div class="mb-6">
-                <strong class="mb-6">No music tracks added yet</strong>
-            </div>
-            {% endif %}
-            <br>
         </div>
     </div>
 </section>
 
 <section class="media video-links">
-<!-- VIDEO LINKS SECTION-->
+    <!-- VIDEO LINKS SECTION-->
     <br>
     <!--ADD/DELETE VIDEO LINKS-->
     <div class="row">
         <div class="col s12 l10">
             <h6>Video Links:</h6>
-            {% if link in exercises.video_links %}
             <ul class="collection with-header">
-                {% for link in exercise.video_links %}
                 <li class="collection-header">
-                    <i class="material-icons circle black prefix">video_library</i>
-                    <div>
-                        <h6>{{ link.video_url }}</h6>
-                        <a href="{{ url_for('delete_link', link_id=link._id) }}" class="secondary-content">
-                            <i class="material-icons tooltipped" data-position="top" data-delay="50"
-                                data-tooltip="Delete link">delete</i></a>
-                    </div>
+                    <i class="material-icons circle black prefix">video_library</i>Video Links
                 </li>
-                <li class="collection-item track-text"><em>{{ link.video_text }}</em></li>
+                {% for link in this_exercise.video_links %}
+                <li class="collection-item">
+                    <span class="title">{{ link.video_title | title}}</span><br>
+                    <em>{{ link.video_text }}</em>
+                </li>
+                {% else %}
+                <li class="mb-6">
+                    <strong class="mb-6">No music tracks added yet</strong>
+                </li>
                 {% endfor %}
             </ul>
-            {% else %}
-            <div class="mb-6">
-                <strong class="mb-6">No videos added yet</strong>
-            </div>
-            {% endif %}
-            <br>
         </div>
     </div>
 </section>

@@ -4,15 +4,15 @@
 <h3>Edit Class Series</h3>
 <!-- EDIT CLASS SERIES-->
 <form class="col s12 l6" method="POST"
-    action="{{ url_for('update_series', series_doc = series_doc ,series_id=series_id, username=session['user']) }}"
+    action="{{ url_for('update_series', series_doc = series_doc, series_id=series_id, username=session['user']) }}"
     id="add_series_form" autocomplete="off">
-    {{series_id}}
     <section class="series_form">
         <!-- ADD SERIES NAME -->
+        {{ series_doc }}
         <div class="row">
             <div class="input-field col s12">
                 <i class="material-icons prefix">bookmark</i>
-                <input id="series_name" name="series_name" type="text" class="validate" placeholder="Class series name"
+                <input id="series_name" name="series_name" value="{{ series_doc.series_name }}" type="text" class="validate" placeholder="Class series name"
                     required="required">
                 <label for="series_name">Class Series Name</label>
             </div>
