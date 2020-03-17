@@ -175,7 +175,7 @@ def add_class():
     return render_template('addClass.html', title="New Class", 
                            user = user, series = series)
 
-# insert() CLASS FORM save COMES HERE
+# insert() CLASS FROM save COMES HERE
 @app.route('/insert_class', methods=['POST'])
 def insert_class():
     username = session['user']
@@ -218,7 +218,7 @@ def edit_class(class_id):
     return render_template('editClass.html', title="Edit Class", user = user, class_id = class_id, this_class = this_class, series = series)
 
 
-# update() CLASS COMES HERE -> 
+# save() CLASS COMES HERE -> 
 @app.route('/save_class/<class_id>', methods=['GET','POST'])
 def save_class(class_id):
     
@@ -280,6 +280,25 @@ def insert_log(class_id):
     print(inserted_log)
     return redirect(url_for('view_class', class_id = class_id))
 
+# EDIT LOG
+@app.route('/edit_log/<class_id>/<log_id>', methods=['GET', 'POST'])
+def edit_log(class_id, log_id):
+    print(log_id)
+    this_log = classes_collection.find_one({'_id': ObjectId(class_id)}, {'logs': {"$elemMatch" : {'_id': ObjectId(log_id)}}})
+    print(this_log)
+    return render_template('editLog.html', title='Edit log', this_log = this_log, class_id = class_id, log_id = log_id)
+
+# UPDATE LOG
+@app.route('/update_log/<class_id>/<log_id>', methods=['POST'])           
+def update_log(class_id, log_id):
+    update_log = classes_collection.update_one({'_id': ObjectId(class_id), 'logs._id': ObjectId(log_id)}, {'$set': {
+        'logs.$.log_date': request.form.get('log_date'),
+        'logs.$.log_text': request.form.get('log_text'),
+        'logs.$.log_tag': request.form.get('log_tag')
+    }})
+    print(update_log)
+    return redirect(url_for('view_class', class_id = class_id))
+
 # DELETE LOG - $pull{}
 @app.route('/delete_log/<class_id>/<log_id>')           
 def delete_log(class_id, log_id):
@@ -312,7 +331,7 @@ def insert_exercise(class_id):
     return redirect(url_for('view_class', class_id=class_id))
 
 # EDIT EXERCISE
-@app.route('/edit_exercise/<class_id>/<exercise_id>', methods=['GET', 'POST'])
+@app.route('/edit_exercise/<class_id>/<exercise_id>', methods=['GET','POST'])
 def edit_exercise(class_id, exercise_id):
     print(exercise_id)
     this_exercise = classes_collection.find_one({'_id': ObjectId(class_id)}, {'exercises': {"$elemMatch" : {'_id': ObjectId(exercise_id)}}})
@@ -324,18 +343,18 @@ def edit_exercise(class_id, exercise_id):
 def update_exercise(class_id, exercise_id):
     print(exercise_id)
     updated_exercise = classes_collection.update_one(
-        {'_id': ObjectId(class_id)}, {'exercises': {"$elemMatch" : {'_id': ObjectId(exercise_id)}}}, {'$set':{
-            'exercises.$.exercise_name': request.form.get('exercise_name'),
-            'exercises.$.exercise_description': request.form.get('exercise_description'),
-            'exercises.$.exercise_comment': request.form.get('exercise_comment'),
-            'exercises.$.exercise_aim': request.form.get('exercise_aim')}})
-    # TypeError: upsert must be True or False
+        {'_id': ObjectId(class_id), 'exercises._id': ObjectId(exercise_id)}, {'$set': {
+        'exercises.$.exercise_name': request.form.get('exercise_name'),
+        'exercises.$.exercise_description': request.form.get('exercise_description'),
+        'exercises.$.exercise_comment': request.form.get('exercise_comment'),
+        'exercises.$.exercise_aim': request.form.get('exercise_aim')}})
     print(updated_exercise)
     return redirect(url_for('view_class', class_id=class_id))
 
 # DELETE EXERCISE
 @app.route('/delete_exercise')
 def delete_exercise():
+    deleted_exercise = classes_collection.update_one({'_id': ObjectId(class_id)}, {'$pull': { 'exercises': {'_id': ObjectId(exercise_id)}}} )
     print("Exercise was deleted")
     return redirect(url_for('view_class'))
 
@@ -349,7 +368,7 @@ def add_track(class_id, exercise_id):
     print(exercise_id)
     return render_template('addTrack.html', title="Music Track", class_id = class_id, exercise_id = exercise_id)
 
-# save() track
+# insert() track
 @app.route('/insert_track/<class_id>/<exercise_id>', methods=['POST'])
 def insert_track(class_id, exercise_id):
     new_track = {
@@ -357,7 +376,7 @@ def insert_track(class_id, exercise_id):
         'track_link': request.form.get('track_link'),
         'track_comment': request.form.get('track_comment')
 	}
-    inserted_track = classes_collection.update_one({_id: ObjectId(class_id)}, { 'exercises' :{ '$push': {new_track}}})
+    inserted_track = classes_collection.save({_id: ObjectId(class_id)}, { 'exercises' :{ '$push': {new_track}}})
     track_id = inserted_track.inserted_id
     print(track_id)
     return redirect(url_for('edit_exercise'), title='Edit Exercise')

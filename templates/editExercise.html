@@ -1,13 +1,19 @@
 {% extends "base.html"%}
 {% block content %}
-<h3>Edit Exercise</h3>
+
+<section class="page-title">
+        <div class="row">
+            <div class="col mb-4 mt-2">
+                <h5>Edit {{ this_exercise.exercise_name }}</h5>
+            </div>
+        </div>
+    </section>
 
 <!-- EXERCISE FORM  -->
 <form class="col s12" method="POST"
     action="{{ url_for('update_exercise', class_id=class_id, exercise_id = exercise_id, username=session['user']) }}" id="edit_exercise_form"
     autocomplete="off">
     <!-- Disabled autocompletion -->
-    {{ exercise_id }}
     <!-- FORM SECTIONS-->
     {% include 'exerciseForm.html' %}
 
