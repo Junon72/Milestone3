@@ -19,8 +19,8 @@
         <div class="input-field col s12 m10 l6">
             <i class="material-icons prefix">description</i>
             <textarea class="materialize-textarea form-control validate" id="add_exercise_description"
-                name="exercise_description" placeholder="Description" required="required"
-                value="{{ exercise.exercise_description }}"></textarea>
+                name="exercise_description" placeholder="Description"
+                required="required">{{ exercise.exercise_description }}</textarea>
             <label for="add_exercise_description" class="list-label ml-2">Exercise description</label>
         </div>
     </div>
@@ -28,8 +28,8 @@
     <div class="row w-100">
         <div class="input-field col s12 m10 l6">
             <i class="material-icons prefix">comment</i>
-            <input type="text" class="form-control text-capitalize validate" id="add_comment" name="exercise_comment"
-                placeholder="Comment" value="{{ exercise.exercise_comment }}">
+            <textarea class="materialize-textarea form-control validate" id="add_comment" name="exercise_comment"
+                placeholder="Comment">{{ exercise.exercise_comment }}</textarea>
             <label for="add_comment" class="list-label ml-2">Comment</label>
         </div>
     </div>
@@ -37,8 +37,8 @@
     <div class="row w-100">
         <div class="input-field col s12 m10 l6">
             <i class="material-icons prefix">star</i>
-            <input type="text" class="form-control text-capitalize validate" id="add_aim" name="exercise_aim"
-                placeholder="Aim of the exercise" value="{{ exercise.exercise_aim }}">
+            <textarea class="materialize-textarea form-control validate" id="add_aim" name="exercise_aim"
+                placeholder="Aim of the exercise">{{ exercise.exercise_aim }}</textarea>
             <label for="add_aim" class="list-label ml-2">Aim</label>
         </div>
     </div>
@@ -88,8 +88,8 @@
                 </li>
                 {% else %}
                 <li class="collection-item">
-                        <em>No video links added yet</em>
-                    </li>
+                    <em>No video links added yet</em>
+                </li>
                 {% endfor %}
             </ul>
         </div>

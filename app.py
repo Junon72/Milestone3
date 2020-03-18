@@ -31,7 +31,7 @@ series_collection = mongo.db.series
 
 @app.route('/')
 
-# Login
+# LOGIN - html/ form
 @app.route('/index', methods=['GET'])
 def index():
 	# Check if user is logged in already
@@ -45,35 +45,27 @@ def index():
 		# Render the page for user to be able to log in
 		return render_template("index.html", title = "Login", current_users = list(users_collection.find()))
 
-# Check user login details from login form
+# CHECK USER LOGIN DETAILS FROM LOGIN FORM - 
 @app.route('/user_auth', methods=['POST'])
 def user_auth():
 	form = request.form.to_dict()
-	print('this form')
-	print(form)
 	user_in_db = users_collection.find_one({'username': form['username']})
-	print('this user')
-	print(user_in_db)
 	# Check for user in database
 	if user_in_db:
 		# If passwords match (hashed / real password)
 		if check_password_hash(user_in_db['password'], form['password']):
-			print('this is not see')
 			# Log user in (add to session)
 			session['user'] = form['username']
-			print('this session user')
-			print(session['user'])
 			return redirect(url_for('classes', username=user_in_db['username']))
 			
 		else:
 			flash("Wrong password or user name!")
-			print('oops!')
 			return redirect(url_for('index'))
 	else:
 		flash("You must be registered!")
 		return redirect(url_for('register'))
 
-# Sign up
+# SIGN UP A NEW USER - html/ form - insert_one()
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 	# Check if user is not logged in already
@@ -89,7 +81,7 @@ def register():
 			if user:
 				flash(f"{form['username']} already exists!")
 				return redirect(url_for('register'))
-			# If user does not exist register new user
+			# If user does not exist register new user - insert user to user collection
 			else:				
 				# Hash password
 				hash_pass = generate_password_hash(form['password'])
@@ -101,23 +93,23 @@ def register():
 						'password': hash_pass
 					}
 				)
-				# Check if user is actually saved
+				# Check if user is actually inserted
 				user_in_db = users_collection.find_one({"username": form['username']})
 				if user_in_db:
 					# Log user in (add to session)
 					session['user'] = user_in_db['username']
 					return redirect(url_for('/index', user=user_in_db['username']))
 				else:
-					flash("There was a problem registering you, please try again")
+					flash("There was a problem with registration, please try again")
 					return redirect(url_for('register'))
 
 		else:
-			flash("The passwords are not identical!")
+			flash("Passwords don't match! Try again.")
 			return redirect(url_for('register'))
 		
 	return render_template(url_for('register'), title='Register')
 
-# Log out
+# LOGOUT USER AND RETURN TO LOGIN PAGE
 @app.route('/logout')
 def logout():
 	# Clear the session
@@ -129,7 +121,7 @@ def logout():
 
 ###################################### Handling Classes / CRUD #################################
 
-# VIEW CLASSES
+# VIEW ALL CLASSES IN USER'S COLLECTION - html/ view
 @app.route('/classes')           
 def classes():          
     # Check if user is logged in
@@ -147,8 +139,10 @@ def classes():
     else:
     	flash("You must be logged in!")
     	return redirect(url_for('index'))
+ 
+###################################### Handling Class in Classes / CRUD #################################
 
-# VIEW CLASS
+# VIEW CLASS IN COLLECTION - html/ view
 @app.route('/view_class/<class_id>')
 def view_class(class_id):
     username = session['user']
@@ -165,7 +159,7 @@ def view_class(class_id):
                                username = username,
                                series = series)
 
-# ADD CLASS
+# ADD CLASS - html/ form
 @app.route('/add_class')
 def add_class():
     user = users_collection.find_one({'username': session['user']})
@@ -175,7 +169,7 @@ def add_class():
     return render_template('addClass.html', title="New Class", 
                            user = user, series = series)
 
-# insert() CLASS FROM save COMES HERE
+# INSERT NEW CLASS TO COLLECTION - insert_one()
 @app.route('/insert_class', methods=['POST'])
 def insert_class():
     username = session['user']
@@ -205,7 +199,7 @@ def insert_class():
         { '$set': { 'series': series}})
     return redirect(url_for('view_class', class_id=class_id, username=username, this_class=this_class ))
 
-# EDIT CLASS
+# EDIT CLASS - html/ form
 @app.route('/edit_class/<class_id>')
 def edit_class(class_id):
     user = users_collection.find_one({'username': session['user']})
@@ -218,10 +212,9 @@ def edit_class(class_id):
     return render_template('editClass.html', title="Edit Class", user = user, class_id = class_id, this_class = this_class, series = series)
 
 
-# save() CLASS COMES HERE -> 
+# UPDATE CLASS AFTER EDIT - update_one()
 @app.route('/save_class/<class_id>', methods=['GET','POST'])
 def save_class(class_id):
-    
     updated_class = classes_collection.update(
         {'_id': ObjectId(class_id)},
         { '$set':
@@ -243,7 +236,7 @@ def save_class(class_id):
         { '$set': { 'series': series}})
     return redirect(url_for('view_class', class_id = class_id ))
 
-# DELETE CLASS - remove() -> to view
+# DELETE CLASS FROM COLLECTION - remove()
 @app.route('/delete_class/<class_id>')
 def delete_class(class_id):
     deleted_class = classes_collection.remove({'_id': ObjectId(class_id)})
@@ -258,16 +251,15 @@ def copy_class():
     return redirect(url_for('save_class', title="Edit Class(copy)"))
     # Get the class and populate the form with some additional information - add (copy) in name value 
 
-##########################
-## Handling Logs / CRUD ##
+###################################### Handling Logs in Class / CRUD #################################
 
-# ADD LOG
+# ADD LOG - html/ form
 @app.route('/add_log/<class_id>/<username>')
 def add_log(class_id, username):
     print(class_id)
     return render_template('addLog.html', class_id = class_id, username = username)
                  
-# insert log - $addToSet{}
+# INSERT LOG TO CLASS - update_one(), $addToSet{}
 @app.route('/insert_log/<class_id>', methods=['POST'])
 def insert_log(class_id):
     new_log = {
@@ -280,7 +272,7 @@ def insert_log(class_id):
     print(inserted_log)
     return redirect(url_for('view_class', class_id = class_id))
 
-# EDIT LOG
+# EDIT LOG IN CLASS - html/ form - find_one(), $elemMatch{} 
 @app.route('/edit_log/<class_id>/<log_id>', methods=['GET', 'POST'])
 def edit_log(class_id, log_id):
     print(log_id)
@@ -288,7 +280,7 @@ def edit_log(class_id, log_id):
     print(this_log)
     return render_template('editLog.html', title='Edit log', this_log = this_log, class_id = class_id, log_id = log_id)
 
-# UPDATE LOG
+# UPDATE LOG IN CLASS AFTER EDIT - update_one(), $set{}
 @app.route('/update_log/<class_id>/<log_id>', methods=['POST'])           
 def update_log(class_id, log_id):
     update_log = classes_collection.update_one({'_id': ObjectId(class_id), 'logs._id': ObjectId(log_id)}, {'$set': {
@@ -299,7 +291,7 @@ def update_log(class_id, log_id):
     print(update_log)
     return redirect(url_for('view_class', class_id = class_id))
 
-# DELETE LOG - $pull{}
+# DELETE LOG FROM CLASS - update_one(), $pull{}
 @app.route('/delete_log/<class_id>/<log_id>')           
 def delete_log(class_id, log_id):
     deleted_log = classes_collection.update_one({'_id': ObjectId(class_id)}, {'$pull': { 'logs': {'_id': ObjectId(log_id)}}} )
@@ -309,12 +301,12 @@ def delete_log(class_id, log_id):
 
 ###################################### Handling Exercises / CRUD #################################
 
-# ADD EXERCISE
+# ADD EXERCISE - html/ form
 @app.route('/add_exercise/<class_id>')
 def add_exercise(class_id):
     return render_template('addExercise.html', title='New exercise', class_id=class_id)
 
-# insert exercise - $addToSet()
+# INSERT EXERCISE TO CLASS - update_one(), $addToSet{}
 @app.route('/insert_exercise/<class_id>', methods=['POST'])
 def insert_exercise(class_id):
     new_exercise = {
@@ -330,7 +322,7 @@ def insert_exercise(class_id):
     print(inserted_exercise)
     return redirect(url_for('view_class', class_id=class_id))
 
-# EDIT EXERCISE
+# EDIT EXERCISE - html/ form
 @app.route('/edit_exercise/<class_id>/<exercise_id>', methods=['GET','POST'])
 def edit_exercise(class_id, exercise_id):
     print(exercise_id)
@@ -338,10 +330,13 @@ def edit_exercise(class_id, exercise_id):
     print(this_exercise)
     return render_template('editExercise.html', title='Edit exercise', this_exercise = this_exercise, class_id = class_id, exercise_id = exercise_id)
 
-# update() EXERCISE COMES HERE
+# UPDATE EXERCISE AFTER EDITING - update_one(), $set{}
 @app.route('/update_exercise/<class_id>/<exercise_id>', methods=['POST'])
 def update_exercise(class_id, exercise_id):
     print(exercise_id)
+    # updates the exercise entry in class - to tackle the issue of updating sub-documents in arrays:
+    # https://stackoverflow.com/questions/36841911/mongodb-update-complex-document?noredirect=1&lq=1
+    # provided the information I needed to formulate the correct syntax
     updated_exercise = classes_collection.update_one(
         {'_id': ObjectId(class_id), 'exercises._id': ObjectId(exercise_id)}, {'$set': {
         'exercises.$.exercise_name': request.form.get('exercise_name'),
@@ -351,62 +346,65 @@ def update_exercise(class_id, exercise_id):
     print(updated_exercise)
     return redirect(url_for('view_class', class_id=class_id))
 
-# DELETE EXERCISE
+# DELETE EXERCISE IN CLASS - update_one(), $pull{}
 @app.route('/delete_exercise')
 def delete_exercise():
     deleted_exercise = classes_collection.update_one({'_id': ObjectId(class_id)}, {'$pull': { 'exercises': {'_id': ObjectId(exercise_id)}}} )
-    print("Exercise was deleted")
     return redirect(url_for('view_class'))
 
 
-######################################  Handling Music Tracks / CRUD 
+######################################  Handling Music Tracks in exercises/ CRUD 
 
- # ADD MUSIC TRACK
-@app.route('/add_track/<class_id>/<exercise_id>', methods=['POST'])
+ # ADD MUSIC TRACK - html/ form
+@app.route('/add_track/<class_id>/<exercise_id>')
 def add_track(class_id, exercise_id):
-    print(class_id)
-    print(exercise_id)
+    # print(class_id)
+    # print(exercise_id)
     return render_template('addTrack.html', title="Music Track", class_id = class_id, exercise_id = exercise_id)
 
-# insert() track
+# INSERT NEW TRACK TO EXERCISE - update_one(), $addToSet{}
 @app.route('/insert_track/<class_id>/<exercise_id>', methods=['POST'])
 def insert_track(class_id, exercise_id):
     new_track = {
+        '_id': ObjectId(),
         'track_title': request.form.get('track_title'),
         'track_link': request.form.get('track_link'),
         'track_comment': request.form.get('track_comment')
 	}
-    inserted_track = classes_collection.save({_id: ObjectId(class_id)}, { 'exercises' :{ '$push': {new_track}}})
-    track_id = inserted_track.inserted_id
-    print(track_id)
-    return redirect(url_for('edit_exercise'), title='Edit Exercise')
+    inserted_track = classes_collection.update_one({'_id': ObjectId(class_id), 'exercises._id':ObjectId(exercise_id)}, { '$addToSet': {'exercises.$.tracks' : new_track}})
+    return redirect(url_for('view_class', class_id = class_id))
 
-# DELETE MUSIC  TRACK- $pull{} 
-@app.route('/delete_track/<class_id>/<exercise_id>')
-def delete_track(class_id, exercise_id):
-    deleted_track = classes_collection.update({'_id': ObjectId(class_id)}, { 'exercises' : {'$pull': { 'tracks': { 'tracks_id': ObjectId(track_id)}}}})
-    return redirect(url_for('view_class'))
+# DELETE MUSIC TRACK FROM EXERCISE- update_one(), $pull{} 
+@app.route('/delete_track/<class_id>/<exercise_id>/<track_id>')
+def delete_track(class_id, exercise_id, track_id):
+    deleted_track = classes_collection.update_one({'_id': ObjectId(class_id), 'exercises._id':ObjectId(exercise_id)}, {'$pull': { 'exercises.$.tracks' : { '_id': ObjectId(track_id)}}})
+    return redirect(url_for('view_class', class_id = class_id))
 
 
 ##################################### Handling Video Links / CRUD 
 
-# ADD VIDEO LINK
-@app.route('/add_link/<class_id>/<exercise_id>', methods=['POST'])
+# ADD VIDEO LINK - html/ form
+@app.route('/add_link/<class_id>/<exercise_id>')
 def add_link(class_id, exercise_id):
-    print("Link was added")
-    return render_template('addLink.html', title="Video link", )
+    return render_template('addLink.html', title="Video link", class_id = class_id, exercise_id = exercise_id)
 
-# insert() link
-@app.route('/insert_link', methods=['POST'])
-def insert_link():
-    print("Link was inserted")
-    return redirect(url_for('edit_exercise'), title='Edit Exercise')
+# INSERT NEW VIDEO LINK TO EXERCISE - update_one(), $addToSet{}
+@app.route('/insert_link/<class_id>/<exercise_id>', methods=['POST'])
+def insert_link(class_id, exercise_id):
+    new_link = {
+        '_id': ObjectId(),
+        'video_title': request.form.get('video_title'),
+        'video_link': request.form.get('video_link'),
+        'video_comment': request.form.get('video_comment')
+	}
+    inserted_link = classes_collection.update_one({'_id': ObjectId(class_id), 'exercises._id':ObjectId(exercise_id)}, { '$addToSet': {'exercises.$.links' : new_link}})
+    return redirect(url_for('view_class', class_id = class_id))
 
-# DELETE MUSIC - remove()
-@app.route('/delete_link')
-def delete_link():
-    print("Link was deleted")
-    return redirect(url_for('edit_exercise'), title='Edit Exercise')
+# DELETE VIDEO LINK FORM EXERCISE - update_one(), $pull{} 
+@app.route('/delete_link/<class_id>/<exercise_id>/<link_id>')
+def delete_link(class_id, exercise_id, link_id):
+    deleted_link = classes_collection.update_one({'_id': ObjectId(class_id), 'exercises._id':ObjectId(exercise_id)}, {'$pull': { 'exercises.$.links' : { '_id': ObjectId(link_id)}}})
+    return redirect(url_for('view_class', class_id = class_id))
 
 
 ###################################### Handling Class Series / CRUD #################################
@@ -419,14 +417,14 @@ def series():
         # If so get the user classes and pass them to a template
         user_in_db = users_collection.find_one({'username': session['user']})
         username = session['user']
-        series = series_collection.find({'username': username})
-        print(series)
+        all_series = series_collection.find({'username': username})
+        print(all_series)
         print(username)
         print(user_in_db)
         return render_template('series.html',
                                title = 'Series', 
                                username = username,
-                               series = series)
+                               all_series = all_series)
     else:
     	flash("You must be logged in!")
     	return redirect(url_for('index'))
@@ -473,16 +471,21 @@ def insert_series(username):
     return redirect(url_for('series', title='Series', username=username ))
     
 # EDIT SERIES
-@app.route('/edit_series/<series_doc>/<series_id>')
+@app.route('/edit_series/<series_doc>/<series_id>', methods=['GET', 'POST'])
 def edit_series(series_doc, series_id):
-    username = session['user']
-    print(series_doc)
-    return render_template('editSeries.html', title='Edit series', series_doc=series_doc, series_id = series_id)
+    this_series = series_collection.find_one({'_id': ObjectId(series_doc)}, { 'class_series' : {'$elemMatch': { '_id': ObjectId(series_id)}}})
+    return render_template('editSeries.html', title='Edit series', this_series = this_series, series_doc=series_doc, series_id = series_id)
 
 # update() SERIES COMES HERE
-@app.route('/update_series/<series_id>', methods=['POST'])
-def update_series(series_id):
-    print(series_doc, series_id)
+@app.route('/update_series/<series_doc>/<series_id>', methods=['GET', 'POST'])
+def update_series(series_doc, series_id):
+    
+    updated_series = series_collection.update_one(
+        {'_id': ObjectId(series_doc), 'class_series._id': ObjectId(series_id)}, {'$set' : {
+            'class_series.$.series_name' : request.form.get('series_name'),
+            'class_series.$.series_description': request.form.get('series_description')
+        }})
+    print(updated_series)
     return redirect(url_for('series'))
 
 # DELETE CLASS SERIES - remove()

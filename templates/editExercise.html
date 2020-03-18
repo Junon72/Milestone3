@@ -1,18 +1,19 @@
 {% extends "base.html"%}
 {% block content %}
-
+<div class="row">
+    <div class="col top-spacer mt-12"></div>
+</div>
 <section class="page-title">
-        <div class="row">
-            <div class="col mb-4 mt-2">
-                <h5>Edit {{ this_exercise.exercise_name }}</h5>
-            </div>
+    <div class="row">
+        <div class="col mb-4 mt-2">
+            <h5>Edit {{ this_exercise.exercise_name }}</h5>
         </div>
-    </section>
-
+    </div>
+</section>
 <!-- EXERCISE FORM  -->
 <form class="col s12" method="POST"
-    action="{{ url_for('update_exercise', class_id=class_id, exercise_id = exercise_id, username=session['user']) }}" id="edit_exercise_form"
-    autocomplete="off">
+    action="{{ url_for('update_exercise', class_id=class_id, exercise_id = exercise_id, username=session['user']) }}"
+    id="edit_exercise_form" autocomplete="off">
     <!-- Disabled autocompletion -->
     <!-- FORM SECTIONS-->
     {% include 'exerciseForm.html' %}

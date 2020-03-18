@@ -19,7 +19,7 @@
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">description</i>
             <textarea class="materialize-textarea form-control" id="add_class_description" name="class_description"
-                placeholder="Class description" required="required" validate value="{{ this_class.class_name }}"></textarea>
+                placeholder="Class description" required="required" validate>{{ this_class.class_description }}</textarea>
             <label for="add_class_description" class="list-label ml-2">Class description</label>
         </div>
     </div>
@@ -29,7 +29,7 @@
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">vpn_key</i>
             <textarea class="materialize-textarea form-control" id="add_main_elements" name="main_elements"
-                placeholder="Main elements" value="{{this_class.main_elements}}"></textarea>
+                placeholder="Main elements">{{this_class.main_elements}}</textarea>
             <label for="add_main_elements" class="list-label ml-2">Main elements</label>
         </div>
     </div>
@@ -39,7 +39,7 @@
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">more</i>
             <textarea class="materialize-textarea form-control" id="add_other_elements" name="other_elements"
-                placeholder="Other helpful elements" value="{{this_class.other_elements}}"></textarea>
+                placeholder="Other helpful elements">{{this_class.other_elements}}</textarea>
             <label for="add_main_elements" class="list-label ml-2">Other helpful elements</label>
         </div>
     </div>

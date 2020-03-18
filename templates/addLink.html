@@ -1,10 +1,20 @@
 {% extends "base.html"%}
 
 {% block content %}
-<h1>Add a Video Link</h1>
+<div class="row">
+    <div class="col top-spacer mt-12"></div>
+</div>
+<section class="page-title">
+    <div class="row">
+        <div class="col mb-4 mt-2">
+            <h5>Add a Video Link</h5>
+        </div>
+    </div>
+</section>
 <!-- ADD VIDEO LINK-->
-<form class="col s12 l6" method="POST" action="{{ url_for('add_link', username=session['user']) }}" id="add_link_form"
-    autocomplete="off">
+<form class="col s12 l6" method="POST"
+    action="{{ url_for('insert_link', class_id = class_id, exercise_id = exercise_id, username=session['user']) }}"
+    id="add_link_form" autocomplete="off">
     <section class="link_form">
 
         <!-- ADD TRACK TITLE-->
@@ -22,8 +32,8 @@
             <div class="input-field col s12 l10">
                 <i class="material-icons prefix">insert_link</i>
                 <input type="text" class="form-control text-capitalize validate" id="add_video_link" name="video_link"
-                    placeholder="Link to a video demonstrating the exercise">
-                <label for="add_video_link" class="list-label ml-2">Music Track Link</label>
+                    placeholder="Link to a video">
+                <label for="add_video_link" class="list-label ml-2">Vide Link</label>
             </div>
         </div>
 
@@ -31,8 +41,8 @@
         <div class="row">
             <div class="input-field col s12 l6">
                 <i class="material-icons prefix">insert_comment</i>
-                <textarea class="materialize-textarea form-control" id="add_video_comment" name="video_comment"
-                    placeholder="Comment"></textarea>
+                <textarea class="materialize-textarea form-control validate" id="add_video_comment"
+                    name="video_comment" placeholder="Comment"></textarea>
                 <label for="add_video_comment" class="list-label ml-2">Comment</label>
             </div>
         </div>
@@ -45,17 +55,16 @@
         <br>
         <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
             <div class="row">
-                <div class="col s12 offset-l6">
-                    <a href="{{ url_for('insert_link') }}" class="btn waves-effect waves-light green tooltipped"
-                        type="submit" name="save_log" data-position="bottom" data-delay="50"
-                        data-tooltip="Save and go back">
-                        <i class="material-icons left">save</i>Save</a>
+                <div class="col d-flex justify-content-end">
+                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                        name="save_link" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                        <i class="material-icons left">save</i>Save</button>
 
                     <!-- Check the exercise _id and repopulate the add_exercise form -->
-                    <a href="{{ url_for('edit_exercise') }}" class="btn waves-effect waves-light grey tooltipped"
-                        type="submit" name="back_to_class" data-position="bottom" data-delay="50"
-                        data-tooltip="Cancel and go back">
-                        <i class="material-icons left">chevron_left</i>Cancel</a>
+                    <a href="{{ url_for('view_class', class_id = class_id) }}"
+                        class="btn-small waves-effect waves-light grey tooltipped" type="submit" name="back_to_class"
+                        data-position="top" data-delay="50" data-tooltip="Cancel and go back">
+                        Cancel</a>
                 </div>
             </div>
         </div>

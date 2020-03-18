@@ -1,6 +1,8 @@
 {% extends "base.html"%}
 {% block content %}
-
+<div class="row">
+    <div class="col top-spacer mt-12"></div>
+</div>
 <section class="page-title">
     <div class="row">
         <div class="col mb-4 mt-2">
@@ -16,14 +18,13 @@
 
     <!-- FORM SECTIONS-->
     <!-- EXERCISE FORM SECTIONs -->
-<section class="exercise_form">
+    <section class="exercise_form">
         <!-- ADD EXERCISE NAME -->
         <div class="row w-100">
             <div class="input-field col s12 m10 l6">
                 <i class="material-icons prefix">bookmark</i>
                 <input type="text" class="form-control text-capitalize validate" id="add_exercise_name"
-                    name="exercise_name" placeholder="Exercise name"
-                    required="required" validate>
+                    name="exercise_name" placeholder="Exercise name" required="required" validate>
                 <label for="add_exercise_name" class="list-label ml-2">Exercise name</label>
             </div>
         </div>
@@ -40,8 +41,8 @@
         <div class="row w-100">
             <div class="input-field col s12 m10 l6">
                 <i class="material-icons prefix">comment</i>
-                <input type="text" class="form-control text-capitalize validate" id="add_comment" name="exercise_comment"
-                    placeholder="Comment">
+                <textarea class="materialize-textarea form-control validate" id="add_comment" name="exercise_comment"
+                    placeholder="Comment"></textarea>
                 <label for="add_comment" class="list-label ml-2">Comment</label>
             </div>
         </div>
@@ -49,8 +50,8 @@
         <div class="row w-100">
             <div class="input-field col s12 m10 l6">
                 <i class="material-icons prefix">star</i>
-                <input type="text" class="form-control text-capitalize validate" id="add_aim" name="exercise_aim"
-                    placeholder="Aim of the exercise">
+                <textarea class="materialize-textarea form-control validate" id="add_aim" name="exercise_aim"
+                placeholder="Aim of the exercise"></textarea>
                 <label for="add_aim" class="list-label ml-2">Aim</label>
             </div>
         </div>
@@ -70,7 +71,7 @@
                         <i class="material-icons left">save</i>Save</button>
 
                     <!-- Return to classes view -->
-                    <a href="{{ url_for('classes') }}"
+                    <a href="{{ url_for('view_class', class_id = class_id) }}"
                         class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
                         value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
                         data-tooltip="Cancel and go back">

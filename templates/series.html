@@ -1,14 +1,19 @@
 {% extends "base.html"%}
 
 {% block content %}
-<div class="row top-spacer mt-10"></div>
-<!-- CLASSES VIEW -->
-<section class="classes-view-title">
-    <h3>Series</h3>
+<div class="row">
+    <div class="col top-spacer mt-12"></div>
+</div>
+<section class="page-title">
+    <div class="row">
+        <div class="col mb-4 mt-2">
+            <h5>Series</h5>
+        </div>
+    </div>
 </section>
 <section class="classes-view-content">
     <ul class="collapsible" data-collapsible="accordion">
-        {% for series in series %}
+        {% for series in all_series %}
         {% if series %}
         {% for serial in series.class_series %}
         <li class="accordion_list">
@@ -23,7 +28,7 @@
 
                 <!-- Tool buttons for series -->
                 <div class="fixed-action-btn vertical">
-                    <a class="btn-floating btn-medium red tooltipped" data-position="left" data-delay="50"
+                    <a class="btn-floating btn-large red tooltipped" data-position="left" data-delay="50"
                         data-tooltip="Editor tools">
                         <i class="medium material-icons">build</i></a>
                     <ul>
@@ -37,7 +42,7 @@
                                 data-tooltip="Edit series">
                                 <i class="material-icons">edit</i></a></li>
                         <li><a href="{{ url_for('delete_series', series_doc = series._id, series_id = serial._id) }}"
-                                class="btn-floating red tooltipped" data-position="left" data-delay="50"
+                                class="btn-floating red accent-4 tooltipped" data-position="left" data-delay="50"
                                 data-tooltip="Delete class series">
                                 <i class="material-icons">delete</i></a></li>
                     </ul>
@@ -47,7 +52,7 @@
         {% endfor %}
     </ul>
     {% else %}
-    <h6>You haven't created any class series yet</h6>
+    <strong>You haven't created any class series yet</strong>
     {% endif %}
     {% endfor %}
 
