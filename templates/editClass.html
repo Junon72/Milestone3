@@ -15,7 +15,7 @@
 <section class="class-info">
     <!-- CLASS FORM -->
     <form class="col s12" method="POST"
-        action="{{ url_for('save_class', this_class = this_class._id, class_id = class_id, series = series, username=session['user']) }}"
+        action="{{ url_for('save_class', this_class = this_class._id, class_id = class_id, series = series, series_doc = series._id, username=session['user']) }}"
         id="edit_class_form" autocomplete="off">
         <!-- Disabled autocompletion -->
         {% include 'classForm.html' %}

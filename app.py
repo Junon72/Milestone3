@@ -8,6 +8,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 import json
 from werkzeug.security import generate_password_hash, check_password_hash
+from ast import literal_eval
 
 
 
@@ -30,6 +31,8 @@ series_collection = mongo.db.series
 
 
 @app.route('/')
+
+###################################### LOGIN/OUT AND REGISTERING #################################
 
 # LOGIN - html/ form
 @app.route('/index', methods=['GET'])
@@ -118,7 +121,6 @@ def logout():
 	return redirect(url_for('index'))
 
 
-
 ###################################### Handling Classes / CRUD #################################
 
 # VIEW ALL CLASSES IN USER'S COLLECTION - html/ view
@@ -204,18 +206,19 @@ def insert_class():
 def edit_class(class_id):
     user = users_collection.find_one({'username': session['user']})
     this_class =  classes_collection.find_one({"_id": ObjectId(class_id)})
-    print(this_class)
+    print('this class', this_class)
+    print(type(this_class))
     class_id = class_id
     print(class_id)
     series = series_collection.find_one({'username': session['user']})
-    print(series)
+    print('series in collection', series)
     return render_template('editClass.html', title="Edit Class", user = user, class_id = class_id, this_class = this_class, series = series)
 
 
 # UPDATE CLASS AFTER EDIT - update_one()
-@app.route('/save_class/<class_id>', methods=['GET','POST'])
-def save_class(class_id):
-    updated_class = classes_collection.update(
+@app.route('/save_class/<class_id>/<series_doc>', methods=['GET','POST'])
+def save_class(class_id, series_doc):
+    updated_class = classes_collection.update_one(
         {'_id': ObjectId(class_id)},
         { '$set':
         { 'class_name': request.form.get('class_name'),
@@ -228,12 +231,25 @@ def save_class(class_id):
         'class_notes': request.form.get('class_notes'),
         'user_id': request.form.get('user_id'),
         'username': request.form.get('username')}})
-    print(updated_class)
-    series = request.form.getlist('series')
-    print(series)
-    classes_collection.update_many(
-        {'_id': ObjectId(class_id)},
-        { '$set': { 'series': series}})
+    print('updated class', updated_class)
+    series_in_form = request.form.getlist('series')
+    print('series in form', series_in_form)
+    print('series id', series_doc)
+    # series_collection.update_many({'id': ObjectId(series_doc)}, {'class_series': {' $pull': { "classes.$[]" : class_id }}})
+    for item in series_in_form:
+        # match = series_collection.find_one({'_id': ObjectId(series_doc)}, {'class_series': { '$elemMatch' : { '_id': ObjectId(item)}}})
+        # print('match', match)
+        series_collection.update_one({'id': ObjectId(series_doc), 'class_series._id': ObjectId(item)}, { '$push': { 'classes': class_id} })
+        #series_collection.update_many({'_id': ObjectId(series_doc), 'class_series._id': item['_id']}, { '$pull': { 'classes': { '$in': { ObjectId(class_id).toString()}}}})
+        #match = series_collection.update_one({'_id': ObjectId(series_doc), 'class_series._id': item['_id']}, { '$push' : { 'classes' : ObjectId(class_id)}})
+        #if match:
+       #  print('set', set_class)
+        print('item in form', item)
+        
+    
+        classes_collection.update_one(
+            {'_id': ObjectId(class_id)},
+            { '$set': { 'series': series_in_form}})
     return redirect(url_for('view_class', class_id = class_id ))
 
 # DELETE CLASS FROM COLLECTION - remove()
@@ -381,7 +397,7 @@ def delete_track(class_id, exercise_id, track_id):
     return redirect(url_for('view_class', class_id = class_id))
 
 
-##################################### Handling Video Links / CRUD 
+##################################### Handling Video Links in exercises/ CRUD 
 
 # ADD VIDEO LINK - html/ form
 @app.route('/add_link/<class_id>/<exercise_id>')
@@ -409,7 +425,7 @@ def delete_link(class_id, exercise_id, link_id):
 
 ###################################### Handling Class Series / CRUD #################################
 
-# VIEW CLASS SERIES
+# VIEW CLASS SERIES - html
 @app.route('/series')           
 def series():
     # Check if user is logged in
@@ -429,15 +445,14 @@ def series():
     	flash("You must be logged in!")
     	return redirect(url_for('index'))
            
-
-# VIEW CLASSES IN SERIES
+# VIEW CLASSES IN SERIES - html
 
 @app.route('/view_classes_in_series')           
 def view_classes_in_series(): 
     print("Classes in series view opened")            
     return render_template('classes.html')
 
-# ADD CLASS SERIES
+# ADD NEW CLASS SERIES - html/ form
 @app.route('/add_series')
 def add_series():
     username = session['user']
@@ -447,7 +462,7 @@ def add_series():
     # https://stackoverflow.com/questions/25163658/mongodb-return-true-if-document-exists: answer by Xavier Guihot led to the right path with this.
     if series_collection.count_documents({'username': session['user']}, limit = 1) ==0:
         new_user_document = {
-            'user_id': user_id,
+            'user_id': ObjectId(user_id),
             'username': username,
             'class_series': []
             }
@@ -457,7 +472,7 @@ def add_series():
         print(doc)
     return render_template('addSeries.html', title="Add Series", user_id = user_id, username = username)
 
-# insert series - $addToSet
+# INSERT NEW SERIES OBJECT TO class_series ARRAY  - update_one(), $addToSet{}
 @app.route('/insert_series/<username>', methods=['GET', 'POST'])
 def insert_series(username):
     new_series_item = {
@@ -470,13 +485,13 @@ def insert_series(username):
     print(inserted_item)
     return redirect(url_for('series', title='Series', username=username ))
     
-# EDIT SERIES
+# EDIT SERIES IN class_series ARRAY - find_one(), $elemMatch{}
 @app.route('/edit_series/<series_doc>/<series_id>', methods=['GET', 'POST'])
 def edit_series(series_doc, series_id):
     this_series = series_collection.find_one({'_id': ObjectId(series_doc)}, { 'class_series' : {'$elemMatch': { '_id': ObjectId(series_id)}}})
     return render_template('editSeries.html', title='Edit series', this_series = this_series, series_doc=series_doc, series_id = series_id)
 
-# update() SERIES COMES HERE
+# UPDATE SERIES IN class_series ARRAY AND UPDATE THE SERIES IN series[] IN CLASSES - update_one(), $set{} and update_many(), $set{}
 @app.route('/update_series/<series_doc>/<series_id>', methods=['GET', 'POST'])
 def update_series(series_doc, series_id):
     
@@ -485,10 +500,12 @@ def update_series(series_doc, series_id):
             'class_series.$.series_name' : request.form.get('series_name'),
             'class_series.$.series_description': request.form.get('series_description')
         }})
+    # update the series in classes as well!!
+    # update series in classes
     print(updated_series)
     return redirect(url_for('series'))
 
-# DELETE CLASS SERIES - remove()
+# DELETE SERIES FROM class_series ARRAY AND series[] IN CLASSES - update_one(), $pull{}
 @app.route('/delete_series/<series_id>')
 def delete_series(series_doc, series_id):
     deleted_series = series_collection.update_one({'_id': ObjectId(series_doc)}, { '$pull' : { 'class_series' : {'_id': ObjectId(series_id)}}} )

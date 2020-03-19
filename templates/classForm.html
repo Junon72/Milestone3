@@ -68,7 +68,11 @@
             <select multiple name="series" id="series">
                 <option value="" disabled>Select series</option>
                 {% for name in series.class_series %}
-                <option value="{{ name.series_name }}"> {{ name.series_name }} </option>
+                {% if class_id in name.classes %}
+                <option value="{{ name._id }}" selected>  {{ name.series_name }} </option>
+                {% else %}
+                <option value="{{ name._id }}"> {{ name.series_name }} </option>
+                {% endif %}
                 {% endfor %}
             </select>
             <label for="series" class="list-label ml-2">Select class series</label>
