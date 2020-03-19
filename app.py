@@ -235,16 +235,20 @@ def save_class(class_id, series_doc):
     series_in_form = request.form.getlist('series')
     print('series in form', series_in_form)
     print('series id', series_doc)
-    # series_collection.update_many({'id': ObjectId(series_doc)}, {'class_series': {' $pull': { "classes.$[]" : class_id }}})
+    # series_collection.update_many({'_id': ObjectId(series_doc)}, {'class_series': {' $pull': { "classes.$[]" : class_id }}})
     for item in series_in_form:
+        series_collection.update_one({'_id': ObjectId(series_doc), 'class_series._id': ObjectId(item)}, { '$push': { 'class_series.$.classes': class_id} })
+        # series_collection.update_one({'_id': ObjectId(series_doc)}, { '$push': { 'class_series' : { '_id': ObjectId(item), 'classes': class_id}}})
+        array = series_collection.find_one({ '_id': ObjectId(series_doc) }, { 'class_series': {'$elemMatch': { '_id': ObjectId(item)}}})
+        print('item in form', item)
+        print(array)
         # match = series_collection.find_one({'_id': ObjectId(series_doc)}, {'class_series': { '$elemMatch' : { '_id': ObjectId(item)}}})
         # print('match', match)
-        series_collection.update_one({'id': ObjectId(series_doc), 'class_series._id': ObjectId(item)}, { '$push': { 'classes': class_id} })
+        #series_collection.update_one({'_id': ObjectId(series_doc), 'class_series._id': ObjectId(item)}, { '$push': { 'class_series.$.classes': class_id} })
         #series_collection.update_many({'_id': ObjectId(series_doc), 'class_series._id': item['_id']}, { '$pull': { 'classes': { '$in': { ObjectId(class_id).toString()}}}})
         #match = series_collection.update_one({'_id': ObjectId(series_doc), 'class_series._id': item['_id']}, { '$push' : { 'classes' : ObjectId(class_id)}})
         #if match:
-       #  print('set', set_class)
-        print('item in form', item)
+       #  print('set', set_class)~
         
     
         classes_collection.update_one(
