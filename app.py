@@ -433,8 +433,8 @@ def series():
         # If so get the user classes and pass them to a template
         user_in_db = users_collection.find_one({'username': session['user']})
         username = session['user']
-        all_series = series_collection.find({'username': username})
-        print(all_series)
+        all_series = series_collection.find_one({'username': username})
+        print('all series', all_series)
         print(username)
         print(user_in_db)
         return render_template('series.html',
@@ -447,10 +447,14 @@ def series():
            
 # VIEW CLASSES IN SERIES - html
 
-@app.route('/view_classes_in_series')           
-def view_classes_in_series(): 
-    print("Classes in series view opened")            
-    return render_template('classes.html')
+@app.route('/view_classes_in_series/<series_id>/<series_doc>')           
+def view_classes_in_series(series_id, series_doc):
+    username = session['user']
+    serial = series_collection.find_one({ '_id': ObjectId(series_doc) }, { 'class_series': {'$elemMatch': { '_id': ObjectId(series_id)}}})
+    print('serial', serial)
+    classes = classes_collection.find({'username': username})
+     
+    return render_template('view_classes_in_series.html', serial = serial, classes = classes, username = username)
 
 # ADD NEW CLASS SERIES - html/ form
 @app.route('/add_series')
