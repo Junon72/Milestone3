@@ -83,9 +83,11 @@
             <h6>Class series:</h6>
         </div>
         <div class="col-md-9 collection">
-            {% for item in series.series %}
-            <a href="#!" target="_blank" class="collection-item ml-n3 mr-n3 tooltipped" data-position="top"
-                data-delay="50" data-tooltip="Go to this series"><em>{{ item }}</em></a>
+            {% for name in series.class_series %}
+            {% if class_id in name.classes %}
+            <a href="{{url_for('view_classes_in_series', series_id = name._id)}}" target="_blank" class="collection-item ml-n3 mr-n3 tooltipped" data-position="top"
+                data-delay="50" data-tooltip="Go to this series"><em>{{ name.series_name }}</em></a>
+            {% endif %}
             {% else %}
             <a href="#!" target="_blank" class="collection-item ml-n3 mr-n3 tooltipped" data-position="top"
                 data-delay="50" data-tooltip="Go to this series"><em>None</em></a>

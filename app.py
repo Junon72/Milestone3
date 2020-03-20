@@ -150,10 +150,10 @@ def view_class(class_id):
     username = session['user']
     this_class = classes_collection.find_one({'_id': ObjectId(class_id)})
     class_id = class_id
-    series = classes_collection.find_one({'_id': ObjectId(class_id)}, {'series': 1})
-    print(this_class)
-    print(class_id)
-    print(series)
+    series = series_collection.find_one({'username': session['user']})
+    print('this_class', this_class)
+    print('class_id', class_id)
+    print('series', series)
     return render_template('viewClass.html', 
                                title = 'Class',
                                class_id = class_id,  
@@ -172,8 +172,8 @@ def add_class():
                            user = user, series = series)
 
 # INSERT NEW CLASS TO COLLECTION - insert_one()
-@app.route('/insert_class', methods=['POST'])
-def insert_class():
+@app.route('/insert_class/<series_doc>', methods=['POST'])
+def insert_class(series_doc):
     username = session['user']
     new_class = {'class_name': request.form.get('class_name'),
                  'class_description': request.form.get('class_description'),
@@ -181,24 +181,28 @@ def insert_class():
                  'other_elements': request.form.get('other_elements'),
                  'playlist_title': request.form.get('playlist_title'),
                  'playlist_link': request.form.get('playlist_link'),
-                 'series': [],
                  'class_notes': request.form.get('class_notes'),
                  'exercises': [],
                  'logs': [],
                  'user_id': request.form.get('user_id'),
                  'username': request.form.get('username')}
-    
-    print(new_class)
+    # print(new_class)
     inserted_class = classes_collection.insert_one(new_class)
-    print(inserted_class)
+    # print(inserted_class)
     this_class = inserted_class
-    class_id = inserted_class.inserted_id
-    print(class_id)
-    series = request.form.getlist('series')
-    print(series)
-    classes_collection.update_many(
-        {'_id': ObjectId(class_id)},
-        { '$set': { 'series': series}})
+    class_Oid = inserted_class.inserted_id
+    class_id = str(class_Oid)
+    print('new class id', class_id)
+    series_in_form = request.form.getlist('series')
+    print('series in', series_in_form)
+        #Loop through each of the series collection class_series array of objects classes arrays where the class_series ObjectId equals to id passed from the selected series option value
+    for item in series_in_form:
+        # Push the class_id to the Array
+        series_collection.update_one({'_id': ObjectId(series_doc), 'class_series._id': ObjectId(item)}, { '$push': { 'class_series.$.classes': class_id } })
+        #Check if the class_id was pushed to the array
+        array = series_collection.find_one({ '_id': ObjectId(series_doc) }, { 'class_series': {'$elemMatch': { '_id': ObjectId(item)}}})
+        print(array)
+
     return redirect(url_for('view_class', class_id=class_id, username=username, this_class=this_class ))
 
 # EDIT CLASS - html/ form
@@ -223,43 +227,35 @@ def save_class(class_id, series_doc):
         { '$set':
         { 'class_name': request.form.get('class_name'),
         'class_description': request.form.get('class_description'),
-        'main_elements': request.form.get('main_elements'),
+        'main_elements': request.form.get('main_elements'),     
         'other_elements': request.form.get('other_elements'),
         'playlist_title': request.form.get('playlist_title'),
         'playlist_link': request.form.get('playlist_link'),
-        'series': [],
         'class_notes': request.form.get('class_notes'),
         'user_id': request.form.get('user_id'),
         'username': request.form.get('username')}})
-    print('updated class', updated_class)
+    # print('updated class', updated_class)
     series_in_form = request.form.getlist('series')
-    print('series in form', series_in_form)
-    print('series id', series_doc)
-    # series_collection.update_many({'_id': ObjectId(series_doc)}, {'class_series': {' $pull': { "classes.$[]" : class_id }}})
+    # print('series in form', series_in_form)
+    # print('series id', series_doc)
+    # Remove the class id from each of the series collection class_series array of objects classes arrays  
+    series_collection.update_many({'_id': ObjectId(series_doc)}, {'$pull': {'class_series.$[].classes': class_id}}, upsert = False)
+    # Loop through each of the series collection class_series array of objects classes arrays where the class_series ObjectId equals to id passed from the selected series option value
     for item in series_in_form:
+        # Push the class_id to the Array
         series_collection.update_one({'_id': ObjectId(series_doc), 'class_series._id': ObjectId(item)}, { '$push': { 'class_series.$.classes': class_id} })
-        # series_collection.update_one({'_id': ObjectId(series_doc)}, { '$push': { 'class_series' : { '_id': ObjectId(item), 'classes': class_id}}})
-        array = series_collection.find_one({ '_id': ObjectId(series_doc) }, { 'class_series': {'$elemMatch': { '_id': ObjectId(item)}}})
-        print('item in form', item)
-        print(array)
-        # match = series_collection.find_one({'_id': ObjectId(series_doc)}, {'class_series': { '$elemMatch' : { '_id': ObjectId(item)}}})
-        # print('match', match)
-        #series_collection.update_one({'_id': ObjectId(series_doc), 'class_series._id': ObjectId(item)}, { '$push': { 'class_series.$.classes': class_id} })
-        #series_collection.update_many({'_id': ObjectId(series_doc), 'class_series._id': item['_id']}, { '$pull': { 'classes': { '$in': { ObjectId(class_id).toString()}}}})
-        #match = series_collection.update_one({'_id': ObjectId(series_doc), 'class_series._id': item['_id']}, { '$push' : { 'classes' : ObjectId(class_id)}})
-        #if match:
-       #  print('set', set_class)~
-        
-    
-        classes_collection.update_one(
-            {'_id': ObjectId(class_id)},
-            { '$set': { 'series': series_in_form}})
+        # Check if the class_id was pushed to the array
+        # array = series_collection.find_one({ '_id': ObjectId(series_doc) }, { 'class_series': {'$elemMatch': { '_id': ObjectId(item)}}})
+        # print(array)
     return redirect(url_for('view_class', class_id = class_id ))
 
 # DELETE CLASS FROM COLLECTION - remove()
 @app.route('/delete_class/<class_id>')
 def delete_class(class_id):
     deleted_class = classes_collection.remove({'_id': ObjectId(class_id)})
+        # Remove the class id from each of the series collection class_series array of objects classes arrays when class is deleted from the collection
+    series_collection.update_many({'_id': ObjectId(series_doc)}, {'$pull': {'class_series.$[].classes': class_id}}, upsert = False)
+
     print(deleted_class)
     return redirect(url_for('classes',
                                title = 'Classes'))
