@@ -6,27 +6,16 @@
 </div>
 <!-- SERIES VIEW -->
 <section class="series-view">
-    {% for series in serial.class_series %}
-    <h3>Classes in {{ series.series_name}}</h3>
-    {% endfor %}
-</section>
-{{ classes  }}
-<br>
-{% for class in classes %}
-{{ class._id }}<br>
-{% endfor %}
-<br>
+    
 {{ serial }}
 <br>
-{% for item in serial.class_series %}
-{% for class in item.classes%}
-{{ class }}<br>
-{% endfor %}
-{% endfor %}
+
 
 <section class="series-view-content">
     <ul class="collapsible" data-collapsible="accordion">
-        {% for class in classes %}
+        {% for items in serial.class_series %}
+        {% for id in items.classes %}
+        {% for class in all_classes if class._id in id %}
         <li class="accordion_list">
             <div class="collapsible-header">
                 <div class="list_header col">
@@ -65,6 +54,13 @@
                 </section>
             </div>
         </li>
+        {% else %}
+        <li>
+            <em>{{ class.class_name }} {{ id.classes }} No classes added to this series</em>
+        </li>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
         {% endfor %}
     </ul>
     <br>

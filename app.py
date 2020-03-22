@@ -450,11 +450,15 @@ def series():
 @app.route('/view_classes_in_series/<series_id>/<series_doc>')           
 def view_classes_in_series(series_id, series_doc):
     username = session['user']
+    # Find specific serial (with _id: series_id) in series document (with _id: series_doc)
     serial = series_collection.find_one({ '_id': ObjectId(series_doc) }, { 'class_series': {'$elemMatch': { '_id': ObjectId(series_id)}}})
     print('serial', serial)
-    classes = classes_collection.find({'username': username})
+    # Find all classes of the user
+    all_classes = classes_collection.find({'username': username})
+    print(type(all_classes))
+    print('all classes', all_classes)
      
-    return render_template('view_classes_in_series.html', serial = serial, classes = classes, username = username)
+    return render_template('view_classes_in_series.html', serial = serial, all_classes = all_classes, username = username)
 
 # ADD NEW CLASS SERIES - html/ form
 @app.route('/add_series')
