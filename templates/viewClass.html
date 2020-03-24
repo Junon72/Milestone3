@@ -84,15 +84,14 @@
         </div>
         <div class="col-md-9 collection">
             {% for name in series.class_series %}
-            {{ series._id }}
             {% if class_id in name.classes %}
             <a href="{{url_for('view_classes_in_series', series_doc = series._id, series_id = name._id, username = username)}}"
                 target="_blank" class="collection-item ml-n3 mr-n3 tooltipped" data-position="top" data-delay="50"
                 data-tooltip="Go to this series"><em>{{ name.series_name }}</em></a>
-            {% endif %}
-            {% else %}
+            {% elif not name.classes  %}
             <a href="#!" target="_blank" class="collection-item ml-n3 mr-n3 tooltipped" data-position="top"
                 data-delay="50" data-tooltip="Go to this series"><em>None</em></a>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
@@ -298,8 +297,9 @@
                     class="btn-floating green tooltipped" data-position="left" data-delay="50"
                     data-tooltip="Edit class">
                     <i class="material-icons">edit</i></a></li>
-            <li><a href="{{ url_for('delete_class', class_id=this_class._id, series_doc = series._id) }}" class="btn-floating red tooltipped"
-                    data-position="left" data-delay="50" data-tooltip="Delete class">
+            <li><a href="{{ url_for('delete_class', class_id=this_class._id, series_doc = series._id) }}"
+                    class="btn-floating red tooltipped" data-position="left" data-delay="50"
+                    data-tooltip="Delete class">
                     <i class="material-icons">delete</i></a></li>
             <li><a href="{{ url_for('copy_class', class_id=this_class._id, username=username) }}"
                     class="btn-floating blue-lighten-2 tooltipped" data-position="left" data-delay="50"
