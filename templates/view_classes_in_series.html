@@ -6,16 +6,18 @@
 </div>
 <!-- SERIES VIEW -->
 <section class="series-view">
-    
-{{ serial }}
-<br>
-
-
+    <div class="row">
+{% for name in serial_name.class_series %}
+        <h3>Classes in {{ name.series_name}}</h3>
+    </div>
+</section>
+{% if name.classes is defined and name.classes|length > 0 %}
 <section class="series-view-content">
+    {% for items in serial.class_series %}
     <ul class="collapsible" data-collapsible="accordion">
-        {% for items in serial.class_series %}
-        {% for id in items.classes %}
-        {% for class in all_classes if class._id in id %}
+        {% for class in all_classes recursive %}
+        {% for item in items.classes %}
+        {% if class._id|string in item %}
         <li class="accordion_list">
             <div class="collapsible-header">
                 <div class="list_header col">
@@ -41,7 +43,7 @@
                                     class="btn-floating green tooltipped" data-position="left" data-delay="50"
                                     data-tooltip="Edit class">
                                     <i class="material-icons">edit</i></a></li>
-                            <li><a href="{{ url_for('delete_class', class_id=class._id) }}"
+                            <li><a href="{{ url_for('delete_class', class_id=class._id, series_doc = series._id) }}"
                                     class="btn-floating red accent-4 tooltipped" data-position="left" data-delay="50"
                                     data-tooltip="Delete class">
                                     <i class="material-icons">delete</i></a></li>
@@ -54,27 +56,30 @@
                 </section>
             </div>
         </li>
-        {% else %}
-        <li>
-            <em>{{ class.class_name }} {{ id.classes }} No classes added to this series</em>
-        </li>
         {% endif %}
         {% endfor %}
         {% endfor %}
-        {% endfor %}
     </ul>
+    {% endfor %}
     <br>
 </section>
-<!-- Button to add a new class -->
+{% else %}
+<div class="mb-6">
+    <strong class="mb-6">No classes added to this series</strong>
+</div>
+<br>
+{% endif %}
+{% endfor %}
+<!-- BOTTOM BUTTON  'BACK TO CLASSES' TO NAVIGATE TO THE PREVIOUS PAGE CLASSES VIEW -->
 <div class="divider"></div>
 <br>
 <div class="section">
     <div class="container bottom_actions w-100">
         <div class="row">
-            <div class="col ml-n3 mb-6">
-                <a href="{{ url_for('add_class') }}" class="btn-small waves-effect waves-light blue tooltipped"
-                    data-position="right" data-delay="50" data-tooltip="Add a new class">
-                    <i class="material-icons left">library_add</i>Add New Class</a>
+            <div class="col ml-n4 mr-0 mt-6 mb-10 d-flex no-gutters justify-content-beginning">
+                <a href="{{ url_for('series') }}" class="btn-small waves-effect waves-light black tooltipped go_back"
+                    name="go_back" data-position="bottom" data-delay="50" data-tooltip="Go back">
+                    <i class="material-icons left">chevron_left</i>Back to Series</a>
             </div>
         </div>
     </div>

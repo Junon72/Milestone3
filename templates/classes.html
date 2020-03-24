@@ -37,7 +37,7 @@
                                     class="btn-floating green tooltipped" data-position="left" data-delay="50"
                                     data-tooltip="Edit class">
                                     <i class="material-icons">edit</i></a></li>
-                            <li><a href="{{ url_for('delete_class', class_id=class._id) }}"
+                            <li><a href="{{ url_for('delete_class', class_id=class._id, series_doc = series._id) }}"
                                     class="btn-floating red accent-4 tooltipped" data-position="left" data-delay="50"
                                     data-tooltip="Delete class">
                                     <i class="material-icons">delete</i></a></li>

@@ -7,14 +7,11 @@
 <section class="page-title">
     <div class="row">
         <div class="col mb-4 mt-2">
-            <h5>Series</h5>
+            <h3>Series</h3>
         </div>
     </div>
 </section>
-{{ all_series._id  }}
-{% for serial in all_series.class_series %}
-{{ serial._id }}
-{% endfor %}
+
 <section class="classes-view-content">
     <ul class="collapsible" data-collapsible="accordion">
         {% for serial in all_series.class_series %}
@@ -27,7 +24,6 @@
             </div>
             <div class="collapsible-body">
                 <span>{{ serial.series_description }}</span>
-                {{ serial._id }}
 
                 <!-- Tool buttons for series -->
                 <div class="fixed-action-btn vertical">
@@ -35,7 +31,7 @@
                         data-tooltip="Editor tools">
                         <i class="medium material-icons">build</i></a>
                     <ul>
-                        <li><a href="{{ url_for('view_classes_in_series', series_id = serial._id, series_doc = all_series._id) }}"
+                        <li><a href="{{ url_for('view_classes_in_series', series_id = serial._id, series_doc = all_series._id, username = username) }}"
                                 class="btn-floating yellow darken-2 tooltipped" data-position="left" data-delay="50"
                                 data-tooltip="View class series">
                                 <i class="material-icons">

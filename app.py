@@ -134,10 +134,12 @@ def classes():
         # print(user)
         classes = classes_collection.find({'username': username})
         # print(classes)
+        series = series_collection.find_one({'username': username})
         return render_template('classes.html',
                                title = 'Classes', 
                                username = username, 
-                               classes = classes)
+                               classes = classes,
+                               series = series)
     else:
     	flash("You must be logged in!")
     	return redirect(url_for('index'))
@@ -250,8 +252,8 @@ def save_class(class_id, series_doc):
     return redirect(url_for('view_class', class_id = class_id ))
 
 # DELETE CLASS FROM COLLECTION - remove()
-@app.route('/delete_class/<class_id>')
-def delete_class(class_id):
+@app.route('/delete_class/<class_id>/<series_doc>')
+def delete_class(class_id, series_doc):
     deleted_class = classes_collection.remove({'_id': ObjectId(class_id)})
         # Remove the class id from each of the series collection class_series array of objects classes arrays when class is deleted from the collection
     series_collection.update_many({'_id': ObjectId(series_doc)}, {'$pull': {'class_series.$[].classes': class_id}}, upsert = False)
@@ -260,11 +262,26 @@ def delete_class(class_id):
     return redirect(url_for('classes',
                                title = 'Classes'))
 
-# DUPLICATE CLASS -> to form
-@app.route('/copy_class')
-def copy_class():
-    print("Class was duplicated")
-    return redirect(url_for('save_class', title="Edit Class(copy)"))
+# DUPLICATE CLASS -> to edit
+@app.route('/copy_class/<class_id>')
+def copy_class(class_id):
+    copy_this  = classes_collection.find_one({'_id': ObjectId(class_id)})
+    # Create a postfix (copy) for the class_name
+    name = copy_this['class_name']
+    postfix = '(copy)'
+    edit_name = ''.join((name, postfix))
+    print("name", name)
+    
+    # Remove _id field from copy_this class document
+    del copy_this['_id']
+    print('copy', copy_this)
+     
+    duplicated = classes_collection.insert_one(copy_this)
+    duplicate = duplicated.inserted_id
+    print('new insert', duplicate)
+    remove_name_and_logs = classes_collection.update_one({'_id': ObjectId(duplicate)}, { '$set': { 'class_name': edit_name, 'logs': [] }})
+    print('modified', remove_name_and_logs )
+    return redirect(url_for('edit_class', title="Edit Class(copy)", class_id = duplicate))
     # Get the class and populate the form with some additional information - add (copy) in name value 
 
 ###################################### Handling Logs in Class / CRUD #################################
@@ -447,18 +464,20 @@ def series():
            
 # VIEW CLASSES IN SERIES - html
 
-@app.route('/view_classes_in_series/<series_id>/<series_doc>')           
-def view_classes_in_series(series_id, series_doc):
-    username = session['user']
+@app.route('/view_classes_in_series/<username>/<series_id>/<series_doc>')           
+def view_classes_in_series(username, series_id, series_doc):
+    series = series_collection.find_one({'username': username})
     # Find specific serial (with _id: series_id) in series document (with _id: series_doc)
     serial = series_collection.find_one({ '_id': ObjectId(series_doc) }, { 'class_series': {'$elemMatch': { '_id': ObjectId(series_id)}}})
     print('serial', serial)
+    serial_name = serial
+    print('serial name', serial_name)
     # Find all classes of the user
     all_classes = classes_collection.find({'username': username})
     print(type(all_classes))
     print('all classes', all_classes)
      
-    return render_template('view_classes_in_series.html', serial = serial, all_classes = all_classes, username = username)
+    return render_template('view_classes_in_series.html', serial = serial, serial_name = serial_name, all_classes = all_classes, username = username, series = series)
 
 # ADD NEW CLASS SERIES - html/ form
 @app.route('/add_series')
