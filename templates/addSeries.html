@@ -21,7 +21,7 @@
             <div class="input-field col s12 l10">
                 <i class="material-icons prefix">title</i>
                 <input type="text" class="form-control text-capitalize validate" id="add_series_name" name="series_name"
-                    placeholder="Class series name" required="required">
+                    placeholder="Name" required="required">
                 <label for="add_series_name" class="list-label ml-2">Class Series Name</label>
             </div>
         </div>
@@ -31,7 +31,7 @@
             <div class="input-field col s12 l6">
                 <i class="material-icons prefix">description</i>
                 <textarea class="materialize-textarea form-control" id="add_series_description"
-                    name="series_description" placeholder="Class series description"></textarea>
+                    name="series_description" placeholder="Description"></textarea>
                 <label for="add_series_description" class="list-label ml-2">Class Series Description</label>
             </div>
         </div>
@@ -45,14 +45,14 @@
         <br>
         <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
             <div class="row">
-                <div class="col s12 offset-l6">
+                <div class="col d-flex justify-content-end">
                     <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
                         data-position="top" data-delay="50" data-tooltip="Save and view">
                         <i class="material-icons left">save</i>Save</button>
 
 
                     <!-- Check the exercise _id and repopulate the add_exercise form -->
-                    <a href="{{ url_for('series') }}" class="btn waves-effect waves-light grey tooltipped cancel"
+                    <a href="{{ url_for('series') }}" class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3"
                         type="submit" name="back_to_series" data-position="bottom" data-delay="50"
                         data-tooltip="Cancel and go back">
                         Cancel</a>

@@ -15,14 +15,10 @@
 <form class="col s12" method="POST" action="{{ url_for('insert_class', username = user.username, series = series, series_doc = series._id) }}"
     id="add_class_form" autocomplete="off">
     <!-- Disabled autocompletion -->
-    {{ series.class_series }}
-    {% for name in series.class_series %}
-    {{ name.series_name }}
-    {% endfor %}
+
     <!-- HIDDEN INPUTS -->
     <input type="hidden" id="username" name="username" value="{{ user.username }}">
     <input type="hidden" id="user_id" name="user_id" value="{{ user._id }}">
-    <input type="hidden" id="series_id" name="series_id" value="{{ series._id }}">
     <!-- FORM SECTIONS -->
     <!-- CLASS FORM SECTIONS -->
     <section class="class-form">

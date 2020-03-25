@@ -1,28 +1,41 @@
 <!-- Navigation navbar-->
 <header class="header">
     <nav class="navigation" role="navigation">
-        <div class="nav-wrapper grey darken-3">
+        <div class="nav-wrapper grey darken-3 mt-4">
             <a href="{{ url_for('classes') }}" class="brand-logo left-align"><img src="/static/img/classapp_logo.png"
-                    alt="Logo" id="logo" class="responsive-img"></a>
+                    alt="Logo" id="logo" class="img-responsive"></a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
-                <li><a href="{{ url_for('index') }}">Login</a></li>
-                <li><a href="{{ url_for('classes') }}">Home</a></li>
-                <li><a href="{{ url_for('series') }}">Series</a></li>
-                <li><a href="{{ url_for('register') }}">Register</a></li>
-                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% if 'user' in session %}
+            <ul id="nav-mobile" class="right navbar hide-on-med-and-down m-0 p-0">
+                <li><a href="{{ url_for('classes') }}" class="mb-2">Home</a></li>
+                <li><a href="{{ url_for('series') }}" class="mb-2">Series</a></li>
+                <li><a href="{{ url_for('logout') }}" class="mr-5 mb-2">Logout</a></li>
+            
 
             </ul>
         </div>
     </nav>
    
     <ul class="side-nav" id="mobile-demo">
-        <li><a href="{{ url_for('index') }}">Login</a></li>
-        <li><a href="{{ url_for('classes') }}">Home</a></li>
+        <li><a href="{{ url_for('classes') }}" class="mt-5">Home</a></li>
         <li><a href="{{ url_for('series') }}">Series</a></li>
-        <li><a href="{{ url_for('register') }}">Register</a></li>
         <li><a href="{{ url_for('logout') }}">Logout</a></li>
+       
     </ul>
+    {% else %}
+    <ul id="nav-mobile" class="right navbar hide-on-med-and-down"> 
+            <li><a href="{{ url_for('index') }}">Login</a></li>
+            <li><a href="{{ url_for('register') }}" class="mr-5">Register</a></li>
+
+        </ul>
+    </div>
+</nav>
+{% endif %}
+
+<ul class="side-nav" id="mobile-demo">
+    <li><a href="{{ url_for('index') }}" class="mt-5">Login</a></li>
+    <li><a href="{{ url_for('register') }}">Register</a></li>
+</ul>
     
     <!-- Flashed messages alerts modal -->
     <div id="alerts" class="container-fluid">

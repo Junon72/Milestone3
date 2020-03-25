@@ -29,6 +29,17 @@ series_collection = mongo.db.series
 #array = list(users_collection.find())
 #print(array)
 
+# url vars
+# back to classes view
+back_to_classes = {
+    "button_text": "Back to Classes",
+    "url_name" : "classes"
+}
+# back to classes in series view
+back_to_series = [{
+    "button_text": "Back to Classes",
+    "url_name" : "view_classes_in_series"
+}]
 
 @app.route('/')
 
@@ -48,7 +59,7 @@ def index():
 		# Render the page for user to be able to log in
 		return render_template("index.html", title = "Login", current_users = list(users_collection.find()))
 
-# CHECK USER LOGIN DETAILS FROM LOGIN FORM - 
+# CHECK USER LOGIN DETAILS FROM LOGIN FORM AND COMPARE WITH THE USER DATA IN USERS COLLECTION
 @app.route('/user_auth', methods=['POST'])
 def user_auth():
 	form = request.form.to_dict()
@@ -102,15 +113,17 @@ def register():
 					# Log user in (add to session)
 					session['user'] = user_in_db['username']
 					return redirect(url_for('/index', user=user_in_db['username']))
+                    # If user was not inserted/added inform the user of error
 				else:
 					flash("There was a problem with registration, please try again")
 					return redirect(url_for('register'))
 
 		else:
+            # Notify user of not matching passwords
 			flash("Passwords don't match! Try again.")
 			return redirect(url_for('register'))
 		
-	return render_template(url_for('register'), title='Register')
+	return render_template('register.html')
 
 # LOGOUT USER AND RETURN TO LOGIN PAGE
 @app.route('/logout')
@@ -139,7 +152,8 @@ def classes():
                                title = 'Classes', 
                                username = username, 
                                classes = classes,
-                               series = series)
+                               series = series,
+                               back_to_classes = back_to_classes)
     else:
     	flash("You must be logged in!")
     	return redirect(url_for('index'))
@@ -153,23 +167,33 @@ def view_class(class_id):
     this_class = classes_collection.find_one({'_id': ObjectId(class_id)})
     class_id = class_id
     series = series_collection.find_one({'username': session['user']})
-    print('this_class', this_class)
-    print('class_id', class_id)
-    print('series', series)
+    # print('this_class', this_class)
+    # print('class_id', class_id)
+    # print('series', series)
+    # print(type(go_back_passed))
+    '''
+    go_back = {
+        'button_text': request.form.get('button_text'),
+        'url_name': request.form.get('url_name')
+    }
+   
+    print('go back', go_back)
+     '''
     return render_template('viewClass.html', 
                                title = 'Class',
                                class_id = class_id,  
                                this_class = this_class,
                                username = username,
-                               series = series)
+                               series = series,
+                               go_back = back_to_classes)
 
 # ADD CLASS - html/ form
 @app.route('/add_class')
 def add_class():
     user = users_collection.find_one({'username': session['user']})
-    print(user)
+    # print(user)
     series = series_collection.find_one({'username': session['user']},{'class_series': 1})
-    print(series)
+    # rint(series)
     return render_template('addClass.html', title="New Class", 
                            user = user, series = series)
 
@@ -194,16 +218,16 @@ def insert_class(series_doc):
     this_class = inserted_class
     class_Oid = inserted_class.inserted_id
     class_id = str(class_Oid)
-    print('new class id', class_id)
+    # print('new class id', class_id)
     series_in_form = request.form.getlist('series')
-    print('series in', series_in_form)
+    # print('series in', series_in_form)
         #Loop through each of the series collection class_series array of objects classes arrays where the class_series ObjectId equals to id passed from the selected series option value
     for item in series_in_form:
         # Push the class_id to the Array
         series_collection.update_one({'_id': ObjectId(series_doc), 'class_series._id': ObjectId(item)}, { '$push': { 'class_series.$.classes': class_id } })
         #Check if the class_id was pushed to the array
         array = series_collection.find_one({ '_id': ObjectId(series_doc) }, { 'class_series': {'$elemMatch': { '_id': ObjectId(item)}}})
-        print(array)
+        # print(array)
 
     return redirect(url_for('view_class', class_id=class_id, username=username, this_class=this_class ))
 
@@ -212,12 +236,12 @@ def insert_class(series_doc):
 def edit_class(class_id):
     user = users_collection.find_one({'username': session['user']})
     this_class =  classes_collection.find_one({"_id": ObjectId(class_id)})
-    print('this class', this_class)
-    print(type(this_class))
+    # print('this class', this_class)
+    # print(type(this_class))
     class_id = class_id
-    print(class_id)
+    # print(class_id)
     series = series_collection.find_one({'username': session['user']})
-    print('series in collection', series)
+    # print('series in collection', series)
     return render_template('editClass.html', title="Edit Class", user = user, class_id = class_id, this_class = this_class, series = series)
 
 
@@ -257,8 +281,7 @@ def delete_class(class_id, series_doc):
     deleted_class = classes_collection.remove({'_id': ObjectId(class_id)})
         # Remove the class id from each of the series collection class_series array of objects classes arrays when class is deleted from the collection
     series_collection.update_many({'_id': ObjectId(series_doc)}, {'$pull': {'class_series.$[].classes': class_id}}, upsert = False)
-
-    print(deleted_class)
+    # print(deleted_class)
     return redirect(url_for('classes',
                                title = 'Classes'))
 
@@ -270,17 +293,17 @@ def copy_class(class_id):
     name = copy_this['class_name']
     postfix = '(copy)'
     edit_name = ''.join((name, postfix))
-    print("name", name)
+   # print("name", name)
     
     # Remove _id field from copy_this class document
     del copy_this['_id']
-    print('copy', copy_this)
+    # print('copy', copy_this)
      
     duplicated = classes_collection.insert_one(copy_this)
     duplicate = duplicated.inserted_id
-    print('new insert', duplicate)
+    # print('new insert', duplicate)
     remove_name_and_logs = classes_collection.update_one({'_id': ObjectId(duplicate)}, { '$set': { 'class_name': edit_name, 'logs': [] }})
-    print('modified', remove_name_and_logs )
+    # print('modified', remove_name_and_logs )
     return redirect(url_for('edit_class', title="Edit Class(copy)", class_id = duplicate))
     # Get the class and populate the form with some additional information - add (copy) in name value 
 
@@ -289,7 +312,7 @@ def copy_class(class_id):
 # ADD LOG - html/ form
 @app.route('/add_log/<class_id>/<username>')
 def add_log(class_id, username):
-    print(class_id)
+    # print(class_id)
     return render_template('addLog.html', class_id = class_id, username = username)
                  
 # INSERT LOG TO CLASS - update_one(), $addToSet{}
@@ -302,15 +325,15 @@ def insert_log(class_id):
         'log_tag': request.form.get('log_tag')  
 	}
     inserted_log = classes_collection.update_one({'_id': ObjectId(class_id)}, { '$addToSet' :{ 'logs': new_log}})
-    print(inserted_log)
+    # print(inserted_log)
     return redirect(url_for('view_class', class_id = class_id))
 
 # EDIT LOG IN CLASS - html/ form - find_one(), $elemMatch{} 
 @app.route('/edit_log/<class_id>/<log_id>', methods=['GET', 'POST'])
 def edit_log(class_id, log_id):
-    print(log_id)
+    # print(log_id)
     this_log = classes_collection.find_one({'_id': ObjectId(class_id)}, {'logs': {"$elemMatch" : {'_id': ObjectId(log_id)}}})
-    print(this_log)
+    # print(this_log)
     return render_template('editLog.html', title='Edit log', this_log = this_log, class_id = class_id, log_id = log_id)
 
 # UPDATE LOG IN CLASS AFTER EDIT - update_one(), $set{}
@@ -321,14 +344,14 @@ def update_log(class_id, log_id):
         'logs.$.log_text': request.form.get('log_text'),
         'logs.$.log_tag': request.form.get('log_tag')
     }})
-    print(update_log)
+    # print(update_log)
     return redirect(url_for('view_class', class_id = class_id))
 
 # DELETE LOG FROM CLASS - update_one(), $pull{}
 @app.route('/delete_log/<class_id>/<log_id>')           
 def delete_log(class_id, log_id):
     deleted_log = classes_collection.update_one({'_id': ObjectId(class_id)}, {'$pull': { 'logs': {'_id': ObjectId(log_id)}}} )
-    print(deleted_log)
+    # print(deleted_log)
     return redirect(url_for('view_class', class_id = class_id))
 
 
@@ -352,21 +375,21 @@ def insert_exercise(class_id):
         'links': []
     }
     inserted_exercise = classes_collection.update_one({'_id': ObjectId(class_id)}, { '$addToSet' :{ 'exercises': new_exercise}})
-    print(inserted_exercise)
+    # print(inserted_exercise)
     return redirect(url_for('view_class', class_id=class_id))
 
 # EDIT EXERCISE - html/ form
 @app.route('/edit_exercise/<class_id>/<exercise_id>', methods=['GET','POST'])
 def edit_exercise(class_id, exercise_id):
-    print(exercise_id)
+    # print(exercise_id)
     this_exercise = classes_collection.find_one({'_id': ObjectId(class_id)}, {'exercises': {"$elemMatch" : {'_id': ObjectId(exercise_id)}}})
-    print(this_exercise)
+    # print(this_exercise)
     return render_template('editExercise.html', title='Edit exercise', this_exercise = this_exercise, class_id = class_id, exercise_id = exercise_id)
 
 # UPDATE EXERCISE AFTER EDITING - update_one(), $set{}
 @app.route('/update_exercise/<class_id>/<exercise_id>', methods=['POST'])
 def update_exercise(class_id, exercise_id):
-    print(exercise_id)
+    # print(exercise_id)
     # updates the exercise entry in class - to tackle the issue of updating sub-documents in arrays:
     # https://stackoverflow.com/questions/36841911/mongodb-update-complex-document?noredirect=1&lq=1
     # provided the information I needed to formulate the correct syntax
@@ -376,7 +399,7 @@ def update_exercise(class_id, exercise_id):
         'exercises.$.exercise_description': request.form.get('exercise_description'),
         'exercises.$.exercise_comment': request.form.get('exercise_comment'),
         'exercises.$.exercise_aim': request.form.get('exercise_aim')}})
-    print(updated_exercise)
+    # print(updated_exercise)
     return redirect(url_for('view_class', class_id=class_id))
 
 # DELETE EXERCISE IN CLASS - update_one(), $pull{}
@@ -451,9 +474,9 @@ def series():
         user_in_db = users_collection.find_one({'username': session['user']})
         username = session['user']
         all_series = series_collection.find_one({'username': username})
-        print('all series', all_series)
-        print(username)
-        print(user_in_db)
+        # print('all series', all_series)
+        # print(username)
+       # print(user_in_db)
         return render_template('series.html',
                                title = 'Series', 
                                username = username,
@@ -463,28 +486,29 @@ def series():
     	return redirect(url_for('index'))
            
 # VIEW CLASSES IN SERIES - html
-
 @app.route('/view_classes_in_series/<username>/<series_id>/<series_doc>')           
 def view_classes_in_series(username, series_id, series_doc):
     series = series_collection.find_one({'username': username})
     # Find specific serial (with _id: series_id) in series document (with _id: series_doc)
     serial = series_collection.find_one({ '_id': ObjectId(series_doc) }, { 'class_series': {'$elemMatch': { '_id': ObjectId(series_id)}}})
-    print('serial', serial)
+    # print('serial', serial)
     serial_name = serial
-    print('serial name', serial_name)
+    # print('serial name', serial_name)
     # Find all classes of the user
     all_classes = classes_collection.find({'username': username})
-    print(type(all_classes))
-    print('all classes', all_classes)
+    # print(type(all_classes))
+    # print('all classes', all_classes)
      
     return render_template('view_classes_in_series.html', serial = serial, serial_name = serial_name, all_classes = all_classes, username = username, series = series)
+
+# VIEW CLASSES IN None SERIES - None ROUTE
 
 # ADD NEW CLASS SERIES - html/ form
 @app.route('/add_series')
 def add_series():
     username = session['user']
     user_id = users_collection.find_one({'username': session['user']}, {'_id': 1})
-    print(user_id)
+    # print(user_id)
     # This checks if the user already has a document in series collection, if not a document will be added.
     # https://stackoverflow.com/questions/25163658/mongodb-return-true-if-document-exists: answer by Xavier Guihot led to the right path with this.
     if series_collection.count_documents({'username': session['user']}, limit = 1) ==0:
@@ -496,7 +520,6 @@ def add_series():
         
         inserted_document = series_collection.insert_one(new_user_document)
         series_id = inserted_document.inserted_id
-        print(doc)
     return render_template('addSeries.html', title="Add Series", user_id = user_id, username = username)
 
 # INSERT NEW SERIES OBJECT TO class_series ARRAY  - update_one(), $addToSet{}
@@ -509,7 +532,7 @@ def insert_series(username):
         'classes': []
         }
     inserted_item = series_collection.update_one({'username': username}, { '$addToSet' :{ 'class_series': new_series_item}})
-    print(inserted_item)
+    # print(inserted_item)
     return redirect(url_for('series', title='Series', username=username ))
     
 # EDIT SERIES IN class_series ARRAY - find_one(), $elemMatch{}
@@ -529,14 +552,14 @@ def update_series(series_doc, series_id):
         }})
     # update the series in classes as well!!
     # update series in classes
-    print(updated_series)
+    # print(updated_series)
     return redirect(url_for('series'))
 
 # DELETE SERIES FROM class_series ARRAY AND series[] IN CLASSES - update_one(), $pull{}
 @app.route('/delete_series/<series_id>')
 def delete_series(series_doc, series_id):
     deleted_series = series_collection.update_one({'_id': ObjectId(series_doc)}, { '$pull' : { 'class_series' : {'_id': ObjectId(series_id)}}} )
-    print(deleted_series)
+    # print(deleted_series)
     return redirect(url_for('series'))
 
 
