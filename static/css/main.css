@@ -1,17 +1,41 @@
 
+*{
+    box-sizing: border-box;
+}
 html {
-    min-height: 100vh;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+
 }
 body {
-    height: 100%;
+
+    height: 100vh;
     width: auto;
+    margin: 0;
+    padding: 0;
+
+}
+   
+.background {
+    padding: 0 0 3rem;
+    margin: 0;
+    min-height: 100vh;
     background-color: #1ed9d2;
     background-image: linear-gradient(347deg, #1ed9d2 0%, #FFFFFF 21%, #ffffff 71%, #839dff 90%, #5e32b3 100%);
     background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+/* BACKGROUNDS */
+main {
+    flex: 1 0 auto;   
 
 }
 
-/* BACKGROUNDS */
+
 
 
 
@@ -25,6 +49,15 @@ body {
     .brand-logo {
         margin-left: 0;
     }
+}
+
+/* FOOTER */
+.copyright {
+    color: rgba(1, 48, 48, 0.543)
+}
+footer {
+    flex-shrink: 0;
+
 }
 
 
@@ -54,12 +87,17 @@ body {
 }
 
 .collapsible-opened-1 {
-    background-color: powderblue;
+    background-color: rgb(176, 224, 230);
 }
 
 .collapsible-opened-2 {
     background-color: rgba(201, 228, 232, 0.448);
 }
+
+.collapsible-opened-3 {
+    background-color: rgb(176, 224, 230);
+}
+
 /* Collapsible body */
 .collapsible-body {
     background-color: rgba(245, 245, 245, 0.907);
@@ -75,6 +113,20 @@ a:link, a:hover, a:active {
    color: white;
    background-color: none;
    
+   
+}
+
+/* SUMMERNOTE */
+
+.note-hover {
+    background-color: rgb(216, 243, 247)!important;
+}
+
+.button-selected {
+    background-color: rgb(3, 109, 138);
+}
+.tool-selected {
+    color: white;
 }
 
 /* NAVIGATION BAR */
@@ -83,12 +135,12 @@ a:link, a:hover, a:active {
     height: 71px;
 }
 
-.navbar>li>a {
+.navibar>li>a {
     max-height: 64px !important;
 }
-.navbar>li>a:hover,
-.navbar>li>a:focus,
-.navbar>li>a:active {
+.navibar>li>a:hover,
+.navibar>li>a:focus,
+.navibar>li>a:active {
     transform: scale(1.1);
     -webkit-transform: scale(1.1);
     -moz-transform: scale(1.1);
@@ -117,8 +169,8 @@ a:link, a:hover, a:active {
 }
 
 /* COLLECTIONS */
-.collection-item:hover,
-.collection-item:active {
+.collection-item-selectable:hover,
+.collection-item-selectable:active {
     background-color: rgba(201, 228, 232, 0.448) !important;
 }
 
@@ -126,3 +178,13 @@ a:link, a:hover, a:active {
 .link-text {
     color:rgb(3, 109, 138);
 }
+
+/* FORMS */
+label {
+    color: rgb(60, 58, 58)!important;
+}
+
+label.list-label {
+     font-size: .8rem!important ;
+     color: rgb(60, 58, 58)!important;
+ }

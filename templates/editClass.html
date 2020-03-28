@@ -3,46 +3,46 @@
 <div class="row">
     <div class="col top-spacer mt-12"></div>
 </div>
-<section class="page-title">
-    <div class="row">
-        <div class="class-title col s12 m10 l6">
-            <h5>Edit {{ this_class.class_name | title}}</h5>
+<!-- CLASS FORM -->
+<form class="col s12" method="POST"
+    action="{{ url_for('save_class', class_id = this_class._id, series = series, series_doc = series._id, username=session['user']) }}"
+    id="edit_class_form" autocomplete="off">
+    <!-- Disabled autocompletion -->
+    <!-- Page Title for Edit class mode -->
+    <section class="page-title">
+        <div class="row">
+            <div class="class-title col s12 m10 l6">
+                <h5>Edit {{ this_class.class_name | title}}</h5>
+                {{ this_class._id }}
+            </div>
         </div>
-    </div>
-</section>
-
-<!-- MAIN CLASS INFO -->
-<section class="class-info">
-    <!-- CLASS FORM -->
-    <form class="col s12" method="POST"
-        action="{{ url_for('save_class', this_class = this_class._id, class_id = class_id, series = series, series_doc = series._id, username=session['user']) }}"
-        id="edit_class_form" autocomplete="off">
-        <!-- Disabled autocompletion -->
+    </section>
+    <!-- MAIN CLASS INFO -->
+    <section class="class-info">
         {% include 'classForm.html' %}
+    </section>
+    <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
+    <!-- SAVE inserts the content and returns to CLASSES VIEW  - .insert() new document with new class _id and sub-document _id,s-->
+    <!-- CANCEL does not save the content and returns to the CLASSes VIEW - .get() classes without changes -->
+    <section class="button-nav">
+        <div class="divider"> </div>
+        <br>
+        <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
+            <div class="row">
+                <div class="col d-flex justify-content-end">
+                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                        name="action" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                        <i class="material-icons left">save</i>Save</button>
 
-        <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
-        <!-- SAVE inserts the content and returns to CLASSES VIEW  - .insert() new document with new class _id and sub-document _id,s-->
-        <!-- CANCEL does not save the content and returns to the CLASSes VIEW - .get() classes without changes -->
-        <section class="button-nav">
-            <div class="divider"> </div>
-            <br>
-            <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
-                <div class="row">
-                    <div class="col d-flex justify-content-end">
-                        <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                            name="action" data-position="top" data-delay="50" data-tooltip="Save and go back">
-                            <i class="material-icons left">save</i>Save
-                        </button>
-
-                        <!-- Return to classes view -->
-                        <a href="{{ url_for('view_class', class_id = class_id) }}"
-                            class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
-                            value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
-                            data-tooltip="Cancel and go back">
-                            Cancel</a>
-                    </div>
+                    <!-- Return to classes view -->
+                    <a href="{{ url_for('view_class', class_id = class_id) }}"
+                        class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
+                        value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
+                        data-tooltip="Cancel and go back">
+                        Cancel</a>
                 </div>
             </div>
-        </section>
-    </form>
-    {% endblock content %}
+        </div>
+    </section>
+</form>
+{% endblock content %}

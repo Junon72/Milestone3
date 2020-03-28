@@ -1,43 +1,28 @@
-<!-- JavaScript -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- JavaScript libraries -->
 
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+<!-- Ajax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Summernote -->
+<!-- Bs 4-->
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.js"></script>
+
+<!-- bare -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote.min.js"></script>
+ -->
+<!-- Bootstrap 4 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        // Materialize Collapsible 
 
-        $('.collapsible').on('click', '.level-1', function (e) {
-            if ($(this).hasClass('collapsible-opened-1')) {
-                $(this).removeClass('collapsible-opened-1');
-            } else {
-                $('.level-1').removeClass('collapsible-opened-1');
-                $(this).addClass('collapsible-opened-1');}
-        });
-        $('.collapsible.collapsible-sub').on('click', '.level-2', function (e) {
-            $(this).toggleClass('collapsible-opened-2');
-        });
-        // Materialize Navigation 
-        $('.button-collapse').sideNav();
-        // Materialize Forms Select Many
-        $('select').material_select();
-        // Materialize textarea update vith input values
-        Materialize.updateTextFields();
-        // Materialize Date Picker
-        $('.datepicker').pickadate({
-            selectMonths: true, // Creates a dropdown to control month
-            selectYears: 15, // Creates a dropdown of 15 years to control year,
-            today: 'Today',
-            clear: 'Clear',
-            close: 'Ok',
-            closeOnSelect: false, // Close upon selecting a date,
-            container: undefined // ex. 'body' will append picker to body
-        });
+<!-- Materialize -->
+<!-- M 1.0.0-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<!-- M 1.0.0.2-->
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>-->
 
-    });
-</script>
+<!-- JavaScript local file-->
 <!-- Main JS-->
-<script type="text/javascript" src="{{ url_for('static', filename='/static/js/main.js') }}"></script>
-<!--- <script src="//cdn.quilljs.com/1.3.6/quill.min.js"></script>-->
+<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>

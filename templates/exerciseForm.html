@@ -2,26 +2,36 @@
 
 {% for exercise in this_exercise.exercises %}
 
+<section class="page-title">
+    <div class="row">
+        <div class="col mb-4 mt-2">
+            <h5>Edit {{ exercise.exercise_name }}</h5>
+        </div>
+    </div>
+</section>
+
 <!-- EXERCISE FORM SECTIONs -->
 <section class="exercise_form">
     <!-- ADD EXERCISE NAME -->
     <div class="row w-100">
         <div class="input-field col s12 m10 l6">
-            <i class="material-icons prefix">bookmark</i>
+            <i class="material-icons prefix mt-2">bookmark</i>
             <input type="text" class="form-control text-capitalize validate" id="add_exercise_name"
                 value="{{ exercise.exercise_name }}" name="exercise_name" placeholder="Exercise name"
                 required="required" validate>
-            <label for="add_exercise_name" class="list-label ml-2">Exercise name</label>
+            <label for="add_exercise_name" class="ml-2">Exercise name</label>
         </div>
     </div>
     <!-- ADD EXERCISE DESCRIPTION -->
-    <div class="row w-100">
-        <div class="input-field col s12 m10 l6">
-            <i class="material-icons prefix">description</i>
-            <textarea class="materialize-textarea form-control validate" id="add_exercise_description"
-                name="exercise_description" placeholder="Description"
-                required="required">{{ exercise.exercise_description }}</textarea>
-            <label for="add_exercise_description" class="list-label ml-2">Exercise description</label>
+    <div class="row mb-2">
+        <i class="material-icons prefix ml-3">description</i>
+        <label for="summernotes" class="list-label ml-3">Exercise</label>
+    </div>
+    <div class="row">
+        <div class="col s12 m10 l6">
+            <textarea class="form-control summernote" id="summernotes" name="editordata"
+                required>{{ exercise.exercise_description | safe }}</textarea>
+
         </div>
     </div>
     <!-- ADD COMMENT -->
@@ -53,16 +63,17 @@
             <h6>Music Tracks:</h6>
             <ul class="collection with-header">
                 <li class="collection-header">
-                    <i class="material-icons prefix">music_note</i> Music tracks
+                    <i class="material-icons prefix">music_note</i> 
+                    Music tracks
                 </li>
                 {% for track in exercise.tracks %}
                 <li class="collection-item">
-                    <span class="title">{{ track.track_title | title}}</span><br>
-                    <em>/ &nbsp; {{ track.track_comment | capitalize}}</em>
+                    <span class="title link-text">{{ track.track_title | title}}</span>
+                    <em class="link-text">/ &nbsp; {{ track.track_comment | capitalize}}</em>
                 </li>
                 {% else %}
                 <li class="collection-item">
-                    <em>No music tacks added yet</em>
+                    <em class="link-text">No music tacks added yet</em>
                 </li>
                 {% endfor %}
             </ul>
@@ -79,16 +90,16 @@
             <h6>Video Links:</h6>
             <ul class="collection with-header">
                 <li class="collection-header">
-                    <i class="material-icons prefix mr-2">video_library</i>Video Links
+                    <i class="material-icons prefix mr-2 mb-n4">video_library</i>Video Links
                 </li>
                 {% for link in exercise.video_links %}
                 <li class="collection-item">
-                    <span class="title">{{ link.video_title | title}}</span><br>
-                    <em>{{ link.video_text | capitalize}}</em>
+                    <span class="title link-text">{{ link.video_title | title}}</span><br>
+                    <em class="link-text">{{ link.video_text | capitalize}}</em>
                 </li>
                 {% else %}
                 <li class="collection-item">
-                    <em>No video links added yet</em>
+                    <em class="link-text">No video links added yet</em>
                 </li>
                 {% endfor %}
             </ul>

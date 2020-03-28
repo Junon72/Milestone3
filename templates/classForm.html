@@ -1,67 +1,60 @@
 {% block content %}
 <!-- CLASS FORM SECTIONS -->
 <section class="class_form">
+
     <!-- HIDDEN INPUTS -->
     <input type="hidden" id="username" name="username" value="{{ user.username }}">
     <input type="hidden" id="user_id" name="user_id" value="{{ user._id }}">
-    <!-- ADD CLASS NAME -->
+
+    <!-- EDIT CLASS NAME -->
     <div class="row">
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">bookmark</i>
             <input type="text" class="form-control text-capitalize validate" id="add_class_name" name="class_name"
                 placeholder="Class name" required="required" validate value="{{ this_class.class_name }}">
-            <label for="add_class_name" class="list-label ml-2">Class name</label>
+            <label for="add_class_name" class="ml-2">Class name</label>
         </div>
     </div>
 
-    <!-- ADD CLASS DESCRIPTION -->
+    <!-- EDIT CLASS DESCRIPTION -->
     <div class="row">
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">description</i>
             <textarea class="materialize-textarea form-control" id="add_class_description" name="class_description"
                 placeholder="Class description" required="required"
-                validate>{{ this_class.class_description }}</textarea>
-            <label for="add_class_description" class="list-label ml-2">Class description</label>
+                validate>{{ this_class.class_description}}</textarea>
+            <label for="add_class_description" class="ml-2">Class description</label>
         </div>
     </div>
 
-    <!-- ADD MAIN ELEMENTS -->
+    <!-- EDIT MAIN ELEMENTS -->
+    <div class="row mb-2">
+        <i class="material-icons prefix ml-3">vpn_key</i>
+        <label for="summernotes" class="list-label ml-3">Elements</label>
+    </div>
     <div class="row">
-        <div class="input-field col s12 l10">
-            <i class="material-icons prefix">vpn_key</i>
-            <textarea class="materialize-textarea form-control" id="add_main_elements" name="main_elements"
-                placeholder="Main elements">{{this_class.main_elements}}</textarea>
-            <label for="add_main_elements" class="list-label ml-2">Main elements</label>
+        <div class="col s12 l6">
+            <textarea class="form-control summernote" id="summernotes" name="editordata"
+                required>{{this_class.main_elements}}</textarea>
+
         </div>
     </div>
+    <br>
 
-    <!-- ADD OTHER ELEMENTS -->
+    <!-- EDIT OTHER ELEMENTS -->
     <div class="row">
         <div class="input-field col s12 l10">
             <i class="material-icons prefix">more</i>
             <textarea class="materialize-textarea form-control" id="add_other_elements" name="other_elements"
                 placeholder="Other helpful elements">{{this_class.other_elements}}</textarea>
-            <label for="add_main_elements" class="list-label ml-2">Other helpful elements</label>
+            <label for="add_main_elements" class="ml-2">Helpers</label>
         </div>
     </div>
-
-    <!-- ADD PLAYLIST LINK -->
-    <div class="row">
-        <div class="input-field col s12 l10">
-            <i class="material-icons prefix">featured_play_listk</i>
-            <input type="text" class="form-control text-capitalize validate" id="add_playlist_title"
-                name="playlist_title" placeholder="Add a playlist Title" value="{{this_class.playlist_title}}">
-            <label for="add_playlist_link" class="list-label ml-2">Playlist link</label>
-            <input type="text" class="form-control text-capitalize validate" id="add_playlist_link" name="playlist_link"
-                placeholder="Add a playlist Link" value="{{this_class.playlist_link}}">
-            <label for="add_playlist_link" class="list-label ml-2">Playlist link</label>
-        </div>
-    </div>
-    <br>
 </section>
-<!-- ADD SERIES SELECTION -->
+
+
+<!-- EDIT SERIES SELECTION -->
 <section class="series-selector">
-    <div class="divider"> </div>
     <br>
     <div class="row">
         <div class="input-field col s12 l10 add-series">
@@ -79,9 +72,23 @@
             <label for="series" class="list-label ml-2">Select class series</label>
         </div>
     </div>
-    <div class="divider"> </div>
+</section>
+
+<!-- EDIT PLAYLIST LINK -->
+<section class="links">
+    <div class="row">
+        <div class="input-field col s12 l10">
+            <i class="material-icons prefix">featured_play_listk</i>
+            <input type="text" class="form-control text-capitalize validate" id="add_playlist_title"
+                name="playlist_title" placeholder="Add a playlist Title" value="{{this_class.playlist_title}}">
+            <label for="add_playlist_link" class="ml-2">Playlist link</label>
+            <input type="text" class="form-control text-capitalize validate" id="add_playlist_link" name="playlist_link"
+                placeholder="Add a playlist Link" value="{{this_class.playlist_link}}">
+        </div>
+    </div>
     <br>
 </section>
+
 <!-- EXERCISES SECTION IN EDIT CLASS VIEW - EDITING EXERCISES FROM CLASS VIEW NOT POSSIBLE -->
 <section class="exercises">
     <div class="divider"> </div>
@@ -89,10 +96,10 @@
     <h6>Exercises:</h6>
     <br>
     {% if this_class.exercises %}
-    <ul class="collapsible mx-n3 p-0 popout" data-collapsible="accordion">
+    <ul class="collapsible collapsible-main mx-n3 p-0 popout" data-collapsible="accordion">
         {% for exercise in this_class.exercises %}
         <li class="this_class">
-            <div class="collapsible-header">
+            <div class="collapsible-header level-1">
                 <div class="class_header col">
                     <strong class="accordion-title">{{ exercise.exercise_name | capitalize}}</strong>
                 </div>
@@ -101,23 +108,23 @@
             <div class="collapsible-body pt-2 pb-0 ml-1 px-0">
                 <div class="row w-100 no-gutters">
                     <div class="col ml-1 mr-n3 container">
-                        <ul class="collapsible z-depth-0 p-0 m-0" data-collapsible="expandable">
+                        <ul class="collapsible collapsible-sub z-depth-0 p-0 m-0" data-collapsible="expandable">
                             <li>
-                                <div class="collapsible-header active">
+                                <div class="collapsible-header level-2 active collapsible-opened-2">
                                     <i class="material-icons">description</i>Description</div>
                                 <div class="collapsible-body">
-                                    <p>{{ exercise.exercise_description | capitalize}}</p>
+                                    <p>{{ exercise.exercise_description | safe}}</p>
                                 </div>
                             </li>
                             <li>
-                                <div class="collapsible-header">
+                                <div class="collapsible-header level-2">
                                     <i class="material-icons">comment</i>Comment</div>
                                 <div class="collapsible-body">
                                     <p>{{ exercise.exercise_comment | capitalize}}</p>
                                 </div>
                             </li>
                             <li>
-                                <div class="collapsible-header">
+                                <div class="collapsible-header level-2">
                                     <i class="material-icons">star</i>Aim</div>
                                 <div class="collapsible-body">
                                     <p>{{ exercise.exercise_aim | capitalize}}</p>
@@ -131,18 +138,12 @@
 
                                 {% for track in exercise.tracks %}
                                 <li class="collection-item">
-                                    <div>
-                                        <a href="{{ track.track_link }}" target="_blank" class=" track-link tooltipped"
-                                            data-position="top" data-delay="50" data-tooltip="Go to this music track">
-                                            <span class="title"><strong>{{ track.track_title | title }}
-                                                    &nbsp;</strong></span>
-                                            <em>/ &nbsp; {{ track.track_comment | capitalize}}</em>
-                                        </a>
-                                    </div>
+                                    <span class="title link-text">{{ track.track_title | title}}</span>
+                                    <em class="link-text">/ &nbsp; {{ track.track_comment | capitalize}}</em>
                                 </li>
                                 {% else %}
                                 <li class="collection-item">
-                                    <em>No music tacks added yet</em>
+                                    <em class="link-text">No music tacks added yet</em>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -153,22 +154,14 @@
                             <ul class="collection with-header">
                                 <li class="collection-header "><i class="material-icons">videocam</i> Video Links
                                 </li>
-
                                 {% for link in exercise.links %}
-
                                 <li class="collection-item">
-                                    <div>
-                                        <a href="{{ link.video_link }}" target="_blank" class=" video-link tooltipped"
-                                            data-position="top" data-delay="50" data-tooltip="Go to this video">
-                                            <span class="title">{{ link.video_title | title }} &nbsp;</span>
-                                            <em>/ &nbsp; {{ link.video_comment | capitalize}}</em>
-                                        </a>
-                                    </div>
+                                    <span class="title link-text">{{ link.video_title | title}}</span><br>
+                                    <em class="link-text">{{ link.video_text | capitalize}}</em>
                                 </li>
-
                                 {% else %}
                                 <li class="collection-item">
-                                    <em>No video links added yet</em>
+                                    <em class="link-text">No video links added yet</em>
                                 </li>
 
                                 {% endfor %}
@@ -197,28 +190,20 @@
     <h6>Logs:</h6>
     <br>
     {% if this_class.logs %}
-    <ul class="collapsible popout" data-collapsible="accordion">
+    <ul class="collapsible collapsible-log popout" data-collapsible="accordion">
         {% for log in this_class.logs %}
         <li class="this_class">
-            <div class="collapsible-header px-0">
+            <div class="collapsible-header level-3 px-0">
                 <div class="class_header col">
-                    <!---<i class="material-icons accordion_arrow">expand_more</i>-->
                     <strong>{{ log.log_date }}</strong> &nbsp; / &nbsp; <em> {{ log.log_tag | capitalize}} </em>
                 </div>
             </div>
             <div class="collapsible-body">
                 <div class="row">
                     <div class="col no-gutters">
-                        <span> {{ log.log_text | capitalize}} </span>
+                        <span> {{ log.log_text | safe }} </span>
                     </div>
                 </div>
-                <!--<div class="row no-gutters mb-n3">
-                    <div class="col log-tools mt-2 mr-n3 pr-0 d-flex justify-content-beginning">
-                        <a href="{{ url_for('delete_log', log_id=log._id, class_id=class_id) }}"
-                            class="btn-floating btn-tiny red tooltipped" data-position="top" data-delay="50"
-                            data-tooltip="Delete log"><i class="material-icons">delete</i></a>
-                    </div>
-                </div>-->
             </div>
         </li>
         {% endfor %}

@@ -9,13 +9,13 @@
     <h3>Classes</h3>
     <p>You have created <b> </b> classes {{ username.username }}</p>
 </section>
+{{ back_text }} {{ back_url }}
 <section class="series-view-content">
-    <ul class="collapsible level-1" data-collapsible="accordion" id="collapsible-list">
+    <ul class="collapsible collapsible-main">
         {% for class in classes %}
         <li class="accordion_list">
-            <div class="collapsible-header">
+            <div class="collapsible-header level-1">
                 <div class="list_header col">
-                    <!---<i class="material-icons accordion_arrow">expand_more</i>-->
                     <strong>{{ class.class_name }}</strong>
                 </div>
             </div>
@@ -25,11 +25,11 @@
                 <!-- TOOLS BUTTON FOR THE TOOLS: EDIT/DELETE/DUPLICATE/ADD EXERCISE/ ADD LOG-->
                 <section class="tools">
                     <div class="fixed-action-btn vertical">
-                        <a class="btn-floating btn-large red accent-4 tooltipped z-depth-5" id="class-tools" data-position="left"
-                            data-delay="50" data-tooltip="Editor tools">
+                        <a class="btn-floating btn-large red accent-4 tooltipped z-depth-5"
+                           data-tooltip="Editor tools">
                             <i class="medium material-icons">build</i></a>
                         <ul>
-                            <li><a href="{{ url_for('view_class', class_id=class._id, username = username) }}"
+                            <li><a href="{{ url_for('view_class', class_id=class._id, username = username, back_text = back_text, back_url = back_url ) }}"
                                     class="btn-floating light-green darken-2 z-depth-5 tooltipped" data-position="left" data-delay="50"
                                     data-tooltip="View class">
                                     <i class="material-icons">remove_red_eye</i></a></li>
@@ -61,7 +61,7 @@
 <!-- Button to add a new class -->
 <div class="divider"></div>
 <br>
-<div class="section">
+<div class="section mb-4">
     <div class="container bottom_actions w-100">
         <div class="row">
             <div class="col ml-n3 mb-6">
