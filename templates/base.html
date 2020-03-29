@@ -25,20 +25,20 @@
     </head>
 
     <body>
-        <!-- Navigation -->
-        {% include 'navbar.html' %}
         <!-- Main content -->
         <div class="container-fluid background">
-        <main class="container pl-0 pr-0"> 
+            <!-- Navigation -->
+            {% include 'navbar.html' %}
+            <main class="container pl-0 pr-0">
 
-            {% block content %}
-            {% endblock content%}
+                {% block content %}
+                {% endblock content%}
 
-        </main>
-       
-        <!-- Footer -->
-        {% include 'footer.html' %}
-    </div>
+            </main>
+
+            <!-- Footer -->
+            {% include 'footer.html' %}
+        </div>
     </body>
 
 </html>

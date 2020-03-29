@@ -1,7 +1,5 @@
 
-*{
-    box-sizing: border-box;
-}
+
 html {
     min-height: 100%;
     margin: 0;
@@ -18,7 +16,7 @@ body {
 }
    
 .background {
-    padding: 0 0 3rem;
+    padding: 3rem 0 2rem;
     margin: 0;
     min-height: 100vh;
     background-color: #1ed9d2;
@@ -31,12 +29,8 @@ body {
 
 /* BACKGROUNDS */
 main {
-    flex: 1 0 auto;   
-
+    flex: 1 0 auto;
 }
-
-
-
 
 
 /* NAVIGATION BAR */
@@ -51,13 +45,22 @@ main {
     }
 }
 
+/* CONTENT PAGES */
+
+/* Login */
+.index {
+    height: 100vh;
+    background-image: url()
+}
+
 /* FOOTER */
 .copyright {
-    color: rgba(1, 48, 48, 0.543)
+    color: rgba(1, 48, 48, 0.543);
+    font-size: .8rem;
 }
 footer {
-    flex-shrink: 0;
-
+    position: sticky;
+    width: 100vw;
 }
 
 
@@ -112,8 +115,10 @@ a:link, a:hover, a:active {
    text-decoration: none;
    color: white;
    background-color: none;
-   
-   
+}
+
+.fixed-action-button {
+    position: absolute!important;
 }
 
 /* SUMMERNOTE */
@@ -188,3 +193,19 @@ label.list-label {
      font-size: .8rem!important ;
      color: rgb(60, 58, 58)!important;
  }
+
+ /* DATE PICKER */
+.modal.datepicker-modal {
+    height: auto!important;
+    box-sizing: border-box;
+}
+.datepicker-day-button:hover {
+    color: rgb(255, 73, 73);
+}
+.datepicker-clear:hover,
+.datepicker-cancel:hover,
+.datepicker-done:hover {
+    background-color:rgb(216, 243, 247)!important;
+    color:rgb(3, 109, 138);
+    font-weight: 500;
+}

@@ -4,17 +4,26 @@ $(document).ready(function () {
   $('.sidenav').sidenav();
 
   // Initialize Materialize Collapsible
-  $(document).ready(function(){
+  $(document).ready(function () {
     $('.collapsible').collapsible();
   });
-  
+
   // Initialize Materialize Floating Action Button
-  $(document).ready(function(){
+  $(document).ready(function () {
     $('.fixed-action-btn').floatingActionButton();
+
   });
 
   // Initializing Materialize Tooltips
-  $(document).ready(function(){
+  document.addEventListener('DOMContentLoaded', function () {
+    var elems = document.querySelectorAll('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(elems, {
+      isOpen: true
+    });
+  });
+
+
+  $(document).ready(function () {
     $('.tooltipped').tooltip();
   });
 
@@ -41,18 +50,34 @@ $(document).ready(function () {
       $(this).addClass('collapsible-opened-3');
     }
   });
-  
-  // Materialize Date Picker
-  $('.datepicker').datepicker({
+
+  // Initializing Materialize Modal
+  $('.modal').modal();
+
+  // Initializing Materialize Date Picker
+
+  var elems = document.querySelector('.datepicker');
+  M.Datepicker.init(elems, {
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 15, // Creates a dropdown of 15 years to control year,
-    today: 'Today',
-    clear: 'Clear',
-    close: 'Ok',
     closeOnSelect: false, // Close upon selecting a date,
-    container: undefined // ex. 'body' will append picker to body
+    close: 'Ok',
+    showClearBtn: true,
+    container: null // ex. 'body' will append picker to body
   });
- 
+
+  $('.datepicker').on('mousedown', function(e) {
+    e.preventDefault();
+  });
+
+
+
+
+  //$('.datepicker-modal .open').css({ 'height': '100%' });
+
+  // Materialize initialize form select element
+  $('select').formSelect();
+
 
 
 
@@ -79,28 +104,45 @@ $(document).ready(function () {
     ['insert', ['emoji']],
     ['misc', ['fullscreen']]
   ];
- 
+
   $('.summernote').summernote({
     placeholder: 'Text..',
     tabsize: 1.5,
     height: 100,
     toolbar: toolbar,
-    styleTags: ['p', 'h1','h2', 'h3', 'h4', 'h5', 'h6'],
+    styleTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
     tooltip: false
   });
-  
-  /* RE-STYLING SUMMER NOTE ELEMENTS TO GO WITH MATERIALIZE */
-  $('.note-btn').css({'background-color':'rgb(176, 224, 230)', 'height':'2rem', 'width': '2.2rem', 'padding':'0', 'margin':'0 1px', 'color':'rgb(3, 109, 138)', 'line-height': '0' }).removeAttr('tooltip');
 
-  $('.note-btn').mouseover(function() {
+  /* RE-STYLING SUMMER NOTE ELEMENTS TO GO WITH MATERIALIZE */
+  $('.note-btn').css({
+    'background-color': 'rgb(176, 224, 230)',
+    'height': '2rem',
+    'width': '2.2rem',
+    'padding': '0',
+    'margin': '0 1px',
+    'color': 'rgb(3, 109, 138)',
+    'line-height': '0'
+  }).removeAttr('tooltip');
+
+  $('.note-btn').mouseover(function () {
     $(this).addClass('note-hover');
   });
-  $('.note-btn').mouseout(function() {
+  $('.note-btn').mouseout(function () {
     $(this).removeClass('note-hover');
   });
 
-  $('button.note-btn i').css({'font-size':'1rem', 'margin': 'auto'});
-  $('.note-dropdown-menu a').css({'color': 'rgb(3, 109, 138)', 'line-height':'80%'});
+  $('button.note-btn i').css({
+    'font-size': '1rem',
+    'margin': 'auto'
+  });
+  $('.note-dropdown-menu a').css({
+    'color': 'rgb(3, 109, 138)',
+    'line-height': '80%'
+  });
 
-  $('.editor ul>li').css({'list-style-type': 'initial', 'margin-left':'2rem'});
+  $('.editor ul>li').css({
+    'list-style-type': 'initial',
+    'margin-left': '2rem'
+  });
 });

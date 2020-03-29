@@ -26,7 +26,8 @@
                 <section class="tools">
                     <div class="fixed-action-btn vertical">
                         <a class="btn-floating btn-large red accent-4 tooltipped z-depth-5"
-                           data-tooltip="Editor tools">
+                           data-tooltip="Editor tools" id="class-tools" data-position="left"
+                           data-delay="50">
                             <i class="medium material-icons">build</i></a>
                         <ul>
                             <li><a href="{{ url_for('view_class', class_id=class._id, username = username, back_text = back_text, back_url = back_url ) }}"

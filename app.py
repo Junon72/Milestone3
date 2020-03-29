@@ -255,7 +255,7 @@ def edit_class(class_id):
     class_id = class_id
     # print(class_id)
     series = series_collection.find_one({'username': session['user']})
-    # print('series in collection', series)
+    print('series in collection', series)
     return render_template('editClass.html', title="Edit Class", user = user, class_id = class_id, this_class = this_class, series = series)
 
 
