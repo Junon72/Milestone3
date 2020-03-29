@@ -20,17 +20,33 @@
             <span>{{ this_class.class_description | capitalize}}</span>
         </div>
     </div>
+    <br>
 
     <!-- MAIN ELEMENTS -->
-    {% if this_class.main_elements %}
-    <div class="row w-100">
-        <div class="class-title col s12 m10 l6 mt-1">
-            <h6>Elements</h6>
-            <span>{{ this_class.main_elements | safe}}</span>
-        </div>
-    </div>
-    {% endif %}
-
+    <section class="element">
+        {% if this_class.main_elements is defined %}
+        <div class="divider"> </div>
+        <br>
+        <h6 class="ml-2">Class elements</h6>
+        <ul class="collapsible collapsible-elem popout" data-collapsible="accordion">
+            <li class="this_class">
+                <div class="collapsible-header w-100 level-4">
+                    <div class="class_header col">
+                        <strong class="accordion-title">View elements</strong>
+                    </div>
+                </div>
+                <!-- ELEMENTS CONTENT -->
+                <div class="collapsible-body">
+                    <div class="row">
+                        <div class="col no-gutters">
+                            <span class="editor"> {{ this_class.main_elements | safe}} </span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        {% endif %}
+    </section>
     <!-- OTHER ELEMENTS -->
     {% if this_class.other_elements %}
     <div class="row w-100">
@@ -82,23 +98,23 @@
 
 <!-- PLAYLIST LINK -->
 <section class="links">
-        <div class="divider"> </div>
-        <br>
-        <div class="row w-100">
-            <div class="col-md-3 class-title">
-                <h6>Playlist:</h6>
-            </div>
-            <ul class="col-md-9 p-0 collection z-depth-1">
-                {% if this_class.playlist %}
-                <a href="{{ this_class.playlist_link }}" target="_blank" class="collection-item mr-n3 tooltipped"
-                    data-position="top" data-delay="50" data-tooltip="Go to this playlist"><em
-                        class="link-text">{{ this_class.playlist_title | upper}}</em></a>
-                {% else %}
-                <div class="collection-item"> <em class="link-text">None</em></div>
-                {% endif %}
-            </ul>
+    <div class="divider"> </div>
+    <br>
+    <div class="row w-100">
+        <div class="col-md-3 class-title">
+            <h6>Playlist:</h6>
         </div>
-    </section>
+        <ul class="col-md-9 p-0 collection z-depth-1">
+            {% if this_class.playlist_title or this_class_playlist_link %}
+            <a href="{{ this_class.playlist_link }}" target="_blank" class="collection-item mr-n3 tooltipped"
+                data-position="top" data-delay="50" data-tooltip="Go to this playlist"><em
+                    class="link-text">{{ this_class.playlist_title | upper}}</em></a>
+            {% else %}
+            <div class="collection-item"> <em class="link-text">None</em></div>
+            {% endif %}
+        </ul>
+    </div>
+</section>
 
 <!-- EXERCISES SECTION IN CLASS VIEW -->
 <section class="exercises">
@@ -273,8 +289,9 @@
                             data-position="top" data-delay="50" data-tooltip="Edit log"><i
                                 class="small small-icon material-icons">edit</i></a>
                         <a href="{{ url_for('delete_log', log_id=log._id, class_id=class_id) }}"
-                            class="waves-effect waves-red btn-small small-tools ml-2 red z-depth-5 tooltipped" data-position="top"
-                            data-delay="50" data-tooltip="Delete log"><i class="small small-icon material-icons">delete</i></a>
+                            class="waves-effect waves-red btn-small small-tools ml-2 red z-depth-5 tooltipped"
+                            data-position="top" data-delay="50" data-tooltip="Delete log"><i
+                                class="small small-icon material-icons">delete</i></a>
                     </div>
                 </div>
             </div>
@@ -327,12 +344,12 @@
         {{ back_url }}
         <div class="row">
             <div class="col ml-n4 mr-0 mt-6 mb-10 d-flex no-gutters justify-content-beginning">
-                
+
                 <a href="{{ url_for('classes')}}"
                     class="btn-small waves-effect waves-light black z-depth-5 tooltipped go_back" name="go_back"
                     data-position="top" data-delay="50" data-tooltip="Go back">
                     <i class="material-icons left">chevron_left</i>Back to Classes</a>
-              
+
             </div>
         </div>
     </div>

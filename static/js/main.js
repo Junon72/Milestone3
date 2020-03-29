@@ -28,7 +28,17 @@ $(document).ready(function () {
   });
 
   // Materialize Collapsible 
-  // Exercises Headers - toggle the background color
+  // Class Elements Header - toggle the background color / class elements
+  $('.collapsible.collapsible-elem').on('click', '.level-4', function (e) {
+    if ($(this).hasClass('collapsible-opened-4')) {
+      $(this).removeClass('collapsible-opened-4');
+    } else {
+      $('.level-4').removeClass('collapsible-opened-4');
+      $(this).addClass('collapsible-opened-4');
+    }
+  });
+
+  // Exercises Headers - toggle the background color / exercises
   $('.collapsible.collapsible-main').on('click', '.level-1', function (e) {
     if ($(this).hasClass('collapsible-opened-1')) {
       $(this).removeClass('collapsible-opened-1');
@@ -37,11 +47,13 @@ $(document).ready(function () {
       $(this).addClass('collapsible-opened-1');
     }
   });
-  // Exercises content headers - toggle the background color
+  // Exercises content headers - toggle the background color / exercises content
   $('.collapsible.collapsible-sub').on('click', '.level-2', function (e) {
     $(this).toggleClass('collapsible-opened-2');
   });
-  // Logs headers - toggle the background color
+
+  
+  // Logs headers - toggle the background color / logs
   $('.collapsible.collapsible-log').on('click', '.level-3', function (e) {
     if ($(this).hasClass('collapsible-opened-3')) {
       $(this).removeClass('collapsible-opened-3');

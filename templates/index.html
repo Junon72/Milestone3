@@ -2,31 +2,34 @@
 
 {% block content %}
 <div class="index">
-<div class="row">
-	<div class="col top-spacer mt-12"></div>
-</div>
-<section class="page-title">
 	<div class="row">
-		<div class="class-title col s12 m10 l6">
-			<h5>Log in</h5>
+		<div class="col top-spacer mt-12"></div>
+	</div>
+	<section class="page-title">
+		<div class="row">
+			<div class="class-title log-title col s12 m10 l6">
+				<h5>Log in</h5>
+			</div>
 		</div>
-	</div>
-</section>
-
-<div class="container">
-	<div class="row justify-content-center">
-		<form method="POST" action="/user_auth">
-			<div class="form-group">
-				<label for="username">Username</label>
-				<input name="username" type="text" class="form-control" placeholder="Username" required>
+	</section>
+	<section class="container-fluid">
+		<div class="row">
+			<div class="card mx-auto">
+				<div class="card-body">
+					<form method="POST" action="/user_auth" class="login-form">
+						<div class="form-group">
+							<label for="username">Username</label>
+							<input name="username" type="text" class="form-control" placeholder="Username" required>
+						</div>
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input class="form-control" name="password" type="password" placeholder="Password" required>
+						</div>
+						<button type="submit" class="btn btn-primary btn-block">Login</button>
+					</form>
+				</div>
 			</div>
-			<div class="form-group">
-				<label for="password">Password</label>
-				<input class="form-control" name="password" type="password" placeholder="Password" required>
-			</div>
-			<button type="submit" class="btn btn-primary btn-block">Login</button>
-		</form>
-	</div>
-</div>
+		</div>
+	</section>
 </div>
 {% endblock content %}

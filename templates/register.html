@@ -2,45 +2,52 @@
 
 {% block content %}
 <div class="row">
-		<div class="col top-spacer mt-12"></div>
-	</div>
+	<div class="col top-spacer mt-12"></div>
+</div>
+<div class="register-content">
 	<section class="page-title">
 		<div class="row">
-			<div class="class-title col s12 m10 l6">
-				<h5>Register</h5>
+			<div class="class-title log-title col s12 m10 l6">
+				<h5 class="class-title">Register</h5>
 			</div>
 		</div>
 	</section>
-<section class="container-fluid">
-	<div class="row">
-		<div class="card mx-auto">
-			<div class="card-body">
-				<form class="form-signin" method="POST" action="/register">
-					<div class="form-group">
-						<label for="sign-in-username">Username*</label>
-						<input name="username" type="text" class="form-control" id="sign-in-username" required>
+	<img src="/static/img/register.png" alt="Girl dancing and jumping high" id="register">
+	<div class="login-card">
+		<section class="container-fluid">
+			<div class="row">
+				<div class="card mx-auto">
+					<div class="card-body">
+						<form class="form-signin" method="POST" action="/register">
+							<div class="form-group">
+								<label for="sign-in-username">Username*</label>
+								<input name="username" type="text" class="form-control" id="sign-in-username" required value="">
+							</div>
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input name="email" type="email" class="form-control" id="email" value="">
+							</div>
+							<div class="form-group">
+								<label for="sign-in-password">Password*</label>
+								<input class="form-control" name="password" type="password" id="sign-in-password"
+									required value="">
+							</div>
+							<div class="form-group">
+								<label for="sign-in-password">Password again*</label>
+								<input class="form-control" name="password1" type="password" id="sign-in-password1"
+									required value="">
+							</div>
+							<div class="form-group">
+								<p>
+									*Required field
+								</p>
+							</div>
+							<button class="btn btn-outline-success btn-lg btn-block" type="submit">Register</button>
+						</form>
 					</div>
-					<div class="form-group">
-						<label for="email">Email</label>
-						<input name="email" type="email" class="form-control" id="email">
-					</div>
-					<div class="form-group">
-						<label for="sign-in-password">Password*</label>
-						<input class="form-control" name="password" type="password" id="sign-in-password" required>
-					</div>
-					<div class="form-group">
-						<label for="sign-in-password">Password again*</label>
-						<input class="form-control" name="password1" type="password" id="sign-in-password1" required>
-					</div>
-					<div class="form-group">
-						<p>
-							*Required field
-						</p>
-					</div>
-					<button class="btn btn-outline-success btn-lg btn-block" type="submit">Register</button>
-				</form>
+				</div>
 			</div>
-		</div>
+		</section>
 	</div>
-</section>
+</div>
 {% endblock content %}

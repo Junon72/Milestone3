@@ -1,24 +1,24 @@
-
-
 html {
     min-height: 100%;
     margin: 0;
     padding: 0;
 
 }
+
 body {
 
     height: 100vh;
     width: auto;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 
 }
-   
+
 .background {
     padding: 3rem 0 2rem;
     margin: 0;
-    min-height: 100vh;
+    min-height: 100%;
     background-color: #1ed9d2;
     background-image: linear-gradient(347deg, #1ed9d2 0%, #FFFFFF 21%, #ffffff 71%, #839dff 90%, #5e32b3 100%);
     background-repeat: no-repeat;
@@ -49,15 +49,63 @@ main {
 
 /* Login */
 .index {
-    height: 100vh;
-    background-image: url()
+    height: 75vh;
+    background: url(/static/img/login.jpg);
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
 }
+
+/* REGISTER*/
+.register-content {
+    height: 75vh;
+    position: relative;
+}
+
+.login-card {
+    position: absolute;
+    z-index: 999;
+    margin: auto auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: 10%;
+}
+#register{
+    height: 50vh;
+    margin-top: 20vh;
+    margin-left: 35vw;
+}
+
+.log-title> h5 {
+    padding-left: 8rem;
+    
+}
+
+@media screen and (max-width: 630px) {
+    #register { display: none; }
+}
+
+/* MAIN */
+
+.main-content {
+    min-height: 78vh;
+    position: relative;
+}
+
+/* VIEW CLASS */
+ .element-wrap {
+
+     background-color: rgba(245, 245, 245, 0.776);
+
+ }
 
 /* FOOTER */
 .copyright {
     color: rgba(1, 48, 48, 0.543);
     font-size: .8rem;
 }
+
 footer {
     position: sticky;
     width: 100vw;
@@ -84,52 +132,69 @@ footer {
 /* ELEMENTS */
 /* Collapsible header */
 
-.collapsible-header:hover, 
+.collapsible-header:hover,
 .collapsible-header:active {
     background-color: rgba(201, 228, 232, 0.448);
 }
 
+/* collapsible-main - exercises */
 .collapsible-opened-1 {
     background-color: rgb(176, 224, 230);
 }
 
+/* collapsible-sub - exercises / content */
 .collapsible-opened-2 {
     background-color: rgba(201, 228, 232, 0.448);
 }
 
+/* collapsible-log - logs */
 .collapsible-opened-3 {
-    background-color: rgb(176, 224, 230);
+    background-color: rgba(163, 237, 213, 0.79);
+}
+
+/* collapsible-elements - class elements */
+.collapsible-opened-4 {
+    background-color: rgb(185, 207, 245);
 }
 
 /* Collapsible body */
 .collapsible-body {
-    background-color: rgba(245, 245, 245, 0.907);
+    background-color: rgba(254, 254, 254, 0.913);
 }
 
-
+/* Collection item */
+.collection-item:hover,
+.collection-item:active {
+    background-color: rgba(201, 228, 232, 0.448)!important;
+}
 
 /* BUTTONS and LINKS*/
 
-button:link, button:hover, button:active,
-a:link, a:hover, a:active {
-   text-decoration: none;
-   color: white;
-   background-color: none;
+button:link,
+button:hover,
+button:active,
+a:link,
+a:hover,
+a:active {
+    text-decoration: none;
+    color: white;
+    background-color: none;
 }
 
 .fixed-action-button {
-    position: absolute!important;
+    position: absolute !important;
 }
 
 /* SUMMERNOTE */
 
 .note-hover {
-    background-color: rgb(216, 243, 247)!important;
+    background-color: rgb(216, 243, 247) !important;
 }
 
 .button-selected {
     background-color: rgb(3, 109, 138);
 }
+
 .tool-selected {
     color: white;
 }
@@ -143,6 +208,7 @@ a:link, a:hover, a:active {
 .navibar>li>a {
     max-height: 64px !important;
 }
+
 .navibar>li>a:hover,
 .navibar>li>a:focus,
 .navibar>li>a:active {
@@ -162,6 +228,7 @@ a:link, a:hover, a:active {
 .small-icon {
     font-size: 1.6rem !important;
 }
+
 .delete-small {
     color: rgb(255, 73, 73);
     font-size: 1.4rem !important;
@@ -181,31 +248,33 @@ a:link, a:hover, a:active {
 
 
 .link-text {
-    color:rgb(3, 109, 138);
+    color: rgb(3, 109, 138);
 }
 
 /* FORMS */
 label {
-    color: rgb(60, 58, 58)!important;
+    color: rgb(60, 58, 58) !important;
 }
 
 label.list-label {
-     font-size: .8rem!important ;
-     color: rgb(60, 58, 58)!important;
- }
+    font-size: .8rem !important;
+    color: rgb(60, 58, 58) !important;
+}
 
- /* DATE PICKER */
+/* DATE PICKER */
 .modal.datepicker-modal {
-    height: auto!important;
+    height: auto !important;
     box-sizing: border-box;
 }
+
 .datepicker-day-button:hover {
     color: rgb(255, 73, 73);
 }
+
 .datepicker-clear:hover,
 .datepicker-cancel:hover,
 .datepicker-done:hover {
-    background-color:rgb(216, 243, 247)!important;
-    color:rgb(3, 109, 138);
+    background-color: rgb(216, 243, 247) !important;
+    color: rgb(3, 109, 138);
     font-weight: 500;
 }
