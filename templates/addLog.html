@@ -4,72 +4,74 @@
 <div class="row">
     <div class="col top-spacer mt-12"></div>
 </div>
-<section class="page-title">
-    <div class="row">
-        <div class="col mb-4 mt-2">
-            <h5>New Log</h5>
-        </div>
-    </div>
-</section>
-<!-- ADD LOG -->
-<form class="col s12 l6" method="POST"
-    action="{{ url_for('insert_log', username=session['user'], class_id = class_id ) }}" id="add_log_from" 
-    autocomplete="off">
-    <!-- ADD LOG DATE-->
-    <section class="log_form">
+<!-- ADD LOG VIEW-->
+<div class="main-content">
+    <section class="page-title">
         <div class="row">
-            <div class="input-field picker col s12 l6" id="matfix">
-                <i class="material-icons prefix">today</i>
-                <input id="log_date" name="log_date" type="text" class="datepicker" placeholder="">
-                <label for="icon_prefix" class="">Log date</label>
+            <div class="col mb-4 mt-2">
+                <h5>New Log</h5>
             </div>
         </div>
-        <!-- ADD LOG CONTENT-->
-        <div class="row mb-0">
-            <div class="input-field col s12 l6">
-                <i class="material-icons prefix">label_outline</i>
-                <input type="text" class="form-control text-capitalize validate" id="tag_log" name="log_tag"
-                    required="required" placeholder="">
-                <label for="tag_log" class="list-label ml-2">Log Tag</label>
+    </section>
+    <!-- ADD LOG -->
+    <form class="col s12 l6" method="POST"
+        action="{{ url_for('insert_log', username=session['user'], class_id = class_id ) }}" id="add_log_from"
+        autocomplete="off">
+        <!-- ADD LOG DATE-->
+        <section class="log_form">
+            <div class="row">
+                <div class="input-field picker col s12 l6" id="matfix">
+                    <i class="material-icons prefix">today</i>
+                    <input id="log_date" name="log_date" type="text" class="datepicker" placeholder="">
+                    <label for="icon_prefix" class="">Log date</label>
+                </div>
             </div>
-        </div>
-        <br>
-        <!-- ADD LOG CONTENT-->
-        <div class="row mb-2">
+            <!-- ADD LOG CONTENT-->
+            <div class="row">
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">label_outline</i>
+                    <input type="text" class="form-control text-capitalize validate" id="tag_log" name="log_tag"
+                        required="required" placeholder="">
+                    <label for="tag_log" class="">Log Tag</label>
+                </div>
+            </div>
+            <br>
+            <!-- ADD LOG CONTENT-->
+            <div class="row mb-2">
                 <i class="material-icons prefix ml-3">event_note</i>
                 <label for="summernotes" class="list-label ml-3">Log</label>
             </div>
             <div class="row">
                 <div class="col s12 l6">
-                    <textarea class="form-control summernote" id="summernotes" name="editordata" required></textarea>
-    
+                    <textarea class="form-control summernote" id="summernotes" name="editordata"></textarea>
+
                 </div>
             </div>
             <br>
-    </section>
-    <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
-    <!-- SAVE inserts the content and returns to CLASS VIEW  - .insert() new document with new log _id-->
-    <!-- CANCEL does not save the content and returns to the CLASS VIEW - .find_one() the class without changes -->
-    <section class="button-nav">
-        <div class="divider"> </div>
-        <br>
-        <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
-            <div class="row no-gutters">
-                <div class="col d-flex justify-content-end">
-                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                        name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
-                        <i class="material-icons left">save</i>Save</button>
+        </section>
+        <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
+        <!-- SAVE inserts the content and returns to CLASS VIEW  - .insert() new document with new log _id-->
+        <!-- CANCEL does not save the content and returns to the CLASS VIEW - .find_one() the class without changes -->
+        <section class="button-nav">
+            <div class="divider"> </div>
+            <br>
+            <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
+                <div class="row no-gutters">
+                    <div class="col d-flex justify-content-end">
+                        <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                            name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                            <i class="material-icons left">save</i>Save</button>
 
-                    <!-- Check the class_id and repopulate the add_class form -->
-                    <a href="{{ url_for('view_class', class_id = class_id) }}"
-                        class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
-                        value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
-                        data-tooltip="Cancel and go back">
-                        Cancel</a>
+                        <!-- Check the class_id and repopulate the add_class form -->
+                        <a href="{{ url_for('view_class', class_id = class_id) }}"
+                            class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
+                            value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
+                            data-tooltip="Cancel and go back">
+                            Cancel</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-</form>
-
+        </section>
+    </form>
+</div>
 {% endblock %}

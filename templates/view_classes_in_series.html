@@ -15,12 +15,12 @@
     {% if name.classes is defined and name.classes|length > 0 %}
     <section class="series-view-content">
         {% for items in serial.class_series %}
-        <ul class="collapsible" data-collapsible="accordion">
+        <ul class="collapsible collapsible-main" data-collapsible="accordion">
             {% for class in all_classes recursive %}
             {% for item in items.classes %}
             {% if class._id|string in item %}
             <li class="accordion_list">
-                <div class="collapsible-header">
+                <div class="collapsible-header level-1">
                     <div class="list_header col">
                         <!---<i class="material-icons accordion_arrow">expand_more</i>-->
                         <strong>{{ class.class_name }}</strong>
@@ -32,7 +32,7 @@
                     <!-- TOOLS BUTTON FOR THE TOOLS: EDIT/DELETE/DUPLICATE/ADD EXERCISE/ ADD LOG-->
                     <section class="tools">
                         <div class="fixed-action-btn vertical">
-                            <a class="btn-floating btn-large red tooltipped" id="class-tools" data-position="left"
+                            <a class="btn-floating btn-large red tooltipped z-depth-5" id="class-tools" data-position="left"
                                 data-delay="50" data-tooltip="Editor tools">
                                 <i class="medium material-icons">build</i></a>
                             <ul>

@@ -11,76 +11,78 @@
     </div>
 </section>
 
-<!-- EXERCISE FORM  -->
-<form class="col s12" method="POST" action="{{ url_for('insert_exercise', class_id=class_id) }}" id="add_exercise_form"
-    autocomplete="off">
-    <!-- Disabled autocompletion -->
+<!-- ADD EXERCISE FORM  -->
+<div class="main-content">
+    <form class="col s12" method="POST" action="{{ url_for('insert_exercise', class_id=class_id) }}"
+        id="add_exercise_form" autocomplete="off">
+        <!-- Disabled autocompletion -->
 
-    <!-- FORM SECTIONS-->
-    <!-- EXERCISE FORM SECTIONs -->
-    <section class="exercise_form">
-        <!-- ADD EXERCISE NAME -->
-        <div class="row w-100">
-            <div class="input-field col s12 m10 l6">
-                <i class="material-icons prefix">bookmark</i>
-                <input type="text" class="form-control text-capitalize validate" id="add_exercise_name"
-                    name="exercise_name" placeholder="Exercise name" required="required" validate>
-                <label for="add_exercise_name" class="list-label ml-2">Exercise name</label>
-            </div>
-        </div>
-        <!-- ADD EXERCISE DESCRIPTION -->
-        <div class="row mb-2">
-            <i class="material-icons prefix ml-3">description</i>
-            <label for="summernotes" class="list-label ml-3">Exercise</label>
-        </div>
-        <div class="row">
-            <div class="col s12 m10 l6">
-                <textarea class="form-control summernote" id="summernotes" name="editordata" required></textarea>
-
-            </div>
-        </div>
-        <!-- ADD COMMENT -->
-        <div class="row w-100">
-            <div class="input-field col s12 m10 l6">
-                <i class="material-icons prefix">comment</i>
-                <textarea class="materialize-textarea form-control validate" id="add_comment" name="exercise_comment"
-                    placeholder="Comment"></textarea>
-                <label for="add_comment" class="list-label ml-2">Comment</label>
-            </div>
-        </div>
-        <!-- ADD AIM -->
-        <div class="row w-100">
-            <div class="input-field col s12 m10 l6">
-                <i class="material-icons prefix">star</i>
-                <textarea class="materialize-textarea form-control validate" id="add_aim" name="exercise_aim"
-                    placeholder="Aim of the exercise"></textarea>
-                <label for="add_aim" class="list-label ml-2">Aim</label>
-            </div>
-        </div>
-    </section>
-
-    <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
-    <!-- SAVE inserts the content and returns to CLASS FORM  - .insert() new document with new exercise _id and possible sub-document _id,s-->
-    <!-- CANCEL does not save the content and returns to the CLASS FORM - .get() the class without changes -->
-    <section class="button-nav">
-        <div class="divider"> </div>
-        <br>
-        <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
-            <div class="row">
-                <div class="col d-flex justify-content-end">
-                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                        name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
-                        <i class="material-icons left">save</i>Save</button>
-
-                    <!-- Return to classes view -->
-                    <a href="{{ url_for('view_class', class_id = class_id) }}"
-                        class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
-                        value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
-                        data-tooltip="Cancel and go back">
-                        Cancel</a>
+        <!-- FORM SECTIONS-->
+        <!-- EXERCISE FORM SECTIONs -->
+        <section class="exercise_form">
+            <!-- ADD EXERCISE NAME -->
+            <div class="row w-100">
+                <div class="input-field col s12 m10 l6">
+                    <i class="material-icons prefix">bookmark</i>
+                    <input type="text" class="form-control text-capitalize validate" id="add_exercise_name"
+                        name="exercise_name" placeholder="Exercise name" required="required" validate>
+                    <label for="add_exercise_name" class="list-label ml-2">Exercise name</label>
                 </div>
             </div>
-        </div>
-    </section>
-</form>
+            <!-- ADD EXERCISE DESCRIPTION -->
+            <div class="row mb-2">
+                <i class="material-icons prefix ml-3">description</i>
+                <label for="summernotes" class="list-label ml-3">Exercise</label>
+            </div>
+            <div class="row">
+                <div class="col s12 m10 l6">
+                    <textarea class="form-control summernote" id="summernotes" name="editordata"></textarea>
+
+                </div>
+            </div>
+            <!-- ADD COMMENT -->
+            <div class="row w-100">
+                <div class="input-field col s12 m10 l6">
+                    <i class="material-icons prefix">comment</i>
+                    <textarea class="materialize-textarea form-control validate" id="add_comment"
+                        name="exercise_comment" placeholder="Comment"></textarea>
+                    <label for="add_comment" class="list-label ml-2">Comment</label>
+                </div>
+            </div>
+            <!-- ADD AIM -->
+            <div class="row w-100">
+                <div class="input-field col s12 m10 l6">
+                    <i class="material-icons prefix">star</i>
+                    <textarea class="materialize-textarea form-control validate" id="add_aim" name="exercise_aim"
+                        placeholder="Aim of the exercise"></textarea>
+                    <label for="add_aim" class="list-label ml-2">Aim</label>
+                </div>
+            </div>
+        </section>
+
+        <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
+        <!-- SAVE inserts the content and returns to CLASS FORM  - .insert() new document with new exercise _id and possible sub-document _id,s-->
+        <!-- CANCEL does not save the content and returns to the CLASS FORM - .get() the class without changes -->
+        <section class="button-nav">
+            <div class="divider"> </div>
+            <br>
+            <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
+                <div class="row">
+                    <div class="col d-flex justify-content-end">
+                        <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                            name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                            <i class="material-icons left">save</i>Save</button>
+
+                        <!-- Return to classes view -->
+                        <a href="{{ url_for('view_class', class_id = class_id) }}"
+                            class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
+                            value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
+                            data-tooltip="Cancel and go back">
+                            Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>
 {% endblock content %}

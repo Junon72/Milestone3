@@ -4,6 +4,7 @@
     <div class="col top-spacer mt-12"></div>
 </div>
 <!-- EXERCISE FORM  -->
+<div class="main-content">
 <form class="col s12" method="POST"
     action="{{ url_for('update_exercise', class_id=class_id, exercise_id = exercise_id, username=session['user']) }}"
     id="edit_exercise_form" autocomplete="off">
@@ -35,4 +36,5 @@
         </div>
     </section>
 </form>
+</div>
 {% endblock content %}

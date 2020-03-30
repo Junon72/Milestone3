@@ -4,77 +4,81 @@
 <div class="row">
     <div class="col top-spacer mt-12"></div>
 </div>
-{% for log in log %}
-<section class="page-title">
-    <div class="row">
-        <div class="col mb-4 mt-2">
-            <h5>Edit log from: &nbsp; {{ log.log_date }} </h5>
-        </div>
-    </div>
-</section>
-<!-- EDIT LOG -->
-<form class="col s12 l6" method="POST"
-    action="{{ url_for('update_log', username=session['user'], class_id = class_id, log_id = log_id  ) }}"
-    id="edit_log_form" autocomplete="off">
-
-    <!-- EDIT LOG DATE-->
-    <section class="log_form">
+<!-- EDIT LOG VIEW -->
+<div class="main-content">
+    <section class="page-title">
+        {% for log in log %}
         <div class="row">
-            <div class="input-field col s12 l4" id="matfix">
-                <i class="material-icons prefix">today</i>
-                <input id="log_date" name="log_date" type="text" class="datepicker" value="{{ log.log_date }}"
-                    placeholder="">
-                <label for="icon_prefix" class="">Log date</label>
+            <div class="col mb-4 mt-2">
+                <h5>Edit log from: &nbsp; {{ log.log_date }} </h5>
             </div>
         </div>
-        <!-- EDIT LOG CONTENT-->
-        <div class="row">
-            <div class="input-field col s12 l6">
-                <i class="material-icons prefix">label_outline</i>
-                <input type="text" class="form-control text-capitalize validate" id="tag_log" name="log_tag"
-                    required="required" value="{{ log.log_tag }}" placeholder="">
-                <label for="tag_log" class="">Log Tag</label>
-            </div>
-        </div>
-        <br>
-        <!-- EDIT LOG CONTENT-->
-        <div class="row mb-2">
-            <i class="material-icons prefix ml-3">event_note</i>
-            <label for="summernotes" class="list-label ml-3">Log</label>
-        </div>
-        <div class="row">
-            <div class="col s12 l6">
-                <textarea class="form-control summernote editor" id="summernotes" name="editordata" required>{{ log.log_text | safe }}</textarea>
-
-            </div>
-        </div>
-        <br>
     </section>
+    <!-- EDIT LOG -->
+    <form class="col s12 l6" method="POST"
+        action="{{ url_for('update_log', username=session['user'], class_id = class_id, log_id = log_id  ) }}"
+        id="edit_log_form" autocomplete="off">
 
-    {% endfor %}
-    <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
-    <!-- SAVE updates the content and returns to CLASS VIEW  - .update_one() -->
-    <!-- CANCEL does not save the content and returns to the CLASS VIEW - .find_one() the class without changes -->
-    <section class="button-nav">
-        <div class="divider"> </div>
-        <br>
-        <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
-            <div class="row no-gutters">
-                <div class="col d-flex justify-content-end">
-                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                        name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
-                        <i class="material-icons left">save</i>Save</button>
-
-                    <!-- Check the class_id and repopulate the add_class form -->
-                    <a href="{{ url_for('view_class', class_id = class_id) }}"
-                        class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
-                        value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
-                        data-tooltip="Cancel and go back">
-                        Cancel</a>
+        <!-- EDIT LOG DATE-->
+        <section class="log_form">
+            <div class="row">
+                <div class="input-field col s12 l4" id="matfix">
+                    <i class="material-icons prefix">today</i>
+                    <input id="log_date" name="log_date" type="text" class="datepicker" value="{{ log.log_date }}"
+                        placeholder="">
+                    <label for="icon_prefix" class="">Log date</label>
                 </div>
             </div>
-        </div>
-    </section>
-</form>
+            <!-- EDIT LOG CONTENT-->
+            <div class="row">
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">label_outline</i>
+                    <input type="text" class="form-control text-capitalize validate" id="tag_log" name="log_tag"
+                        required="required" value="{{ log.log_tag }}" placeholder="">
+                    <label for="tag_log" class="">Log Tag</label>
+                </div>
+            </div>
+            <br>
+            <!-- EDIT LOG CONTENT-->
+            <div class="row mb-2">
+                <i class="material-icons prefix ml-3">event_note</i>
+                <label for="summernotes" class="list-label ml-3">Log</label>
+            </div>
+            <div class="row">
+                <div class="col s12 l6">
+                    <textarea class="form-control summernote editor" id="summernotes"
+                        name="editordata">{{ log.log_text | safe }}</textarea>
+
+                </div>
+            </div>
+            <br>
+        </section>
+
+        {% endfor %}
+        <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
+        <!-- SAVE updates the content and returns to CLASS VIEW  - .update_one() -->
+        <!-- CANCEL does not save the content and returns to the CLASS VIEW - .find_one() the class without changes -->
+        <section class="button-nav">
+            <div class="divider"> </div>
+            <br>
+            <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
+                <div class="row no-gutters">
+                    <div class="col d-flex justify-content-end">
+                        <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                            name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                            <i class="material-icons left">save</i>Save</button>
+
+                        <!-- Check the class_id and repopulate the add_class form -->
+                        <a href="{{ url_for('view_class', class_id = class_id) }}"
+                            class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
+                            value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
+                            data-tooltip="Cancel and go back">
+                            Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>
 
 {% endblock %}
