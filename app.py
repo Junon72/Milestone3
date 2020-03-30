@@ -419,10 +419,10 @@ def update_exercise(class_id, exercise_id):
     return redirect(url_for('view_class', class_id=class_id))
 
 # DELETE EXERCISE IN CLASS - update_one(), $pull{}
-@app.route('/delete_exercise')
-def delete_exercise():
+@app.route('/delete_exercise/<class_id>/<exercise_id>')
+def delete_exercise(class_id, exercise_id):
     deleted_exercise = classes_collection.update_one({'_id': ObjectId(class_id)}, {'$pull': { 'exercises': {'_id': ObjectId(exercise_id)}}} )
-    return redirect(url_for('view_class'))
+    return redirect(url_for('view_class', class_id=class_id))
 
 
 ######################################  Handling Music Tracks in exercises/ CRUD 
