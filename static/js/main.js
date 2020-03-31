@@ -70,8 +70,8 @@ $(document).ready(function () {
 
   var elems = document.querySelector('.datepicker');
   M.Datepicker.init(elems, {
-    selectMonths: true, // Creates a dropdown to control month
-    selectYears: 15, // Creates a dropdown of 15 years to control year,
+    // selectMonths: true, // Creates a dropdown to control month
+    // selectYears: 15, // Creates a dropdown of 15 years to control year,
     closeOnSelect: false, // Close upon selecting a date,
     close: 'Ok',
     showClearBtn: true,
@@ -83,15 +83,8 @@ $(document).ready(function () {
   });
 
 
-
-
-  //$('.datepicker-modal .open').css({ 'height': '100%' });
-
   // Materialize initialize form select element
   $('select').formSelect();
-
-
-
 
 
   flashed_messages();

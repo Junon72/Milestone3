@@ -33,6 +33,7 @@ series_collection = mongo.db.series
 #array = list(users_collection.find())
 #print(array)
 
+'''
 # url vars
 # back to classes view
 back_to_classes = [
@@ -43,8 +44,7 @@ back_to_series = {
     "button_text": "Back to Classes",
     "url_name" : "view_classes_in_series"
 }
-
-# SUMMERNOTE EDITOR DATA 
+'''
 
 @app.route('/')
 
@@ -153,9 +153,9 @@ def classes():
         username = session['user']
         # print(user)
         classes = classes_collection.find({'username': username})
-        global back_to_classes
-        print(back_to_classes)
-        print(type(back_to_classes))
+        # global back_to_classes
+        # print(back_to_classes)
+        # print(type(back_to_classes))
         # print(classes)
         series = series_collection.find_one({'username': username})
         return render_template('classes.html',
@@ -188,7 +188,7 @@ def view_class(class_id):
     for item in series['class_series']:
         for class_in_classes in item['classes']:
             merged_list.append(class_in_classes)
-    print('merged', merged_list)
+    # print('merged', merged_list)
             
     # print('back button', back_text)
     # print('back url', back_url)
@@ -209,7 +209,7 @@ def add_class():
     user = users_collection.find_one({'username': session['user']})
     # print(user)
     series = series_collection.find_one({'username': session['user']},{'class_series': 1})
-    # rint(series)
+    # print(series)
     return render_template('addClass.html', title="New Class", 
                            user = user, series = series)
 
@@ -257,7 +257,7 @@ def edit_class(class_id):
     class_id = class_id
     # print(class_id)
     series = series_collection.find_one({'username': session['user']})
-    print('series in collection', series)
+    # print('series in collection', series)
     return render_template('editClass.html', title="Edit Class", user = user, class_id = class_id, this_class = this_class, series = series)
 
 
@@ -339,7 +339,7 @@ def insert_log(class_id):
         'log_text': request.form.get('editordata'),
         'log_tag': request.form.get('log_tag')  
 	}
-    print('log', new_log)
+    # print('log', new_log)
     inserted_log = classes_collection.update_one({'_id': ObjectId(class_id)}, { '$addToSet' :{ 'logs': new_log}})
     # print(inserted_log)
     return redirect(url_for('view_class', class_id = class_id))
@@ -350,8 +350,8 @@ def edit_log(class_id, log_id):
     # print(log_id)
     this_log = classes_collection.find_one({'_id': ObjectId(class_id)}, {'logs': {"$elemMatch" : {'_id': ObjectId(log_id)}}})
     log = this_log['logs']
-    print(log)
-    print(type(log))
+    # print(log)
+    # print(type(log))
     return render_template('editLog.html', title='Edit log', log = log, class_id = class_id, log_id = log_id)
 
 # UPDATE LOG IN CLASS AFTER EDIT - update_one(), $set{}
@@ -579,7 +579,7 @@ def update_series(series_doc, series_id):
 def delete_series(series_doc, series_id):
     deleted_series = series_collection.update_one({'_id': ObjectId(series_doc)}, { '$pull' : { 'class_series' : {'_id': ObjectId(series_id)}}} )
     # print(deleted_series)
-    return redirect(url_for('series'))
+    return redirect(url_for('series', series_id = series_id))
 
 
 if __name__ == '__main__': 
@@ -587,4 +587,4 @@ if __name__ == '__main__':
    app.run(host=os.environ.get('IP'),             
                                                   
       port=int(os.environ.get('PORT', 5000)),
-      debug=True)           
+      debug=False)           
