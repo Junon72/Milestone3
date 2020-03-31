@@ -48,10 +48,12 @@ back_to_series = {
 
 @app.route('/')
 
+
 ###################################### LOGIN/OUT AND REGISTERING #################################
 
 # LOGIN - html/ form
 @app.route('/index', methods=['GET'])
+
 def index():
 	# Check if user is logged in already
 	if 'user' in session:
@@ -128,7 +130,7 @@ def register():
 			flash("Passwords don't match! Try again.")
 			return redirect(url_for('register'))
 		
-	return render_template('register.html')
+	return render_template('register.html', title="Register")
 
 # LOGOUT USER AND RETURN TO LOGIN PAGE
 @app.route('/logout')
@@ -326,7 +328,7 @@ def copy_class(class_id):
 @app.route('/add_log/<class_id>/<username>')
 def add_log(class_id, username):
     # print(class_id)
-    return render_template('addLog.html', class_id = class_id, username = username)
+    return render_template('addLog.html', title="Add Log", class_id = class_id, username = username)
                  
 # INSERT LOG TO CLASS - update_one(), $addToSet{}
 @app.route('/insert_log/<class_id>', methods=['POST'])
@@ -515,7 +517,7 @@ def view_classes_in_series(username, series_id, series_doc):
     # print(type(all_classes))
     # print('all classes', all_classes)
      
-    return render_template('view_classes_in_series.html', serial = serial, serial_name = serial_name, all_classes = all_classes, username = username, series = series, back_text = "Back to Classes in Series",
+    return render_template('view_classes_in_series.html', title="Classes in Series", serial = serial, serial_name = serial_name, all_classes = all_classes, username = username, series = series, back_text = "Back to Classes in Series",
                                back_url = "url_for('view_classes_in_series')")
 
 # VIEW CLASSES IN None SERIES - None ROUTE

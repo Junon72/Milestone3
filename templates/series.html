@@ -14,10 +14,10 @@
         </div>
     </section>
     <section class="series-view-content">
-        <ul class="collapsible" data-collapsible="accordion">
+        <ul class="collapsible collapsible-main" data-collapsible="accordion">
             {% for serial in all_series.class_series %}
             <li class="accordion_list">
-                <div class="collapsible-header">
+                <div class="collapsible-header level-1">
                     <div class="list_header col">
                         <!---<i class="material-icons accordion_arrow">expand_more</i>-->
                         <strong>{{ serial.series_name | title}}</strong>
@@ -51,7 +51,7 @@
             </li>
             {% else %}
             <li>
-                <strong>You haven't created any class series yet</strong>
+                <strong class="not-yet">You haven't created any class series yet</strong>
             </li>
             {% endfor %}
         </ul>

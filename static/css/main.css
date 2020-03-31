@@ -45,9 +45,9 @@ main {
     }
 }
 
-/* CONTENT PAGES */
 
-/* Login */
+
+/* LOGIN */
 .index {
     height: 75vh;
     background: url(/static/img/login.jpg);
@@ -77,7 +77,7 @@ main {
     margin-left: 35vw;
 }
 
-.log-title> h5 {
+.log-title>h4 {
     padding-left: 8rem;
     
 }
@@ -97,13 +97,16 @@ main {
  .element-wrap {
 
      background-color: rgba(245, 245, 245, 0.776);
-
  }
 
 /* FOOTER */
 .copyright {
     color: rgba(1, 48, 48, 0.543);
-    font-size: .8rem;
+    font-size: .7rem;
+}
+.disclaimer {
+    font-size: .6rem;
+     color: rgba(1, 48, 48, 0.543);
 }
 
 footer {
@@ -111,8 +114,12 @@ footer {
     width: 100vw;
 }
 
+/* TITLES */
 
-
+.sub-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
 /* ALERTS */
 #alerts {
     position: absolute;
@@ -159,7 +166,12 @@ footer {
 
 /* Collapsible body */
 .collapsible-body {
-    background-color: rgba(254, 254, 254, 0.913);
+    background-color: whitesmoke;
+}
+
+/* Elements Collapsible Body */
+.elements-body {
+    background-color: rgb(253, 253, 255)
 }
 
 /* Collection item */
@@ -185,6 +197,12 @@ a:active {
     position: absolute !important;
 }
 
+
+@media screen and (min-width: 330px) {
+    .margin-gap {
+    margin-right: .8rem;}
+}
+   
 /* SUMMERNOTE */
 
 .note-hover {
@@ -236,7 +254,7 @@ a:active {
 
 /* DIVIDERS */
 .divider {
-    background-color: #21212154;
+    background-color: rgba(3, 109, 138, 0.5);
     height: 1px;
 }
 

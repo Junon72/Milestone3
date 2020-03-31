@@ -18,7 +18,7 @@
         <!-- CLASS DESCRIPTION -->
         <div class="row w-100">
             <div class="class-title col s12 m10 l6">
-                <h6> Description</h6>
+                <h5 class="sub-titles"> Description</h5>
                 <span>{{ this_class.class_description | capitalize}}</span>
             </div>
         </div>
@@ -29,7 +29,7 @@
             {% if this_class.main_elements is defined %}
             <div class="divider"> </div>
             <br>
-            <h6 class="ml-2">Class elements</h6>
+            <h6 class="sub-titles"> Class elements</h6>
             <ul class="collapsible collapsible-elem popout" data-collapsible="accordion">
                 <li class="this_class">
                     <div class="collapsible-header w-100 level-4">
@@ -37,8 +37,8 @@
                             <strong class="accordion-title">View elements</strong>
                         </div>
                     </div>
-                    <!-- ELEMENTS CONTENT -->
-                    <div class="collapsible-body">
+                    <!-- ELEMENTS CONTENT (Elements)-->
+                    <div class="collapsible-body elements-body">
                         <div class="row">
                             <div class="col no-gutters">
                                 <span class="editor"> {{ this_class.main_elements | safe}} </span>
@@ -49,11 +49,12 @@
             </ul>
             {% endif %}
         </section>
-        <!-- OTHER ELEMENTS -->
+        <br>
+        <!-- OTHER ELEMENTS (Helpers)-->
         {% if this_class.other_elements %}
         <div class="row w-100">
             <div class="class-title col s12 m10 l6 mt-1">
-                <h6>Helpers</h6>
+                <h6 class="sub-titles">Helpers</h6>
                 <span>{{ this_class.other_elements | capitalize}}</span>
             </div>
         </div>
@@ -63,7 +64,7 @@
         {% if this_class.notes %}
         <div class="row w-100">
             <div class="class-title col s12 m10 l6 mt-1">
-                <h6>Class Notes</h6>
+                <h6 class="sub-titles">Class Notes</h6>
                 <span>{{ this_class.class_notes | capitalize}}</span>
             </div>
         </div>
@@ -73,11 +74,12 @@
 
     <!-- COLLECTION OF THE CLASS SERIES THE CLASS IS ASSOCIATED WITH -->
     <section class="series">
+    <br>
         <div class="divider"> </div>
         <br>
         <div class="row w-100 pr-4">
             <div class="col-md-3 class-title">
-                <h6>Class series:</h6>
+                <h6 class="sub-titles">Class series:</h6>
             </div>
             <div class="col-md-9 p-0 collection z-depth-1">
                 {% if class_id in merged_list %}
@@ -104,7 +106,7 @@
         <br>
         <div class="row w-100 pr-4">
             <div class="col-md-3 class-title">
-                <h6>Playlist:</h6>
+                <h6 class="sub-titles">Playlist:</h6>
             </div>
             <ul class="col-md-9 p-0 collection z-depth-1">
                 {% if this_class.playlist_title or this_class_playlist_link %}
@@ -122,7 +124,7 @@
     <section class="exercises">
         <div class="divider"> </div>
         <br>
-        <h6>Exercises:</h6>
+        <h6 class="sub-titles">Exercises:</h6>
         <br>
         {% if this_class.exercises %}
         <ul class="collapsible collapsible-main p-0 popout" data-collapsible="accordion">
@@ -141,7 +143,7 @@
                                 <li class="active-header active">
                                     <div class="collapsible-header level-2 active collapsible-opened-2">
                                         <i class="material-icons">description</i>Description</div>
-                                    <div class="collapsible-body">
+                                    <div class="collapsible-body elements-body">
                                         <p>{{ exercise.exercise_description | safe }}</p>
                                     </div>
                                 </li>
@@ -149,7 +151,7 @@
                                     <div class="collapsible-header level-2">
                                         <i class="material-icons">comment</i>Comment</div>
                                     {% if exercise.exercise_comment %}
-                                    <div class="collapsible-body">
+                                    <div class="collapsible-body elements-body">
                                         <p>{{ exercise.exercise_comment | capitalize}}</p>
                                     </div>
                                     {% endif %}
@@ -158,7 +160,7 @@
                                     <div class="collapsible-header level-2">
                                         <i class="material-icons">star</i>Aim</div>
                                     {% if exercise.exercise_aim %}
-                                    <div class="collapsible-body">
+                                    <div class="collapsible-body elements-body">
                                         <p>{{ exercise.exercise_aim | capitalize}}</p>
                                     </div>
                                     {% endif %}
@@ -232,7 +234,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Tool buttons for the classes -->
+                    <!-- Tool buttons for the exercise -->
                     <div class="row w-100 no-gutters">
                         <div class="col exercise-tools my-1 justify-content-beginning">
                             <a href="{{ url_for('add_track', exercise_id=exercise._id, class_id=class_id) }}"
@@ -240,7 +242,7 @@
                                 data-position="top" data-delay="50" data-tooltip="Add music track"><i
                                     class="small small-icon material-icons">music_note</i></a>
                             <a href="{{ url_for('add_link', exercise_id=exercise._id, class_id=class_id) }}"
-                                class="waves-effect small-tools waves-indigo btn-small indigo lighten-1 ml-2 mr-3 z-depth-5 tooltipped"
+                                class="waves-effect small-tools waves-indigo btn-small indigo lighten-1 margin-gap ml-2 z-depth-5 tooltipped"
                                 data-position="top" data-delay="50" data-tooltip="Add video link"><i
                                     class="small small-icon material-icons">videocam</i></a>
                             <a href="{{ url_for('edit_exercise', exercise_id=exercise._id, class_id=class_id) }}"
@@ -271,7 +273,7 @@
     <section class="logs">
         <div class="divider"> </div>
         <br>
-        <h6>Logs:</h6>
+        <h6 class="sub-titles">Logs:</h6>
         <br>
         {% if this_class.logs %}
         <ul class="collapsible collapsible-log popout" data-collapsible="accordion">
@@ -283,7 +285,7 @@
                         <strong>{{ log.log_date }}</strong> &nbsp; / &nbsp; <em> {{ log.log_tag | capitalize}} </em>
                     </div>
                 </div>
-                <div class="collapsible-body">
+                <div class="collapsible-body elements-body">
                     <div class="row">
                         <div class="col no-gutters">
                             <span class="editor"> {{ log.log_text | safe }} </span>
@@ -292,7 +294,7 @@
                     <div class="row no-gutters mb-n3">
                         <div class="col log-tools mt-2 mr-n3 pr-0 d-flex justify-content-beginning">
                             <a href="{{ url_for('edit_log', log_id=log._id, class_id=class_id) }}"
-                                class="waves-effect waves-yellow btn-small small-tools yellow darken-2 ml-2 ml-n3 z-depth-5 tooltipped"
+                                class="waves-effect waves-yellow btn-small small-tools yellow darken-2 ml-n4 z-depth-5 tooltipped"
                                 data-position="top" data-delay="50" data-tooltip="Edit log"><i
                                     class="small small-icon material-icons">edit</i></a>
                             <a href="{{ url_for('delete_log', log_id=log._id, class_id=class_id) }}"
