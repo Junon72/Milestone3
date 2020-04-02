@@ -3,19 +3,19 @@
 	{% if 'user' in session %}
 	<nav>
 		<div class="nav-wrapper col grey darken-4">
-			<a href="{{ url_for('classes', username = username) }}" class="brand-logo"><img src="/static/img/classapp_logo.png" alt="Logo"
+			<a href="{{ url_for('classes', username=username) }}" class="brand-logo"><img src="/static/img/classapp_logo.png" alt="Logo"
 					id="logo" class="img-responsive"></a>
 			<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
 					class="material-icons small menu">menu</i></a>
 			<ul id="nav-mobile" class="right navibar hide-on-med-and-down m-0 p-0">
-				<li><a href="{{ url_for('classes', username = username) }}" class="mb-2 navitem">Home</a></li>
+				<li><a href="{{ url_for('classes', username=username) }}" class="mb-2 navitem">Home</a></li>
 				<li><a href="{{ url_for('series') }}" class="mb-2 navitem">Series</a></li>
 				<li><a href="{{ url_for('logout') }}" class="mr-5 navitem mb-2">Logout</a></li>
 			</ul>
 		</div>
 	</nav>
 	<ul class="sidenav" id="mobile-demo">
-		<li><a href="{{ url_for('classes', username = username) }}" class="mt-5">Home</a></li>
+		<li><a href="{{ url_for('classes', username=username) }}" class="mt-5">Home</a></li>
 		<li><a href="{{ url_for('series') }}">Series</a></li>
 		<li><a href="{{ url_for('logout') }}">Logout</a></li>
 	</ul>
@@ -41,12 +41,12 @@
 
 	<!-- Flashed messages alerts modal -->
 	<div id="alerts" class="container-fluid">
-		<div class="row justify-content-around">
-			<div id="messages">
+		<div class="row justify-content-center">
+			<div id="messages" class="text-align-center">
 				{% with messages = get_flashed_messages() %}
 				{% if messages %}
 				{% for message in messages %}
-				<h4 class="text-center">{{ message }}</h4>
+				<h4 class="flow-text alert"> {{ message }}</h4>
 				{% endfor %}
 				{% endif %}
 				{% endwith %}

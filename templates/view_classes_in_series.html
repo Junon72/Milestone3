@@ -1,9 +1,6 @@
 {% extends "base.html"%}
 
 {% block content %}
-<div class="row">
-    <div class="col top-spacer mt-10"></div>
-</div>
 <!-- CLASSES IN SERIES VIEW -->
 <div class="main-content">
     <section class="series-view">
@@ -32,8 +29,8 @@
                     <!-- TOOLS BUTTON FOR THE TOOLS: EDIT/DELETE/DUPLICATE/ADD EXERCISE/ ADD LOG-->
                     <section class="tools">
                         <div class="fixed-action-btn vertical">
-                            <a class="btn-floating btn-large red tooltipped z-depth-5" id="class-tools" data-position="left"
-                                data-delay="50" data-tooltip="Editor tools">
+                            <a class="btn-floating btn-large red tooltipped z-depth-5" id="class-tools"
+                                data-position="left" data-delay="50" data-tooltip="Editor tools">
                                 <i class="medium material-icons">build</i></a>
                             <ul>
                                 <li><a href="{{ url_for('view_class', class_id=class._id, username = username, back_text = back_text,
@@ -65,9 +62,13 @@
         <br>
     </section>
     {% else %}
-    <div class="mb-6">
-        <strong class="mb-6">No classes added to this series</strong>
-    </div>
+    <li class="accordion_list">
+        <div class="collapsible-header">
+            <div class="list_header col">
+                <strong class="not-yet">No classes added to this series</strong>
+            </div>
+        </div>
+    </li>
     <br>
     {% endif %}
     {% endfor %}

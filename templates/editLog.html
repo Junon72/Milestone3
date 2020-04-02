@@ -1,28 +1,25 @@
 {% extends "base.html"%}
 
 {% block content %}
-<div class="row">
-    <div class="col top-spacer mt-12"></div>
-</div>
 <!-- EDIT LOG VIEW -->
 <div class="main-content">
-    <section class="page-title">
+    <section class="edit-log-view">
         {% for log in log %}
         <div class="row">
             <div class="col mb-4 mt-2">
-                <h5>Edit log from: &nbsp; {{ log.log_date }} </h5>
+                <h3>Edit log from: &nbsp; {{ log.log_date }} </h3>
             </div>
         </div>
     </section>
     <!-- EDIT LOG -->
-    <form class="col s12 l6" method="POST"
+    <form class="col s12" method="POST"
         action="{{ url_for('update_log', username=session['user'], class_id = class_id, log_id = log_id  ) }}"
         id="edit_log_form" autocomplete="off">
 
         <!-- EDIT LOG DATE-->
         <section class="log_form">
             <div class="row">
-                <div class="input-field col s12 l4" id="matfix">
+                <div class="input-field col" id="matfix">
                     <i class="material-icons prefix">today</i>
                     <input id="log_date" name="log_date" type="text" class="datepicker" value="{{ log.log_date }}"
                         placeholder="">
@@ -31,7 +28,7 @@
             </div>
             <!-- EDIT LOG CONTENT-->
             <div class="row">
-                <div class="input-field col s12 l6">
+                <div class="input-field col">
                     <i class="material-icons prefix">label_outline</i>
                     <input type="text" class="form-control text-capitalize validate" id="tag_log" name="log_tag"
                         required="required" value="{{ log.log_tag }}" placeholder="">
@@ -45,7 +42,7 @@
                 <label for="summernotes" class="list-label ml-3">Log</label>
             </div>
             <div class="row">
-                <div class="col s12 l6">
+                <div class="col">
                     <textarea class="form-control summernote editor" id="summernotes"
                         name="editordata">{{ log.log_text | safe }}</textarea>
 

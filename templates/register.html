@@ -1,14 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row">
-	<div class="col top-spacer mt-12"></div>
-</div>
 <div class="register-content">
 	<section class="page-title">
 		<div class="row register">
 			<div class="class-title log-title col s12 m10 l6">
-				<h4 class="class-title">Register</h4>
+				<h4>Register</h4>
 			</div>
 		</div>
 	</section>
@@ -21,26 +18,26 @@
 						<form class="form-signin" method="POST" action="/register">
 							<div class="form-group">
 								<label for="sign-in-username">Username*</label>
-								<input name="username" type="text" class="form-control" id="sign-in-username" required>
+								<input name="username" type="text" class="form-control validate" id="sign-in-username" required>
 							</div>
 							<div class="form-group">
 								<label for="email">Email</label>
-								<input name="email" type="email" class="form-control" id="email">
+								<input name="email" type="email" class="form-control validate" id="email">
 							</div>
 							<div class="form-group">
 								<label for="sign-in-password">Password*</label>
-								<input class="form-control" name="password" type="password" id="sign-in-password"
+								<input class="form-control validate" name="password" type="password" id="sign-in-password"
 									required>
 							</div>
 							<div class="form-group">
 								<label for="sign-in-password">Password again*</label>
-								<input class="form-control" name="password1" type="password" id="sign-in-password1"
+								<input class="form-control validate" name="password1" type="password" id="sign-in-password1"
 									required>
 							</div>
 							<div class="form-group">
-								<p class="required">
+								<em class="required required-notice">
 									*Required field
-								</p>
+								</em>
 							</div>
 							<button class="btn btn-outline-success btn-lg btn-block" type="submit">Register</button>
 						</form>

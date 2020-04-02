@@ -1,15 +1,12 @@
 {% extends "base.html"%}
 {% block content %}
-
-<div class="row">
-    <div class="col top-spacer mt-12"></div>
-</div>
+<!-- EDIT CLASS VIEW -->
 <div class="main-content">
     <section class="page-title">
         <div class="row">
             <div class="class-title col s12 m10 l6">
                 {% for serial in this_series.class_series %}
-                <h5>Edit {{ serial.series_name | title}}</h5>
+                <h3>Edit {{ serial.series_name | title}}</h3>
             </div>
         </div>
     </section>
