@@ -15,12 +15,12 @@
     </section>
     <!-- CLASS FORM -->
     <form class="col s12" method="POST"
-        action="{{ url_for('insert_class', username = user.username, series = series, series_doc = series._id) }}"
+        action="{{ url_for('insert_class', username = username, series = series, series_doc = series._id) }}"
         id="add_class_form" autocomplete="off">
         <!-- Disabled autocompletion -->
 
-        <!-- HIDDEN INPUTS -->
-        <input type="hidden" id="username" name="username" value="{{ user.username }}">
+        <!-- HIDDEN INPUTS 
+        <input type="hidden" id="username" name="username" value="{{ user.username }}">-->
         <input type="hidden" id="user_id" name="user_id" value="{{ user._id }}">
         <!-- FORM SECTIONS -->
         <!-- CLASS FORM SECTIONS -->
@@ -52,7 +52,7 @@
             </div>
             <div class="row">
                 <div class="col s12 l6">
-                    <textarea class="form-control summernote" id="summernotes" name="editordata" required></textarea>
+                    <textarea class="form-control summernote" id="summernotes" name="editordata"></textarea>
 
                 </div>
             </div>
@@ -127,7 +127,7 @@
                             <i class="material-icons left">save</i>Save</button>
 
                         <!-- Return to classes view -->
-                        <a href="{{ url_for('classes') }}"
+                        <a href="{{ url_for('classes', username=username) }}"
                             class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
                             value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
                             data-tooltip="Cancel and go back">

@@ -29,13 +29,18 @@ body {
 
 /* BACKGROUNDS */
 main {
-    flex: 1 0 auto;
+    width: 100vw;
 }
 
+.main-container{
+    position: relative;
+    width: 100vw;
+}
 
 /* NAVIGATION BAR */
 .brand-logo {
     margin-left: 3rem;
+    z-index: 10;
 }
 
 
@@ -49,11 +54,12 @@ main {
 
 /* LOGIN */
 .index {
-    height: 75vh;
+    min-height: calc(100vh - 190px);
     background: url(/static/img/login.jpg);
     background-size: cover;
     background-position: center;
     z-index: 1;
+    margin-top: -9px;
 }
 
 /* REGISTER*/
@@ -65,7 +71,7 @@ main {
 .login-card {
     position: absolute;
     z-index: 999;
-    margin: auto auto;
+    margin: 2rem auto;
     left: 0;
     right: 0;
     text-align: center;
@@ -74,7 +80,7 @@ main {
 #register{
     height: 50vh;
     margin-top: 20vh;
-    margin-left: 35vw;
+    margin-left: 50vw;
 }
 
 .log-title>h4 {

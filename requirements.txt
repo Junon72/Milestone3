@@ -21,3 +21,4 @@ python-form==0.2.3
 six==1.14.0
 Werkzeug==1.0.0
 WTForms==2.2.1
+gunicorn==20.0.4

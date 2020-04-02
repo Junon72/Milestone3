@@ -26,16 +26,17 @@
 
     <body>
         <!-- Main content -->
-        <div class="container-fluid background">
+        <div class="container-fluid background main-wrap">
             <!-- Navigation -->
             {% include 'navbar.html' %}
-            <main class="container pl-0 pr-0">
+            <main class="row p-0 m-0 no-gutters">
+                <div class="main-container pl-0 pr-0 s12 m10 l6">
 
-                {% block content %}
-                {% endblock content%}
+                    {% block content %}
+                    {% endblock content%}
 
+                </div>
             </main>
-
             <!-- Footer -->
             {% include 'footer.html' %}
         </div>

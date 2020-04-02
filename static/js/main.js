@@ -92,10 +92,10 @@ $(document).ready(function () {
   function flashed_messages() {
     let messages = parseInt($("#messages p").length);
     if (messages) {
-      $("#alerts").slideDown(1500);
+      $("#alerts").slideDown(500);
       setTimeout(() => {
-        $("#alerts").slideUp(1500);
-      }, 7000);
+        $("#alerts").slideUp(500);
+      }, 4000);
     }
   }
 

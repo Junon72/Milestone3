@@ -50,8 +50,12 @@
                 </div>
             </li>
             {% else %}
-            <li>
-                <strong class="not-yet">You haven't created any class series yet</strong>
+            <li class="accordion_list">
+                <div class="collapsible-header">
+                    <div class="list_header col">
+                        <strong class="not-yet">You haven't created any class series yet</strong>
+                    </div>
+                </div>
             </li>
             {% endfor %}
         </ul>

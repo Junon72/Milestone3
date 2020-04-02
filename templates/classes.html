@@ -32,15 +32,15 @@
                                 data-tooltip="Editor tools" id="class-tools" data-position="left" data-delay="50">
                                 <i class="medium material-icons">build</i></a>
                             <ul>
-                                <li><a href="{{ url_for('view_class', class_id=class._id, username = username, back_text = back_text, back_url = back_url ) }}"
+                                <li><a href="{{ url_for('view_class', class_id=class._id, username=username, back_text=back_text, back_url=back_url ) }}"
                                         class="btn-floating light-green darken-2 z-depth-5 tooltipped"
                                         data-position="left" data-delay="50" data-tooltip="View class">
                                         <i class="material-icons">remove_red_eye</i></a></li>
-                                <li><a href="{{ url_for('edit_class', class_id=class._id, username=username) }}"
+                                <li><a href="{{ url_for('edit_class', class_id=class._id, username=username)}}"
                                         class="btn-floating yellow darken-2 z-depth-5 tooltipped" data-position="left"
                                         data-delay="50" data-tooltip="Edit class">
                                         <i class="material-icons">edit</i></a></li>
-                                <li><a href="{{ url_for('delete_class', class_id=class._id, series_doc = series._id) }}"
+                                <li><a href="{{ url_for('delete_class', class_id=class._id, series_doc=series._id) }}"
                                         class="btn-floating red z-depth-5 tooltipped" data-position="left"
                                         data-delay="50" data-tooltip="Delete class">
                                         <i class="material-icons">delete</i></a></li>
@@ -54,10 +54,14 @@
                 </div>
             </li>
             {% else %}
-            <li>
-                <em>No classes created yet</em>
-            </li>
-            {% endfor %}
+            <li class="accordion_list">
+                    <div class="collapsible-header">
+                        <div class="list_header col">
+                            <strong class="not-yet">You haven't created any class yet</strong>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
         </ul>
         <br>
     </section>
@@ -68,7 +72,7 @@
         <div class="container bottom_actions w-100">
             <div class="row">
                 <div class="col ml-n3 mb-6">
-                    <a href="{{ url_for('add_class') }}" class="btn-small waves-effect waves-light blue tooltipped"
+                    <a href="{{ url_for('add_class', username = username) }}" class="btn-small waves-effect waves-light blue tooltipped"
                         data-position="right" data-delay="50" data-tooltip="Add a new class">
                         <i class="material-icons left">library_add</i>Add New Class</a>
                 </div>
