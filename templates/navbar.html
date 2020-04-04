@@ -41,16 +41,16 @@
 
 	<!-- Flashed messages alerts modal -->
 	<div id="alerts" class="container-fluid">
-		<div class="row justify-content-center">
-			<div id="messages" class="text-align-center">
-				{% with messages = get_flashed_messages() %}
-				{% if messages %}
-				{% for message in messages %}
-				<h4 class="flow-text alert"> {{ message }}</h4>
-				{% endfor %}
-				{% endif %}
-				{% endwith %}
+		{% with messages = get_flashed_messages() %}
+		{% if messages %}
+		{% for message in messages %}
+		<div class="row">
+			<div id="messages" class="alert alert-danger">
+				<p class="alert-message"> {{ message }}</p>
 			</div>
 		</div>
+		{% endfor %}
+		{% endif %}
+		{% endwith %}
 	</div>
 </header>

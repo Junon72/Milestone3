@@ -14,22 +14,12 @@ $(document).ready(function () {
 
   });
 
-  // Initializing Materialize Tooltips
-  document.addEventListener('DOMContentLoaded', function () {
-    var elems = document.querySelectorAll('.fixed-action-btn');
-    var instances = M.FloatingActionButton.init(elems, {
-      isOpen: true
-    });
-  });
-
-
-  $(document).ready(function () {
+ // Initializing Materialize Tooltips
     $('.tooltipped').tooltip();
-  });
 
   // Materialize Collapsible 
   // Class Elements Header - toggle the background color / class elements
-  $('.collapsible.collapsible-elem').on('click', '.level-4', function (e) {
+  $('.collapsible.collapsible-elem').on('click', '.level-4', function () {
     if ($(this).hasClass('collapsible-opened-4')) {
       $(this).removeClass('collapsible-opened-4');
     } else {
@@ -39,7 +29,7 @@ $(document).ready(function () {
   });
 
   // Exercises Headers - toggle the background color / exercises
-  $('.collapsible.collapsible-main').on('click', '.level-1', function (e) {
+  $('.collapsible.collapsible-main').on('click', '.level-1', function () {
     if ($(this).hasClass('collapsible-opened-1')) {
       $(this).removeClass('collapsible-opened-1');
     } else {
@@ -48,13 +38,18 @@ $(document).ready(function () {
     }
   });
   // Exercises content headers - toggle the background color / exercises content
-  $('.collapsible.collapsible-sub').on('click', '.level-2', function (e) {
-    $(this).toggleClass('collapsible-opened-2');
+  $('.collapsible.collapsible-sub').on('click', '.level-2', function () {
+    if ($(this).hasClass('collapsible-opened-2')) {
+      $(this).removeClass('collapsible-opened-2');
+    } else {
+      $('.level-2').removeClass('collapsible-opened-2');
+      $(this).addClass('collapsible-opened-2');
+    }
   });
 
   
   // Logs headers - toggle the background color / logs
-  $('.collapsible.collapsible-log').on('click', '.level-3', function (e) {
+  $('.collapsible.collapsible-log').on('click', '.level-3', function () {
     if ($(this).hasClass('collapsible-opened-3')) {
       $(this).removeClass('collapsible-opened-3');
     } else {
@@ -62,6 +57,15 @@ $(document).ready(function () {
       $(this).addClass('collapsible-opened-3');
     }
   });
+
+  $('.collapsible-link').hover(
+    function() {
+      $(this).addClass('z-depth-2');
+    },
+    function() {
+      $(this).removeClass('z-depth-2');
+    }
+  );
 
   // Initializing Materialize Modal
   $('.modal').modal();
@@ -86,7 +90,6 @@ $(document).ready(function () {
   // Materialize initialize form select element
   $('select').formSelect();
 
-
   flashed_messages();
   /* Alerts modal */
   function flashed_messages() {
@@ -95,7 +98,7 @@ $(document).ready(function () {
       $("#alerts").slideDown(500);
       setTimeout(() => {
         $("#alerts").slideUp(500);
-      }, 4000);
+      }, 9000);
     }
   }
 

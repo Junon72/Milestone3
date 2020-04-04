@@ -46,21 +46,18 @@ main {
 
 /* LOGIN */
 .index {
-    height: calc(100vh - 112px);
     background: url(/static/img/login.jpg);
     background-size: cover;
     background-position: center;
     z-index: 1;
+    min-height: 375px;
 }
-
 
 .login-card {
     position: absolute;
     z-index: 800;
-    margin: 2rem auto;
     left: 0;
     right: 0;
-    top: 10%;
 }
 .required-notice {
     color: rgb(3, 109, 138);
@@ -68,18 +65,24 @@ main {
 }
 
 #register{
+    position: absolute;
     height: 50vh;
     margin-top: 20vh;
     margin-left: 50vw;
+    min-height: 364px;
 }
+
+/* MEDIA QUERIES */
 
 @media screen and (min-width: 993px)  {
     .index {
         margin-top: -9px;
-        height: calc(100vh - 104px);
+        height: calc(100vh - 98px);
+        margin-left: -20vw;
+        margin-right: -20vw;
     }
     .register-content {
-        height: calc(100vh - 114px);
+        height: calc(100vh - 106px);
         min-height: 560px;
     }
     .brand-logo {
@@ -91,15 +94,16 @@ main {
     .main-content {
         min-height: calc(100vh - 106px);
     }
+   
     .log-title>h4 {
-        padding-left: 2rem
+        padding-left: 20vw;
     }
     .alert {
         margin: auto;
     }
-    #alerts {
-        height: 46px;
-        background-color: rgb(253, 6, 112);
+    #messages {
+        width: 80vw;
+        /*background-color: rgb(253, 6, 112);*/
     }
 }
 
@@ -109,14 +113,16 @@ main {
     }
     .index {
         height: calc(100vh - 106px);
+        margin-left: -10vw;
+        margin-right: -10vw;
     }
     .register-content {
         height: calc(100vh - 106px);
         min-height: 560px;
     }
-    #alerts {
-        height: 50px;
-        background-color: rgba(253, 6, 112, 0.6);
+    #messages {
+        width: 100vw;
+      /* background-color: rgba(253, 6, 112, 0.6);*/ 
     }
     .footer-content {
         height:  42px;
@@ -144,19 +150,24 @@ main {
     .log-title>h4 {
         padding-left: 2rem
     }
-    .alert {
-        margin: auto;
-    }
-    #alerts {
-        height: 46px;
-        background-color: rgb(253, 6, 112);
+
+    #messages {
+        width: 100vw;
     }
     .main-content {
         min-height: calc(100vh - 90px);
-
+    }
+    .container {
+        padding: 0;
     }
 }
 
+/* On small screens this widens the gap between the tool button groups in class_view exercises section */
+
+@media screen and (min-width: 330px) {
+    .margin-gap {
+    margin-right: .8rem;}
+}
 
 /* VIEW CLASS */
  .element-wrap {
@@ -185,21 +196,59 @@ footer {
     font-size: 1.2rem;
     font-weight: 600;
 }
+
+.class-title {
+    padding: 0;
+}
+
+/* PASSWORD INFO */
+.password-label {
+    display: inline-block;
+}
+
+#password-info {
+    display: flex;
+    float: right;
+    margin-top: 3px;
+    height: 1.2rem;
+}
+
+.password-info-card {
+    min-height: 456px!important;
+}
+
+.password-info-list {
+    margin-top: 20px;
+}
+.password-info-list>li {
+    margin-bottom: .8rem;
+}
+
 /* ALERTS */
 #alerts {
     position: absolute;
     display: none;
     top: 5.8rem;
     z-index: 999;
+    font-size: 1.2em;
     font-family: inherit;
     color: #ffffff;
 }
 .alert {
-    margin-top: -1px;
+    margin: auto;
+    text-align: center;
+}
+.alert-message {
+    display: inline-block;
 }
 
+#messages {
+    height: 45px;
+}
 
-/* ELEMENTS */
+/* ------------------------ ELEMENTS ------------------------ */
+
+/* COLLAPSIBLE ELEMENTS */
 /* Collapsible header */
 
 .collapsible-header:hover,
@@ -207,22 +256,22 @@ footer {
     background-color: rgba(201, 228, 232, 0.448);
 }
 
-/* collapsible-main - exercises */
+/* collapsible-main - Exercises */
 .collapsible-opened-1 {
     background-color: rgb(176, 224, 230);
 }
 
-/* collapsible-sub - exercises / content */
+/* collapsible-sub - Exercise content */
 .collapsible-opened-2 {
     background-color: rgba(201, 228, 232, 0.448);
 }
 
-/* collapsible-log - logs */
+/* collapsible-log - Logs */
 .collapsible-opened-3 {
     background-color: rgba(163, 237, 213, 0.79);
 }
 
-/* collapsible-elements - class elements */
+/* collapsible-elements - (Class) Elements */
 .collapsible-opened-4 {
     background-color: rgb(185, 207, 245);
 }
@@ -232,19 +281,58 @@ footer {
     background-color: whitesmoke;
 }
 
-/* Elements Collapsible Body */
+/* (Class) Elements collapsible body */
 .elements-body {
     background-color: rgb(253, 253, 255)
 }
 
+/* Collapsible body as a link (viewClass.html, series.html, viewClassInSeries.html */
+
+.collapsible-link {
+    position: relative;
+}
+
+.collapsible-link:hover {
+    background-color: #ffffff;
+}
+
+.collapsible-link a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.waves-effect.waves-brown .waves-ripple {
+    background-color: rgb(176, 224, 230);
+}
+
+/* COLLECTION ELEMENTS */
 /* Collection item */
 .collection-item:hover,
 .collection-item:active {
     background-color: rgba(201, 228, 232, 0.448)!important;
 }
 
-/* BUTTONS and LINKS*/
+.collection-item-selectable:hover,
+.collection-item-selectable:active {
+    background-color: rgba(201, 228, 232, 0.448) !important;
+}
 
+.link-text {
+    color: rgb(3, 109, 138);
+}
+
+/* Delete button in Tracks and Links */
+.delete-small {
+    color: rgb(255, 73, 73)!important;
+    font-size: 1.4rem!important;
+}
+
+/* BUTTONS and LINKS*/
+/* This cancels the default button css behavior of button and a link elements */
 button:link,
 button:hover,
 button:active,
@@ -257,16 +345,29 @@ a:active {
 }
 
 .fixed-action-button {
-    position: absolute !important;
+    position: absolute!important;
 }
 
+/* This cancels the default floating button action on tools master button */
+.master-button {
+    opacity: 1!important;
+    transform: none!important;
+    -webkit-transform: none!important;
+    -moz-transform: none!important;
+    -ms-transform: none!important;
+    -o-transform: none!important;
+}
 
-@media screen and (min-width: 330px) {
-    .margin-gap {
-    margin-right: .8rem;}
+/* Styling of the action buttons in exercises and log sections  */
+.small-tools {
+    max-height: 2.4em!important;
+}
+
+.small-icon {
+    font-size: 1.6rem!important;
 }
    
-/* SUMMERNOTE */
+/* SUMMERNOTE RICH TEXT EDITOR */
 
 .note-hover {
     background-color: rgb(216, 243, 247) !important;
@@ -279,6 +380,7 @@ a:active {
 .tool-selected {
     color: white;
 }
+
 
 /* NAVIGATION BAR */
 
@@ -302,35 +404,12 @@ a:active {
 }
 
 
-.small-tools {
-    max-height: 2.4em !important;
-}
-
-.small-icon {
-    font-size: 1.6rem !important;
-}
-
-.delete-small {
-    color: rgb(255, 73, 73);
-    font-size: 1.4rem !important;
-}
-
 /* DIVIDERS */
 .divider {
     background-color: rgba(3, 109, 138, 0.5);
     height: 1px;
 }
 
-/* COLLECTIONS */
-.collection-item-selectable:hover,
-.collection-item-selectable:active {
-    background-color: rgba(201, 228, 232, 0.448) !important;
-}
-
-
-.link-text {
-    color: rgb(3, 109, 138);
-}
 
 /* FORMS */
 label {

@@ -2,17 +2,15 @@ import os
 import pymongo
 import jinja2
 import json
+import re
 from pymongo import MongoClient
-from flask import Flask, render_template, redirect, request, url_for, session, flash, jsonify
+from flask import Flask, render_template, redirect, request, url_for, session, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from config import Config
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-from jinja2 import Template
 from ast import literal_eval
-
-
 
 
 
@@ -29,21 +27,42 @@ mongo = PyMongo(app)
 users_collection = mongo.db.users
 classes_collection = mongo.db.classes
 series_collection = mongo.db.series
-#array = list(users_collection.find())
-#print(array)
 
-'''
-# url vars
-# back to classes view
-back_to_classes = [
-   "classes", "Back to Classes"
-]
-# back to classes in series view
-back_to_series = {
-	"button_text": "Back to Classes",
-	"url_name" : "view_classes_in_series"
-}
-'''
+# Validation functions
+# Check for username
+def validate_username(username):
+	regex_in_name = '^[\w.-]+$'
+	if len(username) < 6 or len(username) > 20:
+		flash(f"Username must be at least 6 and up to 30 characters long")
+	if re.search(regex_in_name, username):
+		flash(f"Username may not have special characters")
+		print('here')
+		return redirect(url_for('register'))
+# Check for email
+def validate_email(email):
+	regex_in_mail = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+	if re.search(regex_in_mail, email):
+		return redirect(url_for('register'))
+	else:
+		flash(f"Email is not valid!")
+		return redirect(url_for('register'))
+# Check for password
+def validate_password(password):
+	regex_in_password = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@$%#&*?])[A-Za-z\d!@$%#&*?]$'
+	if len(password) < 6 or len(passsword) > 20:
+		flash(f"Passsword must be at least 6 and up to 30 characters long")
+	# Compile regex expression
+	pat = re.compile(regex_in_password )
+	# Search for regex in pw
+	mat = re.search(pat, password)
+	# Validate condition
+	if mat:
+		return redirect(url_for('register'))
+	else:
+		flash(f"Password is not valid!")
+		return redirect(url_for('register'))
+		
+
 
 
 ###################################### LOGIN/OUT AND REGISTERING #################################
@@ -83,27 +102,48 @@ def user_auth():
 		flash("You must be registered!")
 		return redirect(url_for('register'))
 
-#SIGN UP A NEW USER - html/ form - insert_one()
+# SIGN UP A NEW USER - html/ form - insert_one()
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-	#Check if user is not logged in already
+
+	# Check if user is not logged in already
 	if 'user' in session:
 		flash('You are already signed in!')
 		return redirect(url_for('classes'))
 	if request.method == 'POST':
 		form = request.form.to_dict()
-		#Check if the password1 and passwords actually match
+		print(form)
+		# Form validation
+		# Name validation
+		username = 'plo'
+		validate_username(username)
+		username = '%*(@)£'
+		validate_username(username)
+		username = request.form['username']
+		validate_username(username)
+		# Mail validation
+		email = 'juno@mail.com'
+		validate_email(email)
+		email = 'juno.com'
+		validate_email(email)
+		email = request.form['email']
+		validate_email(email)
+		# PW validation
+
+		password = request.form['password']
+		# Validate each input filed
+		# Check if the password1 and passwords actually match
 		if form['password'] == form['password1']:
-			#If matched find the user in db
+			# If matched find the user in db
 			user = users_collection.find_one({"username" : form['username']})
 			if user:
 				flash(f"This username is already taken")
 				return redirect(url_for('register'))
-			#If user does not exist register new user - insert user to user collection
+			# If user does not exist register new user - insert user to user collection
 			else:
-				#Hash password
+				# Hash password
 				hash_pass = generate_password_hash(form['password'])
-				#Create new user with hashed password
+				# Create new user with hashed password
 				new_user = users_collection.insert_one({
 					'username': form['username'],
 					'email': form['email'],
@@ -111,7 +151,7 @@ def register():
 					})
 				user_Oid = new_user.inserted_id
 				user_id = str(user_Oid)
-				#Check if user is actually inserted
+				# Check if user is actually inserted
 				user_in_db = users_collection.find_one({"username": form['username']})
 				if user_in_db:
 					# Log user in (add to session)
@@ -124,12 +164,12 @@ def register():
 						'class_series': []
 						})
 					return redirect(url_for('classes', username = username))
-					#If user was not inserted/added inform the user of error
+					# If user was not inserted/added inform the user of error
 				else:
 					flash("There was a problem with registration, please try again")
 					return redirect(url_for('register'))
 		else:
-			#Notify user of not matching passwords
+			# Notify user of not matching passwords
 			flash("Passwords don't match! Try again.")
 			return redirect(url_for('register'))
 	return render_template('register.html', title="Register")
@@ -587,6 +627,11 @@ def delete_series(series_doc, series_id):
 	deleted_series = series_collection.update_one({'_id': ObjectId(series_doc)}, { '$pull' : { 'class_series' : {'_id': ObjectId(series_id)}}} )
 	# print(deleted_series)
 	return redirect(url_for('series', series_id = series_id))
+
+@app.route('/<page_name>')
+def other_page(page_name):
+	response = make_response(render_template('404.html'), 404)
+	return response
 
 
 if __name__ == '__main__':

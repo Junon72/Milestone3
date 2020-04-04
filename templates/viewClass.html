@@ -4,8 +4,8 @@
 <!-- VIEW CLASS VIEW -->
     <div class="main-content">
         <section class="page-title">
-            <div class="row">
-                <div class="class-title col s12 m10 l6">
+            <div class="row w-100">
+                <div class="class-title p-0 col s12 m10 l6">
                     <h3>{{ this_class.class_name | capitalize }}</h3>
                 </div>
             </div>
@@ -14,7 +14,7 @@
         <section class="class-info">
             <!-- CLASS DESCRIPTION -->
             <div class="row w-100">
-                <div class="class-title col s12 m10 l6">
+                <div class="class-title p-0 col s12 m10 l6">
                     <h5 class="sub-titles"> Description</h5>
                     <span>{{ this_class.class_description | capitalize}}</span>
                 </div>
@@ -26,7 +26,8 @@
                 {% if this_class.main_elements is defined %}
                 <div class="divider"> </div>
                 <br>
-                <h6 class="sub-titles"> Class elements</h6>
+                <h6 class="sub-titles"> Class elements:</h6>
+                <br>
                 <ul class="collapsible collapsible-elem popout" data-collapsible="accordion">
                     <li class="this_class">
                         <div class="collapsible-header w-100 level-4">
@@ -50,7 +51,7 @@
             <!-- OTHER ELEMENTS (Helpers)-->
             {% if this_class.other_elements %}
             <div class="row w-100">
-                <div class="class-title col s12 m10 l6 mt-1">
+                <div class="class-title p-0 col s12 m10 l6 mt-1">
                     <h6 class="sub-titles">Helpers</h6>
                     <span>{{ this_class.other_elements | capitalize}}</span>
                 </div>
@@ -318,7 +319,7 @@
         <!-- TOOLS BUTTON FOR THE TOOLS: EDIT/DELETE/DUPLICATE/ADD EXERCISE/ ADD LOG-->
         <section class="tools">
             <div class="fixed-action-btn vertical">
-                <a class="btn-floating btn-large indigo darken-4 z-depth-5 tooltipped" id="class-tools"
+                <a class="btn-floating master-button btn-large indigo darken-4 z-depth-5 tooltipped" id="class-tools"
                     data-position="left" data-delay="50" data-tooltip="Editor tools">
                     <i class="large material-icons">build</i></a>
                 <ul>
