@@ -44,8 +44,8 @@ main {
 
 
 
-/* LOGIN */
-.index {
+/* LOGIN / REGISTER */
+.index-content {
     background: url(/static/img/login.jpg);
     background-size: cover;
     background-position: center;
@@ -75,15 +75,17 @@ main {
 /* MEDIA QUERIES */
 
 @media screen and (min-width: 993px)  {
-    .index {
+    .index-content {
         margin-top: -9px;
         height: calc(100vh - 98px);
-        margin-left: -20vw;
-        margin-right: -20vw;
+        margin-left: -10vw;
+        margin-right: -10vw;
     }
     .register-content {
         height: calc(100vh - 106px);
-        min-height: 560px;
+        min-height: 650px;
+        margin-left: -10vw;
+        margin-right: -10vw;
     }
     .brand-logo {
         margin-left: 3rem;
@@ -97,6 +99,7 @@ main {
    
     .log-title>h4 {
         padding-left: 20vw;
+        padding-top: 2rem;
     }
     .alert {
         margin: auto;
@@ -111,7 +114,7 @@ main {
     .log-title>h4 {
         padding-left: 8rem;
     }
-    .index {
+    .index-content {
         height: calc(100vh - 106px);
         margin-left: -10vw;
         margin-right: -10vw;
@@ -136,7 +139,7 @@ main {
 
 @media screen and (max-width: 630px) {
     #register { display: none; }
-    .index { 
+    .index-content { 
         background: none;
         height: calc(100vh - 90px);
     }
@@ -202,6 +205,7 @@ footer {
 }
 
 /* PASSWORD INFO */
+
 .password-label {
     display: inline-block;
 }
@@ -209,8 +213,13 @@ footer {
 #password-info {
     display: flex;
     float: right;
-    margin-top: 3px;
-    height: 1.2rem;
+    margin: 4px;
+    padding-top: 1px;
+    height: 1.4rem;
+}
+
+.hide-info {
+    display: none;
 }
 
 .password-info-card {
@@ -222,7 +231,13 @@ footer {
 }
 .password-info-list>li {
     margin-bottom: .8rem;
+    padding-left: .5rem;
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: -1px;
 }
+
 
 /* ALERTS */
 #alerts {
@@ -307,6 +322,10 @@ footer {
 
 .waves-effect.waves-brown .waves-ripple {
     background-color: rgb(176, 224, 230);
+}
+
+.header-alt {
+    list-style-type: none;
 }
 
 /* COLLECTION ELEMENTS */

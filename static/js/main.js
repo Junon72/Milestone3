@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+  /* ------ MATERIALIZE ------ */
+
   // Initialize Materialize Navigation 
   $('.sidenav').sidenav();
 
@@ -90,19 +92,20 @@ $(document).ready(function () {
   // Materialize initialize form select element
   $('select').formSelect();
 
-  flashed_messages();
-  /* Alerts modal */
-  function flashed_messages() {
-    let messages = parseInt($("#messages p").length);
-    if (messages) {
-      $("#alerts").slideDown(500);
-      setTimeout(() => {
-        $("#alerts").slideUp(500);
-      }, 9000);
-    }
-  }
+  /* ------ MODALS ------ */
 
-  /* SUMMERNOTE EDITOR */
+  $('.alert').alert()
+
+  /* Password info modal */
+
+  $('#password-info').on('click', function() {
+    $('.password-info-wrap').removeClass('hide-info');
+  });
+  $('#close-modal').on('click', function() {
+    $('.password-info-wrap').addClass('hide-info');
+  });
+
+   /* ------ SUMMERNOTE ------ */
 
   var toolbar = [
     ['style', ['style']],
@@ -120,6 +123,8 @@ $(document).ready(function () {
     toolbar: toolbar,
     styleTags: ['p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
     tooltip: false
+  }).css({
+    'list-style-type': 'initial'
   });
 
   /* RE-STYLING SUMMER NOTE ELEMENTS TO GO WITH MATERIALIZE */

@@ -2,367 +2,372 @@
 
 {% block content %}
 <!-- VIEW CLASS VIEW -->
-    <div class="main-content">
-        <section class="page-title">
-            <div class="row w-100">
-                <div class="class-title p-0 col s12 m10 l6">
-                    <h3>{{ this_class.class_name | capitalize }}</h3>
-                </div>
+<div class="main-content">
+    <section class="page-title">
+        <div class="row w-100">
+            <div class="class-title p-0 col s12 m10 l6">
+                <h3>{{ this_class.class_name | capitalize }}</h3>
             </div>
-        </section>
-        <!-- MAIN CLASS INFO -->
-        <section class="class-info">
-            <!-- CLASS DESCRIPTION -->
-            <div class="row w-100">
-                <div class="class-title p-0 col s12 m10 l6">
-                    <h5 class="sub-titles"> Description</h5>
-                    <span>{{ this_class.class_description | capitalize}}</span>
-                </div>
+        </div>
+    </section>
+    <!-- MAIN CLASS INFO -->
+    <section class="class-info">
+        <!-- CLASS DESCRIPTION -->
+        <div class="row w-100">
+            <div class="class-title p-0 col s12 m10 l6">
+                <h5 class="sub-titles"> Description</h5>
+                <span>{{ this_class.class_description | capitalize}}</span>
             </div>
-            <br>
-
-            <!-- MAIN ELEMENTS -->
-            <section class="element">
-                {% if this_class.main_elements is defined %}
-                <div class="divider"> </div>
-                <br>
-                <h6 class="sub-titles"> Class elements:</h6>
-                <br>
-                <ul class="collapsible collapsible-elem popout" data-collapsible="accordion">
-                    <li class="this_class">
-                        <div class="collapsible-header w-100 level-4">
-                            <div class="class_header col">
-                                <strong class="accordion-title">View elements</strong>
-                            </div>
-                        </div>
-                        <!-- ELEMENTS CONTENT (Elements)-->
-                        <div class="collapsible-body elements-body">
-                            <div class="row">
-                                <div class="col no-gutters">
-                                    <span class="editor"> {{ this_class.main_elements | safe}} </span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                {% endif %}
-            </section>
-            <br>
-            <!-- OTHER ELEMENTS (Helpers)-->
-            {% if this_class.other_elements %}
-            <div class="row w-100">
-                <div class="class-title p-0 col s12 m10 l6 mt-1">
-                    <h6 class="sub-titles">Helpers</h6>
-                    <span>{{ this_class.other_elements | capitalize}}</span>
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- CLASS NOTES -->
-            {% if this_class.notes %}
-            <div class="row w-100">
-                <div class="class-title col s12 m10 l6 mt-1">
-                    <h6 class="sub-titles">Class Notes</h6>
-                    <span>{{ this_class.class_notes | capitalize}}</span>
-                </div>
-            </div>
-            <br>
-            {% endif %}
-        </section>
-
-        <!-- COLLECTION OF THE CLASS SERIES THE CLASS IS ASSOCIATED WITH -->
-        <section class="series">
-            <br>
-            <div class="divider"> </div>
-            <br>
-            <div class="row w-100 pr-4">
-                <div class="col-md-3 class-title">
-                    <h6 class="sub-titles">Class series:</h6>
-                </div>
-                <div class="col-md-9 p-0 collection z-depth-1">
-                    {% if class_id in merged_list %}
-                    {% for name in series.class_series %}
-                    {% if class_id in name.classes %}
-                    <a href="{{url_for('view_classes_in_series', series_doc = series._id, series_id = name._id, username = username)}}"
-                        target="_blank" class="collection-item ml-n3 mr-n3 tooltipped" data-position="top"
-                        data-delay="50" data-tooltip="Go to this series"><em
-                            class="link-text">{{ name.series_name }}</em></a>
-                    {% endif %}
-                    {% endfor %}
-                    {% else  %}
-                    <div class="collection-item"> <em class="link-text">None</em></div>
-                    <!-- To be implemented later: a link to a collection of all classes associated with none of the user's class series
-                <a href="#!" target="_blank" class="collection-item ml-n3 mr-n3 disabled" data-position="top"
-                data-delay="50" data-tooltip="Go to this series"><em class="link-text">None</em></a>-->
-                    {% endif %}
-                </div>
-            </div>
-        </section>
-
-        <!-- PLAYLIST LINK -->
-        <section class="links">
-            <div class="divider"> </div>
-            <br>
-            <div class="row w-100 pr-4">
-                <div class="col-md-3 class-title">
-                    <h6 class="sub-titles">Playlist:</h6>
-                </div>
-                <ul class="col-md-9 p-0 collection z-depth-1">
-                    {% if this_class.playlist_title or this_class_playlist_link %}
-                    <a href="{{ this_class.playlist_link }}" target="_blank" class="collection-item mr-n3 tooltipped"
-                        data-position="top" data-delay="50" data-tooltip="Go to this playlist"><em
-                            class="link-text">{{ this_class.playlist_title | upper}}</em></a>
-                    {% else %}
-                    <div class="collection-item"> <em class="link-text">None</em></div>
-                    {% endif %}
-                </ul>
-            </div>
-        </section>
-
-        <!-- EXERCISES SECTION IN CLASS VIEW -->
-        <section class="exercises">
-            <div class="divider"> </div>
-            <br>
-            <h6 class="sub-titles">Exercises:</h6>
-            <br>
-            {% if this_class.exercises %}
-            <ul class="collapsible collapsible-main p-0 popout" data-collapsible="accordion">
-                {% for exercise in this_class.exercises %}
-                <li class="this_class">
-                    <div class="collapsible-header level-1">
-                        <div class="class_header col">
-                            <strong class="accordion-title">{{ exercise.exercise_name | capitalize}}</strong>
-                        </div>
-                    </div>
-                    <!-- EXERCISES CONTENT -->
-                    <div class="collapsible-body pt-2 pb-0 px-0">
-                        <div class="row w-100 no-gutters">
-                            <div class="col ml-1 container">
-                                <ul class="collapsible collapsible-sub z-depth-0 p-0 m-0" data-collapsible="expandable">
-                                    <li class="active-header active">
-                                        <div class="collapsible-header level-2 active collapsible-opened-2">
-                                            <i class="material-icons">description</i>Description</div>
-                                        <div class="collapsible-body elements-body">
-                                            <p>{{ exercise.exercise_description | safe }}</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header level-2">
-                                            <i class="material-icons">comment</i>Comment</div>
-                                        {% if exercise.exercise_comment %}
-                                        <div class="collapsible-body elements-body">
-                                            <p>{{ exercise.exercise_comment | capitalize}}</p>
-                                        </div>
-                                        {% endif %}
-                                    </li>
-                                    <li>
-                                        <div class="collapsible-header level-2">
-                                            <i class="material-icons">star</i>Aim</div>
-                                        {% if exercise.exercise_aim %}
-                                        <div class="collapsible-body elements-body">
-                                            <p>{{ exercise.exercise_aim | capitalize}}</p>
-                                        </div>
-                                        {% endif %}
-                                    </li>
-                                </ul>
-                                <!-- MUSIc TRACK COLLECTION -->
-                                <div class="track-wrap mt-2">
-                                    <ul class="collection with-header">
-                                        <li class="collection-header"><i class="material-icons">music_note</i> Music
-                                            tracks
-                                        </li>
-
-                                        {% for track in exercise.tracks %}
-                                        <li class="collection-item collection-item-selectable">
-                                            <div>
-
-                                                <a href="{{ track.track_link }}" target="_blank"
-                                                    class=" track-link tooltipped" data-position="top" data-delay="50"
-                                                    data-tooltip="Go to this music track">
-                                                    <span class="title link-text"><strong>{{ track.track_title | title }}
-                                                            &nbsp;</strong></span>
-                                                    <em class="link-text">/ &nbsp;
-                                                        {{ track.track_comment | capitalize}}</em>
-                                                </a>
-
-                                                <a href="{{ url_for('delete_track', class_id=class_id, exercise_id = exercise._id, track_id=track._id) }}"
-                                                    class="secondary-content tooltipped" data-position="top"
-                                                    data-delay="50" data-tooltip="Delete track"><i
-                                                        class="material-icons link-text delete-small">delete</i></a>
-                                            </div>
-                                        </li>
-                                        {% else %}
-                                        <li class="collection-item">
-                                            <em class="link-text">No music tacks added yet</em>
-                                        </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                                <!-- VIDEO LINK COLLECTION -->
-                                <div class="divider"></div>
-                                <div class="link-wrap mt-2">
-                                    <ul class="collection with-header">
-                                        <li class="collection-header "><i class="material-icons">videocam</i> Video
-                                            Links
-                                        </li>
-
-                                        {% for link in exercise.links %}
-
-                                        <li class="collection-item collection-item-selectable">
-                                            <div>
-                                                <a href="{{ link.video_link }}" target="_blank"
-                                                    class=" video-link tooltipped" data-position="top" data-delay="50"
-                                                    data-tooltip="Go to this video">
-                                                    <span class="title link-text"><strong>{{ link.video_title | title }}
-                                                            &nbsp;</strong></span>
-                                                    <em class="link-text">/ &nbsp;
-                                                        {{ link.video_comment | capitalize}}</em>
-                                                </a>
-
-                                                <a href="{{ url_for('delete_link', link_id=link._id, class_id=class_id, exercise_id = exercise._id) }}"
-                                                    class="secondary-content tooltipped" data-position="top"
-                                                    data-delay="50" data-tooltip="Delete video link"><i
-                                                        class="material-icons link-text delete-small">delete</i></a>
-                                            </div>
-                                        </li>
-
-                                        {% else %}
-                                        <li class="collection-item">
-                                            <em class="link-text">No video links added yet</em>
-                                        </li>
-
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Tool buttons for the exercise -->
-                        <div class="row w-100 no-gutters">
-                            <div class="col exercise-tools my-1 justify-content-beginning">
-                                <a href="{{ url_for('add_track', exercise_id=exercise._id, class_id=class_id) }}"
-                                    class="waves-effect small-tools waves-amber btn-small lime darken-1 ml-2 z-depth-5 tooltipped"
-                                    data-position="top" data-delay="50" data-tooltip="Add music track"><i
-                                        class="small small-icon material-icons">music_note</i></a>
-                                <a href="{{ url_for('add_link', exercise_id=exercise._id, class_id=class_id) }}"
-                                    class="waves-effect small-tools waves-indigo btn-small indigo lighten-1 margin-gap ml-2 z-depth-5 tooltipped"
-                                    data-position="top" data-delay="50" data-tooltip="Add video link"><i
-                                        class="small small-icon material-icons">videocam</i></a>
-                                <a href="{{ url_for('edit_exercise', exercise_id=exercise._id, class_id=class_id) }}"
-                                    class="waves-effect small-tools waves-yellow btn-small yellow darken-2 ml-2 z-depth-5 tooltipped"
-                                    data-position="top" data-delay="50" data-tooltip="Edit exercise"><i
-                                        class="small small-icon material-icons">edit</i></a>
-                                <a href="{{ url_for('delete_exercise', exercise_id=exercise._id, class_id=class_id) }}"
-                                    class="waves-effect small-tools waves-red btn-small ml-2 red z-depth-5 tooltipped"
-                                    data-position="top" data-delay="50" data-tooltip="Delete exercise"><i
-                                        class="small small-icon material-icons">delete</i></a>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                {% endfor %}
-
-            </ul>
-            {% else %}
-            <div class="mb-6">
-                <strong class="mb-6">No exercises added yet</strong>
-            </div>
-            {% endif %}
-        </section>
+        </div>
         <br>
 
-        <!-- LOGS SECTION IN CLASS VIEW -->
-        <section class="logs">
+        <!-- MAIN ELEMENTS -->
+        <section class="element">
+            {% if this_class.main_elements is defined %}
             <div class="divider"> </div>
             <br>
-            <h6 class="sub-titles">Logs:</h6>
+            <h6 class="sub-titles"> Class elements:</h6>
             <br>
-            {% if this_class.logs %}
-            <ul class="collapsible collapsible-log popout" data-collapsible="accordion">
-                {% for log in this_class.logs %}
+            <ul class="collapsible collapsible-elem popout" data-collapsible="accordion">
                 <li class="this_class">
-                    <div class="collapsible-header level-3 px-0">
+                    <div class="collapsible-header w-100 level-4">
                         <div class="class_header col">
-                            <!---<i class="material-icons accordion_arrow">expand_more</i>-->
-                            <strong>{{ log.log_date }}</strong> &nbsp; / &nbsp; <em> {{ log.log_tag | capitalize}} </em>
+                            <strong class="accordion-title">View elements</strong>
                         </div>
                     </div>
+                    <!-- ELEMENTS CONTENT (Elements)-->
                     <div class="collapsible-body elements-body">
                         <div class="row">
                             <div class="col no-gutters">
-                                <span class="editor"> {{ log.log_text | safe }} </span>
-                            </div>
-                        </div>
-                        <div class="row no-gutters mb-n3">
-                            <div class="col log-tools mt-2 mr-n3 pr-0 d-flex justify-content-beginning">
-                                <a href="{{ url_for('edit_log', log_id=log._id, class_id=class_id) }}"
-                                    class="waves-effect waves-yellow btn-small small-tools yellow darken-2 ml-n4 z-depth-5 tooltipped"
-                                    data-position="top" data-delay="50" data-tooltip="Edit log"><i
-                                        class="small small-icon material-icons">edit</i></a>
-                                <a href="{{ url_for('delete_log', log_id=log._id, class_id=class_id) }}"
-                                    class="waves-effect waves-red btn-small small-tools ml-2 red z-depth-5 tooltipped"
-                                    data-position="top" data-delay="50" data-tooltip="Delete log"><i
-                                        class="small small-icon material-icons">delete</i></a>
+                                <span class="editor"> {{ this_class.main_elements | safe}} </span>
                             </div>
                         </div>
                     </div>
                 </li>
-                {% endfor %}
             </ul>
-            {% else %}
-            <div class="mb-6">
-                <strong class="mb-6">No logs added yet</strong>
-            </div>
             {% endif %}
         </section>
         <br>
-        <!-- TOOLS BUTTON FOR THE TOOLS: EDIT/DELETE/DUPLICATE/ADD EXERCISE/ ADD LOG-->
-        <section class="tools">
-            <div class="fixed-action-btn vertical">
-                <a class="btn-floating master-button btn-large indigo darken-4 z-depth-5 tooltipped" id="class-tools"
-                    data-position="left" data-delay="50" data-tooltip="Editor tools">
-                    <i class="large material-icons">build</i></a>
-                <ul>
-                    <li><a href="{{ url_for('add_log', class_id=this_class._id, username=username) }}"
-                            class="btn-floating blue darken-2 z-depth-5 tooltipped" data-position="left" data-delay="50"
-                            data-tooltip="Add log">
-                            <i class="material-icons">event_note</i></a></li>
-                    <li><a href="{{ url_for('add_exercise', class_id=this_class._id) }}"
-                            class="btn-floating deep-purple lighten-1 z-depth-5 tooltipped" data-position="left"
-                            data-delay="50" data-tooltip="Add exercise">
-                            <i class="material-icons">content_paste</i></a></li>
-                    <li><a href="{{ url_for('edit_class', class_id=this_class._id, username=username) }}"
-                            class="btn-floating yellow darken-2 z-depth-5 tooltipped" data-position="left"
-                            data-delay="50" data-tooltip="Edit class">
-                            <i class="material-icons">edit</i></a></li>
-                    <li><a href="{{ url_for('delete_class', class_id=this_class._id, series_doc = series._id) }}"
-                            class="btn-floating red z-depth-5 tooltipped" data-position="left" data-delay="50"
-                            data-tooltip="Delete class">
-                            <i class="material-icons">delete</i></a></li>
-                    <li><a href="{{ url_for('copy_class', class_id=this_class._id, username=username) }}"
-                            class="btn-floating teal darken-1 z-depth-5 tooltipped" data-position="left" data-delay="50"
-                            data-tooltip="Duplicate class">
-                            <i class="material-icons">content_copy</i></a></li>
-                </ul>
+        <!-- OTHER ELEMENTS (Helpers)-->
+        {% if this_class.other_elements %}
+        <div class="row w-100">
+            <div class="class-title p-0 col s12 m10 l6 mt-1">
+                <h6 class="sub-titles">Helpers</h6>
+                <span>{{ this_class.other_elements | capitalize}}</span>
             </div>
-        </section>
-        <br>
-        <!-- BOTTOM BUTTON  'BACK TO CLASSES' TO NAVIGATE TO THE PREVIOUS PAGE CLASSES VIEW -->
-        <div class="divider"></div>
-        <br>
-        <div class="section">
-            <div class="container bottom_actions w-100">
-                <div class="row">
-                    <div class="col ml-n4 mr-0 mt-6 mb-10 d-flex no-gutters justify-content-beginning">
+        </div>
+        {% endif %}
 
-                        <a href="{{ url_for('classes', username=username) }}"
-                            class="btn-small waves-effect waves-light black z-depth-5 tooltipped go_back" name="go_back"
-                            data-position="top" data-delay="50" data-tooltip="Go back">
-                            <i class="material-icons left">chevron_left</i>Back to Classes</a>
+        <!-- CLASS NOTES -->
+        {% if this_class.notes %}
+        <div class="row w-100">
+            <div class="class-title col s12 m10 l6 mt-1">
+                <h6 class="sub-titles">Class Notes</h6>
+                <span>{{ this_class.class_notes | capitalize}}</span>
+            </div>
+        </div>
+        <br>
+        {% endif %}
+    </section>
 
+    <!-- COLLECTION OF THE CLASS SERIES THE CLASS IS ASSOCIATED WITH -->
+    <section class="series">
+        <br>
+        <div class="divider"> </div>
+        <br>
+        <div class="row w-100 pr-4">
+            <div class="col-md-3 class-title">
+                <h6 class="sub-titles">Class series:</h6>
+            </div>
+            <div class="col-md-9 p-0 collection z-depth-1">
+                {% if class_id in merged_list %}
+                {% for name in series.class_series %}
+                {% if class_id in name.classes %}
+                <a href="{{url_for('view_classes_in_series', series_doc = series._id, series_id = name._id, username = username)}}"
+                    target="_blank" class="collection-item ml-n3 mr-n3 tooltipped" data-position="top" data-delay="50"
+                    data-tooltip="Go to this series"><em class="link-text">{{ name.series_name }}</em></a>
+                {% endif %}
+                {% endfor %}
+                {% else  %}
+                <div class="collection-item"> <em class="link-text">None</em></div>
+                <!-- To be implemented later: a link to a collection of all classes associated with none of the user's class series
+                <a href="#!" target="_blank" class="collection-item ml-n3 mr-n3 disabled" data-position="top"
+                data-delay="50" data-tooltip="Go to this series"><em class="link-text">None</em></a>-->
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- PLAYLIST LINK -->
+    <section class="links">
+        <div class="divider"> </div>
+        <br>
+        <div class="row w-100 pr-4">
+            <div class="col-md-3 class-title">
+                <h6 class="sub-titles">Playlist:</h6>
+            </div>
+            <ul class="col-md-9 p-0 collection z-depth-1">
+                {% if this_class.playlist_title or this_class_playlist_link %}
+                <a href="{{ this_class.playlist_link }}" target="_blank" class="collection-item mr-n3 tooltipped"
+                    data-position="top" data-delay="50" data-tooltip="Go to this playlist"><em
+                        class="link-text">{{ this_class.playlist_title | upper}}</em></a>
+                {% else %}
+                <div class="collection-item"> <em class="link-text">None</em></div>
+                {% endif %}
+            </ul>
+        </div>
+    </section>
+
+    <!-- EXERCISES SECTION IN CLASS VIEW -->
+    <section class="exercises">
+        <div class="divider"> </div>
+        <br>
+        <h6 class="sub-titles">Exercises:</h6>
+        <br>
+        {% if this_class.exercises %}
+        <ul class="collapsible collapsible-main p-0 popout" data-collapsible="accordion">
+            {% for exercise in this_class.exercises %}
+            <li class="this_class">
+                <div class="collapsible-header level-1">
+                    <div class="class_header col">
+                        <strong class="accordion-title">{{ exercise.exercise_name | capitalize}}</strong>
                     </div>
+                </div>
+                <!-- EXERCISES CONTENT -->
+                <div class="collapsible-body pt-2 pb-0 px-0">
+                    <div class="row w-100 no-gutters">
+                        <div class="col ml-1 container">
+                            <ul class="collapsible collapsible-sub z-depth-0 p-0 m-0" data-collapsible="expandable">
+                                <li class="active-header active">
+                                    <div class="collapsible-header level-2 active collapsible-opened-2">
+                                        <i class="material-icons">description</i>Description</div>
+                                    <div class="collapsible-body elements-body">
+                                        <p>{{ exercise.exercise_description | safe }}</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="collapsible-header level-2">
+                                        <i class="material-icons">comment</i>Comment</div>
+                                    {% if exercise.exercise_comment %}
+                                    <div class="collapsible-body elements-body">
+                                        <p>{{ exercise.exercise_comment | capitalize}}</p>
+                                    </div>
+                                    {% endif %}
+                                </li>
+                                <li>
+                                    <div class="collapsible-header level-2">
+                                        <i class="material-icons">star</i>Aim</div>
+                                    {% if exercise.exercise_aim %}
+                                    <div class="collapsible-body elements-body">
+                                        <p>{{ exercise.exercise_aim | capitalize}}</p>
+                                    </div>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                            <!-- MUSIc TRACK COLLECTION -->
+                            <div class="track-wrap mt-2">
+                                <ul class="collection with-header">
+                                    <li class="collection-header"><i class="material-icons">music_note</i> Music
+                                        tracks
+                                    </li>
+
+                                    {% for track in exercise.tracks %}
+                                    <li class="collection-item collection-item-selectable">
+                                        <div>
+
+                                            <a href="{{ track.track_link }}" target="_blank"
+                                                class=" track-link tooltipped" data-position="top" data-delay="50"
+                                                data-tooltip="Go to this music track">
+                                                <span class="title link-text"><strong>{{ track.track_title | title }}
+                                                        &nbsp;</strong></span>
+                                                <em class="link-text">/ &nbsp;
+                                                    {{ track.track_comment | capitalize}}</em>
+                                            </a>
+
+                                            <a href="{{ url_for('delete_track', class_id=class_id, exercise_id = exercise._id, track_id=track._id) }}"
+                                                class="secondary-content tooltipped" data-position="top" data-delay="50"
+                                                data-tooltip="Delete track"><i
+                                                    class="material-icons link-text delete-small">delete</i></a>
+                                        </div>
+                                    </li>
+                                    {% else %}
+                                    <li class="collection-item">
+                                        <em class="link-text">No music tacks added yet</em>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <!-- VIDEO LINK COLLECTION -->
+                            <div class="divider"></div>
+                            <div class="link-wrap mt-2">
+                                <ul class="collection with-header">
+                                    <li class="collection-header "><i class="material-icons">videocam</i> Video
+                                        Links
+                                    </li>
+
+                                    {% for link in exercise.links %}
+
+                                    <li class="collection-item collection-item-selectable">
+                                        <div>
+                                            <a href="{{ link.video_link }}" target="_blank"
+                                                class=" video-link tooltipped" data-position="top" data-delay="50"
+                                                data-tooltip="Go to this video">
+                                                <span class="title link-text"><strong>{{ link.video_title | title }}
+                                                        &nbsp;</strong></span>
+                                                <em class="link-text">/ &nbsp;
+                                                    {{ link.video_comment | capitalize}}</em>
+                                            </a>
+
+                                            <a href="{{ url_for('delete_link', link_id=link._id, class_id=class_id, exercise_id = exercise._id) }}"
+                                                class="secondary-content tooltipped" data-position="top" data-delay="50"
+                                                data-tooltip="Delete video link"><i
+                                                    class="material-icons link-text delete-small">delete</i></a>
+                                        </div>
+                                    </li>
+
+                                    {% else %}
+                                    <li class="collection-item">
+                                        <em class="link-text">No video links added yet</em>
+                                    </li>
+
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Tool buttons for the exercise -->
+                    <div class="row w-100 no-gutters">
+                        <div class="col exercise-tools my-1 justify-content-beginning">
+                            <a href="{{ url_for('add_track', exercise_id=exercise._id, class_id=class_id) }}"
+                                class="waves-effect small-tools waves-amber btn-small lime darken-1 ml-2 z-depth-5 tooltipped"
+                                data-position="top" data-delay="50" data-tooltip="Add music track"><i
+                                    class="small small-icon material-icons">music_note</i></a>
+                            <a href="{{ url_for('add_link', exercise_id=exercise._id, class_id=class_id) }}"
+                                class="waves-effect small-tools waves-indigo btn-small indigo lighten-1 margin-gap ml-2 z-depth-5 tooltipped"
+                                data-position="top" data-delay="50" data-tooltip="Add video link"><i
+                                    class="small small-icon material-icons">videocam</i></a>
+                            <a href="{{ url_for('edit_exercise', exercise_id=exercise._id, class_id=class_id) }}"
+                                class="waves-effect small-tools waves-yellow btn-small yellow darken-2 ml-2 z-depth-5 tooltipped"
+                                data-position="top" data-delay="50" data-tooltip="Edit exercise"><i
+                                    class="small small-icon material-icons">edit</i></a>
+                            <a href="{{ url_for('delete_exercise', exercise_id=exercise._id, class_id=class_id) }}"
+                                class="waves-effect small-tools waves-red btn-small ml-2 red z-depth-5 tooltipped"
+                                data-position="top" data-delay="50" data-tooltip="Delete exercise"><i
+                                    class="small small-icon material-icons">delete</i></a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+            {% else %}
+            <li class="accordion_list header-alt">
+                <div class="collapsible-header">
+                    <div class="list_header col">
+                        <strong class="not-yet">No exercises added yet</strong>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        {% endif %}
+    </section>
+    <br>
+
+    <!-- LOGS SECTION IN CLASS VIEW -->
+    <section class="logs">
+        <div class="divider"> </div>
+        <br>
+        <h6 class="sub-titles">Logs:</h6>
+        <br>
+        <ul class="collapsible collapsible-log popout" data-collapsible="accordion">
+            {% if this_class.logs %}
+            {% for log in this_class.logs %}
+            <li class="this_class">
+                <div class="collapsible-header level-3 px-0">
+                    <div class="class_header col">
+                        <!---<i class="material-icons accordion_arrow">expand_more</i>-->
+                        <strong>{{ log.log_date }}</strong> &nbsp; / &nbsp; <em> {{ log.log_tag | capitalize}} </em>
+                    </div>
+                </div>
+                <div class="collapsible-body elements-body">
+                    <div class="row">
+                        <div class="col no-gutters">
+                            <span class="editor"> {{ log.log_text | safe }} </span>
+                        </div>
+                    </div>
+                    <div class="row no-gutters mb-n3">
+                        <div class="col log-tools mt-2 mr-n3 pr-0 d-flex justify-content-beginning">
+                            <a href="{{ url_for('edit_log', log_id=log._id, class_id=class_id) }}"
+                                class="waves-effect waves-yellow btn-small small-tools yellow darken-2 ml-n4 z-depth-5 tooltipped"
+                                data-position="top" data-delay="50" data-tooltip="Edit log"><i
+                                    class="small small-icon material-icons">edit</i></a>
+                            <a href="{{ url_for('delete_log', log_id=log._id, class_id=class_id) }}"
+                                class="waves-effect waves-red btn-small small-tools ml-2 red z-depth-5 tooltipped"
+                                data-position="top" data-delay="50" data-tooltip="Delete log"><i
+                                    class="small small-icon material-icons">delete</i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </li>
+            {% else %}
+            <li class="accordion_list header-alt">
+                <div class="collapsible-header">
+                    <div class="list_header col">
+                        <strong class="not-yet">You haven't created any logs yet</strong>
+                    </div>
+                </div>
+            </li>
+            {% endif %}
+        </ul>
+    </section>
+    <br>
+    <!-- TOOLS BUTTON FOR THE TOOLS: EDIT/DELETE/DUPLICATE/ADD EXERCISE/ ADD LOG-->
+    <section class="tools">
+        <div class="fixed-action-btn vertical">
+            <a class="btn-floating master-button btn-large indigo darken-4 z-depth-5 tooltipped" id="class-tools"
+                data-position="left" data-delay="50" data-tooltip="Editor tools">
+                <i class="large material-icons">build</i></a>
+            <ul>
+                <li><a href="{{ url_for('add_log', class_id=this_class._id, username=username) }}"
+                        class="btn-floating blue darken-2 z-depth-5 tooltipped" data-position="left" data-delay="50"
+                        data-tooltip="Add log">
+                        <i class="material-icons">event_note</i></a></li>
+                <li><a href="{{ url_for('add_exercise', class_id=this_class._id) }}"
+                        class="btn-floating deep-purple lighten-1 z-depth-5 tooltipped" data-position="left"
+                        data-delay="50" data-tooltip="Add exercise">
+                        <i class="material-icons">content_paste</i></a></li>
+                <li><a href="{{ url_for('edit_class', class_id=this_class._id, username=username) }}"
+                        class="btn-floating yellow darken-2 z-depth-5 tooltipped" data-position="left" data-delay="50"
+                        data-tooltip="Edit class">
+                        <i class="material-icons">edit</i></a></li>
+                <li><a href="{{ url_for('delete_class', class_id=this_class._id, series_doc = series._id) }}"
+                        class="btn-floating red z-depth-5 tooltipped" data-position="left" data-delay="50"
+                        data-tooltip="Delete class">
+                        <i class="material-icons">delete</i></a></li>
+                <li><a href="{{ url_for('copy_class', class_id=this_class._id, username=username) }}"
+                        class="btn-floating teal darken-1 z-depth-5 tooltipped" data-position="left" data-delay="50"
+                        data-tooltip="Duplicate class">
+                        <i class="material-icons">content_copy</i></a></li>
+            </ul>
+        </div>
+    </section>
+    <br>
+    <!-- BOTTOM BUTTON  'BACK TO CLASSES' TO NAVIGATE TO THE PREVIOUS PAGE CLASSES VIEW -->
+    <div class="divider"></div>
+    <br>
+    <div class="section">
+        <div class="container bottom_actions w-100">
+            <div class="row">
+                <div class="col ml-n4 mr-0 mt-6 mb-10 d-flex no-gutters justify-content-beginning">
+
+                    <a href="{{ url_for('classes', username=username) }}"
+                        class="btn-small waves-effect waves-light black z-depth-5 tooltipped go_back" name="go_back"
+                        data-position="top" data-delay="50" data-tooltip="Go back">
+                        <i class="material-icons left">chevron_left</i>Back to Classes</a>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 {% endblock content %}

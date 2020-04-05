@@ -18,29 +18,32 @@
 						<form class="form-signin" method="POST" action="/register">
 							<div class="form-group">
 								<label for="sign-in-username">Username*</label>
-								<input name="username" type="text" class="form-control validate" id="sign-in-username" required>
+								<input name="username" type="text" class="form-control validate" id="sign-in-username"
+									required>
 							</div>
 							<div class="form-group">
-									<label for="email">Email</label>
+								<label for="email">Email</label>
 								<input id="email" name="email" type="email" class="form-control validate">
-								<span class="helper-text" data-error="Not valid mail address" data-success="Thank you!"></span>
 							</div>
 							<div class="form-group">
-								<div class="password-labe"><label for="sign-in-password">Password* </label><i id="password-info" class="tiny material-icons tooltipped" data-position="top" data-delay="50" data-tooltip="Password info"type="button">info_outline</i></div>
-								<input class="form-control validate" name="password" type="password" id="sign-in-password"
-								required>
+								<div class="password-labe"><label for="sign-in-password">Password* </label><i
+										id="password-info" class="tiny material-icons tooltipped" data-position="top"
+										data-delay="50" data-tooltip="Password info" type="button">info_outline</i>
+								</div>
+								<input class="form-control validate" name="password" type="password"
+									id="sign-in-password" required>
 							</div>
 							<div class="form-group">
 								<label for="sign-in-password">Password again*</label>
-								<input class="form-control validate" name="password1" type="password" id="sign-in-password1"
-									required>
+								<input class="form-control validate" name="password1" type="password"
+									id="sign-in-password1" required>
 							</div>
 							<div class="form-group">
 								<em class="required required-notice">
 									*Required field
 								</em>
 							</div>
-							<button class="btn btn-outline-success btn-lg btn-block" type="submit">Register</button>
+							<button class="btn btn-outline-success z-depth-5 btn-lg btn-block" type="submit">Register</button>
 						</form>
 					</div>
 				</div>
@@ -48,26 +51,33 @@
 		</section>
 	</div>
 	<!-- Password info -->
-	<div class="login-card password-info-wrap">
-			<section class="container-fluid">
-				<div class="row register-row">
-					<div class="card mx-auto my-auto">
-						<div class="card-body password-info-card">
-							<h5>Password info</h5><br>
-							<div class="divider"></div><br>
-							<em>Password should consist of:</em>
-							<ol class="password-info-list">
-								<li>At least one number</li>
-								<li>At leas one uppercase character</li>
-								<li>At least one lowercase character</li>
-								<li>At least one special symbol</li>
-								<li>Between 6 to 10 characters</li>
-							</ol>
-
+	<div class="login-card password-info-wrap hide-info">
+		<section class="container-fluid">
+			<div class="row register-row">
+				<div class="card mx-auto my-auto">
+					<div class="card-body password-info-card">
+						<h5>Password info</h5><br>
+						<div class="divider mb-3"></div><br>
+						<strong><em>Password should consist of:</em></strong>
+						<ol class="password-info-list pl-6">
+							<li>At least one number</li>
+							<li>At leas one uppercase character</li>
+							<li>At least one lowercase character</li>
+							<li>At least one special symbol</li>
+							<li>Between 6 to 30 characters</li>
+						</ol>
+						<br>
+						<div class="divider mb-2"></div>
+						<br>
+						<div class="container bottom_actions w-100 ">
+							<div class="row d-flex no-gutters justify-content-center">
+										<button id="close-modal" class="btn waves-effect waves-light grey z-depth-5 go_back">Close</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</section>
-		</div>
+			</div>
+		</section>
+	</div>
 </div>
 {% endblock content %}

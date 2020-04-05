@@ -2,7 +2,7 @@
 {% block content %}
 <!-- CLASS FORM -->
 <form class="col s12" method="POST"
-    action="{{ url_for('save_class', class_id = this_class._id, series = series, series_doc = series._id, username=session['user']) }}"
+    action="{{ url_for('save_class', class_id = this_class._id, series = series, series_doc = series._id, username=username) }}"
     id="edit_class_form" autocomplete="off">
     <!-- Disabled autocompletion -->
     <!-- Page Title for Edit class mode -->

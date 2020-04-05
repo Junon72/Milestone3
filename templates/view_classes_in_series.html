@@ -11,8 +11,8 @@
     </section>
     {% if name.classes is defined and name.classes|length > 0 %}
     <section class="series-view-content">
-        {% for items in serial.class_series %}
         <ul class="collapsible collapsible-main" data-collapsible="accordion">
+            {% for items in serial.class_series %}
             {% for class in all_classes recursive %}
             {% for item in items.classes %}
             {% if class._id|string in item %}
@@ -33,12 +33,13 @@
                     <!-- TOOLS BUTTON FOR THE TOOLS: EDIT/DELETE/DUPLICATE/ADD EXERCISE/ ADD LOG-->
                     <section class="tools">
                         <div class="fixed-action-btn vertical">
-                            <a class="btn-floating btn-large master-button red tooltipped z-depth-5" id="class-tools"
-                                data-position="left" data-delay="50" data-tooltip="Editor tools">
+                            <a class="btn-floating btn-large master-button btn-large indigo darken-4 tooltipped z-depth-5"
+                                id="class-tools" data-position="left" data-delay="50" data-tooltip="Editor tools">
                                 <i class="medium material-icons">build</i></a>
                             <ul>
-                                <li><a href="{{ url_for('view_class', class_id=class._id, username = usernam) }}" class="btn-floating yellow darken-2 tooltipped"
-                                        data-position="left" data-delay="50" data-tooltip="View class">
+                                <li><a href="{{ url_for('view_class', class_id=class._id, username = usernam) }}"
+                                        class="btn-floating yellow darken-2 tooltipped" data-position="left"
+                                        data-delay="50" data-tooltip="View class">
                                         <i class="material-icons">remove_red_eye</i></a></li>
                                 <li><a href="{{ url_for('edit_class', class_id=class._id, username=username) }}"
                                         class="btn-floating green tooltipped" data-position="left" data-delay="50"
@@ -60,18 +61,17 @@
             {% endif %}
             {% endfor %}
             {% endfor %}
+            {% endfor %}
+            {% else %}
+            <li class="accordion_list header-alt">
+                <div class="collapsible-header">
+                    <div class="list_header col">
+                        <strong class="not-yet">No classes added to this series</strong>
+                    </div>
+                </div>
+            </li>
         </ul>
-        {% endfor %}
-        <br>
     </section>
-    {% else %}
-    <li class="accordion_list">
-        <div class="collapsible-header">
-            <div class="list_header col">
-                <strong class="not-yet">No classes added to this series</strong>
-            </div>
-        </div>
-    </li>
     <br>
     {% endif %}
     {% endfor %}
@@ -83,7 +83,7 @@
             <div class="row">
                 <div class="col ml-n4 mr-0 mt-6 mb-10 d-flex no-gutters justify-content-beginning">
                     <a href="{{ url_for('series') }}"
-                        class="btn-small waves-effect waves-light black tooltipped go_back" name="go_back"
+                        class="btn-small waves-effect waves-light black z-depth-5 tooltipped go_back" name="go_back"
                         data-position="top" data-delay="50" data-tooltip="Go back">
                         <i class="material-icons left">chevron_left</i>Back to Series</a>
                 </div>

@@ -28,42 +28,6 @@ users_collection = mongo.db.users
 classes_collection = mongo.db.classes
 series_collection = mongo.db.series
 
-# Validation functions
-# Check for username
-def validate_username(username):
-	regex_in_name = '^[\w.-]+$'
-	if len(username) < 6 or len(username) > 20:
-		flash(f"Username must be at least 6 and up to 30 characters long")
-	if re.search(regex_in_name, username):
-		flash(f"Username may not have special characters")
-		print('here')
-		return redirect(url_for('register'))
-# Check for email
-def validate_email(email):
-	regex_in_mail = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
-	if re.search(regex_in_mail, email):
-		return redirect(url_for('register'))
-	else:
-		flash(f"Email is not valid!")
-		return redirect(url_for('register'))
-# Check for password
-def validate_password(password):
-	regex_in_password = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@$%#&*?])[A-Za-z\d!@$%#&*?]$'
-	if len(password) < 6 or len(passsword) > 20:
-		flash(f"Passsword must be at least 6 and up to 30 characters long")
-	# Compile regex expression
-	pat = re.compile(regex_in_password )
-	# Search for regex in pw
-	mat = re.search(pat, password)
-	# Validate condition
-	if mat:
-		return redirect(url_for('register'))
-	else:
-		flash(f"Password is not valid!")
-		return redirect(url_for('register'))
-		
-
-
 
 ###################################### LOGIN/OUT AND REGISTERING #################################
 
@@ -76,7 +40,7 @@ def index():
 		user_in_db = users_collection.find_one({"username": session['user']})
 		if user_in_db:
 			# If in session redirect user to his/her collection of classes/ home page
-			flash("You are logged in already!")
+			flash(f"You are logged in already!", "success")
 			return redirect(url_for('classes', username = user_in_db['username']))
 	else:
 		# Render the page for user to be able to log in
@@ -96,81 +60,89 @@ def user_auth():
 			return redirect(url_for('classes', username=user_in_db['username']))
 
 		else:
-			flash("Wrong password or user name!")
+			flash(f"Wrong password or user name!", "warning")
 			return redirect(url_for('index'))
 	else:
-		flash("You must be registered!")
+		flash(f"You must be registered!", "warning")
 		return redirect(url_for('register'))
 
 # SIGN UP A NEW USER - html/ form - insert_one()
 @app.route('/register', methods=['GET', 'POST'])
 def register():
-
 	# Check if user is not logged in already
 	if 'user' in session:
-		flash('You are already signed in!')
+		flash(f'You are already signed in!', "success")
 		return redirect(url_for('classes'))
 	if request.method == 'POST':
 		form = request.form.to_dict()
-		print(form)
-		# Form validation
-		# Name validation
-		username = 'plo'
-		validate_username(username)
-		username = '%*(@)£'
-		validate_username(username)
-		username = request.form['username']
-		validate_username(username)
-		# Mail validation
-		email = 'juno@mail.com'
-		validate_email(email)
-		email = 'juno.com'
-		validate_email(email)
-		email = request.form['email']
-		validate_email(email)
-		# PW validation
-
-		password = request.form['password']
-		# Validate each input filed
 		# Check if the password1 and passwords actually match
 		if form['password'] == form['password1']:
-			# If matched find the user in db
+			# If matched validate the username
+			username = form['username']
+			print(username)
+			regex_in_name = '^[\W.-]+$'
 			user = users_collection.find_one({"username" : form['username']})
 			if user:
-				flash(f"This username is already taken")
+				flash(f"This username is already taken", "warning")
+				print('username taken')
+				return redirect(url_for('register', username=username))
+			elif len(username) < 6 or len(username) > 20:
+				flash(f"Username must be at least 6 and up to 30 characters long", "warning")
+				print('wrong length')
 				return redirect(url_for('register'))
-			# If user does not exist register new user - insert user to user collection
+			elif re.search(regex_in_name, username):
+				flash(f"Username may not have special characters", "warning")
+				return redirect(url_for('register'))
 			else:
-				# Hash password
-				hash_pass = generate_password_hash(form['password'])
-				# Create new user with hashed password
-				new_user = users_collection.insert_one({
-					'username': form['username'],
-					'email': form['email'],
-					'password': hash_pass
-					})
-				user_Oid = new_user.inserted_id
-				user_id = str(user_Oid)
-				# Check if user is actually inserted
-				user_in_db = users_collection.find_one({"username": form['username']})
-				if user_in_db:
-					# Log user in (add to session)
-					session['user'] = user_in_db['username']
-					username = session['user']
-					print(username)
-					series_collection.insert_one({
-						'user_id': user_id,
-						'username': username,
-						'class_series': []
-						})
-					return redirect(url_for('classes', username = username))
-					# If user was not inserted/added inform the user of error
-				else:
-					flash("There was a problem with registration, please try again")
+				# If username passes validate the email
+				email = form['email']
+				regex_in_mail = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+				if not re.search(regex_in_mail, email):
+					flash(f"Email is not valid!", "warning")
 					return redirect(url_for('register'))
+				else:
+					# If email passes validate password
+					password = form['password']
+					regex_in_password = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@$%#&*?])[A-Za-z\d!@$%#&*?]$'
+					if len(password) < 6 or len(password) > 30:
+						flash(f"Password must be at least 6 and up to 30 characters long", "warning")
+						# Search for regex in pw
+						return redirect(url_for('register'))
+					elif not re.search(regex_in_password , password):
+						flash(f"Password is not valid!", "warning")
+						return redirect(url_for('register'))
+					else:
+						# Hash password
+						hash_pass = generate_password_hash(form['password'])
+						# Create new user with hashed password
+						new_user = users_collection.insert_one({
+							'username': form['username'],
+							'email': form['email'],
+							'password': hash_pass
+							})
+						user_Oid = new_user.inserted_id
+						user_id = str(user_Oid)
+						# Check if user is actually inserted
+						user_in_db = users_collection.find_one({"username": form['username']})
+						if user_in_db:
+							# Log user in (add to session)
+							session['user'] = user_in_db['username']
+							username = session['user']
+							print(username)
+							series_collection.insert_one({
+								'user_id': user_id,
+								'username': username,
+								'class_series': []
+								})
+							flash(f'Success! You are registered.', "success")
+							return redirect(url_for('classes', username = username))
+							# If user was not inserted/added inform the user of error
+						else:
+							flash(f"There was a problem with registration, please try again", "warning")
+							return redirect(url_for('register'))
 		else:
 			# Notify user of not matching passwords
-			flash("Passwords don't match! Try again.")
+			flash(f"Passwords don't match! Try again.", "warning")
 			return redirect(url_for('register'))
 	return render_template('register.html', title="Register")
 
@@ -179,7 +151,7 @@ def register():
 def logout():
 	# Clear the session
 	session.clear()
-	flash('You were logged out!')
+	flash(f'Success! You were logged out', "success")
 	return redirect(url_for('index'))
 
 
@@ -206,7 +178,7 @@ def classes(username):
 								classes = classes,
 								series = series,)
 	else:
-		flash("You must be logged in!")
+		flash("You must be logged in!", "warning")
 		return redirect(url_for('index'))
 
 ###################################### Handling Class in Classes / CRUD #################################
