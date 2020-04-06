@@ -104,6 +104,11 @@ main {
     .alert {
         margin: auto;
     }
+
+    #alerts {
+        top: 8.2rem;
+    }
+
     #messages {
         width: 80vw;
         /*background-color: rgb(253, 6, 112);*/
@@ -137,7 +142,7 @@ main {
 }
 
 
-@media screen and (max-width: 630px) {
+@media screen and (min-width: 320px) and (max-width: 630px) {
     #register { display: none; }
     .index-content { 
         background: none;
@@ -163,13 +168,8 @@ main {
     .container {
         padding: 0;
     }
-}
-
-/* On small screens this widens the gap between the tool button groups in class_view exercises section */
-
-@media screen and (min-width: 330px) {
     .margin-gap {
-    margin-right: .8rem;}
+        margin-right: .8rem;}
 }
 
 /* VIEW CLASS */
@@ -242,13 +242,12 @@ footer {
 /* ALERTS */
 #alerts {
     position: absolute;
-    display: none;
-    top: 5.8rem;
+    top: 7rem;
     z-index: 999;
     font-size: 1.2em;
     font-family: inherit;
-    color: #ffffff;
 }
+
 .alert {
     margin: auto;
     text-align: center;

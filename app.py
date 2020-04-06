@@ -79,7 +79,7 @@ def user_auth():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
 	'''Registration function checks if the user is already in session first and if true directs 
-	to the claases page. If not, the function checks first if the password in two fields are identical. 
+	to the classes page. If not, the function checks first if the password in two fields are identical. 
 	If the test is not passed user is directed informed and the form is rendered again. 
 	If the test is passes the rest of the form input will be validated for username, email 
 	and password individually. 
@@ -87,9 +87,9 @@ def register():
 	Username should be 6 to 30 char long and may consist unicode word characters and sign - only.
 
 	Email is checked only for proper email formate, not if the mail is actually working 
-	or the if daomin is really existing.
+	or the if domain is really existing.
 
-	Password needs to have atleast one lowercase, one uppercase, one special and one numeric character, 
+	Password needs to have at least one lowercase, one uppercase, one special and one numeric character, 
 	and have a length of 6 to 30 characters.
 
 	Each validation can either pass to redirect the user to the classes page or return a warning message 
@@ -101,17 +101,18 @@ def register():
 		return redirect(url_for('classes'))
 	if request.method == 'POST':
 		form = request.form.to_dict()
-		email = form['email']
+		print(type(form))
 		username = form['username']
-		# Check if the password1 and passwords actually match
+		email = form['email']
+		# Check if the passwords actually match
 		if form['password'] == form['password1']:
 			# If matched validate the username
 			regex_in_name = '^[\W.-]+$'
-			user = users_collection.find_one({"username" : form['username']})
+			user = users_collection.find_one({"username" : username})
 			if user:
 				flash(f"This username is already taken", "warning")
 				print('username taken')
-				return redirect(url_for('register', 
+				return redirect(url_for('register',
 								username = username, email = email))
 			elif len(username) < 6 or len(username) > 20:
 				flash(f"Username must be at least 6 and up to 30 characters long", "warning")
@@ -459,7 +460,7 @@ def delete_log(class_id, log_id):
 		{'_id': ObjectId(class_id)}, 
 		{'$pull': { 'logs': {'_id': ObjectId(log_id)}}}
 		)
-	flas(f"Log was removed!", "danger")
+	flash(f"Log was removed!", "danger")
 	return redirect(url_for('view_class', class_id = class_id))
 
 
