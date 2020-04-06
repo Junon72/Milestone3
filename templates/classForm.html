@@ -208,14 +208,18 @@
                     </div>
                 </div>
             </div>
+            {% endfor %}
         </li>
-        {% endfor %}
+        {% else %}
+        <li class="accordion_list header-alt">
+            <div class="collapsible-header">
+                <div class="list_header col">
+                    <strong class="not-yet">No logs added yet</strong>
+                </div>
+            </div>
+        </li>
+        {% endif %}
     </ul>
-    {% else %}
-    <div class="mb-6">
-        <strong class="mb-6">No logs added yet</strong>
-    </div>
-    {% endif %}
 </section>
 <br>
 {% endblock %}

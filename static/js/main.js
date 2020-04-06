@@ -92,8 +92,12 @@ $(document).ready(function () {
   // Materialize initialize form select element
   $('select').formSelect();
 
+  // Materialize initialize form input character counter
+  $('input, textarea').characterCounter();
+
   /* ------ MODALS ------ */
 
+  /* Flash */
   $('.alert').alert()
 
   /* Password info modal */
@@ -104,7 +108,7 @@ $(document).ready(function () {
   $('#close-modal').on('click', function() {
     $('.password-info-wrap').addClass('hide-info');
   });
-
+  
    /* ------ SUMMERNOTE ------ */
 
   var toolbar = [

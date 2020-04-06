@@ -5,59 +5,68 @@ import json
 import re
 from pymongo import MongoClient
 from flask import Flask, render_template, redirect, request, url_for, session, flash
-from flask_debugtoolbar import DebugToolbarExtension
 from config import Config
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
-from ast import literal_eval
 
 
-
-app = Flask(__name__, template_folder="templates")
-
+app = Flask(__name__, 
+				template_folder="templates")
+# The generalt configuration, together with the db configuration are stored in config.py file
+# The file is accessed using Python config module
 app.config.from_object(Config)
-toolbar = DebugToolbarExtension(app)
 
 
 mongo = PyMongo(app)
 
-# Collections
+# Collections vars
 
 users_collection = mongo.db.users
 classes_collection = mongo.db.classes
 series_collection = mongo.db.series
 
 
-###################################### LOGIN/OUT AND REGISTERING #################################
+# Login/ Logout and Register functions
 
-# LOGIN - html/ form
 @app.route('/', methods=['GET'])
 
 def index():
-	# Check if user is logged in already
+	''' Login function. The function first checks if user is added to the session already.
+	If not the user is directed to the login form, otherwise the the classes view will be rendered. 
+	'''
 	if 'user' in session:
 		user_in_db = users_collection.find_one({"username": session['user']})
 		if user_in_db:
 			# If in session redirect user to his/her collection of classes/ home page
 			flash(f"You are logged in already!", "success")
-			return redirect(url_for('classes', username = user_in_db['username']))
+			return redirect(url_for('classes', 
+							username = user_in_db['username']))
 	else:
 		# Render the page for user to be able to log in
-		return render_template("index.html", title = "Login", current_users = list(users_collection.find()))
+		return render_template("index.html", title = "Login", 
+								current_users = list(users_collection.find()))
 
-# CHECK USER LOGIN DETAILS FROM LOGIN FORM AND COMPARE WITH THE USER DATA IN USERS COLLECTION
+
 @app.route('/user_auth', methods=['POST'])
 def user_auth():
+	'''User authentication function checks the user filled details in login form 
+	by finding the user in db users collection.
+	If the user name is in db, the hashed password is checked.
+	If the password matches the user is added to the session and directed to the classes page.
+	If not the login form is rendered again. 
+	If user is not found in db, the user is directed to the register page.
+	'''
 	form = request.form.to_dict()
-	user_in_db = users_collection.find_one({'username': form['username']})
+	user_in_db = users_collection.find_one({'username' : form['username']})
 	# Check for user in database
 	if user_in_db:
 		# If passwords match (hashed / real password)
 		if check_password_hash(user_in_db['password'], form['password']):
 			# Log user in (add to session)
 			session['user'] = form['username']
-			return redirect(url_for('classes', username=user_in_db['username']))
+			return redirect(url_for('classes', 
+							username = user_in_db['username']))
 
 		else:
 			flash(f"Wrong password or user name!", "warning")
@@ -66,40 +75,60 @@ def user_auth():
 		flash(f"You must be registered!", "warning")
 		return redirect(url_for('register'))
 
-# SIGN UP A NEW USER - html/ form - insert_one()
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+	'''Registration function checks if the user is already in session first and if true directs 
+	to the claases page. If not, the function checks first if the password in two fields are identical. 
+	If the test is not passed user is directed informed and the form is rendered again. 
+	If the test is passes the rest of the form input will be validated for username, email 
+	and password individually. 
+	
+	Username should be 6 to 30 char long and may consist unicode word characters and sign - only.
+
+	Email is checked only for proper email formate, not if the mail is actually working 
+	or the if daomin is really existing.
+
+	Password needs to have atleast one lowercase, one uppercase, one special and one numeric character, 
+	and have a length of 6 to 30 characters.
+
+	Each validation can either pass to redirect the user to the classes page or return a warning message 
+	and return the registration form.
+	'''
 	# Check if user is not logged in already
 	if 'user' in session:
 		flash(f'You are already signed in!', "success")
 		return redirect(url_for('classes'))
 	if request.method == 'POST':
 		form = request.form.to_dict()
+		email = form['email']
+		username = form['username']
 		# Check if the password1 and passwords actually match
 		if form['password'] == form['password1']:
 			# If matched validate the username
-			username = form['username']
-			print(username)
 			regex_in_name = '^[\W.-]+$'
 			user = users_collection.find_one({"username" : form['username']})
 			if user:
 				flash(f"This username is already taken", "warning")
 				print('username taken')
-				return redirect(url_for('register', username=username))
+				return redirect(url_for('register', 
+								username = username, email = email))
 			elif len(username) < 6 or len(username) > 20:
 				flash(f"Username must be at least 6 and up to 30 characters long", "warning")
 				print('wrong length')
-				return redirect(url_for('register'))
+				return redirect(url_for('register',
+								username = username, email = email))
 			elif re.search(regex_in_name, username):
 				flash(f"Username may not have special characters", "warning")
-				return redirect(url_for('register'))
+				return redirect(url_for('register',
+								username = username, email = email))
 			else:
 				# If username passes validate the email
-				email = form['email']
 				regex_in_mail = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 				if not re.search(regex_in_mail, email):
 					flash(f"Email is not valid!", "warning")
-					return redirect(url_for('register'))
+					return redirect(url_for('register',
+									username = username, email = email))
 				else:
 					# If email passes validate password
 					password = form['password']
@@ -107,10 +136,12 @@ def register():
 					if len(password) < 6 or len(password) > 30:
 						flash(f"Password must be at least 6 and up to 30 characters long", "warning")
 						# Search for regex in pw
-						return redirect(url_for('register'))
+						return redirect(url_for('register',
+										username = username, email = email))
 					elif not re.search(regex_in_password , password):
 						flash(f"Password is not valid!", "warning")
-						return redirect(url_for('register'))
+						return redirect(url_for('register',
+										username = username, email = email))
 					else:
 						# Hash password
 						hash_pass = generate_password_hash(form['password'])
@@ -123,12 +154,13 @@ def register():
 						user_Oid = new_user.inserted_id
 						user_id = str(user_Oid)
 						# Check if user is actually inserted
-						user_in_db = users_collection.find_one({"username": form['username']})
+						user_in_db = users_collection.find_one({"username" : form['username']})
 						if user_in_db:
 							# Log user in (add to session)
 							session['user'] = user_in_db['username']
 							username = session['user']
-							print(username)
+							# Insert a new entry to the series collection for the user's class series.
+							# The associate classes id will be added to the class_series array.
 							series_collection.insert_one({
 								'user_id': user_id,
 								'username': username,
@@ -139,146 +171,155 @@ def register():
 							# If user was not inserted/added inform the user of error
 						else:
 							flash(f"There was a problem with registration, please try again", "warning")
-							return redirect(url_for('register'))
+							return redirect(url_for('register',
+											username = username, email = email))
 		else:
 			# Notify user of not matching passwords
 			flash(f"Passwords don't match! Try again.", "warning")
 			return redirect(url_for('register'))
 	return render_template('register.html', title="Register")
 
-# LOGOUT USER AND RETURN TO LOGIN PAGE
+
 @app.route('/logout')
 def logout():
+	''' Function logs the user out by clearing the user from the session and redirecting to the login page.'''
 	# Clear the session
 	session.clear()
 	flash(f'Success! You were logged out', "success")
 	return redirect(url_for('index'))
 
 
-###################################### Handling Classes / CRUD #################################
+# Routes Handling CRUD operations for Classes
 
-# VIEW ALL CLASSES IN USER'S COLLECTION - html/ view
 @app.route('/classes/<username>')
 def classes(username):
+	''' Function checks first if the user is added to the session. 
+	If not the user is directed to the login page. If user is addes to the session, 
+	the function finds the user from the claases collection and renders the classes user
+	has created on to the classes page to be viewed, edited, deleted or duplicated.
+	'''
 	# Check if user is logged in
 	if 'user' in session:
 		# If so get the user classes and pass them to a template
-		user_in_db = users_collection.find_one({'username': username})
-		# username = session['user']
-		print(username)
+		# user_in_db = users_collection.find_one({'username': username})
 		classes = classes_collection.find({'username': username})
-		# global back_to_classes
-		# print(back_to_classes)
-		# print(type(back_to_classes))
-		# print(classes)
 		series = series_collection.find_one({'username': username})
-		return render_template('classes.html',
-								title = 'Classes',
-								username = username,
-								classes = classes,
-								series = series,)
+		return render_template('classes.html', title = 'Classes',
+								username = username, classes = classes, series = series,)
 	else:
-		flash("You must be logged in!", "warning")
+		flash(f"You must be logged in!", "warning")
 		return redirect(url_for('index'))
 
-###################################### Handling Class in Classes / CRUD #################################
 
-# VIEW CLASS IN COLLECTION - html/ view
+# Handling CRUD operations for each Class in user's Classes
 @app.route('/view_class/<class_id>')
 def view_class(class_id):
+	''' Function renders a selected class among the user's classes from the db classes collection.'''
 	username = session['user']
-	this_class = classes_collection.find_one({'_id': ObjectId(class_id)})
-	series = series_collection.find_one({'username': session['user']})
-	# print('this_class', this_class)
-	# print('class_id', class_id)
-	# print('series', series)
-	# print(type(go_back_passed))
-
+	this_class = classes_collection.find_one({'_id' : ObjectId(class_id)})
+	series = series_collection.find_one({'username' : session['user']})
 	# This creates an array of class id's stored in 'series'.'class_series'.'classes' and stores it in var merged_list.
 	# The list is used to check if THIS class is associated with any of the user's created series in series collection.
 	merged_list = []
 	for item in series['class_series']:
 		for class_in_classes in item['classes']:
 			merged_list.append(class_in_classes)
-	# print('merged', merged_list)
-	# print('back button', back_text)
-	# print('back url', back_url)
+	return render_template('viewClass.html', title = 'Class', class_id = class_id, 
+							this_class = this_class, username = username, series = series, merged_list = merged_list)
 
-	return render_template('viewClass.html',
-							title = 'Class',
-							class_id = class_id,
-							this_class = this_class,
-							username = username,
-							series = series,
-							merged_list = merged_list)
-# ADD CLASS - html/ form
+
 @app.route('/add_class/<username>')
 def add_class(username):
+	''' Function renders a add class form.
+
+	In a form the user may choose to associate the class with a class series.
+	Function finds the user's class series document from the db series collection.
+	'''
 	user = users_collection.find_one({'username': session['user']})
 	print(username)
 	series = series_collection.find_one({'username': session['user']},{'class_series': 1})
 	# print(series)
-	return render_template('addClass.html', 
-							title="New Class", 
-							user = user,
-							username = username, 
-							series = series)
+	return render_template('addClass.html', title="New Class", 
+							user = user, username = username, series = series)
 
-# INSERT NEW CLASS TO COLLECTION - insert_one()
+
 @app.route('/insert_class/<series_doc>/<username>', methods=['POST'])
 def insert_class(series_doc, username):
-	# username = session['user']
-	new_class = {'class_name': request.form.get('class_name'),
-				 'class_description': request.form.get('class_description'),
-				 'main_elements': request.form.get('editordata'),
-				 'other_elements': request.form.get('other_elements'),
-				 'playlist_title': request.form.get('playlist_title'),
-				 'playlist_link': request.form.get('playlist_link'),
-				 'class_notes': request.form.get('class_notes'),
-				 'exercises': [],
-				 'logs': [],
-				 'user_id': request.form.get('user_id'),
-				 'username': username}
-	# print(new_class)
+	''' Function inserts a new class document to the db classes collection.
+
+	If the user has selected a series to associate the class with, 
+	the class id is stored in that series object class_series array, 
+	located in the user's series document in db series collection.
+
+	After the insert and confirmation the user is directed back to the class view. 
+	After each iteration, the sereis update operation is checked and printed to the terminal.
+	'''
+	new_class = {
+		'class_name': request.form.get('class_name'),
+		'class_description': request.form.get('class_description'),
+		'main_elements': request.form.get('editordata'),
+		'other_elements': request.form.get('other_elements'),
+		'playlist_title': request.form.get('playlist_title'),
+		'playlist_link': request.form.get('playlist_link'),
+		'class_notes': request.form.get('class_notes'),
+		'exercises': [],
+		'logs': [],
+		'user_id': request.form.get('user_id'),
+		'username': username
+		}
 	inserted_class = classes_collection.insert_one(new_class)
-	# print(inserted_class)
 	this_class = inserted_class
 	class_Oid = inserted_class.inserted_id
 	class_id = str(class_Oid)
-	# print('new class id', class_id)
 	series_in_form = request.form.getlist('series')
-	# print('series in', series_in_form)
-		#Loop through each of the series collection class_series array of objects classes arrays where the class_series ObjectId equals to id passed from the selected series option value
+		# Loop through each of the series collection class_series Array of series objects.
+		# In each object, loop through the classes Arrays and find which class_series ObjectId equals to the id passed from the selected series option value
 	for item in series_in_form:
 		# Push the class_id to the Array
-		series_collection.update_one({'_id': ObjectId(series_doc), 'class_series._id': ObjectId(item)}, { '$push': { 'class_series.$.classes': class_id } })
+		series_collection.update_one(
+			{'_id': ObjectId(series_doc), 'class_series._id': ObjectId(item)}, 
+			{ '$push': { 'class_series.$.classes': class_id }}
+			)
 		#Check if the class_id was pushed to the array
-		array = series_collection.find_one({ '_id': ObjectId(series_doc) }, { 'class_series': {'$elemMatch': { '_id': ObjectId(item)}}})
-		# print(array)
+		array = series_collection.find_one(
+			{ '_id': ObjectId(series_doc) }, 
+			{ 'class_series': {'$elemMatch': { '_id': ObjectId(item)}}}
+			)
+		if not array:
+			print('Class was not added to ' + item)
+		else:
+			print('Class was added to ' + item + 'succesfully')
+	return redirect(url_for('view_class', class_id=class_id, 
+					username=username, this_class=this_class))
 
-	return redirect(url_for('view_class', class_id=class_id, username=username, this_class=this_class ))
-
-# EDIT CLASS - html/ form
 @app.route('/edit_class/<class_id>')
 def edit_class(class_id):
+	''' Function renders an edit class view with an edit form.
+	Function finds the user's sereis document for the select series 
+	function on the edit class page.
+	'''
 	user = users_collection.find_one({'username': session['user']})
 	this_class =  classes_collection.find_one({"_id": ObjectId(class_id)})
-	# print('this class', this_class)
-	# print(type(this_class))
 	class_id = class_id
-	# print(class_id)
 	series = series_collection.find_one({'username': session['user']})
-	# print('series in collection', series)
-	return render_template('editClass.html', title="Edit Class", user = user, class_id = class_id, this_class = this_class, series = series)
+	return render_template('editClass.html', title="Edit Class", user = user, 
+							class_id = class_id, this_class = this_class, series = series)
 
 
-# UPDATE CLASS AFTER EDIT - update_one()
 @app.route('/save_class/<class_id>/<series_doc>', methods=['GET','POST'])
 def save_class(class_id, series_doc):
+	''' Function updates the class after edit.
+
+	The series document is also updated. First the removes the class id reference 
+	from all series objects class_series Arrays. Then the class id reference is 
+	added to the selected series class_sereis Arrays and finally the sereis update 
+	operation is checked and printed to the terminal after each iteration.
+
+	The user is directed to the view class page.
+	'''
 	updated_class = classes_collection.update_one(
 		{'_id': ObjectId(class_id)},
-		{ '$set':
-		{ 'class_name': request.form.get('class_name'),
+		{ '$set': { 'class_name': request.form.get('class_name'),
 		'class_description': request.form.get('class_description'),
 		'main_elements': request.form.get('editordata'),
 		'other_elements': request.form.get('other_elements'),
@@ -286,114 +327,158 @@ def save_class(class_id, series_doc):
 		'playlist_link': request.form.get('playlist_link'),
 		'class_notes': request.form.get('class_notes'),
 		'user_id': request.form.get('user_id'),
-		'username': request.form.get('username')}})
-	# print('updated class', updated_class)
+		'username': request.form.get('username')}}
+		)
 	series_in_form = request.form.getlist('series')
-	# print('series in form', series_in_form)
-	# print('series id', series_doc)
 	# Remove the class id from each of the series collection class_series array of objects classes arrays
-	series_collection.update_many({'_id': ObjectId(series_doc)}, {'$pull': {'class_series.$[].classes': class_id}}, upsert = False)
+	series_collection.update_many(
+		{'_id': ObjectId(series_doc)}, 
+		{'$pull': {'class_series.$[].classes': class_id}}, 
+		upsert = False
+		)
 	# Loop through each of the series collection class_series array of objects classes arrays where the class_series ObjectId equals to id passed from the selected series option value
 	for item in series_in_form:
 		# Push the class_id to the Array
-		series_collection.update_one({'_id': ObjectId(series_doc), 'class_series._id': ObjectId(item)}, { '$push': { 'class_series.$.classes': class_id} })
+		series_collection.update_one(
+			{'_id': ObjectId(series_doc), 'class_series._id': ObjectId(item)}, 
+			{ '$push': { 'class_series.$.classes': class_id} }
+			)
 		# Check if the class_id was pushed to the array
-		# array = series_collection.find_one({ '_id': ObjectId(series_doc) }, { 'class_series': {'$elemMatch': { '_id': ObjectId(item)}}})
-		# print(array)
+		array = series_collection.find_one({ '_id': ObjectId(series_doc) }, 
+			{ 'class_series': {'$elemMatch': { '_id': ObjectId(item)}}}
+			)
+		if not array:
+			print('Class was not added to ' + item)
+		else:
+			print('Class was added to ' + item + 'succesfully')
 	return redirect(url_for('view_class', class_id = class_id ))
 
-# DELETE CLASS FROM COLLECTION - remove()
-@app.route('/delete_class/<class_id>/<series_doc>')
-def delete_class(class_id, series_doc):
-	deleted_class = classes_collection.remove({'_id': ObjectId(class_id)})
-		# Remove the class id from each of the series collection class_series array of objects classes arrays when class is deleted from the collection
-	series_collection.update_many({'_id': ObjectId(series_doc)}, {'$pull': {'class_series.$[].classes': class_id}}, upsert = False)
-	# print(deleted_class)
-	return redirect(url_for('classes'))
 
-# DUPLICATE CLASS -> to edit
+@app.route('/delete_class/<class_id>/<series_doc>/<username>')
+def delete_class(class_id, series_doc, username):
+	''' Function deletes the selected class document from the db classes collection, 
+	and returns user to the classes view.
+	'''
+	deleted_class = classes_collection.remove({'_id': ObjectId(class_id)})
+		# From each series document series object in sereis Array, remove the deleted class id.
+	series_collection.update_many({'_id': ObjectId(series_doc)}, 
+		{'$pull': {'class_series.$[].classes': class_id}}, 
+		upsert = False
+		)
+	flash(f"Class was removed!", "danger")
+	return redirect(url_for('classes', username = username))
+
+
 @app.route('/copy_class/<class_id>')
 def copy_class(class_id):
+	''' Function duplicates a class document, by inserting it in to the classes collection 
+	without id. Original id field is first removed. MongoDB will add a new ObjectId automaticall 
+	to the document when it is inserted.A (copy) prefix is added to the class to clarify the class 
+	in question is a duplicate. The Logs belonging to the original class document are also removed.
+
+	User is directed to the edit class view of the duplicate class.
+	'''
 	copy_this  = classes_collection.find_one({'_id': ObjectId(class_id)})
 	# Create a postfix (copy) for the class_name
 	name = copy_this['class_name']
 	postfix = '(copy)'
 	edit_name = ''.join((name, postfix))
-	# print("name", name)
-
 	# Remove _id field from copy_this class document
 	del copy_this['_id']
-	# print('copy', copy_this)
-
 	duplicated = classes_collection.insert_one(copy_this)
 	duplicate = duplicated.inserted_id
-	# print('new insert', duplicate)
-	remove_name_and_logs = classes_collection.update_one({'_id': ObjectId(duplicate)}, { '$set': { 'class_name': edit_name, 'logs': [] }})
-	# print('modified', remove_name_and_logs )
+	remove_name_and_logs = classes_collection.update_one({'_id': ObjectId(duplicate)}, 
+		{ '$set': { 'class_name': edit_name, 'logs': [] }}
+		)
+	flash(f"Success! Class was duplicated", 'success')
 	return redirect(url_for('edit_class', title="Edit Class(copy)", class_id = duplicate))
-	# Get the class and populate the form with some additional information - add (copy) in name value
 
-###################################### Handling Logs in Class / CRUD #################################
 
-# ADD LOG - html/ form
+# Handling CRUD operations of Logs in Class
 @app.route('/add_log/<class_id>/<username>')
 def add_log(class_id, username):
-	# print(class_id)
-	return render_template('addLog.html', title="Add Log", class_id = class_id, username = username)
+	''' Function renders an add log page.'''
+	return render_template('addLog.html', title="Add Log", 
+							class_id = class_id, username = username)
 
-# INSERT LOG TO CLASS - update_one(), $addToSet{}
+
 @app.route('/insert_log/<class_id>', methods=['POST'])
 def insert_log(class_id):
+	''' Function finds a class and adds a new log object to the logs 
+	Array embedded into the class document in db classes collection.
+
+	User is directed back to the class view.
+	'''
 	new_log = {
 		'_id': ObjectId(),
 		'log_date': request.form.get('log_date'),
 		'log_text': request.form.get('editordata'),
 		'log_tag': request.form.get('log_tag')
 	}
-	# print('log', new_log)
-	inserted_log = classes_collection.update_one({'_id': ObjectId(class_id)}, { '$addToSet' :{ 'logs': new_log}})
-	# print(inserted_log)
+	inserted_log = classes_collection.update_one({'_id': ObjectId(class_id)}, 
+		{ '$addToSet' :{ 'logs': new_log}}
+		)
 	return redirect(url_for('view_class', class_id = class_id))
 
-# EDIT LOG IN CLASS - html/ form - find_one(), $elemMatch{}
+
 @app.route('/edit_log/<class_id>/<log_id>', methods=['GET', 'POST'])
 def edit_log(class_id, log_id):
-	# print(log_id)
-	this_log = classes_collection.find_one({'_id': ObjectId(class_id)}, {'logs': {"$elemMatch" : {'_id': ObjectId(log_id)}}})
+	''' Function renders an edit log view.'''
+	this_log = classes_collection.find_one({'_id': ObjectId(class_id)}, 
+	{'logs': {"$elemMatch": {'_id': ObjectId(log_id)}}}
+	)
 	log = this_log['logs']
-	# print(log)
-	# print(type(log))
-	return render_template('editLog.html', title='Edit log', log = log, class_id = class_id, log_id = log_id)
+	return render_template('editLog.html', title='Edit log', 
+							log = log, class_id = class_id, log_id = log_id)
 
-# UPDATE LOG IN CLASS AFTER EDIT - update_one(), $set{}
+
 @app.route('/update_log/<class_id>/<log_id>', methods=['POST'])
 def update_log(class_id, log_id):
-	update_log = classes_collection.update_one({'_id': ObjectId(class_id), 'logs._id': ObjectId(log_id)}, {'$set': {
-		'logs.$.log_date': request.form.get('log_date'),
+	''' Function finds and updates the edited log entry in class document 
+	in db classes collection.
+
+	User is directed back to the class view.
+	'''
+	update_log = classes_collection.update_one(
+		{'_id': ObjectId(class_id), 'logs._id': ObjectId(log_id)}, 
+		{'$set': {'logs.$.log_date': request.form.get('log_date'),
 		'logs.$.log_text': request.form.get('editordata'),
-		'logs.$.log_tag': request.form.get('log_tag')
-	}})
-	# print(update_log)
+		'logs.$.log_tag': request.form.get('log_tag')}}
+		)
 	return redirect(url_for('view_class', class_id = class_id))
 
-# DELETE LOG FROM CLASS - update_one(), $pull{}
 @app.route('/delete_log/<class_id>/<log_id>')
 def delete_log(class_id, log_id):
-	deleted_log = classes_collection.update_one({'_id': ObjectId(class_id)}, {'$pull': { 'logs': {'_id': ObjectId(log_id)}}} )
-	# print(deleted_log)
+	'''
+	Function finds and deletes the selected log entry form the class document 
+	in db classes collection.
+
+	User is directed back to the class view.
+	'''
+	deleted_log = classes_collection.update_one(
+		{'_id': ObjectId(class_id)}, 
+		{'$pull': { 'logs': {'_id': ObjectId(log_id)}}}
+		)
+	flas(f"Log was removed!", "danger")
 	return redirect(url_for('view_class', class_id = class_id))
 
 
-###################################### Handling Exercises / CRUD #################################
-
-# ADD EXERCISE - html/ form
+# Handling CRUD operations for Exercises in Class
 @app.route('/add_exercise/<class_id>')
 def add_exercise(class_id):
+	'''
+	Function renders an add exercise page.
+	'''
 	return render_template('addExercise.html', title='New exercise', class_id=class_id)
 
-# INSERT EXERCISE TO CLASS - update_one(), $addToSet{}
+
 @app.route('/insert_exercise/<class_id>', methods=['POST'])
 def insert_exercise(class_id):
+	''' Function finds a class and adds a new exercise object to the exercises 
+	Array embedded into the class document in db classes collection.
+
+	User is directed back to the class view.
+	'''
 	new_exercise = {
 		'_id': ObjectId(),
 		'exercise_name': request.form.get('exercise_name'),
@@ -403,151 +488,202 @@ def insert_exercise(class_id):
 		'tracks': [],
 		'links': []
 	}
-	inserted_exercise = classes_collection.update_one({'_id': ObjectId(class_id)}, { '$addToSet' :{ 'exercises': new_exercise}})
-	# print(inserted_exercise)
+	inserted_exercise = classes_collection.update_one(
+		{'_id': ObjectId(class_id)}, 
+		{ '$addToSet': { 'exercises': new_exercise}}
+		)
 	return redirect(url_for('view_class', class_id=class_id))
 
-# EDIT EXERCISE - html/ form
+
 @app.route('/edit_exercise/<class_id>/<exercise_id>', methods=['GET','POST'])
 def edit_exercise(class_id, exercise_id):
-	# print(exercise_id)
-	this_exercise = classes_collection.find_one({'_id': ObjectId(class_id)}, {'exercises': {"$elemMatch" : {'_id': ObjectId(exercise_id)}}})
-	# print(this_exercise)
-	return render_template('editExercise.html', title='Edit exercise', this_exercise = this_exercise, class_id = class_id, exercise_id = exercise_id)
+	''' Function renders an edit exercise view with an edit form. '''
+	this_exercise = classes_collection.find_one(
+		{'_id': ObjectId(class_id)}, 
+		{'exercises': {"$elemMatch" : {'_id': ObjectId(exercise_id)}}}
+		)
+	return render_template('editExercise.html', title='Edit exercise', 
+							this_exercise = this_exercise, class_id = class_id, 
+							exercise_id = exercise_id)
 
-# UPDATE EXERCISE AFTER EDITING - update_one(), $set{}
 @app.route('/update_exercise/<class_id>/<exercise_id>', methods=['POST'])
 def update_exercise(class_id, exercise_id):
-	# print(exercise_id)
-	# updates the exercise entry in class - to tackle the issue of updating sub-documents in arrays:
-	# https://stackoverflow.com/questions/36841911/mongodb-update-complex-document?noredirect=1&lq=1
-	# provided the information I needed to formulate the correct syntax
+	''' Function finds and updates the edited exercse entry in class document 
+	in db classes collection.
+
+	User is directed back to the class view.
+	
+	To tackle the issue of updating a sub-documents in obejct arrays:
+	https://stackoverflow.com/questions/36841911/mongodb-update-complex-document?noredirect=1&lq=1
+	provided the information I needed to formulate the correct syntax
+	'''
 	updated_exercise = classes_collection.update_one(
-		{'_id': ObjectId(class_id), 'exercises._id': ObjectId(exercise_id)}, {'$set': {
-		'exercises.$.exercise_name': request.form.get('exercise_name'),
+		{'_id': ObjectId(class_id), 'exercises._id': ObjectId(exercise_id)}, 
+		{'$set': {'exercises.$.exercise_name': request.form.get('exercise_name'),
 		'exercises.$.exercise_description': request.form.get('editordata'),
 		'exercises.$.exercise_comment': request.form.get('exercise_comment'),
-		'exercises.$.exercise_aim': request.form.get('exercise_aim')}})
-	# print(updated_exercise)
+		'exercises.$.exercise_aim': request.form.get('exercise_aim')}}
+		)
 	return redirect(url_for('view_class', class_id=class_id))
 
-# DELETE EXERCISE IN CLASS - update_one(), $pull{}
 @app.route('/delete_exercise/<class_id>/<exercise_id>')
 def delete_exercise(class_id, exercise_id):
-	deleted_exercise = classes_collection.update_one({'_id': ObjectId(class_id)}, {'$pull': { 'exercises': {'_id': ObjectId(exercise_id)}}} )
+	''' Function finds and deletes the selected exercise entry form the class document 
+	in db classes collection.
+
+	User is directed back to the class view.
+	'''
+	deleted_exercise = classes_collection.update_one(
+		{'_id': ObjectId(class_id)}, 
+		{'$pull': { 'exercises': {'_id': ObjectId(exercise_id)}}}
+		)
+	flash(f"Exercise was removed!", "danger")
 	return redirect(url_for('view_class', class_id=class_id))
 
 
-######################################  Handling Music Tracks in exercises/ CRUD
-
- # ADD MUSIC TRACK - html/ form
+#  Handling CRUD operations of Music Tracks in Exercises in Class
 @app.route('/add_track/<class_id>/<exercise_id>')
 def add_track(class_id, exercise_id):
-	# print(class_id)
-	# print(exercise_id)
-	return render_template('addTrack.html', title="Music Track", class_id = class_id, exercise_id = exercise_id)
+	''' Function renders an add music track view. '''
+	return render_template('addTrack.html', title="Music Track", 
+							class_id = class_id, exercise_id = exercise_id)
 
-# INSERT NEW TRACK TO EXERCISE - update_one(), $addToSet{}
+
 @app.route('/insert_track/<class_id>/<exercise_id>', methods=['POST'])
 def insert_track(class_id, exercise_id):
+	''' Function finds the exercise object embedded in the class document 
+	in db classes collection.
+
+	A new music track object is inserted to the exercise tracks Array.
+
+	User is directed back to the class view. 
+	'''
 	new_track = {
 		'_id': ObjectId(),
 		'track_title': request.form.get('track_title'),
 		'track_link': request.form.get('track_link'),
 		'track_comment': request.form.get('track_comment')
 	}
-	inserted_track = classes_collection.update_one({'_id': ObjectId(class_id), 'exercises._id':ObjectId(exercise_id)}, { '$addToSet': {'exercises.$.tracks' : new_track}})
+	inserted_track = classes_collection.update_one(
+		{'_id': ObjectId(class_id), 'exercises._id':ObjectId(exercise_id)}, 
+		{ '$addToSet': {'exercises.$.tracks' : new_track}}
+		)
 	return redirect(url_for('view_class', class_id = class_id))
 
-# DELETE MUSIC TRACK FROM EXERCISE- update_one(), $pull{}
+
 @app.route('/delete_track/<class_id>/<exercise_id>/<track_id>')
 def delete_track(class_id, exercise_id, track_id):
-	deleted_track = classes_collection.update_one({'_id': ObjectId(class_id), 'exercises._id':ObjectId(exercise_id)}, {'$pull': { 'exercises.$.tracks' : { '_id': ObjectId(track_id)}}})
+	''' Function finds and deletes the selected music track object form the class document 
+	in db classes collection.
+
+	User is directed back to the class view.
+	'''
+	deleted_track = classes_collection.update_one(
+		{'_id': ObjectId(class_id), 'exercises._id':ObjectId(exercise_id)}, 
+		{'$pull': { 'exercises.$.tracks': { '_id': ObjectId(track_id)}}}
+		)
 	return redirect(url_for('view_class', class_id = class_id))
 
 
-##################################### Handling Video Links in exercises/ CRUD
+# Handling CRUD operations of Video Links in exercises in Classes
 
-# ADD VIDEO LINK - html/ form
 @app.route('/add_link/<class_id>/<exercise_id>')
 def add_link(class_id, exercise_id):
-	return render_template('addLink.html', title="Video link", class_id = class_id, exercise_id = exercise_id)
+	''' Function renders an add video link view. '''
+	return render_template('addLink.html', title="Video link", 
+							class_id = class_id, exercise_id = exercise_id)
 
-# INSERT NEW VIDEO LINK TO EXERCISE - update_one(), $addToSet{}
 @app.route('/insert_link/<class_id>/<exercise_id>', methods=['POST'])
 def insert_link(class_id, exercise_id):
+	''' Function finds the exercise object embedded in the class document 
+	in db classes collection.
+
+	A new video link object is inserted to the exercise tracks Array.
+
+	User is directed back to the class view. 
+	'''
 	new_link = {
 		'_id': ObjectId(),
 		'video_title': request.form.get('video_title'),
 		'video_link': request.form.get('video_link'),
 		'video_comment': request.form.get('video_comment')
 	}
-	inserted_link = classes_collection.update_one({'_id': ObjectId(class_id), 'exercises._id':ObjectId(exercise_id)}, { '$addToSet': {'exercises.$.links' : new_link}})
+	inserted_link = classes_collection.update_one(
+		{'_id': ObjectId(class_id), 'exercises._id':ObjectId(exercise_id)}, 
+		{ '$addToSet': {'exercises.$.links' : new_link}}
+		)
 	return redirect(url_for('view_class', class_id = class_id))
 
-# DELETE VIDEO LINK FORM EXERCISE - update_one(), $pull{}
+
 @app.route('/delete_link/<class_id>/<exercise_id>/<link_id>')
 def delete_link(class_id, exercise_id, link_id):
-	deleted_link = classes_collection.update_one({'_id': ObjectId(class_id), 'exercises._id':ObjectId(exercise_id)}, {'$pull': { 'exercises.$.links' : { '_id': ObjectId(link_id)}}})
+	''' Function finds and deletes the selected video link object form the class document 
+	in db classes collection.
+
+	User is directed back to the class view.
+	'''
+	deleted_link = classes_collection.update_one(
+		{'_id': ObjectId(class_id), 'exercises._id':ObjectId(exercise_id)}, 
+		{'$pull': { 'exercises.$.links': { '_id': ObjectId(link_id)}}}
+		)
 	return redirect(url_for('view_class', class_id = class_id))
 
 
-###################################### Handling Class Series / CRUD #################################
-
-# VIEW CLASS SERIES - html
+# Handling CRUD operatins of Class Series
 @app.route('/series')
 def series():
+	''' Function checks first if the user is added to the session. 
+	If not the user is directed to the login page. If user is addes to the session, 
+	the function finds the user from the db series collection and renders the series user
+	has created on to the series page to be viewed, edited or deleted.
+	'''
 	# Check if user is logged in
 	if 'user' in session:
 		# If so get the user classes and pass them to a template
 		user_in_db = users_collection.find_one({'username': session['user']})
 		username = session['user']
 		all_series = series_collection.find_one({'username': username})
-		# print('all series', all_series)
-		# print(username)
-		# print(user_in_db)
 		return render_template('series.html',
 						title = 'Series',
 						username = username,
 						all_series = all_series,
 						user_in_db = user_in_db)
 	else:
-		flash("You must be logged in!")
+		flash(f"You must be logged in!", "warning")
 		return redirect(url_for('index'))
 
-# VIEW CLASSES IN SERIES - html
+
 @app.route('/view_classes_in_series/<username>/<series_id>/<series_doc>')
 def view_classes_in_series(username, series_id, series_doc):
+	''' Function finds the user from the db series collection and renders the classes 
+	associated with the selected series on to the view classes in series page 
+	to be viewed, edited, deleted or duplicated.
+	'''
 	series = series_collection.find_one({'username': username})
 	# Find specific serial (with _id: series_id) in series document (with _id: series_doc)
-	serial = series_collection.find_one({ '_id': ObjectId(series_doc) }, { 'class_series': {'$elemMatch': { '_id': ObjectId(series_id)}}})
-	# print('serial', serial)
+	serial = series_collection.find_one(
+		{ '_id' : ObjectId(series_doc) }, 
+		{ 'class_series' : {'$elemMatch' : { '_id': ObjectId(series_id)}}}
+		)
 	serial_name = serial
-	# print('serial name', serial_name)
 	# Find all classes of the user
 	all_classes = classes_collection.find({'username': username})
-	# print(type(all_classes))
-	# print('all classes', all_classes)
-
-	return render_template('view_classes_in_series.html',
-							title="Classes in Series",
-							serial = serial,
-							serial_name = serial_name,
-							all_classes = all_classes,
-							username = username,
-							series = series)
+	return render_template('view_classes_in_series.html', title="Classes in Series", serial = serial,
+							serial_name = serial_name, all_classes = all_classes, username = username, series = series)
 
 
-# VIEW CLASSES IN None SERIES - None ROUTE
-
-# ADD NEW CLASS SERIES - html/ form
 @app.route('/add_series')
 def add_series():
+	''' Function renders an add series view. 
+	
+	Also, in case the user has no series document yet created into the db sereis collection,
+	it is added
+	'''
 	username = session['user']
 	user_id = users_collection.find_one({'username': session['user']}, {'_id': 1})
-	# print(user_id)
 	# This checks if the user already has a document in series collection, if not a document will be added.
-	# https://stackoverflow.com/questions/25163658/mongodb-return-true-if-document-exists: answer by Xavier Guihot led to the right path with this.
+	# https://stackoverflow.com/questions/25163658/mongodb-return-true-if-document-exists 
+	# answer by Xavier Guihot led to the right path with this.
 	if series_collection.count_documents({'username': session['user']}, limit = 1) == 0:
 		new_user_document = {
 			'user_id': user_id._id,
@@ -557,11 +693,17 @@ def add_series():
 
 		inserted_document = series_collection.insert_one(new_user_document)
 		series_id = inserted_document.inserted_id
-	return render_template('addSeries.html', title="Add Series", user_id = user_id, username = username)
+	return render_template('addSeries.html', title="Add Series", 
+							user_id = user_id, username = username)
 
-# INSERT NEW SERIES OBJECT TO class_series ARRAY  - update_one(), $addToSet{}
+
 @app.route('/insert_series/<username>', methods=['GET', 'POST'])
 def insert_series(username):
+	''' Function adds a new series object into the series document series Array 
+	in db series collection.
+
+	User is directed back to the series view.
+	'''
 	new_series_item = {
 		'_id': ObjectId(),
 		'series_name': request.form.get('series_name'),
@@ -569,46 +711,47 @@ def insert_series(username):
 		'classes': []
 		}
 	inserted_item = series_collection.update_one({'username': username},
-												 { '$addToSet' :{ 'class_series': new_series_item}})
-	# print(inserted_item)
+												 { '$addToSet' : { 'class_series': new_series_item}})
 	return redirect(url_for('series', title='Series', username=username ))
 
-# EDIT SERIES IN class_series ARRAY - find_one(), $elemMatch{}
+
 @app.route('/edit_series/<series_doc>/<series_id>', methods=['GET', 'POST'])
 def edit_series(series_doc, series_id):
-	this_series = series_collection.find_one({'_id': ObjectId(series_doc)}, { 'class_series' : {'$elemMatch': { '_id': ObjectId(series_id)}}})
-	return render_template('editSeries.html', title='Edit series', this_series = this_series, series_doc=series_doc, series_id = series_id)
+	''' Function finds the selected sereis object from the series document series Array and 
+	renders an edit series view. 
+	'''
+	this_series = series_collection.find_one(
+		{'_id': ObjectId(series_doc)}, 
+		{ 'class_series' : {'$elemMatch': { '_id': ObjectId(series_id)}}}
+		)
+	return render_template('editSeries.html', title='Edit series', 
+							this_series = this_series, series_doc=series_doc, series_id = series_id)
 
-# UPDATE SERIES IN class_series ARRAY AND UPDATE THE SERIES IN series[] IN CLASSES - update_one(), $set{} and update_many(), $set{}
+
 @app.route('/update_series/<series_doc>/<series_id>', methods=['GET', 'POST'])
 def update_series(series_doc, series_id):
-
+	''' Function finds and updates the series object in series docuement series Array.'''
 	updated_series = series_collection.update_one(
-		{'_id': ObjectId(series_doc), 'class_series._id': ObjectId(series_id)}, {'$set' : {
-			'class_series.$.series_name' : request.form.get('series_name'),
-			'class_series.$.series_description': request.form.get('series_description')
-		}})
-	# update the series in classes as well!!
-	# update series in classes
-	# print(updated_series)
+		{'_id': ObjectId(series_doc), 'class_series._id': ObjectId(series_id)}, 
+		{'$set' : {'class_series.$.series_name' : request.form.get('series_name'),
+		'class_series.$.series_description': request.form.get('series_description')}}
+		)
 	return redirect(url_for('series'))
 
-# DELETE SERIES FROM class_series ARRAY AND series[] IN CLASSES - update_one(), $pull{}
+
 @app.route('/delete_series/<series_id>/<series_doc>', methods=["GET"])
 def delete_series(series_doc, series_id):
-	deleted_series = series_collection.update_one({'_id': ObjectId(series_doc)}, { '$pull' : { 'class_series' : {'_id': ObjectId(series_id)}}} )
-	# print(deleted_series)
+	''' Function deletes the selected series object from the series docuemnt series Array.'''
+	deleted_series = series_collection.update_one(
+		{'_id': ObjectId(series_doc)}, 
+		{ '$pull' : { 'class_series' : {'_id': ObjectId(series_id)}}}
+		)
+	flash(f"Series was removed!", "danger")
 	return redirect(url_for('series', series_id = series_id))
-
-@app.route('/<page_name>')
-def other_page(page_name):
-	response = make_response(render_template('404.html'), 404)
-	return response
 
 
 if __name__ == '__main__':
 
 	app.run(host=os.environ.get('IP'),
-
 		port = int(os.environ.get('PORT', 5000)),
 		debug=True)

@@ -90,9 +90,6 @@
                 {% endfor %}
                 {% else  %}
                 <div class="collection-item"> <em class="link-text">None</em></div>
-                <!-- To be implemented later: a link to a collection of all classes associated with none of the user's class series
-                <a href="#!" target="_blank" class="collection-item ml-n3 mr-n3 disabled" data-position="top"
-                data-delay="50" data-tooltip="Go to this series"><em class="link-text">None</em></a>-->
                 {% endif %}
             </div>
         </div>
@@ -278,8 +275,8 @@
         <br>
         <h6 class="sub-titles">Logs:</h6>
         <br>
+        {% if this_class.logs %}
         <ul class="collapsible collapsible-log popout" data-collapsible="accordion">
-            {% if this_class.logs %}
             {% for log in this_class.logs %}
             <li class="this_class">
                 <div class="collapsible-header level-3 px-0">
@@ -313,7 +310,7 @@
             <li class="accordion_list header-alt">
                 <div class="collapsible-header">
                     <div class="list_header col">
-                        <strong class="not-yet">You haven't created any logs yet</strong>
+                        <strong class="not-yet">No logs added yet</strong>
                     </div>
                 </div>
             </li>
@@ -340,7 +337,7 @@
                         class="btn-floating yellow darken-2 z-depth-5 tooltipped" data-position="left" data-delay="50"
                         data-tooltip="Edit class">
                         <i class="material-icons">edit</i></a></li>
-                <li><a href="{{ url_for('delete_class', class_id=this_class._id, series_doc = series._id) }}"
+                <li><a href="{{ url_for('delete_class', class_id=this_class._id, series_doc = series._id, username=username) }}"
                         class="btn-floating red z-depth-5 tooltipped" data-position="left" data-delay="50"
                         data-tooltip="Delete class">
                         <i class="material-icons">delete</i></a></li>

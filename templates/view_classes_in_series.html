@@ -9,9 +9,9 @@
             <h3>Classes in {{ name.series_name}}</h3>
         </div>
     </section>
-    {% if name.classes is defined and name.classes|length > 0 %}
     <section class="series-view-content">
         <ul class="collapsible collapsible-main" data-collapsible="accordion">
+            {% if name.classes is defined and name.classes|length > 0 %}
             {% for items in serial.class_series %}
             {% for class in all_classes recursive %}
             {% for item in items.classes %}
@@ -37,7 +37,7 @@
                                 id="class-tools" data-position="left" data-delay="50" data-tooltip="Editor tools">
                                 <i class="medium material-icons">build</i></a>
                             <ul>
-                                <li><a href="{{ url_for('view_class', class_id=class._id, username = usernam) }}"
+                                <li><a href="{{ url_for('view_class', class_id=class._id, username = username) }}"
                                         class="btn-floating yellow darken-2 tooltipped" data-position="left"
                                         data-delay="50" data-tooltip="View class">
                                         <i class="material-icons">remove_red_eye</i></a></li>
@@ -45,7 +45,7 @@
                                         class="btn-floating green tooltipped" data-position="left" data-delay="50"
                                         data-tooltip="Edit class">
                                         <i class="material-icons">edit</i></a></li>
-                                <li><a href="{{ url_for('delete_class', class_id=class._id, series_doc = series._id) }}"
+                                <li><a href="{{ url_for('delete_class', class_id=class._id, series_doc = series._id, username=username) }}"
                                         class="btn-floating red accent-4 tooltipped" data-position="left"
                                         data-delay="50" data-tooltip="Delete class">
                                         <i class="material-icons">delete</i></a></li>
@@ -70,11 +70,11 @@
                     </div>
                 </div>
             </li>
+            {% endif %}
+            {% endfor %}
         </ul>
     </section>
     <br>
-    {% endif %}
-    {% endfor %}
     <!-- BOTTOM BUTTON  'BACK TO series' TO NAVIGATE TO THE PREVIOUS PAGE CLASSES VIEW -->
     <div class="divider"></div>
     <br>
