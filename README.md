@@ -650,6 +650,32 @@ After creating Procfile, create the requirements.txt file.
 
 '$ pip3 freeze --local > requirements.txt'
 
+### Commit and open the application
 
+At this point commit and push the application to Heroku.
 
-Starting with the Python entry point file **app.py**
+'$ git add .'
+
+'$ git commit -m"your_commit_message"
+
+'$ git push heroku master'
+
+You should see now Heroku deploying the app and verifying it.
+
+**Test result: passed**
+    '''
+    remote: Verifying deploy... done.
+    address_to_heroku_application_git
+    * [new branch]      master -> master
+
+## Open the application and finish the configuration in Heroku
+
+After this you can go to your Heroku account and open your application. On right upper corner you find a button **Open app**. Click the button.
+
+**Test result: passed**
+The application opens in a browser window.
+In Overview I have a message Build Succeeded and confirmation that the application is deployed and running.
+
+To finish with Heroku configuration, in Heroku dashboard go to **Settings**. In settings you find a button **Reveal Config Vars**. Click the button.
+
+On the Config Vars field KEY add IP and VALUE 0.0.0.0. Add another key value pair PORT 5000.
