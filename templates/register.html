@@ -18,12 +18,12 @@
 						<form class="form-signin" method="POST" action="/register">
 							<div class="form-group">
 								<label for="sign-in-username">Username*</label>
-								<input name="username" type="text" class="form-control validate" id="sign-in-username"
+								<input name="username" type="text" value="{{ username }}" class="form-control validate" id="sign-in-username"
 									required>
 							</div>
 							<div class="form-group">
 								<label for="email">Email</label>
-								<input id="email" name="email" type="email" class="form-control validate">
+								<input id="email" name="email" type="email" value="{{ email }}" class="form-control validate">
 							</div>
 							<div class="form-group">
 								<div class="password-labe"><label for="sign-in-password">Password* </label><i
@@ -63,8 +63,8 @@
 							<li>At least one number</li>
 							<li>At leas one uppercase character</li>
 							<li>At least one lowercase character</li>
-							<li>At least one special symbol</li>
-							<li>Between 6 to 30 characters</li>
+							<li>At least one special character</li>
+							<li>Be 6 to 20 characters long</li>
 						</ol>
 						<br>
 						<div class="divider mb-2"></div>
