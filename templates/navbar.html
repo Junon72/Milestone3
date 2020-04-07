@@ -41,9 +41,9 @@
 
 	<!-- Flashed messages alerts modal -->
 
+	{% with messages = get_flashed_messages(with_categories=true) %}
+	{% if messages %}
 	<div id="alerts" class="container-fluid">
-		{% with messages = get_flashed_messages(with_categories=true) %}
-		{% if messages %}
 		{% for category, message in messages %}
 		<div class="row">
 			<div id="messages" class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
@@ -54,7 +54,7 @@
 			</div>
 		</div>
 		{% endfor %}
-		{% endif %}
-		{% endwith %}
 	</div>
+	{% endif %}
+	{% endwith %}
 </header>
