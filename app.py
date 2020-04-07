@@ -11,8 +11,9 @@ from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-app = Flask(__name__, 
-				template_folder="templates")
+app = Flask(__name__, template_folder="templates")
+
+
 # The general configuration, together with the db configuration are stored in config.py file
 # The file is accessed using Python config module
 app.config.from_object(Config)

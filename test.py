@@ -15,6 +15,7 @@
 
 ## Test for running Flask in VSCode ##
 # Functionalities to import from modules
+'''
 import os                  # Imports operating system dependent functionality.
 from flask import Flask    # Imports Flask class from flask module .
 
@@ -33,11 +34,12 @@ if __name__ == '__main__': # the global namespace __name__ is set to equal "__ma
       port=int(os.environ.get('PORT', 8080)),# gets PORT we want to open, which in this case is set to 5000.
       debug=True)                            # To enable reloader and debugger by setting it to True, 
                                                    # which is the recommended value for the development phase
+'''
 
-# import os                  
+import os                  
 import pymongo
 from pymongo import MongoClient
-# from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for
 from config import Config
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
