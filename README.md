@@ -4,7 +4,9 @@
 ## Online Dance Class Archiving Tool For Dance Teachers
 
 Heroku App: https://flask-classapp.herokuapp.com/
+
 Heroku git: https://git.heroku.com/flask-classapp.git
+
 GitHub: https://github.com/Junon72/Milestone3
 
 The project was created as Milestone project for the Data Centric Development module in  Code Institute run Full Stack Web Development course program.
@@ -32,37 +34,61 @@ The project is following my own desire to bring about a digital tool for the com
 I considered following features essential for application to fulfill its purpose:
 
 1. User can create his/ her own archive, which is accessible only for him /her
+
 For this the user can:
+
 a. create an account with a username and password
+
 b. login with the username and password
 
 2. User can create classes
+
 Once a class is created user can:
+
 a. view class
+
 b. edit class
+
 c. delete class
+
 d. duplicate class
+
 e. associate the class with class series user has created
+
 f. de-associate the class with class series user has created
 
 3. User can create exercises for a class
+
 Once an exercise is created, user can:
+
 a. view exercise
+
 b. edit exercise
+
 c. delete exercise
+
 d. add and delete links to music tracks and videos
 
 4. User can create logs for the classes
+
 Once a log is created, user can:
+
 a. view log
+
 b. edit log
+
 c. delete log
 
 5. User can create series of classes for various purposes
+
 Once a series is created, user can:
+
 a. view series
+
 b. view classes associated with the series
+
 c. edit series
+
 d. delete series
 
 Classapp provides a mobile and easy tool to plan, store and manage dance classes, in a digital form which is accessible where ever they might be teaching.
@@ -215,6 +241,7 @@ Hello, World!
 - The code runs in virtual environment context
 
 To exit the environment type:
+
 `$ deactivate` which will return back to the 'system' context
 
 You would want to do the development work in your virtual environment!
@@ -231,7 +258,9 @@ the main Python file and add the file path to the .gitignore.
 Initialize a local git and add the files the repository:
 
 `(.venv) $ git init` # creates a git file for the project
+
 `(.venv) $ git add .` # adds all the current files, excluding the files defined in .gitignore
+
 `(.venv) $ git commit -m"Initial commit"` # commits the files into the local git repository`
 
 I have installed VSCode GitHub extension, which makes committing changes slightly easier, by skipping username and password inquiry with each new commit.
@@ -245,10 +274,15 @@ In your GitHub account go to **Your repositories** view and create a new reposit
 You can also create a new repository through the command line.
 
 `(.venv) $ echo "# <name_of_your_project>" >> README.md`
+
 `(.venv) $ git init`
+
 `(.venv) $ git add README.md`
+
 `(.venv) $ git commit m-"Initial commit"`
+
 `(.venv) $ git remote add origin https://github.com/<username>/<repository_name>.git`
+
 `(.venv) $ git push -u origin master`
 
 I have installed VSCode GitHub extension, which makes committing changes slightly easier, by skipping username and password inquiry with each new commit.
@@ -784,7 +818,9 @@ After creating Procfile, create the requirements.txt file to your .venv base dir
 At this point commit and push the application to Heroku.
 
 `$ git add .`
+
 `$ git commit -m"your_commit_message"`
+
 `$ git push heroku master`
 
 You should see now Heroku deploying the app and verifying it.
@@ -798,6 +834,8 @@ remote: Verifying deploy...
 address_to_heroku_application_git
 * [new branch]      master -> master
 ```
+
+- Deployment is verified
 
 ### Open the application and finish the configuration in Heroku
 
