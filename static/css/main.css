@@ -453,6 +453,10 @@ label.list-label {
     color: rgb(60, 58, 58) !important;
 }
 
+input.form-control {
+    background-color: transparent;
+}
+
 /* DATE PICKER */
 .modal.datepicker-modal {
     height: auto !important;
