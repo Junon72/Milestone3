@@ -15,83 +15,67 @@ The project was created as Milestone project for the Data Centric Development mo
 
 # Project brief
 
-The project is following my own desire to bring about a digital tool for the community I my self belong to, the dance teachers. The project is built using data-driven application technologies I have learned about on the course module. Classapp intends to provide a mobile and easy tool to plan, store and manage dance classes, in a digital form which is accessible where ever they might be teaching.
+The project is following my own desire to bring about a digital tool for the community I myself belong to, the dance teachers. The project is built using data-driven application technologies I have learned on the course module. Classapp intends to provide a mobile and easy tool to plan, store and manage dance classes, in a digital form which is accessible wherever they might be teaching.
 
-## Context
+## Contextualizing the need
 
->The idea for the application is direct response to my own experiences as a dance teacher which I believe I share with many other in this occupation. Classapp is designed for dance teachers, to design, save and archive their dance classes.
+>The idea for the application is a direct response to my own experiences as a dance teacher which I believe I share with many others in this occupation. Classapp is designed for dance teachers, to design, save and archive their dance classes.
 
-> There are dozens of different dance style and genres taught in most diverse settings all over the world. Be it street dance,folk, classical, contemporary, tap, ballroom to start by mentioning just a few, each class is a result of a dedicated work by a dance teacher. A dance class is just the tangible and experiential manifestation of the skill and creativity of the dance teacher front of the class. Much of the teachers work is hidden. Making, or designing classes happens outside the teaching itself, competing for time from other necessary tasks that come with the job.
+>There are dozens of different dance styles and genres taught in most diverse settings all over the world. Be it street dance,folk, classical, contemporary, tap, ballroom to start by mentioning just a few, each class is a result of a dedicated work by a dance teacher. A dance class is just the tangible and experiential manifestation of the skill and creativity of the dance teacher front of the class. Much of the teacher's work is hidden. Making, or designing classes happens outside the teaching of a class itself, competing for time from other necessary tasks that come with the job.
 
 >Dance class material is often tailored for specific occasions with their own specific goals and needs. Teachers have to keep in mind the level of the students taking the class, wishes of the organizations where they teach or needs of educational institutions curriculums when designing classes or series of classes. For example, designing a series of dance classes for higher educational institutions, the classes should provide thematically coherent experience for the dance students, while filling all kinds of other equally important objectives and requirements set by the institution. Teaching in an open studio, in a dance company, for amateurs, for children or for professionals have all very different kinds of implications and requirements.
 
->Class material tends to accumulate with time and good material and well working classes can get lost and forgotten. Information and valuable insights, such as the first hand experiences with the students, tend to vanish with the forgotten classes. Especially when working with groups of students in schools, in order to help the students improve over time, notes and remarks from the past are most useful resource of feedback. They are also good material for reflection and self assessment for teachers themselves, who often can only rely on their own judgement.
+>Class material tends to accumulate with time and good material and well working classes can get lost and forgotten. Information and valuable insights, such as the first hand experiences with the students, tend to vanish with the forgotten classes. Especially when working with groups of students in schools, in order to help the students improve over time, notes and remarks from the past are the most useful resource of feedback. They are also good material for reflection and self assessment for teachers themselves, who often can only rely on their own judgement.
 
->Teachers time is often limited and the time for planning, personal improvement and developing new ideas is rarely paid. Sometimes, to come up with new material can be taxing and time consuming. Resorting to already tested material is often helpful and can be a huge time saver. For teachers own personal development it is important to change the habits every now and then and look for new perspectives and ideas. Revisiting past classes and notes is often a good point of departure when looking for new inspiration. It helps to recognize habitual patterns, find new angles and gain new insights. Building a comprehensive archive of classes can thus be a time saver, but also a source of inspiration, reflection and a valuable tool in maintaining alive relationship to teaching the art of dance.
+>Teachers time is often limited and the time for planning, personal improvement and developing new ideas is rarely paid. Sometimes, to come up with new material can be taxing and time consuming. Resorting to already tested material is often helpful and can be a huge time saver. For teachers' own personal development it is important to change the habits every now and then and look for new perspectives and ideas. Revisiting past classes and notes is often a good point of departure when looking for new inspiration. It helps to recognize habitual patterns, find new angles and gain new insights. Building a comprehensive archive of classes can thus be a time saver, but also a source of inspiration, reflection and a valuable tool in maintaining a live relationship to teaching the art of dance
 
 ## Project Overview
 
 I considered following features essential for application to fulfill its purpose:
 
-1. User can create his/ her own archive, which is accessible only for him /her
+1. Users can create his/ her own archive, which is accessible only for him /her
 
-For this the user can:
+    For this the user can:
 
-a. create an account with a username and password
+        1. create an account with a username and password
+        2. login with the username and password
 
-b. login with the username and password
+2. Users can create classes
 
-2. User can create classes
+    Once a class is created user can:
 
-Once a class is created user can:
-
-a. view class
-
-b. edit class
-
-c. delete class
-
-d. duplicate class
-
-e. associate the class with class series user has created
-
-f. de-associate the class with class series user has created
+        a. view class
+        b. edit class
+        c. delete class
+        d. duplicate class
+        e. associate the class with class series user has created
+        f. de-associate the class with class series user has created
 
 3. User can create exercises for a class
 
-Once an exercise is created, user can:
+    Once an exercise is created, user can:
 
-a. view exercise
-
-b. edit exercise
-
-c. delete exercise
-
-d. add and delete links to music tracks and videos
+        a. view exercise
+        b. edit exercise
+        c. delete exercise
+        d. add and delete links to music tracks and videos
 
 4. User can create logs for the classes
 
-Once a log is created, user can:
+    Once a log is created, user can:
 
-a. view log
-
-b. edit log
-
-c. delete log
+        a. view log
+        b. edit log
+        c. delete log
 
 5. User can create series of classes for various purposes
 
-Once a series is created, user can:
+    Once a series is created, user can:
 
-a. view series
-
-b. view classes associated with the series
-
-c. edit series
-
-d. delete series
-
-Classapp provides a mobile and easy tool to plan, store and manage dance classes, in a digital form which is accessible where ever they might be teaching.
+        a. view series
+        b. view classes associated with the series
+        c. edit series
+        d. delete series
 
 # UX
 
@@ -127,7 +111,70 @@ Classapp provides a mobile and easy tool to plan, store and manage dance classes
 
 10. I would like to have a tool that would structure and unify my class designs to make it easier to visit them later - digital would be great so I don’t need to be guessing what I was writing. Actually, something that would help notating my classes would be amazing.
 
+## Planning
 
+For planning see Planning And Testing Documentation
+
+For wireframes see Wireframe documentation
+
+## Database Schema
+
+The project uses document oriented database structure. Classapp database in MongoDB consists of the following collections.
+
+- users
+- series
+- classes
+
+Users are separated layer from the classes, to avoid repeating data. same is the case with series.
+
+1. users collection contains user documents with the registration data, namely username, email and password. The data is used to identify the user and as a permission layer before entering the users personal class archives. Username and user id are used as reference points to and between other collections. Users can have many classes and series.
+
+2. classes collection contains class documents with all data of individual classes. Embedded into a class document are exercises and logs. Within an exercise object are embedded links to music tracks and videos. Username and user id are used as reference points to other collections. One class can belong to many series, but to only one user.
+
+3. series collection contains series documents. Embedded in a series are class series. Within a class series is embedded a list of associated classes. A series can be associated with many classes, but only one user.
+
+The embedded structure is justified by the cardinality of the relationships. The class data will need to be accessible only in the context of an individual user. The exercises data will need to be accessible only in the context of the class they belong to. The music track and video data will need to be accessible only in the context of the exercise they belong to. Document data is also not expected to grow ad infinitum. Denormalized data is a MongoDB recommendation in this case.
+
+The series is really used only as a filter for document reading and to create perhaps temporary association. They also represent a clear many-to-many relationships regarding the classes. According to MongoDB documentation, data denormalization would not be required in this case. It also makes accessing the data and managing the documents less complex in practice.
+
+[MongoDB Data Modeling Introduction](https://docs.mongodb.com/manual/core/data-modeling-introduction/)
+
+# Functional Flow And Features
+
+For Function flow see Function Flow Chart
+For more detailed description of the features see Working Plan And Testing
+
+## Accessing the app
+
+User will access the application via the index page. At Index user can either Login or via the navigation bar link access Register page for registration.
+
+### Features
+
+- Responsive navigation bar, with navigation links to Register and Login
+- Login form with input fields for username and password, and a submission button
+- Registration form with input fields for username, email, password and confirmation password and a registration submission button.
+- Flash message to give user feed back and instruction about login status and how to create username and password
+- Addition instruction feature for the password via information button embedded into the registration form
+- Information card which can be opened with the information button and closed with a close button in the information card
+- User authentication and user input validation for the username, email and password
+
+After either Login in or Registering, user is directed to the Home page. In navigation bar user has access to two separate routes to manage his/her class archives, and to create classes and class series. Route one is the path from the Home page, and the route two is the path through Series. Also Login out is available after Login/ Register at all times. The Classapp log navigates the user back to the Home page.
+
+## Route 1/ Home page
+
+Route one starts from the classes Home page, which is an access hub for the individual classes in classes collection and allows user to add new classes using an add button. Clicking the add button opens an Add class form.
+
+### Features
+
+
+
+The class form has the following fields: Class name, Class description, Elements, Helpers, Notes, Select class series Add A Playlist Title and Add A Playlist Link
+
+Submitting a new class with Save button will create a new class and takes the user to the class view page. Cancel button takes user back to the Home page.CodeMirror
+
+At the Home page view, the classes user has created are presented in an accordion. Opening an accordion view shows user a description of a class and reveals a master tool button. User can open the class by clicking the class description field. Alternatively, user can access each class using tool buttons, which are revealed when hovering over the master tool button. Master tool button gives user options to 1. view, 2. edit, 3. delete or 4. duplicate a class.
+
+1. View option takes the user to the View class page. On the page user can see 
 
 ## Technologies Used
 
@@ -232,7 +279,6 @@ You should see the following output in your terminal:
 
 ```bash
 Hello, World!
-/<name_of_the_workspace>/<name_of_the_venv_file>/bin/python3
 ```
 
 *Test result: Passed**
@@ -387,7 +433,7 @@ I get an endpoint error message, because the Classes page doesn't exist yet.
 
 *Test result: Failed*
 To fix the error I created Classes page and run app.py again.
-In address bar I add /about after the IP to navigate to the Classes page.
+In address bar I add /classes after the IP to navigate to the Classes page.
 
 *Test result: Passed**
 
@@ -396,7 +442,8 @@ In address bar I add /about after the IP to navigate to the Classes page.
 
 ## Working with templates and Jinja2
 
-The html pages are routed via app.py in this phase.
+To render content to the html pages, install Jinja2 template engine. Besides reducing the code you need to write for creating page views, it enables you to later access the dictionary objects drawn from the database.
+The html pages are routed via app.py file at this phase.
 To test the rendering tool, import render_template from flask and implement it to your code.
 
 *Test result: Passed**
@@ -552,6 +599,9 @@ In the database I then created a new collection 'clasess' and in the classes col
             log_date:"07/01/2020"
             log_text:"Was wonderful class. Remember to start slow and ALWAYS smile"
             log_tag:"1st class for DanceFloor"
+            user_id:"5e568ade0938db6d0519c69f
+            username:"userOne"
+
 ```
 
 To connect to the database, in MongoDB in the application CONTEXT Classapp and in the Clusters view, select CONNECT.
@@ -748,8 +798,6 @@ To begin with deployment on Heroku go to [Heroku landing page](https://www.herok
 - On your dashboard, select **New** and **Create new app**
 - Create **App name**, then **Choose your region**, and finally click **Create app**
 
--Before deploying you project , you have to have created requirements.txt file and Procfile file in you project DOM. Also the Config variables have to be set*
-
 Now that you have created Heroku space for you application, in your IDE (I used VSCode for this project) prepare you project for the deployment.
 
 ### Connecting to Heroku and creating the app
@@ -803,6 +851,7 @@ Before adding the Procfile you need to install gunicorn.
 
 Then create Procfile in your .venv base base directory (just Procfile, with no extension!).
 This specifies for Heroku the commands that are executed by the application on startup.
+
 In Procfile type.
 
 `web gunicorn <your_python_file_name>:app`
@@ -827,7 +876,7 @@ You should see now Heroku deploying the app and verifying it.
 
 *Test result: passed**
 
-```shell
+```
 remote: Verifying deploy...
 (... a long list of lines explaining the stages in Heroku deployment process ...)
 ...done.
@@ -846,11 +895,30 @@ After this you can go to your Heroku account and open your application. On right
 - The application opens in a browser window.
 - In **Overview** I have a message Build Succeeded and confirmation that the application is deployed and running.
 
-To finish with Heroku configuration, in Heroku dashboard go to **Settings**. In settings you find a button **Reveal Config Vars**. Click the button.
+To finish with Heroku configuration, in Heroku dashboard go to **Settings**. 
+
+In settings you find a button **Reveal Config Vars**. Click the button.
 
 On the **Config Vars** field **KEY** add IP and set the **VALUE** to 0.0.0.0.
+
 Add another key value pair and set the key as PORT and value as 5000.
 
 ### Connecting Heroku and GitHub after deployment
 
 You can do this from your Heroku application dashboard **Deploy**. There you find **Deployment method** section and an option **Connect to GitHub**. When selected, Heroku asks you to **Search** and define the path to your GitHub repository. **Connect** and your GitHub and Heroku version controls are now linked.
+
+## Testing
+
+Much of the testing was done manually together with the coding, using print() method and with help of Jinja2. I tested the routes and functions usually directly after creating them. Especially at the beginning of the process, I used a test.py file I had created for testing the setup, the virtual environment and communication between browser and files in the directory. Later I created python code snippets to test for example validation functions and working of flash. When appropriate, I used Mongo Shell to test code targeting specific fields in the database. I used VSCode to write the application with a vide set of language extensions, which gave useful feed back about the quality of the code along the process.
+
+Hereunder is a list of testing platforms used for testing and a synthesis of testing outcomes. For more detailed testing plan, procedure and outcomes see [Testing](#)
+
+### Python code
+
+Python code syntax was tested online at [Python Syntax Checker](https://extendsclass.com/python-tester.html).
+
+### HTML
+
+### CSS
+
+

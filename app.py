@@ -39,7 +39,7 @@ def index():
 		user_in_db = users_collection.find_one({"username": session['user']})
 		if user_in_db:
 			# If in session redirect user to his/her collection of classes/ home page
-			flash(f"You are logged in already!", "success")
+			flash("You are logged in already!", "success")
 			return redirect(url_for('classes', 
 							username = user_in_db['username']))
 	else:
@@ -69,10 +69,10 @@ def user_auth():
 							username = user_in_db['username']))
 
 		else:
-			flash(f"Wrong password or user name!", "warning")
+			flash("Wrong password or user name!", "warning")
 			return redirect(url_for('index'))
 	else:
-		flash(f"You must be registered!", "warning")
+		flash("You must be registered!", "warning")
 		return redirect(url_for('register'))
 
 
@@ -97,7 +97,7 @@ def register():
 	'''
 	# Check if user is not logged in already
 	if 'user' in session:
-		flash(f'You are already signed in!', "success")
+		flash('You are already signed in!', "success")
 		return redirect(url_for('classes'))
 	if request.method == 'POST':
 		form = request.form.to_dict()
@@ -109,15 +109,15 @@ def register():
 		name_pattern = re.compile(regex_in_name)
 		user = users_collection.find_one({"username" : username})
 		if user:
-			flash(f"Username" + username + " is already taken", "warning")
+			flash("Username" + username + " is already taken", "warning")
 			print('username taken')
 			return render_template('register.html', username = username, email = email)
 		elif len(username) < 6 or len(username) > 20:
-			flash(f"Username must be at least 6 and up to 30 characters long", "warning")
+			flash("Username must be at least 6 and up to 30 characters long", "warning")
 			print('wrong length')
 			return render_template('register.html', username = username, email = email)
 		elif not re.search(name_pattern, username):
-			flash(f"Username may not have special characters", "warning")
+			flash("Username may not have special characters", "warning")
 			return render_template('register.html', username = username, email = email)
 		else:
 			# If username passes validate the email
@@ -125,7 +125,7 @@ def register():
 			regex_in_mail = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
 			email_pattern = re.compile(regex_in_mail)
 			if not re.search(email_pattern, email):
-				flash(f"Email is not valid!", "warning")
+				flash("Email is not valid!", "warning")
 				return render_template('register.html', username = username, email = email)
 			else:
 				# If email passes validate password
@@ -133,17 +133,17 @@ def register():
 				regex_in_password = '^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@$%#&*?])[A-Za-z\d!@$%#&*?]{6,20}$'
 				password_pattern = re.compile(regex_in_password)
 				if len(password) < 6 or len(password) > 20:
-					flash(f"Password must be at least 6 and up to 20 characters long", "warning")
+					flash("Password must be at least 6 and up to 20 characters long", "warning")
 					# Search for regex in pw
 					return render_template('register.html', username = username, email = email)
 				elif not re.search(password_pattern, password):
 					print(password)
-					flash(f"Password is not valid!", "warning")
+					flash("Password is not valid!", "warning")
 					return render_template('register', username = username, email = email)
 				# Check if the passwords actually match
 				elif form['password'] != form['password1']:
 					# Notify user of not matching passwords
-					flash(f"Passwords don't match! Try again.", "warning")
+					flash("Passwords don't match! Try again.", "warning")
 					return render_template('register.html', username = username, email = email)
 				else:
 					# Hash password
@@ -169,11 +169,11 @@ def register():
 							'username': username,
 							'class_series': []
 							})
-						flash(f"You are registered, logged in and ready to go", "success")
+						flash("You are registered, logged in and ready to go", "success")
 						return redirect(url_for('classes', username = username))
 						# If user was not inserted/added inform the user of error
 					else:
-						flash(f"There was a problem with registration, please try again", "warning")
+						flash("There was a problem with registration, please try again", "warning")
 						return render_template('register.html', username = username, email = email)
 	return render_template('register.html', title="Register")
 
@@ -183,7 +183,7 @@ def logout():
 	''' Function logs the user out by clearing the user from the session and redirecting to the login page.'''
 	# Clear the session
 	session.clear()
-	flash(f'Success! You were logged out', "success")
+	flash("Success! You were logged out", "success")
 	return redirect(url_for('index'))
 
 
@@ -205,7 +205,7 @@ def classes(username):
 		return render_template('classes.html', title = 'Classes',
 								username = username, classes = classes, series = series,)
 	else:
-		flash(f"You must be logged in!", "warning")
+		flash("You must be logged in!", "warning")
 		return redirect(url_for('index'))
 
 
@@ -363,7 +363,7 @@ def delete_class(class_id, series_doc, username):
 		{'$pull': {'class_series.$[].classes': class_id}}, 
 		upsert = False
 		)
-	flash(f"Class was removed!", "danger")
+	flash("Class was removed!", "danger")
 	return redirect(url_for('classes', username = username))
 
 
@@ -388,7 +388,7 @@ def copy_class(class_id):
 	remove_name_and_logs = classes_collection.update_one({'_id': ObjectId(duplicate)}, 
 		{ '$set': { 'class_name': edit_name, 'logs': [] }}
 		)
-	flash(f"Success! Class was duplicated", 'success')
+	flash("Success! Class was duplicated", 'success')
 	return redirect(url_for('edit_class', title="Edit Class(copy)", class_id = duplicate))
 
 
@@ -457,7 +457,7 @@ def delete_log(class_id, log_id):
 		{'_id': ObjectId(class_id)}, 
 		{'$pull': { 'logs': {'_id': ObjectId(log_id)}}}
 		)
-	flash(f"Log was removed!", "danger")
+	flash("Log was removed!", "danger")
 	return redirect(url_for('view_class', class_id = class_id))
 
 
@@ -498,7 +498,7 @@ def edit_exercise(class_id, exercise_id):
 	''' Function renders an edit exercise view with an edit form. '''
 	this_exercise = classes_collection.find_one(
 		{'_id': ObjectId(class_id)}, 
-		{'exercises': {"$elemMatch" : {'_id': ObjectId(exercise_id)}}}
+		{'exercises': {"$elemMatch": {'_id': ObjectId(exercise_id)}}}
 		)
 	return render_template('editExercise.html', title='Edit exercise', 
 							this_exercise = this_exercise, class_id = class_id, 
@@ -535,7 +535,7 @@ def delete_exercise(class_id, exercise_id):
 		{'_id': ObjectId(class_id)}, 
 		{'$pull': { 'exercises': {'_id': ObjectId(exercise_id)}}}
 		)
-	flash(f"Exercise was removed!", "danger")
+	flash("Exercise was removed!", "danger")
 	return redirect(url_for('view_class', class_id=class_id))
 
 
@@ -647,7 +647,7 @@ def series():
 						all_series = all_series,
 						user_in_db = user_in_db)
 	else:
-		flash(f"You must be logged in!", "warning")
+		flash("You must be logged in!", "warning")
 		return redirect(url_for('index'))
 
 
@@ -739,12 +739,12 @@ def update_series(series_doc, series_id):
 
 @app.route('/delete_series/<series_id>/<series_doc>', methods=["GET"])
 def delete_series(series_doc, series_id):
-	''' Function deletes the selected series object from the series docuemnt series Array.'''
+	''' Function deletes the selected series object from the series document series Array.'''
 	deleted_series = series_collection.update_one(
 		{'_id': ObjectId(series_doc)}, 
 		{ '$pull' : { 'class_series' : {'_id': ObjectId(series_id)}}}
 		)
-	flash(f"Series was removed!", "danger")
+	flash("Series was removed!", "danger")
 	return redirect(url_for('series', series_id = series_id))
 
 
