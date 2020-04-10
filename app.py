@@ -113,7 +113,7 @@ def register():
 			print('username taken')
 			return render_template('register.html', username = username, email = email)
 		elif len(username) < 6 or len(username) > 20:
-			flash("Username must be at least 6 and up to 30 characters long", "warning")
+			flash("Username must be at least 6 and up to 20 characters long", "warning")
 			print('wrong length')
 			return render_template('register.html', username = username, email = email)
 		elif not re.search(name_pattern, username):
@@ -137,7 +137,6 @@ def register():
 					# Search for regex in pw
 					return render_template('register.html', username = username, email = email)
 				elif not re.search(password_pattern, password):
-					print(password)
 					flash("Password is not valid!", "warning")
 					return render_template('register', username = username, email = email)
 				# Check if the passwords actually match
@@ -753,3 +752,4 @@ if __name__ == '__main__':
 	app.run(host = os.environ.get('IP'),
 		port = int(os.environ.get('PORT')),
 		debug = True)
+ 
