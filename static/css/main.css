@@ -152,7 +152,10 @@ main {
     .main-content {
         min-height: calc(100vh - 106px);
     }
-    
+
+    .margin-gap {
+        margin-right: .8rem;
+    }
 }
 
 
@@ -198,9 +201,6 @@ main {
     .container {
         padding: 0;
     }
-
-    .margin-gap {
-        margin-right: .8rem;}
 }
 
 /* VIEW CLASS */
