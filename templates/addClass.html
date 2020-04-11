@@ -57,9 +57,9 @@
             <div class="row">
                 <div class="input-field col s12 l10">
                     <i class="material-icons prefix">more</i>
-                    <textarea class="materialize-textarea form-control" id="add_other_elements" name="other_elements"
+                    <textarea class="materialize-textarea form-control" id="other_elements" name="other_elements"
                         placeholder="Other helpful elements to work with"></textarea>
-                    <label for="add_other_elements" class="ml-2">Helpers</label>
+                    <label for="other_elements" class="ml-2">Helpers</label>
                 </div>
             </div>
 
@@ -67,9 +67,9 @@
             <div class="row">
                 <div class="input-field col s12 l10">
                     <i class="material-icons prefix">note</i>
-                    <textarea class="form-control materialize-textarea" id="add_class_notes" name="class_notes"
+                    <textarea class="form-control materialize-textarea" id="class_notes" name="class_notes"
                         placeholder="Notes"></textarea>
-                    <label for="add_class_notes" class="ml-2">Notes</label>
+                    <label for="class_notes" class="ml-2">Notes</label>
                 </div>
             </div>
 
@@ -95,10 +95,10 @@
             <div class="row">
                 <div class="input-field col s12 l10">
                     <i class="material-icons prefix">featured_play_list</i>
-                    <input type="text" class="form-control text-capitalize validate" id="add_playlist_title"
+                    <input type="text" class="form-control text-capitalize validate" id="playlist_title"
                         name="playlist_title" placeholder="Add a playlist Title">
-                    <label for="add_playlist_link" class="ml-2">Playlist</label>
-                    <input type="text" class="form-control text-capitalize validate" id="add_playlist_link"
+                    <label for="playlist_link" class="ml-2">Playlist</label>
+                    <input type="text" class="form-control text-capitalize validate" id="playlist_link"
                         name="playlist_link" placeholder="Add a playlist Link">
                 </div>
             </div>
@@ -119,7 +119,7 @@
                         <!-- Return to classes view -->
                         <a href="{{ url_for('classes', username=username) }}"
                             class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3"
-                            name="back_to_class" data-position="top" data-delay="50"
+                            data-position="top" data-delay="50"
                             data-tooltip="Cancel and go back">
                             Cancel</a>
                     </div>
