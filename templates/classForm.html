@@ -10,7 +10,7 @@
     <div class="input-field col s12 l10">
         <i class="material-icons prefix">bookmark</i>
         <input type="text" class="form-control text-capitalize validate" id="add_class_name" name="class_name"
-            placeholder="Class name" required="required" validate value="{{ this_class.class_name }}">
+            placeholder="Class name" required="required" value="{{ this_class.class_name }}">
         <label for="add_class_name" class="ml-2">Class name</label>
     </div>
 </div>
@@ -20,8 +20,8 @@
     <div class="input-field col s12 l10">
         <i class="material-icons prefix">description</i>
         <textarea class="materialize-textarea form-control required validate" id="add_class_description"
-            name="class_description" placeholder="Class description" required="required"
-            validate>{{ this_class.class_description}}</textarea>
+            name="class_description" placeholder="Class description"
+            required="required">{{ this_class.class_description}}</textarea>
         <label for="add_class_description" class="ml-2">Class description</label>
     </div>
 </div>
@@ -85,131 +85,133 @@
 
 <!-- EXERCISES SECTION IN EDIT CLASS VIEW - EDITING EXERCISES FROM CLASS VIEW NOT POSSIBLE -->
 <div class="divider"> </div>
-<br>
-<h6 class="sub-titles">Exercises <i>(view only)</i>:</h6>
-<br>
-{% if this_class.exercises %}
-<ul class="collapsible collapsible-main mx-n3 p-0 popout" data-collapsible="accordion">
-    {% for exercise in this_class.exercises %}
-    <li class="this_class">
-        <div class="collapsible-header level-1">
-            <div class="class_header col">
-                <strong class="accordion-title">{{ exercise.exercise_name | capitalize}}</strong>
-            </div>
-        </div>
-        <!-- EXERCISES CONTENT -->
-        <div class="collapsible-body pt-2 pb-0 ml-1 px-0">
-            <div class="row w-100 no-gutters">
-                <div class="col ml-1 mr-n3 container">
-                    <ul class="collapsible collapsible-sub z-depth-0 p-0 m-0" data-collapsible="expandable">
-                        <li>
-                            <div class="collapsible-header level-2 active collapsible-opened-2">
-                                <i class="material-icons">description</i>Elements</div>
-                            <div class="collapsible-body">
-                                <p>{{ exercise.exercise_description | safe}}</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header level-2">
-                                <i class="material-icons">comment</i>Comment</div>
-                            <div class="collapsible-body">
-                                <p>{{ exercise.exercise_comment | capitalize}}</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="collapsible-header level-2">
-                                <i class="material-icons">star</i>Aim</div>
-                            <div class="collapsible-body">
-                                <p>{{ exercise.exercise_aim | capitalize}}</p>
-                            </div>
-                        </li>
-                    </ul>
-                    <!-- MUSIc TRACK COLLECTION -->
-                    <div class="track-wrap mt-2 ml-1">
-                        <ul class="collection with-header">
-                            <li class="collection-header"><i class="material-icons">music_note</i> Music tracks</li>
-
-                            {% for track in exercise.tracks %}
-                            <li class="collection-item">
-                                <span class="title link-text">{{ track.track_title | title}}</span>
-                                <em class="link-text">/ &nbsp; {{ track.track_comment | capitalize}}</em>
-                            </li>
-                            {% else %}
-                            <li class="collection-item">
-                                <em class="link-text">No music tacks added yet</em>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <!-- VIDEO LINK COLLECTION -->
-                    <div class="divider"></div>
-                    <div class="link-wrap mt-2 ml-1">
-                        <ul class="collection with-header">
-                            <li class="collection-header "><i class="material-icons">videocam</i> Video Links
-                            </li>
-                            {% for link in exercise.links %}
-                            <li class="collection-item">
-                                <span class="title link-text">{{ link.video_title | title}}</span><br>
-                                <em class="link-text">{{ link.video_text | capitalize}}</em>
-                            </li>
-                            {% else %}
-                            <li class="collection-item">
-                                <em class="link-text">No video links added yet</em>
-                            </li>
-                            {% endfor %}
-                        </ul>
+<div class="row no-gutters w-100">
+    <div class="col p-0 m-0">
+        <h6 class="sub-titles mb-4 mt-4">Exercises <i>(view only)</i>:</h6>
+        {% if this_class.exercises %}
+        <ul class="collapsible collapsible-main mx-n3 p-0 popout w-100" data-collapsible="accordion">
+            {% for exercise in this_class.exercises %}
+            <li class="this_class">
+                <div class="collapsible-header level-1">
+                    <div class="class_header col">
+                        <strong class="accordion-title">{{ exercise.exercise_name | capitalize}}</strong>
                     </div>
                 </div>
-            </div>
-        </div>
-    </li>
-    {% endfor %}
-    {% else %}
-    <li class="accordion_list header-alt">
-        <div class="collapsible-header">
-            <div class="list_header col">
-                <strong class="not-yet">No exercises added yet</strong>
-            </div>
-        </div>
-    </li>
-</ul>
+                <!-- EXERCISES CONTENT -->
+                <div class="collapsible-body pt-2 pb-0 ml-1 px-0">
+                    <div class="row w-100 no-gutters">
+                        <div class="col ml-1 mr-n3 container">
+                            <ul class="collapsible collapsible-sub z-depth-0 p-0 m-0" data-collapsible="expandable">
+                                <li>
+                                    <div class="collapsible-header level-2 active collapsible-opened-2">
+                                        <i class="material-icons">description</i>Elements</div>
+                                    <div class="collapsible-body">
+                                        <p>{{ exercise.exercise_description | safe}}</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="collapsible-header level-2">
+                                        <i class="material-icons">comment</i>Comment</div>
+                                    <div class="collapsible-body">
+                                        <p>{{ exercise.exercise_comment | capitalize}}</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="collapsible-header level-2">
+                                        <i class="material-icons">star</i>Aim</div>
+                                    <div class="collapsible-body">
+                                        <p>{{ exercise.exercise_aim | capitalize}}</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <!-- MUSIc TRACK COLLECTION -->
+                            <div class="track-wrap mt-2 ml-1">
+                                <ul class="collection with-header">
+                                    <li class="collection-header"><i class="material-icons">music_note</i> Music tracks
+                                    </li>
+
+                                    {% for track in exercise.tracks %}
+                                    <li class="collection-item">
+                                        <span class="title link-text">{{ track.track_title | title}}</span>
+                                        <em class="link-text">/ &nbsp; {{ track.track_comment | capitalize}}</em>
+                                    </li>
+                                    {% else %}
+                                    <li class="collection-item">
+                                        <em class="link-text">No music tacks added yet</em>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <!-- VIDEO LINK COLLECTION -->
+                            <div class="divider"></div>
+                            <div class="link-wrap mt-2 ml-1">
+                                <ul class="collection with-header">
+                                    <li class="collection-header "><i class="material-icons">videocam</i> Video Links
+                                    </li>
+                                    {% for link in exercise.links %}
+                                    <li class="collection-item">
+                                        <span class="title link-text">{{ link.video_title | title}}</span><br>
+                                        <em class="link-text">{{ link.video_text | capitalize}}</em>
+                                    </li>
+                                    {% else %}
+                                    <li class="collection-item">
+                                        <em class="link-text">No video links added yet</em>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+            {% else %}
+            <li class="accordion_list header-alt">
+                <div class="collapsible-header">
+                    <div class="list_header col">
+                        <strong class="not-yet">No exercises added yet</strong>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<br>
 {% endif %}
-<br>
-<br>
-<div class="divider"> </div>
 
 <!-- LOGS SECTION IN CLASS VIEW -->
 <div class="divider"> </div>
-<br>
-<h6 class="sub-titles">Logs <i>(view only)</i>:</h6>
-<br>
-{% if this_class.logs %}
-<ul class="collapsible collapsible-log popout" data-collapsible="accordion">
-    {% for log in this_class.logs %}
-    <li class="this_class">
-        <div class="collapsible-header level-3 px-0">
-            <div class="class_header col">
-                <strong>{{ log.log_date }}</strong> &nbsp; / &nbsp; <em> {{ log.log_tag | capitalize}} </em>
-            </div>
-        </div>
-        <div class="collapsible-body">
-            <div class="row">
-                <div class="col no-gutters">
-                    <span> {{ log.log_text | safe }} </span>
+<div class="row no-gutters mx-0 w-100">
+    <div class="col m-0 p-0 ">
+        <h6 class="sub-titles mt-4 mb-4">Logs <i>(view only)</i>:</h6>
+        {% if this_class.logs %}
+        <ul class="collapsible collapsible-log popout w-100" data-collapsible="accordion">
+            {% for log in this_class.logs %}
+            <li class="this_class">
+                <div class="collapsible-header level-3">
+                    <div class="class_header col">
+                        <strong>{{ log.log_date }}</strong> &nbsp; / &nbsp; <em> {{ log.log_tag | capitalize}} </em>
+                    </div>
                 </div>
-            </div>
-        </div>
-        {% endfor %}
-    </li>
-    {% else %}
-    <li class="accordion_list header-alt">
-        <div class="collapsible-header">
-            <div class="list_header col">
-                <strong class="not-yet">No logs added yet</strong>
-            </div>
-        </div>
-    </li>
-    {% endif %}
-</ul>
-<br>
+                <div class="collapsible-body">
+                    <div class="row">
+                        <div class="col no-gutters">
+                            <span> {{ log.log_text | safe }} </span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </li>
+            {% else %}
+            <li class="accordion_list header-alt">
+                <div class="collapsible-header">
+                    <div class="list_header col">
+                        <strong class="not-yet">No logs added yet</strong>
+                    </div>
+                </div>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
 {% endblock %}
