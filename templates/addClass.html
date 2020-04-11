@@ -3,13 +3,13 @@
 
 <!-- ADD CLASS VIEW -->
 <div class="main-content">
-    <section class="page-title">
+
         <div class="row">
             <div class="col mb-4 mt-2">
                 <h3>Create a New Class</h3>
             </div>
         </div>
-    </section>
+
     <!-- CLASS FORM -->
     <form class="col s12" method="POST"
         action="{{ url_for('insert_class', username = username, series = series, series_doc = series._id) }}"
@@ -21,7 +21,6 @@
         <input type="hidden" id="user_id" name="user_id" value="{{ user._id }}">
         <!-- FORM SECTIONS -->
         <!-- CLASS FORM SECTIONS -->
-        <section class="class-form">
             <!-- ADD CLASS NAME -->
             <div class="row">
                 <div class="input-field col s12 l10">
@@ -74,10 +73,8 @@
                     <label for="add_class_notes" class="ml-2">Notes</label>
                 </div>
             </div>
-        </section>
 
         <!-- ADD SERIES SELECTION -->
-        <section class="series-selector">
             <div class="divider"> </div>
             <br>
             <div class="row">
@@ -93,10 +90,9 @@
                 </div>
             </div>
             <br>
-        </section>
+
 
         <!-- ADD PLAYLIST LINK -->
-        <section class="links">
             <div class="row">
                 <div class="input-field col s12 l10">
                     <i class="material-icons prefix">featured_play_list</i>
@@ -107,13 +103,11 @@
                         name="playlist_link" placeholder="Add a playlist Link">
                 </div>
             </div>
-        </section>
 
 
         <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
         <!-- SAVE inserts the content and returns to CLASSES VIEW  - .insert() new document with new class _id and sub-document _id,s-->
         <!-- CANCEL does not save the content and returns to the CLASSes VIEW - .get() classes without changes -->
-        <section class="button-nav">
             <div class="divider"> </div>
             <br>
             <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
@@ -132,7 +126,6 @@
                     </div>
                 </div>
             </div>
-        </section>
     </form>
 </div>
 {% endblock content %}
