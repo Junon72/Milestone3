@@ -179,7 +179,9 @@ def register():
 
 @app.route('/logout')
 def logout():
-	''' Function logs the user out by clearing the user from the session and redirecting to the login page.'''
+	''' Function logs the user out by clearing the user from the session 
+	and redirecting to the login page.
+	'''
 	# Clear the session
 	session.clear()
 	flash("Success! You were logged out", "success")
@@ -233,9 +235,7 @@ def add_class(username):
 	Function finds the user's class series document from the db series collection.
 	'''
 	user = users_collection.find_one({'username': session['user']})
-	print(username)
 	series = series_collection.find_one({'username': session['user']},{'class_series': 1})
-	# print(series)
 	return render_template('addClass.html', title="New Class", 
 							user = user, username = username, series = series)
 
@@ -249,7 +249,7 @@ def insert_class(series_doc, username):
 	located in the user's series document in db series collection.
 
 	After the insert and confirmation the user is directed back to the class view. 
-	After each iteration, the sereis update operation is checked and printed to the terminal.
+	After each iteration, the series update operation is checked and printed to the terminal.
 	'''
 	new_class = {
 		'class_name': request.form.get('class_name'),
@@ -285,7 +285,7 @@ def insert_class(series_doc, username):
 		if not array:
 			print('Class was not added to ' + item)
 		else:
-			print('Class was added to ' + item + 'succesfully')
+			print('Class was added to ' + item + 'successfully')
 	return redirect(url_for('view_class', class_id=class_id, 
 					username=username, this_class=this_class))
 

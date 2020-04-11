@@ -129,6 +129,11 @@ $(document).ready(function () {
     'list-style-type': 'initial'
   });
 
+  $('.summernote ul>li').css({
+    'list-style-type': 'initial',
+    'margin-left': '2rem'
+  });
+
   /* RE-STYLING SUMMER NOTE ELEMENTS TO GO WITH MATERIALIZE */
   $('.note-btn').css({
     'background-color': 'rgb(176, 224, 230)',

@@ -98,10 +98,11 @@ main {
     .footer-content {
         height:  42px;
     }
+
     .main-content {
         min-height: calc(100vh - 106px);
     }
-   
+
     .log-title>h4 {
         padding-left: 20vw;
         padding-top: 2rem;
@@ -116,14 +117,14 @@ main {
 
     #messages {
         width: 80vw;
-        /*background-color: rgb(253, 6, 112);*/
     }
 }
 
-@media screen and (min-width: 631px) and (max-width: 992px)  {
+@media screen and (max-width: 992px) and (min-width: 631px) {
     .log-title>h4 {
         padding-left: 8rem;
     }
+
     .index-content {
         height: calc(100vh - 106px);
         margin-left: -10vw;
@@ -138,13 +139,16 @@ main {
         height: calc(100vh - 106px);
         min-height: 560px;
     }
+
     #messages {
         width: 100vw;
       /* background-color: rgba(253, 6, 112, 0.6);*/ 
     }
+
     .footer-content {
         height:  42px;
     }
+
     .main-content {
         min-height: calc(100vh - 106px);
     }
@@ -152,19 +156,29 @@ main {
 }
 
 
-@media screen and (max-width: 630px) {
-    #register { display: none; }
+@media screen and (max-width: 630px) and (min-width: 315px) {
+    .sidenav {
+        max-width: 66vw;
+    }
+
+    #register { 
+        display: none; 
+    }
+
     .index-content { 
         background: none;
         height: calc(100vh - 90px);
     }
+
     .register-content {
         height: calc(100vh - 90px);
         min-height: 560px
     }
+
     .footer-content {
         height:  34px;
     }
+
     .log-title>h4 {
         padding-left: 2rem
     }
@@ -176,12 +190,15 @@ main {
     #messages {
         width: 100vw;
     }
+
     .main-content {
         min-height: calc(100vh - 90px);
     }
+
     .container {
         padding: 0;
     }
+
     .margin-gap {
         margin-right: .8rem;}
 }
@@ -314,7 +331,9 @@ footer {
     background-color: rgb(253, 253, 255)
 }
 
-/* Collapsible body as a link (viewClass.html, series.html, viewClassInSeries.html */
+/* Collapsible body as a link (viewClass.html, series.html, viewClassInSeries.html 
+https://stackoverflow.com/questions/796087/make-a-div-into-a-link provided instruction how to achieve this*/
+
 
 .collapsible-link {
     position: relative;
