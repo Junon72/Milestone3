@@ -178,7 +178,7 @@
                                         </li>
                                         {% else %}
                                         <li class="collection-item">
-                                            <em class="link-text">No music tacks added yet</em>
+                                            <em class="link-text">No music tracks added yet</em>
                                         </li>
                                         {% endfor %}
                                     </ul>
@@ -260,14 +260,14 @@
 
     <!-- LOGS SECTION IN CLASS VIEW -->
     <div class="divider mt-4"> </div>
-    <div class="row no-gutters w-100">
+    <div class="row no-gutters mx-0 w-100">
         <div class="col m-0 p-0 ">
             <h6 class="sub-titles mt-4 mb-4">Logs:</h6>
             {% if this_class.logs %}
             <ul class="collapsible collapsible-log popout w-100" data-collapsible="accordion">
                 {% for log in this_class.logs %}
                 <li class="this_class">
-                    <div class="collapsible-header level-3 px-0">
+                    <div class="collapsible-header level-3">
                         <div class="class_header col">
                             <!---<i class="material-icons accordion_arrow">expand_more</i>-->
                             <strong>{{ log.log_date }}</strong> &nbsp; / &nbsp; <em> {{ log.log_tag | capitalize}}
