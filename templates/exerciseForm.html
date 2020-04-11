@@ -1,110 +1,103 @@
 {% block content %}
 
 {% for exercise in this_exercise.exercises %}
-
-<section class="page-title">
-    <div class="row">
-        <div class="col mb-4 mt-2">
-            <h3>Edit - {{ exercise.exercise_name }}</h3>
-        </div>
+<!-- Page Title Section-->
+<div class="row">
+    <div class="col mb-4 mt-2">
+        <h3>Edit - {{ exercise.exercise_name }}</h3>
     </div>
-</section>
+</div>
+
 
 <!-- EXERCISE FORM SECTIONs -->
-<section class="exercise_form">
-    <!-- ADD EXERCISE NAME -->
-    <div class="row w-100">
-        <div class="input-field col s12 m10 l6">
-            <i class="material-icons prefix mt-2">bookmark</i>
-            <input type="text" class="form-control text-capitalize validate" id="add_exercise_name"
-                value="{{ exercise.exercise_name }}" name="exercise_name" placeholder="Exercise name"
-                required="required" validate>
-            <label for="add_exercise_name" class="ml-2">Exercise name</label>
-        </div>
+<!-- ADD EXERCISE NAME -->
+<div class="row w-100">
+    <div class="input-field col s12 m10 l6">
+        <i class="material-icons prefix mt-2">bookmark</i>
+        <input type="text" class="form-control text-capitalize validate" id="add_exercise_name"
+            value="{{ exercise.exercise_name }}" name="exercise_name" placeholder="Exercise name" required="required"
+            validate>
+        <label for="add_exercise_name" class="ml-2">Exercise name</label>
     </div>
-    <!-- ADD EXERCISE DESCRIPTION -->
-    <div class="row mb-2">
-        <i class="material-icons prefix ml-3">description</i>
-        <label for="summernotes" class="list-label ml-3">Elements</label>
-    </div>
-    <div class="row">
-        <div class="col s12 m10 l6">
-            <textarea class="form-control summernote" id="summernotes" name="editordata">
+</div>
+<!-- ADD EXERCISE DESCRIPTION -->
+<div class="row mb-2">
+    <i class="material-icons prefix ml-3">description</i>
+    <label for="summernotes" class="list-label ml-3">Elements</label>
+</div>
+<div class="row">
+    <div class="col s12 m10 l6">
+        <textarea class="form-control summernote" id="summernotes" name="editordata">
                 {{ exercise.exercise_description | safe }}</textarea>
 
-        </div>
     </div>
-    <!-- ADD COMMENT -->
-    <div class="row w-100">
-        <div class="input-field col s12 m10 l6">
-            <i class="material-icons prefix">comment</i>
-            <textarea class="materialize-textarea form-control validate" id="add_comment" name="exercise_comment"
-                placeholder="Comment">{{ exercise.exercise_comment }}</textarea>
-            <label for="add_comment" class="ml-2">Comment</label>
-        </div>
+</div>
+<!-- ADD COMMENT -->
+<div class="row w-100">
+    <div class="input-field col s12 m10 l6">
+        <i class="material-icons prefix">comment</i>
+        <textarea class="materialize-textarea form-control validate" id="add_comment" name="exercise_comment"
+            placeholder="Comment">{{ exercise.exercise_comment }}</textarea>
+        <label for="add_comment" class="ml-2">Comment</label>
     </div>
-    <!-- ADD AIM -->
-    <div class="row w-100">
-        <div class="input-field col s12 m10 l6">
-            <i class="material-icons prefix">star</i>
-            <textarea class="materialize-textarea form-control validate" id="add_aim" name="exercise_aim"
-                placeholder="Aim of the exercise">{{ exercise.exercise_aim }}</textarea>
-            <label for="add_aim" class="ml-2">Aim</label>
-        </div>
+</div>
+<!-- ADD AIM -->
+<div class="row w-100">
+    <div class="input-field col s12 m10 l6">
+        <i class="material-icons prefix">star</i>
+        <textarea class="materialize-textarea form-control validate" id="add_aim" name="exercise_aim"
+            placeholder="Aim of the exercise">{{ exercise.exercise_aim }}</textarea>
+        <label for="add_aim" class="ml-2">Aim</label>
     </div>
-</section>
+</div>
 
-<section class="media music-tracks w-100">
-    <!-- MUSIC TRACKS SECTION-->
-    <br>
-    <!--ADD/DELETE MUSIC TRACKS-->
-    <div class="row w-100">
-        <div class="col s12 m10 l6">
-            <h6 class="sub-titles">Music Tracks <i>(view only)</i>:</h6>
-            <ul class="collection with-header">
-                <li class="collection-header">
-                    <i class="material-icons prefix">music_note</i> 
-                    Music tracks
-                </li>
-                {% for track in exercise.tracks %}
-                <li class="collection-item">
-                    <span class="title link-text">{{ track.track_title | title}}</span>
-                    <em class="link-text">/ &nbsp; {{ track.track_comment | capitalize}}</em>
-                </li>
-                {% else %}
-                <li class="collection-item">
-                    <em class="link-text">No music tacks added yet</em>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+<!-- MUSIC TRACKS SECTION-->
+<br>
+<!--ADD/DELETE MUSIC TRACKS-->
+<div class="row w-100">
+    <div class="col s12 m10 l6">
+        <h6 class="sub-titles">Music Tracks <i>(view only)</i>:</h6>
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <i class="material-icons prefix">music_note</i>
+                Music tracks
+            </li>
+            {% for track in exercise.tracks %}
+            <li class="collection-item">
+                <span class="title link-text">{{ track.track_title | title}}</span>
+                <em class="link-text">/ &nbsp; {{ track.track_comment | capitalize}}</em>
+            </li>
+            {% else %}
+            <li class="collection-item">
+                <em class="link-text">No music tacks added yet</em>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
-</section>
+</div>
 
-<section class="media video-links w-100">
-    <!-- VIDEO LINKS SECTION-->
-    <br>
-    <!--ADD/DELETE VIDEO LINKS-->
-    <div class="row w-100">
-        <div class="col s12 m10 l6">
-            <h6 class="sub-titles">Video Links <i>(view only)</i>:</h6>
-            <ul class="collection with-header">
-                <li class="collection-header">
-                    <i class="material-icons prefix mr-2 mb-n4">video_library</i>Video Links
-                </li>
-                {% for link in exercise.video_links %}
-                <li class="collection-item">
-                    <span class="title link-text">{{ link.video_title | title}}</span><br>
-                    <em class="link-text">{{ link.video_text | capitalize}}</em>
-                </li>
-                {% else %}
-                <li class="collection-item">
-                    <em class="link-text">No video links added yet</em>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
+<!-- VIDEO LINKS SECTION-->
+<br>
+<!--ADD/DELETE VIDEO LINKS-->
+<div class="row w-100">
+    <div class="col s12 m10 l6">
+        <h6 class="sub-titles">Video Links <i>(view only)</i>:</h6>
+        <ul class="collection with-header">
+            <li class="collection-header">
+                <i class="material-icons prefix mr-2 mb-n4">video_library</i>Video Links
+            </li>
+            {% for link in exercise.video_links %}
+            <li class="collection-item">
+                <span class="title link-text">{{ link.video_title | title}}</span><br>
+                <em class="link-text">{{ link.video_text | capitalize}}</em>
+            </li>
+            {% else %}
+            <li class="collection-item">
+                <em class="link-text">No video links added yet</em>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
-</section>
+</div>
 {% endfor %}
 {% endblock %}

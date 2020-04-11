@@ -3,13 +3,11 @@
 {% block content %}
 <!-- ADD LOG VIEW-->
 <div class="main-content">
-    <section class="page-title">
-        <div class="row">
-            <div class="col mb-4 mt-2">
-                <h3>Add a New Log</h3>
-            </div>
+    <div class="row">
+        <div class="col mb-4 mt-2">
+            <h3>Add a New Log</h3>
         </div>
-    </section>
+    </div>
     <!-- ADD LOG -->
     <form class="col s12 l6" method="POST"
         action="{{ url_for('insert_log', username=session['user'], class_id = class_id ) }}" id="add_log_from"
@@ -49,26 +47,24 @@
         <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
         <!-- SAVE inserts the content and returns to CLASS VIEW  - .insert() new document with new log _id-->
         <!-- CANCEL does not save the content and returns to the CLASS VIEW - .find_one() the class without changes -->
-        <section class="button-nav">
-            <div class="divider"> </div>
-            <br>
-            <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
-                <div class="row no-gutters">
-                    <div class="col d-flex justify-content-end">
-                        <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                            name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
-                            <i class="material-icons left">save</i>Save</button>
+        <div class="divider"> </div>
+        <br>
+        <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
+            <div class="row no-gutters">
+                <div class="col d-flex justify-content-end">
+                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                        name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                        <i class="material-icons left">save</i>Save</button>
 
-                        <!-- Check the class_id and repopulate the add_class form -->
-                        <a href="{{ url_for('view_class', class_id = class_id) }}"
-                            class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
-                            value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
-                            data-tooltip="Cancel and go back">
-                            Cancel</a>
-                    </div>
+                    <!-- Check the class_id and repopulate the add_class form -->
+                    <a href="{{ url_for('view_class', class_id = class_id) }}"
+                        class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
+                        value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
+                        data-tooltip="Cancel and go back">
+                        Cancel</a>
                 </div>
             </div>
-        </section>
+        </div>
     </form>
 </div>
 {% endblock %}

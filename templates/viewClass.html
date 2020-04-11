@@ -3,15 +3,12 @@
 {% block content %}
 <!-- VIEW CLASS VIEW -->
 <div class="main-content">
-    <section class="page-title">
         <div class="row w-100">
             <div class="class-title p-0 col s12 m10 l6">
                 <h3>{{ this_class.class_name | capitalize }}</h3>
             </div>
         </div>
-    </section>
     <!-- MAIN CLASS INFO -->
-    <section class="class-info">
         <!-- CLASS DESCRIPTION -->
         <div class="row w-100">
             <div class="class-title p-0 col s12 m10 l6">
@@ -22,7 +19,6 @@
         <br>
 
         <!-- MAIN ELEMENTS -->
-        <section class="element">
             {% if this_class.main_elements is defined %}
             <div class="divider"> </div>
             <br>
@@ -46,7 +42,6 @@
                 </li>
             </ul>
             {% endif %}
-        </section>
         <br>
         <!-- OTHER ELEMENTS (Helpers)-->
         {% if this_class.other_elements %}
@@ -68,10 +63,8 @@
         </div>
         <br>
         {% endif %}
-    </section>
 
     <!-- COLLECTION OF THE CLASS SERIES THE CLASS IS ASSOCIATED WITH -->
-    <section class="series">
         <br>
         <div class="divider"> </div>
         <br>
@@ -93,10 +86,8 @@
                 {% endif %}
             </div>
         </div>
-    </section>
 
     <!-- PLAYLIST LINK -->
-    <section class="links">
         <div class="divider"> </div>
         <br>
         <div class="row w-100 pr-4">
@@ -113,10 +104,8 @@
                 {% endif %}
             </ul>
         </div>
-    </section>
 
     <!-- EXERCISES SECTION IN CLASS VIEW -->
-    <section class="exercises">
         <div class="divider"> </div>
         <br>
         <h6 class="sub-titles">Exercises:</h6>
@@ -266,11 +255,9 @@
             </li>
         </ul>
         {% endif %}
-    </section>
     <br>
 
     <!-- LOGS SECTION IN CLASS VIEW -->
-    <section class="logs">
         <div class="divider"> </div>
         <br>
         <h6 class="sub-titles">Logs:</h6>
@@ -316,10 +303,8 @@
             </li>
             {% endif %}
         </ul>
-    </section>
     <br>
     <!-- TOOLS BUTTON FOR THE TOOLS: EDIT/DELETE/DUPLICATE/ADD EXERCISE/ ADD LOG-->
-    <section class="tools">
         <div class="fixed-action-btn vertical">
             <a class="btn-floating master-button btn-large indigo darken-4 z-depth-5 tooltipped" id="class-tools"
                 data-position="left" data-delay="50" data-tooltip="Editor tools">
@@ -347,7 +332,6 @@
                         <i class="material-icons">content_copy</i></a></li>
             </ul>
         </div>
-    </section>
     <br>
     <!-- BOTTOM BUTTON  'BACK TO CLASSES' TO NAVIGATE TO THE PREVIOUS PAGE CLASSES VIEW -->
     <div class="divider"></div>

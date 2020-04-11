@@ -2,65 +2,58 @@
 {% block content %}
 <!-- EDIT CLASS VIEW -->
 <div class="main-content">
-    <section class="page-title">
-        <div class="row">
-            <div class="class-title col s12 m10 l6">
-                {% for serial in this_series.class_series %}
-                <h3>Edit - {{ serial.series_name | title}}</h3>
-            </div>
+    <div class="row">
+        <div class="class-title col s12 m10 l6">
+            {% for serial in this_series.class_series %}
+            <h3>Edit - {{ serial.series_name | title}}</h3>
         </div>
-    </section>
+    </div>
+
     <!-- EDIT CLASS SERIES-->
     <form class="col s12 l6" method="POST"
         action="{{ url_for('update_series', series_doc = series_doc, series_id=series_id)  }}" id="add_series_form"
         autocomplete="off">
-        <section class="series_form">
-            <!-- ADD SERIES NAME -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <i class="material-icons prefix">bookmark</i>
-                    <input id="series_name" name="series_name" value="{{ serial.series_name }}" type="text"
-                        class="form-control text-capitalize validate" placeholder="Class series name"
-                        required="required">
-                    <label for="series_name" class="ml-2">Class Series Name</label>
-                </div>
+        <!-- ADD SERIES NAME -->
+        <div class="row">
+            <div class="input-field col s12">
+                <i class="material-icons prefix">bookmark</i>
+                <input id="series_name" name="series_name" value="{{ serial.series_name }}" type="text"
+                    class="form-control text-capitalize validate" placeholder="Class series name" required="required">
+                <label for="series_name" class="ml-2">Class Series Name</label>
             </div>
+        </div>
 
-            <!-- ADD SERIES DESCRIPTION -->
-            <div class="row">
-                <div class="input-field col s12 l6">
-                    <i class="material-icons prefix">description</i>
-                    <textarea class="materialize-textarea form-control" id="series_description"
-                        name="series_description" placeholder="Description" required="required">{{ serial.series_description }}</textarea>
-                    <label for="series_description" class="ml-2">Description</label>
-                </div>
+        <!-- ADD SERIES DESCRIPTION -->
+        <div class="row">
+            <div class="input-field col s12 l6">
+                <i class="material-icons prefix">description</i>
+                <textarea class="materialize-textarea form-control" id="series_description" name="series_description"
+                    placeholder="Description" required="required">{{ serial.series_description }}</textarea>
+                <label for="series_description" class="ml-2">Description</label>
             </div>
-            {% endfor %}
-        </section>
+        </div>
+        {% endfor %}
         <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
         <!-- SAVE inserts the content and returns to SERIES VIEW  - .save() the changes to an existing exercise with an existing _id and sub-document _id,s-->
         <!-- CANCEL does not save the content and returns to the SERIES VIEW- .get() series without changes -->
-        <section class="button-nav">
-            <div class="divider"> </div>
-            <br>
-            <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
-                <div class="row">
-                    <div class="col d-flex justify-content-end">
-                        <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                            name="action" data-position="top" data-delay="50" data-tooltip="Save and go back">
-                            <i class="material-icons left">save</i>Save
-                        </button>
+        <div class="divider"> </div>
+        <br>
+        <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
+            <div class="row">
+                <div class="col d-flex justify-content-end">
+                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                        name="action" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                        <i class="material-icons left">save</i>Save
+                    </button>
 
-                        <!-- Return to classes view -->
-                        <a href="{{ url_for('series') }}"
-                            class="btn-small waves-effect waves-light grey tooltipped cancel" type="submit"
-                            name="back_to_series" data-position="bottom" data-delay="50"
-                            data-tooltip="Cancel and go back">
-                            Cancel</a>
-                    </div>
+                    <!-- Return to classes view -->
+                    <a href="{{ url_for('series') }}" class="btn-small waves-effect waves-light grey tooltipped cancel"
+                        type="submit" name="back_to_series" data-position="bottom" data-delay="50"
+                        data-tooltip="Cancel and go back">
+                        Cancel</a>
                 </div>
             </div>
-        </section>
+        </div>
     </form>
 </div>
 {% endblock content %}

@@ -3,71 +3,65 @@
 {% block content %}
 <!-- ADD VIDEO LINK VIEW -->
 <div class="main-content">
-    <section class="page-title">
-        <div class="row">
-            <div class="col mb-4 mt-2">
-                <h3>Add a Video Link</h3>
-            </div>
+    <div class="row">
+        <div class="col mb-4 mt-2">
+            <h3>Add a Video Link</h3>
         </div>
-    </section>
+    </div>
     <!-- ADD VIDEO LINK-->
     <form class="col s12 l6" method="POST"
         action="{{ url_for('insert_link', class_id = class_id, exercise_id = exercise_id, username=session['user']) }}"
         id="add_link_form" autocomplete="off">
-        <section class="link_form">
 
-            <!-- ADD TRACK TITLE-->
-            <div class="row">
-                <div class="input-field col s12 l10">
-                    <i class="material-icons prefix">title</i>
-                    <input type="text" class="form-control text-capitalize validate" id="add_video_title"
-                        name="video_title" placeholder="Video title" required="required">
-                    <label for="add_video_title" class="ml-2">Video Title</label>
-                </div>
+        <!-- ADD TRACK TITLE-->
+        <div class="row">
+            <div class="input-field col s12 l10">
+                <i class="material-icons prefix">title</i>
+                <input type="text" class="form-control text-capitalize validate" id="add_video_title" name="video_title"
+                    placeholder="Video title" required="required">
+                <label for="add_video_title" class="ml-2">Video Title</label>
             </div>
+        </div>
 
-            <!-- ADD TRACK URL-->
-            <div class="row">
-                <div class="input-field col s12 l10">
-                    <i class="material-icons prefix">insert_link</i>
-                    <input type="text" class="form-control text-capitalize validate" id="add_video_link"
-                        name="video_link" placeholder="Link to a video" required>
-                    <label for="add_video_link" class="ml-2">Vide Link</label>
-                </div>
+        <!-- ADD TRACK URL-->
+        <div class="row">
+            <div class="input-field col s12 l10">
+                <i class="material-icons prefix">insert_link</i>
+                <input type="text" class="form-control text-capitalize validate" id="add_video_link" name="video_link"
+                    placeholder="Link to a video" required>
+                <label for="add_video_link" class="ml-2">Vide Link</label>
             </div>
+        </div>
 
-            <!-- ADD LOG-->
-            <div class="row">
-                <div class="input-field col s12 l6">
-                    <i class="material-icons prefix">insert_comment</i>
-                    <textarea class="materialize-textarea form-control validate" id="add_video_comment"
-                        name="video_comment" placeholder="Comment"></textarea>
-                    <label for="add_video_comment" class="ml-2">Comment</label>
-                </div>
+        <!-- ADD LOG-->
+        <div class="row">
+            <div class="input-field col s12 l6">
+                <i class="material-icons prefix">insert_comment</i>
+                <textarea class="materialize-textarea form-control validate" id="add_video_comment" name="video_comment"
+                    placeholder="Comment"></textarea>
+                <label for="add_video_comment" class="ml-2">Comment</label>
             </div>
-        </section>
+        </div>
         <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
         <!-- SAVE inserts the content and returns to EXERCISE FORM  - .insert() new document with new video_link _id -->
         <!-- CANCEL does not save the content and returns to the EXERCISE FORM - .get() class without changes -->
-        <section class="button-nav">
-            <div class="divider"> </div>
-            <br>
-            <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
-                <div class="row">
-                    <div class="col d-flex justify-content-end">
-                        <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                            name="save_link" data-position="top" data-delay="50" data-tooltip="Save and go back">
-                            <i class="material-icons left">save</i>Save</button>
+        <div class="divider"> </div>
+        <br>
+        <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
+            <div class="row">
+                <div class="col d-flex justify-content-end">
+                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                        name="save_link" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                        <i class="material-icons left">save</i>Save</button>
 
-                        <!-- Check the exercise _id and repopulate the add_exercise form -->
-                        <a href="{{ url_for('view_class', class_id = class_id) }}"
-                            class="btn-small waves-effect waves-light grey tooltipped" type="submit"
-                            name="back_to_class" data-position="top" data-delay="50" data-tooltip="Cancel and go back">
-                            Cancel</a>
-                    </div>
+                    <!-- Check the exercise _id and repopulate the add_exercise form -->
+                    <a href="{{ url_for('view_class', class_id = class_id) }}"
+                        class="btn-small waves-effect waves-light grey tooltipped" type="submit" name="back_to_class"
+                        data-position="top" data-delay="50" data-tooltip="Cancel and go back">
+                        Cancel</a>
                 </div>
             </div>
-        </section>
+        </div>
     </form>
 </div>
 {% endblock %}

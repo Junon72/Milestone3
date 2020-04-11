@@ -1,12 +1,10 @@
 {% extends "base.html"%}
 {% block content %}
-<section class="page-title">
-    <div class="row">
-        <div class="col mb-4 mt-2">
-            <h3>Add a New Exercise</h3>
-        </div>
+<div class="row">
+    <div class="col mb-4 mt-2">
+        <h3>Add a New Exercise</h3>
     </div>
-</section>
+</div>
 
 <!-- ADD EXERCISE FORM  -->
 <div class="main-content">
@@ -60,26 +58,24 @@
         <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
         <!-- SAVE inserts the content and returns to CLASS FORM  - .insert() new document with new exercise _id and possible sub-document _id,s-->
         <!-- CANCEL does not save the content and returns to the CLASS FORM - .get() the class without changes -->
-        <section class="button-nav">
-            <div class="divider"> </div>
-            <br>
-            <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
-                <div class="row">
-                    <div class="col d-flex justify-content-end">
-                        <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                            name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
-                            <i class="material-icons left">save</i>Save</button>
+        <div class="divider"> </div>
+        <br>
+        <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
+            <div class="row">
+                <div class="col d-flex justify-content-end">
+                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                        name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                        <i class="material-icons left">save</i>Save</button>
 
-                        <!-- Return to classes view -->
-                        <a href="{{ url_for('view_class', class_id = class_id) }}"
-                            class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
-                            value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
-                            data-tooltip="Cancel and go back">
-                            Cancel</a>
-                    </div>
+                    <!-- Return to classes view -->
+                    <a href="{{ url_for('view_class', class_id = class_id) }}"
+                        class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
+                        value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
+                        data-tooltip="Cancel and go back">
+                        Cancel</a>
                 </div>
             </div>
-        </section>
+        </div>
     </form>
 </div>
 {% endblock content %}

@@ -3,13 +3,11 @@
 
 <!-- ADD CLASS VIEW -->
 <div class="main-content">
-
         <div class="row">
             <div class="col mb-4 mt-2">
                 <h3>Create a New Class</h3>
             </div>
         </div>
-
     <!-- CLASS FORM -->
     <form class="col s12" method="POST"
         action="{{ url_for('insert_class', username = username, series = series, series_doc = series._id) }}"
@@ -19,6 +17,7 @@
         <!-- HIDDEN INPUTS 
         <input type="hidden" id="username" name="username" value="{{ user.username }}">-->
         <input type="hidden" id="user_id" name="user_id" value="{{ user._id }}">
+ 
         <!-- FORM SECTIONS -->
         <!-- CLASS FORM SECTIONS -->
             <!-- ADD CLASS NAME -->
