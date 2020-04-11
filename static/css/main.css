@@ -402,11 +402,6 @@ a:active {
 /* This cancels the default floating button action on tools master button */
 .master-button {
     opacity: 1!important;
-    transform: none!important;
-    -webkit-transform: none!important;
-    -moz-transform: none!important;
-    -ms-transform: none!important;
-    -o-transform: none!important;
 }
 
 /* Styling of the action buttons in exercises and log sections  */
@@ -447,10 +442,6 @@ a:active {
 .navibar>li>a:focus,
 .navibar>li>a:active {
     transform: scale(1.1);
-    -webkit-transform: scale(1.1);
-    -moz-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    -o-transform: scale(1.1);
     background-color: transparent;
 }
 
