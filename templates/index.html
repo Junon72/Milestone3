@@ -2,24 +2,24 @@
 
 {% block content %}
 <div class="index-content">
-	<section class="page-title">
-		<div class="row register">
-			<div class="class-title log-title col s12 m10 l6">
-				<h4>Log in</h4>
-			</div>
+	<div class="row register">
+		<div class="class-title log-title col s12 m10 l6">
+			<h4>Log in</h4>
 		</div>
-	</section>
+	</div>
 	<div class="row">
 		<div class="card mx-auto my-auto">
 			<div class="card-body">
 				<form method="POST" action="/user_auth" class="login-form">
 					<div class="form-group">
 						<label for="username">Username</label>
-						<input name="username" type="text" class="form-control" id="username" placeholder="Username" required>
+						<input name="username" type="text" class="form-control" id="username" placeholder="Username"
+							required>
 					</div>
 					<div class="form-group">
 						<label for="password">Password</label>
-						<input class="form-control" id="password" name="password" type="password" placeholder="Password" required>
+						<input class="form-control" id="password" name="password" type="password" placeholder="Password"
+							required>
 					</div>
 					<button type="submit" class="btn btn-primary btn-block">Login</button>
 				</form>
