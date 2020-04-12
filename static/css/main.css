@@ -244,9 +244,8 @@ footer {
 #password-info {
     display: flex;
     float: right;
-    margin: 4px;
-    padding-top: 1px;
-    height: 1.4rem;
+    font-size: 1.6rem;
+    color: teal;
 }
 
 .hide-info {
@@ -273,9 +272,9 @@ footer {
 /* ALERTS */
 #alerts {
     position: absolute;
-    top: 7rem;
+    top: 33vh;
     z-index: 999;
-    font-size: 1.2em;
+    font-size: 1em;
     font-family: inherit;
 }
 
@@ -285,10 +284,6 @@ footer {
 }
 .alert-message {
     display: inline-block;
-}
-
-#messages {
-    height: 45px;
 }
 
 /* ------------------------ ELEMENTS ------------------------ */

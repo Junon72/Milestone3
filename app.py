@@ -101,7 +101,7 @@ def register():
 		return redirect(url_for('classes'))
 	if request.method == 'POST':
 		form = request.form.to_dict()
-		print(form)
+		# print(form)
 		username = form['username']
 		email = form['email']
 		# If matched validate the username
@@ -109,12 +109,12 @@ def register():
 		name_pattern = re.compile(regex_in_name)
 		user = users_collection.find_one({"username" : username})
 		if user:
-			flash("Username" + username + " is already taken", "warning")
-			print('username taken')
+			flash("Username " + username + " is already taken", "warning")
+			# print('username taken')
 			return render_template('register.html', username = username, email = email)
 		elif len(username) < 6 or len(username) > 20:
 			flash("Username must be at least 6 and up to 20 characters long", "warning")
-			print('wrong length')
+			# print('wrong length')
 			return render_template('register.html', username = username, email = email)
 		elif not re.search(name_pattern, username):
 			flash("Username may not have special characters", "warning")

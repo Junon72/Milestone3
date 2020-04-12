@@ -14,7 +14,6 @@
 
         <!-- FORM SECTIONS-->
         <!-- EXERCISE FORM SECTIONs -->
-        <section class="exercise_form">
             <!-- ADD EXERCISE NAME -->
             <div class="row w-100">
                 <div class="input-field col s12 m10 l6">
@@ -53,23 +52,21 @@
                     <label for="add_aim" class="ml-2">Aim</label>
                 </div>
             </div>
-        </section>
 
         <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
         <!-- SAVE inserts the content and returns to CLASS FORM  - .insert() new document with new exercise _id and possible sub-document _id,s-->
         <!-- CANCEL does not save the content and returns to the CLASS FORM - .get() the class without changes -->
         <div class="divider"> </div>
-        <br>
-        <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
-            <div class="row">
-                <div class="col d-flex justify-content-end">
+        <div class="container bottom_actions p-0 w-100">
+            <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
+                <div class="col d-flex mt-3 p-0 justify-content-end">
                     <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
                         name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
                         <i class="material-icons left">save</i>Save</button>
 
                     <!-- Return to classes view -->
                     <a href="{{ url_for('view_class', class_id = class_id) }}"
-                        class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" type="submit"
+                        class="btn-small waves-effect waves-light grey tooltipped cancel" type="submit"
                         value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
                         data-tooltip="Cancel and go back">
                         Cancel</a>

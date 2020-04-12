@@ -35,18 +35,16 @@
         <!-- SAVE inserts the content and returns to SERIES VIEW  - .insert() new document with new series _id -->
         <!-- CANCEL does not save the content and returns to the SERIES VIEW - .get() SERIES without changes -->
         <div class="divider"> </div>
-        <br>
-        <div class="container bottom_actions ml-0 mr-0 mt-6 mb-6 w-100">
-            <div class="row 100-w">
-                <div class="col mt-3 d-flex justify-content-end">
+        <div class="container bottom_actions p-0 w-100">
+            <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
+                <div class="col d-flex mt-3 p-0 justify-content-end">
                     <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
                         data-position="top" data-delay="50" data-tooltip="Save and view">
                         <i class="material-icons left">save</i>Save</button>
 
-
                     <!-- Check the exercise _id and repopulate the add_exercise form -->
                     <a href="{{ url_for('series') }}"
-                        class="btn-small waves-effect waves-light grey tooltipped cancel mr-n3" data-position="bottom"
+                        class="btn-small waves-effect waves-light grey tooltipped cancel" data-position="bottom"
                         data-delay="50" data-tooltip="Cancel and go back">
                         Cancel</a>
                 </div>
