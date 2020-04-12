@@ -18,7 +18,7 @@
                 <div class="input-field picker col s12 l6" id="matfix">
                     <i class="material-icons prefix">today</i>
                     <input id="log_date" name="log_date" type="text" class="datepicker" placeholder="">
-                    <label for="icon_prefix" class="">Log date</label>
+                    <label for="log_date" class="">Log date</label>
                 </div>
             </div>
             <!-- ADD LOG CONTENT-->
@@ -57,8 +57,7 @@
 
                     <!-- Check the class_id and repopulate the add_class form -->
                     <a href="{{ url_for('view_class', class_id = class_id) }}"
-                        class="btn-small waves-effect waves-light grey tooltipped cancel" type="submit"
-                        value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
+                        class="btn-small waves-effect waves-light grey tooltipped cancel" data-position="top" data-delay="50"
                         data-tooltip="Cancel and go back">
                         Cancel</a>
                 </div>
