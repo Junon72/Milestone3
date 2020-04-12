@@ -44,12 +44,11 @@
         </div>
     </div>
     {% endif %}
-    <br>
     <!-- OTHER ELEMENTS (Helpers)-->
     {% if this_class.other_elements %}
     <div class="row no-gutters w-100 mb-4">
         <div class="class-title p-0 col s12 m10 l6 mt-1">
-            <h6 class="sub-titles mt-4">Helpers:</h6>
+            <h6 class="sub-titles mt-4 mb-4">Helpers:</h6>
             <span>{{ this_class.other_elements | capitalize}}</span>
         </div>
     </div>
@@ -59,7 +58,7 @@
     {% if this_class.notes %}
     <div class="row no-gutters w-100 mb-4">
         <div class="class-title col s12 m10 l6 mt-1">
-            <h6 class="sub-titles mt-4">Class Notes:</h6>
+            <h6 class="sub-titles mt-4 mb-4">Class Notes:</h6>
             <span>{{ this_class.class_notes | capitalize}}</span>
         </div>
     </div>
@@ -68,11 +67,11 @@
 
     <!-- COLLECTION OF THE CLASS SERIES THE CLASS IS ASSOCIATED WITH -->
     <div class="divider"> </div>
-    <div class="row no-gutters w-100 pr-4">
+    <div class="row no-gutters mt-4 w-100 pr-4">
         <div class="col-md-3 class-title">
             <h6 class="sub-titles mt-4">Class series:</h6>
         </div>
-        <div class="col-md-9 pr-0 pt-0 pb-0 pl-3 collection z-depth-1">
+        <div class="col-md-9 collection z-depth-1">
             {% if class_id in merged_list %}
             {% for name in series.class_series %}
             {% if class_id in name.classes %}
@@ -89,7 +88,7 @@
 
     <!-- PLAYLIST LINK -->
     <div class="divider"> </div>
-    <div class="row w-100 no-gutters pr-4">
+    <div class="row w-100 no-gutters mt-4 pr-4">
         <div class="col-md-3 class-title">
             <h6 class="sub-titles mt-4">Playlist:</h6>
         </div>
@@ -151,9 +150,9 @@
                                 </ul>
                                 <!-- MUSIc TRACK COLLECTION -->
                                 <div class="track-wrap mt-2">
-                                    <ul class="collection with-header">
-                                        <li class="collection-header"><i class="material-icons">music_note</i> Music
-                                            tracks
+                                    <ul class="collection with-header d-flex">
+                                        <li class="collection-header"><i class="material-icons mr-3">music_note</i>
+                                            Music Tracks
                                         </li>
 
                                         {% for track in exercise.tracks %}
@@ -185,8 +184,8 @@
                                 <!-- VIDEO LINK COLLECTION -->
                                 <div class="link-wrap mt-2">
                                     <ul class="collection with-header">
-                                        <li class="collection-header "><i class="material-icons">videocam</i> Video
-                                            Links
+                                        <li class="collection-header d-flex"><i class="material-icons mr-3">videocam</i>
+                                            Video Links
                                         </li>
 
                                         {% for link in exercise.links %}
@@ -339,12 +338,10 @@
 <div class="container bottom_actions w-100">
     <div class="row w-100 no-gutters mt-5 mb-5">
         <div class="col ml-n4 d-flex justify-content-beginning">
-
             <a href="{{ url_for('classes', username=username) }}"
                 class="btn-small waves-effect waves-light black z-depth-5 tooltipped go_back" data-position="top"
                 data-delay="50" data-tooltip="Go back">
                 <i class="material-icons left">chevron_left</i>Back to Classes</a>
-
         </div>
     </div>
 </div>
