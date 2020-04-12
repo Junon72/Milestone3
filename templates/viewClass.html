@@ -21,26 +21,28 @@
     <!-- MAIN ELEMENTS -->
     {% if this_class.main_elements is defined %}
     <div class="divider"> </div>
-    <br>
-    <h6 class="sub-titles"> Class elements:</h6>
-    <br>
-    <ul class="collapsible collapsible-elem popout" data-collapsible="accordion">
-        <li class="this_class">
-            <div class="collapsible-header w-100 level-4">
-                <div class="class_header col">
-                    <strong class="accordion-title">View elements</strong>
-                </div>
-            </div>
-            <!-- ELEMENTS CONTENT (Elements)-->
-            <div class="collapsible-body elements-body">
-                <div class="row">
-                    <div class="col no-gutters">
-                        <span class="editor"> {{ this_class.main_elements | safe}} </span>
+    <div class="row no-gutters w-100 mb-5">
+        <div class="col m-0 p-0">
+            <h6 class="sub-titles mt-4 mb-4"> Class elements:</h6>
+            <ul class="collapsible collapsible-elem popout" data-collapsible="accordion">
+                <li class="this_class">
+                    <div class="collapsible-header w-100 level-4">
+                        <div class="class_header col">
+                            <strong class="accordion-title">View elements</strong>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </li>
-    </ul>
+                    <!-- ELEMENTS CONTENT (Elements)-->
+                    <div class="collapsible-body elements-body">
+                        <div class="row">
+                            <div class="col no-gutters">
+                                <span class="editor"> {{ this_class.main_elements | safe}} </span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
     {% endif %}
     <br>
     <!-- OTHER ELEMENTS (Helpers)-->
@@ -107,7 +109,7 @@
 
     <!-- EXERCISES SECTION IN CLASS VIEW -->
     <div class="divider"> </div>
-    <div class="row no-gutters w-100">
+    <div class="row no-gutters mb-5 w-100">
         <div class="col p-0 m-0">
             <h6 class="sub-titles mb-3 mt-4">Exercises:</h6>
             {% if this_class.exercises %}
@@ -256,13 +258,12 @@
             </ul>
         </div>
     </div>
-    <br>
     {% endif %}
 
     <!-- LOGS SECTION IN CLASS VIEW -->
-    <div class="divider mt-5"> </div>
-    <div class="row no-gutters mx-0 w-100">
-        <div class="col mx-0 mt-0 mb-3 p-0">
+    <div class="divider"> </div>
+    <div class="row no-gutters mb-5 w-100">
+        <div class="col m-0 p-0">
             <h6 class="sub-titles mt-4 mb-4">Logs:</h6>
             {% if this_class.logs %}
             <ul class="collapsible collapsible-log popout w-100" data-collapsible="accordion">
@@ -338,18 +339,16 @@
     </ul>
 </div>
 <!-- BOTTOM BUTTON  'BACK TO CLASSES' TO NAVIGATE TO THE PREVIOUS PAGE CLASSES VIEW -->
-<div class="divider mt-4 mb-4"></div>
-<div class="w-100">
-    <div class="container mt-3 bottom_actions w-100">
-        <div class="row">
-            <div class="col ml-n4 mr-0 mt-3 mb-3 d-flex no-gutters justify-content-beginning">
+<div class="divider"></div>
+<br>
+<div class="container bottom_actions">
+    <div class="row no-gutters mt-3 mb-3 w-100">
+        <div class="col ml-n4 d-flex no-gutters justify-content-beginning">
+            <a href="{{ url_for('classes', username=username) }}"
+                class="btn-small waves-effect waves-light black z-depth-5 tooltipped go_back" data-position="top"
+                data-delay="50" data-tooltip="Go back">
+                <i class="material-icons left">chevron_left</i>Back to Classes</a>
 
-                <a href="{{ url_for('classes', username=username) }}"
-                    class="btn-small waves-effect waves-light black z-depth-5 tooltipped go_back" data-position="top"
-                    data-delay="50" data-tooltip="Go back">
-                    <i class="material-icons left">chevron_left</i>Back to Classes</a>
-
-            </div>
         </div>
     </div>
 </div>
