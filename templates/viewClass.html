@@ -13,7 +13,7 @@
     <div class="row w-100">
         <div class="class-title p-0 col s12 m10 l6">
             <h5 class="sub-titles"> Description</h5>
-            <span><pre>{{ this_class.class_description | capitalize}}</pre></span>
+            <pre>{{ this_class.class_description | capitalize}}</pre>
         </div>
     </div>
     <br>
@@ -49,7 +49,7 @@
     <div class="row no-gutters w-100 m-0">
         <div class="class-title p-0 col s12 m10 l6 px-0 mb-4">
             <h6 class="sub-titles mt-4 mb-4">Helpers:</h6>
-            <span><pre>{{ this_class.other_elements | capitalize}}</pre></span>
+            <pre>{{ this_class.other_elements | capitalize}}</pre>
         </div>
     </div>
     {% endif %}
@@ -59,7 +59,7 @@
     <div class="row no-gutters w-100 m-0">
         <div class="class-title col s12 m10 l6 px-0 mb-4">
             <h6 class="sub-titles mt-4 mb-4">Class Notes:</h6>
-            <span><pre>{{ this_class.class_notes | capitalize}}</pre></span>
+            <pre>{{ this_class.class_notes | capitalize}}</pre>
         </div>
     </div>
     <br>
@@ -126,7 +126,7 @@
                                         <div class="collapsible-header level-2 active collapsible-opened-2">
                                             <i class="material-icons">description</i>Elements</div>
                                         <div class="collapsible-body elements-body">
-                                            <p>{{ exercise.exercise_description | safe }}</p>
+                                            <span class="editor">{{ exercise.exercise_description | safe }}</span>
                                         </div>
                                     </li>
                                     <li>
@@ -134,7 +134,7 @@
                                             <i class="material-icons">comment</i>Comment</div>
                                         {% if exercise.exercise_comment %}
                                         <div class="collapsible-body elements-body">
-                                            <p>{{ exercise.exercise_comment | capitalize}}</p>
+                                            <pre>{{ exercise.exercise_comment | capitalize }}</pre>
                                         </div>
                                         {% endif %}
                                     </li>
@@ -143,7 +143,7 @@
                                             <i class="material-icons">star</i>Aim</div>
                                         {% if exercise.exercise_aim %}
                                         <div class="collapsible-body elements-body">
-                                            <p>{{ exercise.exercise_aim | capitalize}}</p>
+                                            <pre>{{ exercise.exercise_aim | capitalize }}</pre>
                                         </div>
                                         {% endif %}
                                     </li>
