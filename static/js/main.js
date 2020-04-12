@@ -33,7 +33,8 @@ $(document).ready(function() {
 			$('.level-1').removeClass('collapsible-opened-1');
 			$(this).addClass('collapsible-opened-1');
 		}
-	});
+  });
+  
 	// Exercises content headers - toggle the background color / exercises content
 	$('.collapsible.collapsible-sub').on('click', '.level-2', function() {
 		if ($(this).hasClass('collapsible-opened-2')) {
@@ -92,7 +93,8 @@ $(document).ready(function() {
 	/* Password info modal */
 	$('#password-info').on('click', function() {
 		$('.password-info-wrap').removeClass('hide-info');
-	});
+  });
+  
 	$('#close-modal').on('click', function() {
 		$('.password-info-wrap').addClass('hide-info');
 	});
@@ -118,7 +120,8 @@ $(document).ready(function() {
 		'list-style-type': 'initial'
 	});
 
-	$('.summernote ul>li').css({
+  
+	$('.summernote').css({
 		'list-style-type': 'initial',
 		'margin-left': '2rem'
 	});
@@ -134,9 +137,11 @@ $(document).ready(function() {
 		'line-height': '0'
 	}).removeAttr('tooltip');
 
+  /* Restyling the Summernote buttons */
 	$('.note-btn').mouseover(function() {
 		$(this).addClass('note-hover');
-	});
+  });
+  
 	$('.note-btn').mouseout(function() {
 		$(this).removeClass('note-hover');
 	});
@@ -144,12 +149,16 @@ $(document).ready(function() {
 	$('button.note-btn i').css({
 		'font-size': '1rem',
 		'margin': 'auto'
-	});
+  });
+  
 	$('.note-dropdown-menu a').css({
 		'color': 'rgb(3, 109, 138)',
 		'line-height': '80%'
-	});
-
+  });
+  
+  /* Adding the list style to the Summernote unordered lists,
+  which are not working properly in the editor. The style is
+  set to initial on rendering.*/
 	$('.editor ul>li').css({
 		'list-style-type': 'initial',
 		'margin-left': '2rem'

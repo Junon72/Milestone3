@@ -1,7 +1,6 @@
 html {
     min-height: 100%;
-    margin-top: -20px;
-    margin-bottom: -20px;
+    margin: 0;
     padding: 0;
 
 }
