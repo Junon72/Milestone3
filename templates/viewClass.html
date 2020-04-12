@@ -13,7 +13,7 @@
     <div class="row w-100">
         <div class="class-title p-0 col s12 m10 l6">
             <h5 class="sub-titles"> Description</h5>
-            <span>{{ this_class.class_description | capitalize}}</span>
+            <span><pre>{{ this_class.class_description | capitalize}}</pre></span>
         </div>
     </div>
     <br>
@@ -107,7 +107,7 @@
     <div class="divider"> </div>
     <div class="row no-gutters m-0 w-100">
         <div class="col p-0 m-0">
-            <h6 class="sub-titles mb-3 mt-4">Exercises:</h6>
+            <h6 class="sub-titles mb-4 mt-4">Exercises:</h6>
             {% if this_class.exercises %}
             <ul class="collapsible collapsible-main p-0 popout my-4 w-100" data-collapsible="accordion">
                 {% for exercise in this_class.exercises %}

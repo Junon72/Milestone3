@@ -25,7 +25,9 @@ body {
     background-size: cover;
 }
 
-
+pre {
+    font-family: inherit;
+}
 
 /* BACKGROUNDS */
 main {
