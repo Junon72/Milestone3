@@ -21,7 +21,7 @@
         <i class="material-icons prefix">description</i>
         <textarea class="materialize-textarea form-control required validate" id="add_class_description"
             name="class_description" placeholder="Class description"
-            required="required">{{ this_class.class_description}}</textarea>
+            required="required">{{ this_class.class_description }}</textarea>
         <label for="add_class_description" class="ml-2">Class description</label>
     </div>
 </div>
@@ -34,7 +34,7 @@
 <div class="row">
     <div class="col s12 l6">
         <textarea class="form-control summernote" id="summernotes"
-            name="editordata">{{this_class.main_elements}}</textarea>
+            name="editordata">{{ this_class.main_elements }}</textarea>
 
     </div>
 </div>
@@ -45,11 +45,20 @@
     <div class="input-field col s12 l10">
         <i class="material-icons prefix">more</i>
         <textarea class="materialize-textarea form-control" id="add_other_elements" name="other_elements"
-            placeholder="Other helpful elements">{{this_class.other_elements}}</textarea>
+            placeholder="Other helpful elements">{{ this_class.other_elements }}</textarea>
         <label for="add_main_elements" class="ml-2">Helpers</label>
     </div>
 </div>
 
+<!--ADD NOTES -->
+<div class="row">
+    <div class="input-field col s12 l10">
+        <i class="material-icons prefix">note</i>
+        <textarea class="form-control materialize-textarea" id="class_notes" name="class_notes"
+            placeholder="Notes">{{ this_class.class_notes }}</textarea>
+        <label for="class_notes" class="ml-2">Notes</label>
+    </div>
+</div>
 
 <!-- EDIT SERIES SELECTION -->
 <br>
@@ -106,14 +115,14 @@
                                     <div class="collapsible-header level-2 active collapsible-opened-2">
                                         <i class="material-icons">description</i>Elements</div>
                                     <div class="collapsible-body">
-                                        <p>{{ exercise.exercise_description | safe}}</p>
+                                        <p>{{ exercise.exercise_description | safe }}</p>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="collapsible-header level-2">
                                         <i class="material-icons">comment</i>Comment</div>
                                     <div class="collapsible-body">
-                                        <p>{{ exercise.exercise_comment | capitalize}}</p>
+                                        <p>{{ exercise.exercise_comment | capitalize }}</p>
                                     </div>
                                 </li>
                                 <li>
@@ -127,13 +136,14 @@
                             <!-- MUSIc TRACK COLLECTION -->
                             <div class="track-wrap mt-2">
                                 <ul class="collection with-header">
-                                    <li class="collection-header d-flex"><i class="material-icons mr-3">music_note</i> Music tracks
+                                    <li class="collection-header d-flex"><i class="material-icons mr-3">music_note</i>
+                                        Music tracks
                                     </li>
 
                                     {% for track in exercise.tracks %}
                                     <li class="collection-item">
-                                        <span class="title link-text">{{ track.track_title | title}}</span>
-                                        <em class="link-text">/ &nbsp; {{ track.track_comment | capitalize}}</em>
+                                        <span class="title link-text">{{ track.track_title | title }}</span>
+                                        <em class="link-text">/ &nbsp; {{ track.track_comment | capitalize }}</em>
                                     </li>
                                     {% else %}
                                     <li class="collection-item">
@@ -145,12 +155,13 @@
                             <!-- VIDEO LINK COLLECTION -->
                             <div class="link-wrap mt-2 ml-1">
                                 <ul class="collection with-header">
-                                    <li class="collection-header d-flex"><i class="material-icons m3-3">videocam</i> Video Links
+                                    <li class="collection-header d-flex"><i class="material-icons m3-3">videocam</i>
+                                        Video Links
                                     </li>
                                     {% for link in exercise.links %}
                                     <li class="collection-item">
-                                        <span class="title link-text">{{ link.video_title | title}}</span><br>
-                                        <em class="link-text">{{ link.video_text | capitalize}}</em>
+                                        <span class="title link-text">{{ link.video_title | title }}</span><br>
+                                        <em class="link-text">{{ link.video_text | capitalize }}</em>
                                     </li>
                                     {% else %}
                                     <li class="collection-item">
