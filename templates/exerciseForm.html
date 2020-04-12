@@ -15,8 +15,7 @@
     <div class="input-field col s12 m10 l6">
         <i class="material-icons prefix mt-2">bookmark</i>
         <input type="text" class="form-control text-capitalize validate" id="add_exercise_name"
-            value="{{ exercise.exercise_name }}" name="exercise_name" placeholder="Exercise name" required="required"
-            validate>
+            value="{{ exercise.exercise_name }}" name="exercise_name" placeholder="Exercise name" required="required">
         <label for="add_exercise_name" class="ml-2">Exercise name</label>
     </div>
 </div>
@@ -37,7 +36,7 @@
     <div class="input-field col s12 m10 l6">
         <i class="material-icons prefix">comment</i>
         <textarea class="materialize-textarea form-control validate" id="add_comment" name="exercise_comment"
-            placeholder="Comment">{{ exercise.exercise_comment }}</textarea>
+            placeholder="Comment"><pre>{{ exercise.exercise_comment }}</pre></textarea>
         <label for="add_comment" class="ml-2">Comment</label>
     </div>
 </div>
@@ -47,7 +46,7 @@
         <i class="material-icons prefix">star</i>
         <textarea class="materialize-textarea form-control validate" id="add_aim" name="exercise_aim"
             placeholder="Aim of the exercise">{{ exercise.exercise_aim }}</textarea>
-        <label for="add_aim" class="ml-2">Aim</label>
+        <label for="add_aim" class="ml-2"><pre>Aim</pre></label>
     </div>
 </div>
 

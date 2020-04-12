@@ -21,7 +21,7 @@
                 <a href="{{ url_for('view_classes_in_series', series_id=serial._id, series_doc=all_series._id, username=username) }}"
                     class="collapsible-link-ref tooltipped" data-position="left" data-delay="50"
                     data-tooltip="View class series">
-                    <span class="link-text">{{ serial.series_description | capitalize}}</span>
+                    <pre class="link-text">{{ serial.series_description | capitalize}}</pre>
                 </a>
 
                 <!-- Tool buttons for series -->
