@@ -19,7 +19,7 @@
                 <div class="input-field col s12 m10 l6">
                     <i class="material-icons prefix">bookmark</i>
                     <input type="text" class="form-control text-capitalize validate" id="add_exercise_name"
-                        name="exercise_name" placeholder="Exercise name" required="required" validate>
+                        name="exercise_name" placeholder="Exercise name" required="required">
                     <label for="add_exercise_name" class="ml-2">Exercise name</label>
                 </div>
             </div>
@@ -66,8 +66,7 @@
 
                     <!-- Return to classes view -->
                     <a href="{{ url_for('view_class', class_id = class_id) }}"
-                        class="btn-small waves-effect waves-light grey tooltipped cancel" type="submit"
-                        value="Cancel" formnovalidate name="back_to_class" data-position="top" data-delay="50"
+                        class="btn-small waves-effect waves-light grey tooltipped cancel" data-position="top" data-delay="50"
                         data-tooltip="Cancel and go back">
                         Cancel</a>
                 </div>
