@@ -109,7 +109,7 @@
     <div class="divider"> </div>
     <div class="row no-gutters w-100">
         <div class="col p-0 m-0">
-            <h6 class="sub-titles mb-4 mt-4">Exercises:</h6>
+            <h6 class="sub-titles mb-3 mt-4">Exercises:</h6>
             {% if this_class.exercises %}
             <ul class="collapsible collapsible-main p-0 popout w-100" data-collapsible="accordion">
                 {% for exercise in this_class.exercises %}
@@ -170,7 +170,7 @@
                                                         {{ track.track_comment | capitalize}}</em>
                                                 </a>
 
-                                                <a href="{{ url_for('delete_track', class_id=class_id, exercise_id = exercise._id, track_id=track._id) }}"
+                                                <a href="{{ url_for('delete_track', class_id=class_id, exercise_id=exercise._id, track_id=track._id) }}"
                                                     class="secondary-content tooltipped" data-position="top"
                                                     data-delay="50" data-tooltip="Delete track"><i
                                                         class="material-icons link-text delete-small">delete</i></a>
@@ -204,7 +204,7 @@
                                                         {{ link.video_comment | capitalize}}</em>
                                                 </a>
 
-                                                <a href="{{ url_for('delete_link', link_id=link._id, class_id=class_id, exercise_id = exercise._id) }}"
+                                                <a href="{{ url_for('delete_link', link_id=link._id, class_id=class_id, exercise_id=exercise._id) }}"
                                                     class="secondary-content tooltipped" data-position="top"
                                                     data-delay="50" data-tooltip="Delete video link"><i
                                                         class="material-icons link-text delete-small">delete</i></a>
@@ -342,7 +342,7 @@
 <div class="w-100">
     <div class="container mt-3 bottom_actions w-100">
         <div class="row">
-            <div class="col ml-n4 mr-0 mt-6 mb-10 d-flex no-gutters justify-content-beginning">
+            <div class="col ml-n4 mr-0 mt-3 mb-3 d-flex no-gutters justify-content-beginning">
 
                 <a href="{{ url_for('classes', username=username) }}"
                     class="btn-small waves-effect waves-light black z-depth-5 tooltipped go_back" data-position="top"
