@@ -79,6 +79,7 @@ main {
 @media screen and (min-width: 993px)  {
     .index-content {
         margin-top: -9px;
+        padding-top: 9px;
         height: calc(100vh - 98px);
         margin-left: -10vw;
         margin-right: -10vw;
