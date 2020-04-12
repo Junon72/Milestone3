@@ -23,12 +23,12 @@
     <div class="divider"> </div>
     <div class="row no-gutters w-100 mb-5">
         <div class="col m-0 p-0">
-            <h6 class="sub-titles mt-4 mb-4"> Class elements:</h6>
+            <h6 class="sub-titles mt-4 mb-4"> Elements:</h6>
             <ul class="collapsible collapsible-elem popout" data-collapsible="accordion">
                 <li class="this_class">
                     <div class="collapsible-header w-100 level-4">
                         <div class="class_header col">
-                            <strong class="accordion-title">View elements</strong>
+                            <strong class="accordion-title"><em class="link-text">View elements</em></strong>
                         </div>
                     </div>
                     <!-- ELEMENTS CONTENT (Elements)-->
@@ -47,9 +47,9 @@
     <br>
     <!-- OTHER ELEMENTS (Helpers)-->
     {% if this_class.other_elements %}
-    <div class="row w-100">
+    <div class="row no-gutters w-100 mb-4">
         <div class="class-title p-0 col s12 m10 l6 mt-1">
-            <h6 class="sub-titles">Helpers</h6>
+            <h6 class="sub-titles mt-4">Helpers:</h6>
             <span>{{ this_class.other_elements | capitalize}}</span>
         </div>
     </div>
@@ -57,9 +57,9 @@
 
     <!-- CLASS NOTES -->
     {% if this_class.notes %}
-    <div class="row w-100">
+    <div class="row no-gutters w-100 mb-4">
         <div class="class-title col s12 m10 l6 mt-1">
-            <h6 class="sub-titles">Class Notes</h6>
+            <h6 class="sub-titles mt-4">Class Notes:</h6>
             <span>{{ this_class.class_notes | capitalize}}</span>
         </div>
     </div>
@@ -67,12 +67,10 @@
     {% endif %}
 
     <!-- COLLECTION OF THE CLASS SERIES THE CLASS IS ASSOCIATED WITH -->
-    <br>
     <div class="divider"> </div>
-    <br>
-    <div class="row w-100 pr-4">
+    <div class="row no-gutters w-100 pr-4">
         <div class="col-md-3 class-title">
-            <h6 class="sub-titles">Class series:</h6>
+            <h6 class="sub-titles mt-4">Class series:</h6>
         </div>
         <div class="col-md-9 pr-0 pt-0 pb-0 pl-3 collection z-depth-1">
             {% if class_id in merged_list %}
@@ -91,10 +89,9 @@
 
     <!-- PLAYLIST LINK -->
     <div class="divider"> </div>
-    <br>
-    <div class="row w-100 pr-4">
+    <div class="row w-100 no-gutters pr-4">
         <div class="col-md-3 class-title">
-            <h6 class="sub-titles">Playlist:</h6>
+            <h6 class="sub-titles mt-4">Playlist:</h6>
         </div>
         <ul class="col-md-9 p-0 collection z-depth-1">
             {% if this_class.playlist_title or this_class_playlist_link %}
@@ -248,7 +245,7 @@
                 </li>
                 {% endfor %}
                 {% else %}
-                <li class="accordion_list mx-3 z-depth-3 header-alt ">
+                <li class="accordion_list mx-3 z-depth-2 header-alt ">
                     <div class="collapsible-header">
                         <div class="list_header col">
                             <strong class="not-yet">No exercises added yet</strong>
@@ -298,7 +295,7 @@
                     {% endfor %}
                 </li>
                 {% else %}
-                <li class="accordion_list mx-3 z-depth-3 header-alt">
+                <li class="accordion_list mx-3 z-depth-2 header-alt">
                     <div class="collapsible-header">
                         <div class="list_header col">
                             <strong class="not-yet">No logs added yet</strong>
@@ -339,18 +336,16 @@
     </ul>
 </div>
 <!-- BOTTOM BUTTON  'BACK TO CLASSES' TO NAVIGATE TO THE PREVIOUS PAGE CLASSES VIEW -->
-<div class="divider mt-4 mb-4"></div>
-<div class="w-100">
-    <div class="container mt-3 bottom_actions w-100">
-        <div class="row">
-            <div class="col ml-n4 mr-0 mt-3 mb-3 d-flex no-gutters justify-content-beginning">
+<div class="divider"></div>
+<div class="container bottom_actions w-100">
+    <div class="row w-100 no-gutters mt-5 mb-5">
+        <div class="col ml-n4 d-flex justify-content-beginning">
 
-                <a href="{{ url_for('classes', username=username) }}"
-                    class="btn-small waves-effect waves-light black z-depth-5 tooltipped go_back" data-position="top"
-                    data-delay="50" data-tooltip="Go back">
-                    <i class="material-icons left">chevron_left</i>Back to Classes</a>
+            <a href="{{ url_for('classes', username=username) }}"
+                class="btn-small waves-effect waves-light black z-depth-5 tooltipped go_back" data-position="top"
+                data-delay="50" data-tooltip="Go back">
+                <i class="material-icons left">chevron_left</i>Back to Classes</a>
 
-            </div>
         </div>
     </div>
 </div>
