@@ -55,6 +55,10 @@ main {
     min-height: 375px;
 }
 
+.log-title {
+    color: rgb(4, 89, 113);
+}
+
 .login-card {
     position: absolute;
     z-index: 800;
