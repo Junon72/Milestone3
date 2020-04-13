@@ -55,10 +55,6 @@ main {
     min-height: 375px;
 }
 
-.log-title {
-    color: rgb(4, 89, 113);
-}
-
 .login-card {
     position: absolute;
     z-index: 800;
@@ -110,7 +106,7 @@ main {
         min-height: calc(100vh - 106px);
     }
 
-    .log-title>h4 {
+    .log-title>h3 {
         padding-left: 20vw;
         padding-top: 2rem;
     }
@@ -128,7 +124,7 @@ main {
 }
 
 @media screen and (max-width: 992px) and (min-width: 631px) {
-    .log-title>h4 {
+    .log-title>h3 {
         padding-left: 8rem;
     }
 
@@ -231,6 +227,10 @@ footer {
 }
 
 /* TITLES */
+
+.log-title >h3 {
+    color: rgb(4, 89, 113);
+}
 
 .sub-title {
     font-size: 1.2rem;
