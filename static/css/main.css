@@ -229,7 +229,7 @@ footer {
 /* TITLES */
 
 .log-title >h3 {
-    color: rgb(4, 89, 113);
+    font-weight: 600;
 }
 
 .sub-title {
