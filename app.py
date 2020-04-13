@@ -749,18 +749,6 @@ def delete_series(series_doc, series_id):
 	return redirect(url_for('series', series_id = series_id))
 
 
-@app.errorhandler(404)
-def not_found(error):
-    print('error' + error)
-	return render_template("404.html", error=error)
-
-
-@app.errorhandler(500)
-def internal_error(error):
-    print('error' + error)
-	return render_template("500.html", error=error)
-
-
 if __name__ == '__main__':
 
 	app.run(host = os.environ.get('IP'),
