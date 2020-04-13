@@ -127,9 +127,9 @@ I considered following features essential for application to fulfill its purpose
 
 ## Planning
 
-For planning see ['Working Plan']()
+For planning see ['Working Plan'](static/docs/working-plan.pdf)
 
-For wireframes see ['Wireframes']()
+For wireframes see ['Wireframes'](static/docs/wireframes.pdf)
 
 ## Database Schema
 
@@ -152,6 +152,8 @@ The embedded structure is justified by the cardinality of the relationships. The
 The series is really used only as a filter for document reading and to create perhaps temporary association. They also represent a clear many-to-many relationships regarding the classes. According to MongoDB documentation, data denormalization would not be required in this case. It also makes accessing the data and managing the documents less complex in practice.
 
 [MongoDB Data Modeling Introduction](https://docs.mongodb.com/manual/core/data-modeling-introduction/)
+
+A visualization of the Classapp Data Model can be found ['here'](static/img/data-model.png)
 
 ['Back to top'](#Table-of-content)
 
