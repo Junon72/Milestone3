@@ -1144,8 +1144,8 @@ JavaScrip code syntax validation was performed online with ['JShint'](https://js
 
 The images used for the application are all open source and free for non commercial use.
 Favicon silhoutte from ['pngmart'](http://www.pngmart.com/image/96122)
-Register image from ['uihere'](https://www.uihere.com/free-cliparts/street-dance-dance-studio-music-art-hip-hop-style-dance-2381739)
-Login image from ['pixapay'](https://pixabay.com/photos/friendship-fun-backlighting-funny-2366955/)
+Register image from ['UI Here'](https://www.uihere.com/free-cliparts/street-dance-dance-studio-music-art-hip-hop-style-dance-2381739)
+Login image from ['UI Here'](https://www.uihere.com/free-cliparts/breakdancing-hip-hop-dance-street-dance-ballet-6279915)
 The logo is created with Google Drawings.
 
 ['Back to top'](#Table-of-content)
