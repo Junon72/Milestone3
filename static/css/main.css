@@ -46,14 +46,14 @@ main {
 
 
 
-/* LOGIN / REGISTER */
+/* LOGIN / REGISTER 
 .index-content {
     background: url(/static/img/login.jpg);
     background-size: cover;
     background-position: center;
     z-index: 1;
     min-height: 375px;
-}
+}*/
 
 .login-card {
     position: absolute;
@@ -64,6 +64,14 @@ main {
 .required-notice {
     color: rgb(3, 109, 138);
     font-size: .8rem;
+}
+
+#login{
+    position: absolute;
+    height: 50vh;
+    margin-top: 10vh;
+    margin-left: 50vw;
+    min-height: 364px;
 }
 
 #register{
