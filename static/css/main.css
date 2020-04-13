@@ -66,7 +66,7 @@ main {
     font-size: .8rem;
 }
 
-#login{
+#login {
     position: absolute;
     height: 50vh;
     margin-top: 10vh;
@@ -74,7 +74,7 @@ main {
     min-height: 364px;
 }
 
-#register{
+#register {
     position: absolute;
     height: 50vh;
     margin-top: 20vh;
@@ -85,14 +85,15 @@ main {
 /* MEDIA QUERIES */
 
 @media screen and (min-width: 993px)  {
-    .index-content {
+    /*.index-content {
         margin-top: -9px;
         padding-top: 9px;
         height: calc(100vh - 98px);
         margin-left: -10vw;
         margin-right: -10vw;
-    }
-    .register-content {
+    }*/
+    .register-content,
+    .index-content {
         height: calc(100vh - 106px);
         min-height: 650px;
         margin-left: -10vw;
@@ -136,6 +137,11 @@ main {
         padding-left: 8rem;
     }
 
+    /*
+            margin-left: -10vw;
+        margin-right: -10vw;
+        */
+        
     .index-content {
         height: calc(100vh - 106px);
         margin-left: -10vw;
@@ -177,6 +183,10 @@ main {
 
     #register { 
         display: none; 
+    }
+
+    #login {
+        display: none;
     }
 
     .index-content { 
