@@ -94,6 +94,8 @@ def register():
 
 	Each validation can either pass to redirect the user to the classes page or return a warning message 
 	and return the registration form.
+
+	The code is modified from https://github.com/MiroslavSvec/DCD_lead/blob/master/app.py user authentication example.
 	'''
 	# Check if user is not logged in already
 	if 'user' in session:
@@ -193,8 +195,8 @@ def logout():
 @app.route('/classes/<username>')
 def classes(username):
 	''' Function checks first if the user is added to the session. 
-	If not the user is directed to the login page. If user is addes to the session, 
-	the function finds the user from the claases collection and renders the classes user
+	If not the user is directed to the login page. If user is added to the session, 
+	the function finds the user from the classes collection and renders the classes user
 	has created on to the classes page to be viewed, edited, deleted or duplicated.
 	'''
 	# Check if user is logged in
@@ -292,7 +294,7 @@ def insert_class(series_doc, username):
 @app.route('/edit_class/<class_id>')
 def edit_class(class_id):
 	''' Function renders an edit class view with an edit form.
-	Function finds the user's sereis document for the select series 
+	Function finds the user's series document for the select series 
 	function on the edit class page.
 	'''
 	user = users_collection.find_one({'username': session['user']})
@@ -309,7 +311,7 @@ def save_class(class_id, series_doc):
 
 	The series document is also updated. First the removes the class id reference 
 	from all series objects class_series Arrays. Then the class id reference is 
-	added to the selected series class_sereis Arrays and finally the sereis update 
+	added to the selected series class_series Arrays and finally the series update 
 	operation is checked and printed to the terminal after each iteration.
 
 	The user is directed to the view class page.
@@ -505,7 +507,7 @@ def edit_exercise(class_id, exercise_id):
 
 @app.route('/update_exercise/<class_id>/<exercise_id>', methods=['POST'])
 def update_exercise(class_id, exercise_id):
-	''' Function finds and updates the edited exercse entry in class document 
+	''' Function finds and updates the edited exercise entry in class document 
 	in db classes collection.
 
 	User is directed back to the class view.
@@ -630,7 +632,7 @@ def delete_link(class_id, exercise_id, link_id):
 @app.route('/series')
 def series():
 	''' Function checks first if the user is added to the session. 
-	If not the user is directed to the login page. If user is addes to the session, 
+	If not the user is directed to the login page. If user is added to the session, 
 	the function finds the user from the db series collection and renders the series user
 	has created on to the series page to be viewed, edited or deleted.
 	'''
@@ -673,7 +675,7 @@ def view_classes_in_series(username, series_id, series_doc):
 def add_series():
 	''' Function renders an add series view. 
 	
-	Also, in case the user has no series document yet created into the db sereis collection,
+	Also, in case the user has no series document yet created into the db series collection,
 	it is added
 	'''
 	username = session['user']
@@ -714,7 +716,7 @@ def insert_series(username):
 
 @app.route('/edit_series/<series_doc>/<series_id>', methods=['GET', 'POST'])
 def edit_series(series_doc, series_id):
-	''' Function finds the selected sereis object from the series document series Array and 
+	''' Function finds the selected series object from the series document series Array and 
 	renders an edit series view. 
 	'''
 	this_series = series_collection.find_one(
@@ -727,7 +729,7 @@ def edit_series(series_doc, series_id):
 
 @app.route('/update_series/<series_doc>/<series_id>', methods=['GET', 'POST'])
 def update_series(series_doc, series_id):
-	''' Function finds and updates the series object in series docuement series Array.'''
+	''' Function finds and updates the series object in the series document series Array.'''
 	updated_series = series_collection.update_one(
 		{'_id': ObjectId(series_doc), 'class_series._id': ObjectId(series_id)}, 
 		{'$set' : {'class_series.$.series_name' : request.form.get('series_name'),
@@ -745,6 +747,16 @@ def delete_series(series_doc, series_id):
 		)
 	flash("Series was removed!", "danger")
 	return redirect(url_for('series', series_id = series_id))
+
+
+@app.errorhandler(404)
+def not_found(error):
+	return render_template("404.html", error=error)
+
+
+@app.errorhandler(500)
+def internal_error(error):
+	return render_template("500.html", error=error)
 
 
 if __name__ == '__main__':

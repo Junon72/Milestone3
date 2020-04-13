@@ -13,6 +13,18 @@ The project was created as Milestone project for the Data Centric Development mo
 
 ---
 
+## Table of Content
+
+- ['Project brief'](#Project-brief)
+- ['UX](#UX)
+- ['Functional flow and Features'](#Functional-Flow-And-Features)
+- ['Technologies Used'](#Technologies-Used)
+- ['Project Setup'](#Project-Setup)
+- ['Testing](#Testing)
+- ['Media and Content Origin](#Media-and-Content-Origin)
+- ['References'](#References)
+- ['Special Thanks'](#Special-Thanks)
+
 # Project brief
 
 The project is following my own desire to bring about a digital tool for the community I myself belong to, the dance teachers. The project is built using data-driven application technologies I have learned on the course module. Classapp intends to provide a mobile and easy tool to plan, store and manage dance classes, in a digital form which is accessible wherever they might be teaching.
@@ -77,6 +89,8 @@ I considered following features essential for application to fulfill its purpose
         c. edit series
         d. delete series
 
+['Back to top'](#Table-of-content)
+
 # UX
 
 ## Who is this application for ?
@@ -113,9 +127,9 @@ I considered following features essential for application to fulfill its purpose
 
 ## Planning
 
-For planning see Planning And Testing Documentation
+For planning see ['Working Plan']()
 
-For wireframes see Wireframe documentation
+For wireframes see ['Wireframes']()
 
 ## Database Schema
 
@@ -139,44 +153,148 @@ The series is really used only as a filter for document reading and to create pe
 
 [MongoDB Data Modeling Introduction](https://docs.mongodb.com/manual/core/data-modeling-introduction/)
 
+['Back to top'](#Table-of-content)
+
 # Functional Flow And Features
 
-For Function flow see Function Flow Chart
-For more detailed description of the features see Working Plan And Testing
+For Function flow see ['Function Flow Chart'](static/img/functional-flowchart.png).
+For a detailed description of the features, realized and planned, see ['Working Plan'](static/docs/working-plan.pdf) Features section. Below is a general description of the features and available functions for the user.
 
 ## Accessing the app
 
 User will access the application via the index page. At Index user can either Login or via the navigation bar link access Register page for registration.
 
-### Features
+After either Login in or Registering, user is directed to the Home page. In navigation bar user has access to two different routes to manage his/her class archives, and to create classes and class series. Route one is the path from the Home page, and the route two is the path through Series. Also Login out is available after Login/ Register at all times. The Classapp log navigates the user back to the Home page.
 
-- Responsive navigation bar, with navigation links to Register and Login
-- Login form with input fields for username and password, and a submission button
-- Registration form with input fields for username, email, password and confirmation password and a registration submission button.
-- Flash message to give user feed back and instruction about login status and how to create username and password
-- Addition instruction feature for the password via information button embedded into the registration form
-- Information card which can be opened with the information button and closed with a close button in the information card
-- User authentication and user input validation for the username, email and password
+## Home
 
-After either Login in or Registering, user is directed to the Home page. In navigation bar user has access to two separate routes to manage his/her class archives, and to create classes and class series. Route one is the path from the Home page, and the route two is the path through Series. Also Login out is available after Login/ Register at all times. The Classapp log navigates the user back to the Home page.
+After login in User have two hubs available through the navigation. Home (Classes) route is used for managing Classes.
 
-## Route 1/ Home page
+### Classes view and adding classes
 
-Route one starts from the classes Home page, which is an access hub for the individual classes in classes collection and allows user to add new classes using an add button. Clicking the add button opens an Add class form.
+Route one starts from the classes Home page, which is an access hub for the individual classes in classes collection and allows a user to add new classes using an add button. Clicking the add button opens an Add class form with empty fields. Users can fill in a form and save the content or cancel and go back. Submitting a new class with the Save button will create a new class document in the classes collection and takes the user to the class view page. Cancel button takes user back to the Home page
 
-### Features
+### Other options in classes
 
+Hovering over the accordion highlights the classes. Users can view a class in accordion list by clicking the accordion header. This reveals the class description and a master tool button at the right down corner of the page and highlights the selected class header. Users may click the description field to view a class. Alternatively, hovering over the tool button, reveals a set of options to choose from: View class, Edit class, Delete class and Duplicate class.
 
+1. View class directs the user to the class view page.
+2. Edit button directs the user to the edit class page.
+3. Delete button deletes the class and returns to the classes page.
+4. Duplicate class creates a duplicate of the class content and opens the class in edit class view.
 
-The class form has the following fields: Class name, Class description, Elements, Helpers, Notes, Select class series Add A Playlist Title and Add A Playlist Link
+### Class view
 
-Submitting a new class with Save button will create a new class and takes the user to the class view page. Cancel button takes user back to the Home page.CodeMirror
+Class view displays the class content:
 
-At the Home page view, the classes user has created are presented in an accordion. Opening an accordion view shows user a description of a class and reveals a master tool button. User can open the class by clicking the class description field. Alternatively, user can access each class using tool buttons, which are revealed when hovering over the master tool button. Master tool button gives user options to 1. view, 2. edit, 3. delete or 4. duplicate a class.
+1. The page header displays the name of the class the user is viewing.
+2. A master tool button at the right hand bottom of the page with tools to add log, add exercise, edit class, delete class and duplicate class:
 
-1. View option takes the user to the View class page. On the page user can see 
+        a. Add log directs the user to the add log page
+        b. Add exercise directs user to the add exercise page
+        c. Edit class directs user to the edit class page
+        d. Delete class deletes the class and returns to the classes page
+        e. Duplicate class creates a duplicate of the class content and opens the class in edit class view.
 
-## Technologies Used
+3. A button to navigate back to the classes view at the left side bottom of the class content.
+4. Element content is created with the Summernote editor and is wrapped inside an accordion element. It can be opened or closed as it might contain a relatively large amount of information. The header highlighted when hovered over and stays highlighted when opened.
+5. The series the class is associated with are displayed in collection elements and can be clicked to go to the series view.
+6. Playlist is presented in a collection element and can be clicked to go to the playlist. Playlist opens on a blank page.
+7. Exercises are displayed in an accordion element, which can be opened and closed.
+
+        a. Clicking an exercise accordion header opens the exercise. The header highlights when hovered and stays highlighted when open.
+        b. Exercise content is displayed in the form of accordion, so that each section can be opened or closed to save space. The first element, exercise description is open when exercise is opened. The headers highlight on hover and stay highlighted when open.
+        c. Exercise description displays the content created with Summernote editor.
+        d. Music tracks are displayed in collection elements and can be clicked to follow the link. Link opens on a blank page.
+        e. Video links are displayed in collection elements and can be clicked to follow the link. Link opens on a blank page.
+        f. Users can add Music tracks by clicking the add music track button and add video links by clicking the add video link button.
+        g. Users can delete tracks and links by clicking the delete button in a collection element of each item.
+        h. Users can edit exercise by clicking the edit exercise button.
+8. Logs are presented in an accordion list. The accordion headers highlight when hovered and stay highlighted when opened. When opened logs display content created in Summernote. Users can edit logs by clicking an edit button at the left side bottom of the log content or delete the log by clicking the delete log button.
+
+### Edit class view
+
+Edit class view allows users to edit the content of prefilled input fields to make changes to a class. The Element field is again Summernote editor allowing the default editor options. Users can Save the changes to the class or click Cancel, which both direct the user back to the class view. The page header displays Edit - and the class name. Also the Exercises accordions are displayed, as well as Logs but for viewing only.
+
+### Duplicate class view
+
+Duplicate class view is using the same form as edit the class view. The only difference is that the page header displays this time Edit - the name of the class (copy). Users can Save the changes to the class or click Cancel, which both direct the user to the class view of the copied class.
+
+### Add exercise view
+
+Add exercise view allows users to create an exercise for a class. The view displays an empty form for users to fill in. Users can save the exercise by clicking Save or cancel by Clicking Cancel, which both direct the users back to the class view.
+
+### Edit exercise view
+Edit exercise view allows users to edit the content of prefilled input fields to make changes to an exercise. The Description field is again Summernote editor allowing the default editor options. Users can Save the changes to the exercise or click Cancel, which both direct the user back to the class view. The page header displays Edit - and the exercise name. Also the Music Tracks and Video Links collection elements are displayed, but the links do not work.
+
+### Add log view
+
+Add log view allows users to create a log for a class. The view displays an empty form for users to fill in. Users can select a log date from a date picker, tag the log for easier reference when later and write a log with a rich text editor. Users can save the log by clicking Save or cancel by Clicking Cancel, which both direct the users back to the class view.
+
+### Edit log view
+
+Edit log view allows users to edit the content of prefilled input fields to make changes to a log. The Log field is again Summernote editor allowing the default editor options. Users can Save the changes to the log or click Cancel, which both direct the user back to the class view. The page header displays Edit log from - and the log date. Also the Music Tracks and Video Links collection elements are displayed, but the links do not work.
+
+### Add music track view
+Add music track view allows users to add a music track link to an exercise. The view displays an empty form for users to fill in. Users can save the track link by clicking Save or cancel by Clicking Cancel, which both direct the users back to the class view.
+
+### Add video link view
+Add video link view allows users to add a video link to an exercise. The view displays an empty form for users to fill in. Users can save the exercise by clicking Save or cancel by Clicking Cancel, which both direct the users back to the class view.
+
+## Series
+
+### Series view and adding series
+
+Route two starts from the series page, which is an access hub for the class series in series collection and allows a user to add a new series using an add button. Series are displayed in accordion elements. Clicking the add button opens an Add series form with empty fields. Users can fill in a form and save the content or cancel and go back. Submitting a new series with the Save button will create a new series document in the classes collection and takes the user to the series view page. Cancel button takes users back to the series page as well.
+
+#### Other options in series
+
+Hovering over the accordion highlights the series. Users can view a series in the accordion list by clicking the accordion header. This reveals the series description and a master tool button at the right down corner of the page and highlights the selected series header. Users may click the description field to view the series. Alternatively, hovering over the tool button, reveals a set of options to choose from: View series, Edit series and Delete series.
+
+1. View class directs the user to the class view page.
+2. Edit button directs the user to the edit class page.
+3. Delete button deletes the class and returns to the classes page.
+4. Duplicate class creates a duplicate of the class content and opens the class in edit class view.
+
+### Edit series view
+
+Edit log view allows users to edit the content of prefilled input fields to make changes to a log. Users can Save the changes to the series or click Cancel, which both direct the user back to the series view. The page header displays Edit - and series name.
+
+### View classes in series view
+
+View classes in series view is an access hub for the individual classes in series, which are displayed in accordion elements.  Users can select a class from the series by clicking the accordion header, which opens the element and displays the class description. Users can navigate back to the series view by clicking the Back to series button at the bottom left of the View classes in series content.
+
+#### Other options in View Classes in Series
+
+Hovering over the accordion highlights the classes. Users can view a class in accordion list by clicking the accordion header. This reveals the class description and a master tool button at the right down corner of the page and highlights the selected class header. Users may click the description field to view a class. Alternatively, hovering over the tool button, reveals a set of options to choose from: View class, Edit class, Delete class and Duplicate class.
+
+1. View class directs the user to the class view page.
+2. Edit button directs the user to the edit class page.
+3. Delete button deletes the class and returns to the View classes in series view.
+4. Duplicate class creates a duplicate of the class content and opens the class in edit class view.
+
+## Features and functions planned but not implemented yet
+
+- Features and functions planned but not implemented yet
+- Incorporate class and exercises into the same form for creating and editing. Imply using embedded forms which technique I am not comfortable using yet. The class view would be ultimately turned to an edit form with a click of a button, which would reveal the edit buttons and turn the display fields into inputs.
+- For now only the registration form uses validation before sending the data to the server. Validate all input fields, especially for the input length. The summernote editor data is saved in html form, which makes it vulnerable for malicious intentions. The data should be checked for non html code for security and CSP compliance. Based on the conversation I observed on the Summernote Slack pages, currently there is no good ready out of box solution around which would accomplish this without interfering with the editors features.
+- Add an URL validator for the Playlist Link, Music Track links and Video Links.
+- Error catching for error 404 and 500. Error pages with navigation back.
+- Error handling for database not found.
+- Error handling for no Javascript/ jQuery available.
+- Incorporate YouTube API for playlists, music tracks and videos
+- Add a smiley API for the Summernotes editor to provide teachers more diversity when they are describing and notating their classes and exercises.
+- Make navigation button link dynamic, so that the user is directed back to the route they come from to the class view. Now the user is directed always back to classes, even when they actually arrive from the series route. This might feel a bit confusing and unpractical.
+- The application uses both Materialize and Bootstrap. This can currently potentially cause some overlapping and redundancy, which might slow down the performance. Bootstrap has a No conflict feature to remedy namespace collisions, which should be implemented where needed.
+- Summernotes editor now relies on Summernote with Bootstrap library. I discovered a conflict with the editor view using Materialize and Bootstrap together when building and testing the forms. Current setup was the best fit and works. However, the buttons are missing the tooltips. I had to turn them off, as they did not work properly. This should be solved somehow, if the culprit for the problem can be found and remedied with css or js. Otherwise one of the libraries should be dropped or the editor changed.
+- There should be two sets of flash messages, some which have to be closed manually (as is the case with flash messages at the moment) and others which fade out automatically.
+- Add search and organize features for the Classes and Series, so that the users can search for classes by name or arrange the list alphabetically or by date created. Mongo DB uses ObjectId which can be used as a timestamp.
+- Add a landing page with call to action content for a commercial version.
+- Add About page with a visualized user manual.
+
+['Back to top'](#Table-of-content)
+
+# Technologies Used
 
 Technologies used building this project include,
 
@@ -203,6 +321,8 @@ Technologies used building this project include,
 - [PyMongo](https://api.mongodb.com/python/current/ "PyMongo") is a distribution tool for interacting with MongoDB database from Python.
 - [Slack](https://slack.com/intl/en-nl/lp/three?utm_medium=ppc&utm_source=google&utm_campaign=d_ppc_google_western-europe_en_brand-hv&utm_term=slack&ds_rl=1249094&gclid=Cj0KCQiAs67yBRC7ARIsAF49CdWe8odCtapVb73H6AUvEA8OADzSxxCqgfdc43zlDNxxb3EX22dAhHgaAredEALw_wcB&gclsrc=aw.ds) is a cloud-based proprietary instant messaging platform.
 - [Werkzeug](https://palletsprojects.com/p/werkzeug/ "Werkzeug") is a comprehensive WSGI web application library, used to build all sorts of end user applications such as blogs, wikis, or bulletin boards, not to mention user login and registration handling.
+
+# Project Setup
 
 ## Setting up IDE
 
@@ -231,10 +351,10 @@ Application uses Python libraries and package modules to accomplish the needed f
 
 To create a virtual environment in VSCode on Mac, in VSCode Terminal type:
 
-`$ python3 -m .venv <file_name>`
+`$ python3 -m <file_name>`
 
 This will create a virtual environment folder to the root directory of your project.
-Often the files are named either env, venv or .venv.
+Often the files are named either env, venv or .venv. I used .venv.
 
 The folder contains the following sub-folders:
 
@@ -259,7 +379,7 @@ To test the Python installation and the environment path:
 1. Create a test.py file in root directory
 2. In test.py file write:
 
-```python
+    ```python
 import sys
     # this line prints if python is installed correctly
     def greet(greetings_to):
@@ -269,7 +389,7 @@ import sys
     # this line will print out the current python path 
     # and the version of the python print(sys.executable)
     print(greet('World!'))
-```
+    ```
 
 To run the file, type:
 
@@ -277,9 +397,9 @@ To run the file, type:
 
 You should see the following output in your terminal:
 
-```bash
-Hello, World!
-```
+    ```bash
+    Hello, World!
+    ```
 
 *Test result: Passed**
 
@@ -341,10 +461,10 @@ To install Flask to your work environment, in Terminal type:
 
 *The system reports I am using older version of pip.*
 
-```bash
-WARNING: You are using pip version 19.2.3, however version 20.0.2 is available.
-You should consider upgrading via the 'pip install --upgrade pip' command.
-```
+    ```bash
+    WARNING: You are using pip version 19.2.3, however version 20.0.2 is available.
+    You should consider upgrading via the 'pip install --upgrade pip' command.
+    ```
 
 *After upgrade I run the code again.*
 
@@ -373,14 +493,14 @@ Werkzeug==1.0.0
 
 In test.py I created a script to test the working of Flask in VSCode IDE.
 
-```python
-# Functionalities to import from modules
+    ```python
+    # Functionalities to import from modules
 import os                   # Imports operating system dependent functionality.
 from flask import Flask     # Imports Flask class from flask module.
 
 app = Flask(__name__)       # An instance of Flask class construction.
 
-# Route Decorator
+    # Route Decorator
 @app.route('/')             # URL handled by main() route handler.
     def welcome():          # Defines a function that returns "Hello World".
 
@@ -397,7 +517,7 @@ if __name__ == '__main__':  # tells the global namespace __name__ is set to equa
         # Gets PORT we want to open, which in this case is set to 5000.
         # Enable reloader and debugger by setting it to True, 
         # which is the recommended value for the development phase
-```
+    ```
 
 Run the script:
 
@@ -405,17 +525,17 @@ Run the script:
 
 Terminal output:
 
-```bash
-* Serving Flask app "test" (lazy loading)
-* Environment: production
-    WARNING: This is a development server. Do not use it in a production deployment.
-    Use a production WSGI server instead.
-* Debug mode: on
-* Running on http://#.0.0.#:5000/ (Press CTRL+C to quit) - I have hide the actual IP address with #!!
-* Restarting with stat
-* Debugger is active!
-* Debugger PIN: 263-007-180
-```
+    ```bash
+    * Serving Flask app "test" (lazy loading)
+    * Environment: production
+        WARNING: This is a development server. Do not use it in a production deployment.
+        Use a production WSGI server instead.
+    * Debug mode: on
+    * Running on http://#.0.0.#:5000/ (Press CTRL+C to quit) - I have hide the actual IP address with #!!
+    * Restarting with stat
+    * Debugger is active!
+    * Debugger PIN: 263-007-180
+    ```
 
 Following the link (option + click) opens the browser and 'Welcome Flask" is rendered on the screen.
 
@@ -495,9 +615,9 @@ Testing the navigation and the data rendering, I followed the navigation link to
 
 - Terminal output states.
 
-```bash
-jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endfor'. Jinja was looking for the following tags:  'endblock'.
-```
+    ```bash
+    jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endfor'. Jinja was looking for the following tags:  'endblock'.
+    ```
 
 I created a dummy data for series and run the test again.
 
@@ -565,7 +685,7 @@ MongoDB has a practical dashboard utility where the user can create databases, a
 In MongoDB dashboard I created a new cluster and a project context for Classapp and added a new database.
 In the database I then created a new collection 'clasess' and in the classes collection a new 'class' document.
 
-```python
+    ``python
     _id:ObjectId("5e519eb9ba2dfb000006dfe1")
     class_name:"Monday Groove"
     class_description:"Let it loose and sweat it out!"
@@ -601,8 +721,7 @@ In the database I then created a new collection 'clasess' and in the classes col
             log_tag:"1st class for DanceFloor"
             user_id:"5e568ade0938db6d0519c69f
             username:"userOne"
-
-```
+    ```
 
 To connect to the database, in MongoDB in the application CONTEXT Classapp and in the Clusters view, select CONNECT.
 This will pop up a dialogue. To test the connection choose the Connect With Mongo Shell option.
@@ -612,11 +731,11 @@ You will be asked to enter the password.
 
 If the connection is successful, the terminal output should be something along the line:
 
-```bash
-Implicit session: session { "id" : UUID("dfie1392-7138-4662-9cf4-a271hf31f47f") }
-MongoDB server version: 4.2.3
-MongoDB Enterprise Cluster2-shard-0:PRIMARY>
-```
+    ```bash
+    Implicit session: session { "id" : UUID("dfie1392-7138-4662-9cf4-a271hf31f47f") }
+    MongoDB server version: 4.2.3
+    MongoDB Enterprise Cluster2-shard-0:PRIMARY>
+    ```
 
 ### Preparing VSCode for MongoDB
 
@@ -641,22 +760,22 @@ To start teh service type.
 
 In terminal we can now connect to to MongoDB by typing.
 
-```bash
-$ mongo  'mongodb+srv://<db_user>:<db_password>@cluster2-8wde6.mongodb.net/<your_database>?retryWrites=true&w=majority'
-```
+    ```bash
+    $ mongo  'mongodb+srv://<db_user>:<db_password>@cluster2-8wde6.mongodb.net/<your_database>?retryWrites=true&w=majority'
+    ```
 
 (In place of db_user, use your own MongoDB username, in place of db_password, use your password and in place of
 your_database, use the name of your database)
 
 This should give a following terminal output:
 
-```bash
-MongoDB shell version v4.2.2
-connecting to: mongodb://cluster2-shard-00-02-8wde6.mongodb.net:27017
-Implicit session: session { "id" : UUID("421af287-fa81-4bcf-a827-4f2a91525585") }
-MongoDB server version: 4.2.5
-MongoDB Enterprise Cluster2-shard-0:PRIMARY> 
-```
+    ```bash
+    MongoDB shell version v4.2.2
+    connecting to: mongodb://cluster2-shard-00-02-8wde6.mongodb.net:27017
+    Implicit session: session { "id" : UUID("421af287-fa81-4bcf-a827-4f2a91525585") }
+    MongoDB server version: 4.2.5
+    MongoDB Enterprise Cluster2-shard-0:PRIMARY> 
+    ```
 
 To test the connection to the cluster type:
 
@@ -705,24 +824,24 @@ To install Config, in Terminal type:
 
 Create config.py file and add the configuration vars into the file:
 
-```python
-# os is used to to link the config.py and app.py
+    ```python
+    # os is used to to link the config.py and app.py
 import os
-# the vars are stored into a class object
+    # the vars are stored into a class object
 class Config(object):
 
-# General config
+    # General config
 SECRET_KEY = os.environ.get('SECRET_KEY', 'secret_key')
 FLASK_APP = os.environ.get('FLASK_APP')
 
-# Database config
+    # Database config
 MONGO_URI = os.environ.get('MONGO_URI', 'mongodb+srv://<db_user>:<db_password>@cluster2-8wde6.mongodb.net/<database_name>?retryWrites=true&w=majority')
 MONGO_DBNAME = os.environ.get('<database_name>')
-```
+    ```
 
 To test Flask connection to the MongoDB I used following test in test.py environment:
 
-```python
+    ```python
 import os
 import pymongo
 from pymongo import MongoClient
@@ -733,16 +852,15 @@ from flask_pymongo import PyMongo
 app = Flask(__name__)
 app.config.from_object(Config)
 
-# MongoDB name
+    # MongoDB name
 app.config['MONGO_DBNAME'] = 'classapp'
 MongoDB URI / Assign db
 client = MongoClient(Config.MONGO_URI)
 db = client.classapp
 
-
 mongo = PyMongo(app)
 
-# MONGO CONNECTION TEST
+    # MONGO CONNECTION TEST
 def mongo_connect(url):
     try:
         conn = pymongo.MongoClient(url)
@@ -752,7 +870,7 @@ def mongo_connect(url):
         print('Could not connect to MongoDB: %s') % e
 
 conn = mongo_connect(MONGO_URI)
-```
+    ```
 
 *Test result: Passed**
 
@@ -762,13 +880,13 @@ conn = mongo_connect(MONGO_URI)
 
 By now the following libraries should be added to the app.py file:
 
-```python
+    ```python
 import os
 import pymongo
 from pymongo import MongoClient
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
-```
+    ```
 
 ### Adding to the collections
 
@@ -816,10 +934,10 @@ Next, create the app in Heroku by typing.
 
 *Test result: passed**
 
-```bash
-Creating ⬢ flask-classapp... done
-     https://flask-classapp.herokuapp.com/ | https://git.heroku.com/flask-classapp.git
-```
+    ```bash
+    Creating ⬢ flask-classapp... done
+    https://flask-classapp.herokuapp.com/ | https://git.heroku.com/flask-classapp.git
+    ```
 
 - Application was created in Heroku
 
@@ -831,12 +949,12 @@ This will add a new remote.
 
 *Test result: passed**
 
-```bash
-heroku  https://git.heroku.com/flask-classapp.git (fetch)
-heroku  https://git.heroku.com/flask-classapp.git (push)
-origin  https://github.com/Junon72/Milestone3.git (fetch)
-origin  https://github.com/Junon72/Milestone3.git (push)
-```
+    ```bash
+    heroku  https://git.heroku.com/flask-classapp.git (fetch)
+    heroku  https://git.heroku.com/flask-classapp.git (push)
+    origin  https://github.com/Junon72/Milestone3.git (fetch)
+    origin  https://github.com/Junon72/Milestone3.git (push)
+    ```
 
 - The application is connected to two remotes now.
 
@@ -862,7 +980,31 @@ After creating Procfile, create the requirements.txt file to your .venv base dir
 
 `$ pip3 freeze --local > requirements.txt`
 
-### Commit and open the application
+### Prepare your application
+
+In app.py file change the debug mode to True and remove the IP and PORT values.
+
+    ```python
+if __name__ == '__main__':
+
+    app.run(host = os.environ.get('IP'),
+        port = int(os.environ.get('PORT')),
+        debug = True)
+    ```
+
+### Finish the application configuration in Heroku
+
+To finish with Heroku configuration, in Heroku dashboard go to **Settings**. 
+
+In settings you find a button **Reveal Config Vars**. Click the button.
+
+On the **Config Vars** field **KEY** add IP and set the **VALUE** to 0.0.0.0.
+
+Add another key value pair and set the key as PORT and value as 5000.
+
+Add SECRET key with the value of the SECRET_KEY you have created for the application in your configurations file.
+
+### Commit your application to Heroku and open the application
 
 At this point commit and push the application to Heroku.
 
@@ -876,17 +1018,15 @@ You should see now Heroku deploying the app and verifying it.
 
 *Test result: passed**
 
-```
-remote: Verifying deploy...
-(... a long list of lines explaining the stages in Heroku deployment process ...)
-...done.
-address_to_heroku_application_git
-* [new branch]      master -> master
-```
+    ```bash
+    remote: Verifying deploy...
+    (... a long list of lines explaining the stages in Heroku deployment process ...)
+    ...done.
+    address_to_heroku_application_git
+    * [new branch]      master -> master
+    ```
 
 - Deployment is verified
-
-### Open the application and finish the configuration in Heroku
 
 After this you can go to your Heroku account and open your application. On right upper corner you find a button **Open app**. Click the button.
 
@@ -895,30 +1035,135 @@ After this you can go to your Heroku account and open your application. On right
 - The application opens in a browser window.
 - In **Overview** I have a message Build Succeeded and confirmation that the application is deployed and running.
 
-To finish with Heroku configuration, in Heroku dashboard go to **Settings**. 
-
-In settings you find a button **Reveal Config Vars**. Click the button.
-
-On the **Config Vars** field **KEY** add IP and set the **VALUE** to 0.0.0.0.
-
-Add another key value pair and set the key as PORT and value as 5000.
-
 ### Connecting Heroku and GitHub after deployment
 
 You can do this from your Heroku application dashboard **Deploy**. There you find **Deployment method** section and an option **Connect to GitHub**. When selected, Heroku asks you to **Search** and define the path to your GitHub repository. **Connect** and your GitHub and Heroku version controls are now linked.
 
-## Testing
+## You can for the project from GitHub to run the application locally
+
+To run this project on your own IDE follow the instructions below:
+
+Ensure you have the following tools:
+
+- An IDE, such as ['VSCode'](https://code.visualstudio.com/)
+
+The following must be installed on your machine:
+
+- ['PIP'](https://pip.pypa.io/en/stable/installing/)
+- ['Python 3'](https://www.python.org/downloads/)
+- ['Git'](https://git-scm.com/)
+- An account at ['MongoDB Atlas'](https://www.mongodb.com/cloud/atlas) or MongoDB running locally on your machine.
+How to set up your Mongo Atlas account ['here'](https://docs.atlas.mongodb.com/), or follow the instructions from ['earlier'](##MongoDB-Atlas) on this README.
+
+Your database should be called classapp, and it should have three collections: users, series and classes
+
+### Clone the project to your IDE
+
+First create a project directory and open it in IDE or create on in in the terminal. In terminal type:
+
+`$ mkdir <your_project_name>`
+
+Then move to the directory:
+
+`$ cd <your_project_name>`
+
+Initialize a Git repository:
+
+`$ git init`
+
+This will create a local repository with a minimal set up.
+Clone the repository from GitHb to your local directory.
+
+`$git clone https://github.com/Junon72/Milestone3.git`
+
+You cn also clone or download the repo from ['GitHub repository'](https://github.com/Junon72/Milestone3), by clicking the green Clone or Download button placed to the upper right corner of the repository.
+
+### Install the required modules
+
+Create virtual environment. In terminal type:
+
+`$ python3 -m .venv`
+
+Activate the virtual environment:
+
+'$ source .venv/bin/activate
+
+Install the required modules:
+
+`$ pip3 freeze -r requirements.txt`
+
+Create a config.py file in your root directory with following content:
+
+    ```python
+import os
+class Config(object):
+
+    # General config
+    SECRET_KEY = os.environ.get('SECRET_KEY', '<your_secret_key')
+    FLASK_APP = os.environ.get('FLASK_APP')
+    FLASK_ENV = os.environ.get('FLASK_ENV')
+    FLASK_DEBUG = os.environ.get('FLASK_DEBUG')
+    # Database config
+    MONGO_URI = os.environ.get('MONGO_URI', 'mongodb+srv://<db_username>:<db_password>@cluster2-8wde6.mongodb.net/classapp?retryWrites=true&w=majority')
+    MONGO_DBNAME = os.environ.get('classapp')
+    ```
+Add config.py file and .venv file to the .gitignore, so they don't get pushed to the git repository and will stay hidden, as they contain sensitive information, such as your db username and password.
+
+You can now run the application locally, by typing:
+
+`$ python3 app.py`
+
+['Back to top'](#Table-of-content)
+
+# Testing
 
 Much of the testing was done manually together with the coding, using print() method and with help of Jinja2. I tested the routes and functions usually directly after creating them. Especially at the beginning of the process, I used a test.py file I had created for testing the setup, the virtual environment and communication between browser and files in the directory. Later I created python code snippets to test for example validation functions and working of flash. When appropriate, I used Mongo Shell to test code targeting specific fields in the database. I used VSCode to write the application with a vide set of language extensions, which gave useful feed back about the quality of the code along the process.
 
-Hereunder is a list of testing platforms used for testing and a synthesis of testing outcomes. For more detailed testing plan, procedure and outcomes see [Testing](#)
+Hereunder is a list of testing platforms used for testing. For a complete and detailed testing plan, procedure and outcomes see [Testing](static/docs/testing.pdf).
 
-### Python code
+## Python code
 
-Python code syntax was tested online at [Python Syntax Checker](https://extendsclass.com/python-tester.html).
+Python code syntax was tested online at [Python Syntax Checker](https://extendsclass.com/python-tester.html)
 
-### HTML
+## HTML
 
-### CSS
+HTML validation was performed online with ['W3 HTML validator'](https://validator.w3.org/), by copying the code of each page in the browser developer tool and pasting them directly to the validator.
+Summernote editor gives a lot of errors, but which point to the editor internal code. Also Materialize uses attributes and values the validator does not accept. I tried to isolate the errors which I can correct to my best ability. When I saw no errors outside the Summernote or Materialize fields I regarded the test passed.
 
+## CSS
 
+Css validation was performed online with ['Jigsaw W3 CSS validator'](https://jigsaw.w3.org/css-validator).
+
+## JavaScript
+
+JavaScrip code syntax validation was performed online with ['JShint'](https://jshint.com/).
+
+['Back to top'](#Table-of-content)
+
+# Media and Content Origin
+
+The images used for the application are all open source and free for non commercial use.
+Favicon silhoutte from ['pngmart'](http://www.pngmart.com/image/96122)
+Register image from ['uihere'](https://www.uihere.com/free-cliparts/street-dance-dance-studio-music-art-hip-hop-style-dance-2381739)
+Login image from ['pixapay'](https://pixabay.com/photos/friendship-fun-backlighting-funny-2366955/)
+The logo is created with Google Drawings.
+
+['Back to top'](#Table-of-content)
+
+# References
+
+Error catching with Python Redirect module was built with help of ['GeeksforGeeks'](https://www.geeksforgeeks.org/python-404-error-handling-in-flask/) and ['Learning Flask Ep.17](https://pythonise.com/series/learning-flask/flask-message-flashing)
+
+Login, register and user authentication were build using the example from ['Miroslav Svec at'](https://github.com/MiroslavSvec/DCD_lead/blob/master/app.py)
+
+# Special thanks
+
+Thank you for Code institute for being flexible, persistent and helpful on this journey.
+
+Thank you for COde Institute mentor for being available and helping always to right direction, and most of all, for being always encouraging and positive in their response.
+
+Thank you for my mentor for helping with help for solving, at times insurmountable looking obstacles encountered on the path.
+
+And last, but definitely not least, thank you for my family for putting up with and giving their full support to continue going, and make sure I take breaks when I needed them.
+
+['Back to top'](#Table-of-content)
