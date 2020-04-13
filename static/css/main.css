@@ -44,17 +44,6 @@ main {
     z-index: 10;
 }
 
-
-
-/* LOGIN / REGISTER 
-.index-content {
-    background: url(/static/img/login.jpg);
-    background-size: cover;
-    background-position: center;
-    z-index: 1;
-    min-height: 375px;
-}*/
-
 .login-card {
     position: absolute;
     z-index: 800;
@@ -148,7 +137,6 @@ main {
 
     #messages {
         width: 100vw;
-      /* background-color: rgba(253, 6, 112, 0.6);*/ 
     }
 
     .footer-content {
