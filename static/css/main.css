@@ -11,7 +11,7 @@ body {
     width: auto;
     margin: 0;
     padding: 0;
-    overflow-x: hidden!important;
+    overflow-x: hidden !important;
 
 }
 
@@ -34,7 +34,7 @@ main {
     width: 100vw;
 }
 
-.main-container{
+.main-container {
     position: relative;
     width: 100vw;
 }
@@ -76,15 +76,17 @@ main {
 
 /* MEDIA QUERIES */
 
-@media screen and (min-width: 993px)  {
+@media screen and (min-width: 993px) {
     .index-content {
         height: calc(100vh - 106px);
         min-height: 498px;
     }
+
     .register-content {
         height: calc(100vh - 106px);
         min-height: 650px;
     }
+
     .brand-logo {
         margin-left: 3rem;
     }
@@ -94,7 +96,7 @@ main {
     }
 
     .footer-content {
-        height:  42px;
+        height: 42px;
     }
 
     .main-content {
@@ -105,6 +107,7 @@ main {
         padding-left: 20vw;
         padding-top: 2rem;
     }
+
     .alert {
         margin: auto;
     }
@@ -132,13 +135,21 @@ main {
         height: 64px;
     }
 
+    #login {
+        display: absolute;
+        height: 50vh;
+        margin-top: 4vh;
+        margin-left: 60vw;
+        min-height: 365px;
+    }
+
     .login-card {
-    position: fixed;
-    z-index: 800;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
+        position: fixed;
+        z-index: 800;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
     }
 
     .register-content {
@@ -151,7 +162,7 @@ main {
     }
 
     .footer-content {
-        height:  42px;
+        height: 42px;
     }
 
     .main-content {
@@ -163,30 +174,27 @@ main {
     }
 }
 
-@media screen and (max-width: 630px) and (min-width: 415px) {
+@media screen and (max-width: 630px) and (min-width: 425px) {
     .sidenav {
         max-width: 66vw;
     }
 
-    #register { 
-        display: none; 
+    #register {
+        display: none;
     }
 
     #login {
         display: none;
     }
 
-    .index-content { 
+    .index-content {
         background: none;
         height: calc(100vh - 90px);
         min-height: 420px;
     }
 
-    .card {
-
-    }
     .login-row {
-        width: 
+        width:
     }
 
     .register-content {
@@ -195,7 +203,7 @@ main {
     }
 
     .footer-content {
-        height:  34px;
+        height: 34px;
     }
 
     .copyright {
@@ -223,48 +231,45 @@ main {
     }
 }
 
-@media screen and (max-width: 414px) and (min-width: 315px) {
+@media screen and (max-width: 424px) and (min-width: 315px) {
     .sidenav {
         max-width: 66vw;
     }
 
-    #register { 
-        display: none; 
+    #register {
+        display: none;
     }
 
     #login {
         display: none;
     }
 
-    .login-card {
-        position: absolute;
-    }
-
+    .login-card,
     .register-card {
-    position: relative;
-    z-index: 800;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
+        position: relative;
+        z-index: 800;
+        top: 35%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
     }
 
     .card {
         width: 85vw;
     }
 
-    .index-content { 
+    .index-content {
         background: none;
         height: calc(100vh - 90px);
     }
 
     .register-content {
         height: calc(100vh - 90px);
-        min-height: 600px
+        min-height: 580px
     }
 
     .footer-content {
-        height:  34px;
+        height: 34px;
     }
 
     .copyright {
@@ -293,6 +298,7 @@ main {
 }
 
 @media only screen and (max-width: 415px) and (min-height: 631px) and (orientation: landscape) {
+
     .register-content,
     .index-content {
         min-height: 590px;
@@ -302,30 +308,40 @@ main {
         display: absolute;
         transform: translate(-50%, 1%);
         -webkit-transform: translate(-50%, 1%);
-}
+    }
 
+    #login {
+        display: absolute;
+        height: 50vh;
+        margin-top: 4vh;
+        margin-left: 60vw;
+        min-height: 365px;
+    }
 }
 
 @media only screen and (max-width: 415px) and (max-height: 630px) and (orientation: landscape) {
+
     .register-content,
     .index-content {
         min-height: 590px;
     }
+
     #login {
         display: hidden;
     }
+
     .login-card {
         display: absolute;
         transform: translate(-50%, 1%);
         -webkit-transform: translate(-50%, 1%);
-}
+    }
 }
 
 /* VIEW CLASS */
- .element-wrap {
+.element-wrap {
 
-     background-color: rgba(245, 245, 245, 0.776);
- }
+    background-color: rgba(245, 245, 245, 0.776);
+}
 
 /* FOOTER */
 .copyright {
@@ -334,12 +350,12 @@ main {
 
 footer {
 
-    padding-top: 0px!important;
+    padding-top: 0px !important;
 }
 
 /* TITLES */
 
-.log-title >h3 {
+.log-title>h3 {
     font-weight: 600;
 }
 
@@ -370,12 +386,13 @@ footer {
 }
 
 .password-info-card {
-    min-height: 456px!important;
+    min-height: 456px !important;
 }
 
 .password-info-list {
     margin-top: 20px;
 }
+
 .password-info-list>li {
     margin-bottom: .8rem;
     padding-left: .5rem;
@@ -399,6 +416,7 @@ footer {
     margin: auto;
     text-align: center;
 }
+
 .alert-message {
     display: inline-block;
 }
@@ -476,7 +494,7 @@ https://stackoverflow.com/questions/796087/make-a-div-into-a-link provided instr
 /* Collection item */
 .collection-item:hover,
 .collection-item:active {
-    background-color: rgba(201, 228, 232, 0.448)!important;
+    background-color: rgba(201, 228, 232, 0.448) !important;
 }
 
 .collection-item-selectable:hover,
@@ -490,8 +508,8 @@ https://stackoverflow.com/questions/796087/make-a-div-into-a-link provided instr
 
 /* Delete button in Tracks and Links */
 .delete-small {
-    color: rgb(255, 73, 73)!important;
-    font-size: 1.4rem!important;
+    color: rgb(255, 73, 73) !important;
+    font-size: 1.4rem !important;
 }
 
 /* BUTTONS and LINKS*/
@@ -508,23 +526,23 @@ a:active {
 }
 
 .fixed-action-button {
-    position: absolute!important;
+    position: absolute !important;
 }
 
 /* This cancels the default floating button action on tools master button */
 .master-button {
-    opacity: 1!important;
+    opacity: 1 !important;
 }
 
 /* Styling of the action buttons in exercises and log sections  */
 .small-tools {
-    max-height: 2.4em!important;
+    max-height: 2.4em !important;
 }
 
 .small-icon {
-    font-size: 1.6rem!important;
+    font-size: 1.6rem !important;
 }
-   
+
 /* SUMMERNOTE RICH TEXT EDITOR */
 
 .note-hover {
