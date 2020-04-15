@@ -58,10 +58,10 @@ main {
     font-size: .8rem;
 }
 
-/*#login {
+#login {
     position: absolute;
     height: 50vh;
-    margin-top: 20vh;
+    margin-top: 15vh;
     margin-left: 50vw;
     min-height: 364px;
 }
@@ -72,7 +72,7 @@ main {
     margin-top: 20vh;
     margin-left: 45vw;
     min-height: 364px;
-}*/
+}
 
 /* MEDIA QUERIES */
 
