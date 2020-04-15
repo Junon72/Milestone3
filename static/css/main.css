@@ -45,11 +45,14 @@ main {
 }
 
 .login-card {
-    position: absolute;
+    position: fixed;
     z-index: 800;
-    left: 0;
-    right: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
 }
+
 .required-notice {
     color: rgb(3, 109, 138);
     font-size: .8rem;
@@ -236,7 +239,7 @@ footer {
     padding: 0;
 }
 
-/* PASSWORD INFO */
+/* PASSWORD INFO CARD CONTENT*/
 
 .password-label {
     display: inline-block;

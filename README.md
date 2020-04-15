@@ -5,6 +5,8 @@
 
 Heroku App: https://flask-classapp.herokuapp.com/
 
+To access the application, user will have to ['register'](###Registration-instructions), or have been registered and login.
+
 Heroku git: https://git.heroku.com/flask-classapp.git
 
 GitHub: https://github.com/Junon72/Milestone3
@@ -56,38 +58,38 @@ I considered following features essential for application to fulfill its purpose
 
     Once a class is created user can:
 
-        a. view class
-        b. edit class
-        c. delete class
-        d. duplicate class
-        e. associate the class with class series user has created
-        f. de-associate the class with class series user has created
+    a. view class
+    b. edit class
+    c. delete class
+    d. duplicate class
+    e. associate the class with class series user has created
+    f. de-associate the class with class series user has created
 
 3. User can create exercises for a class
 
     Once an exercise is created, user can:
 
-        a. view exercise
-        b. edit exercise
-        c. delete exercise
-        d. add and delete links to music tracks and videos
+    a. view exercise
+    b. edit exercise
+    c. delete exercise
+    d. add and delete links to music tracks and videos
 
 4. User can create logs for the classes
 
     Once a log is created, user can:
 
-        a. view log
-        b. edit log
-        c. delete log
+    a. view log
+    b. edit log
+    c. delete log
 
 5. User can create series of classes for various purposes
 
     Once a series is created, user can:
 
-        a. view series
-        b. view classes associated with the series
-        c. edit series
-        d. delete series
+    a. view series
+    b. view classes associated with the series
+    c. edit series
+    d. delete series
 
 ['Back to top'](#Table-of-content)
 
@@ -153,7 +155,7 @@ The series is really used only as a filter for document reading and to create pe
 
 [MongoDB Data Modeling Introduction](https://docs.mongodb.com/manual/core/data-modeling-introduction/)
 
-A visualization of the Classapp Data Model can be found ['here'](static/img/data-model.png)
+A visualization of the Classapp Data Model can be found ['here'](static/img/data-model.png )
 
 ['Back to top'](#Table-of-content)
 
@@ -167,6 +169,21 @@ For a detailed description of the features, realized and planned, see ['Working 
 User will access the application via the index page. At Index user can either Login or via the navigation bar link access Register page for registration.
 
 After either Login in or Registering, user is directed to the Home page. In navigation bar user has access to two different routes to manage his/her class archives, and to create classes and class series. Route one is the path from the Home page, and the route two is the path through Series. Also Login out is available after Login/ Register at all times. The Classapp log navigates the user back to the Home page.
+
+To register user will need to use a registration form to create a username and password. The form will also ask for email.
+
+### Registration instructions
+
+Username:
+
+- Can consist only letters, numbers and a - sign.
+- Has to be minimum of 6 and maximum of 20 characters long
+
+Password:
+
+- Has to have at least one upper case and one lower case letter.
+- One number and one special character (!@£$%^&*?)
+- Has to be minimum of 6 and maximum of 20 characters long
 
 ## Home
 
@@ -192,11 +209,11 @@ Class view displays the class content:
 1. The page header displays the name of the class the user is viewing.
 2. A master tool button at the right hand bottom of the page with tools to add log, add exercise, edit class, delete class and duplicate class:
 
-        a. Add log directs the user to the add log page
-        b. Add exercise directs user to the add exercise page
-        c. Edit class directs user to the edit class page
-        d. Delete class deletes the class and returns to the classes page
-        e. Duplicate class creates a duplicate of the class content and opens the class in edit class view.
+    a. Add log directs the user to the add log page
+    b. Add exercise directs user to the add exercise page
+    c. Edit class directs user to the edit class page
+    d. Delete class deletes the class and returns to the classes page
+    e. Duplicate class creates a duplicate of the class content and opens the class in edit class view.
 
 3. A button to navigate back to the classes view at the left side bottom of the class content.
 4. Element content is created with the Summernote editor and is wrapped inside an accordion element. It can be opened or closed as it might contain a relatively large amount of information. The header highlighted when hovered over and stays highlighted when opened.
@@ -204,14 +221,15 @@ Class view displays the class content:
 6. Playlist is presented in a collection element and can be clicked to go to the playlist. Playlist opens on a blank page.
 7. Exercises are displayed in an accordion element, which can be opened and closed.
 
-        a. Clicking an exercise accordion header opens the exercise. The header highlights when hovered and stays highlighted when open.
-        b. Exercise content is displayed in the form of accordion, so that each section can be opened or closed to save space. The first element, exercise description is open when exercise is opened. The headers highlight on hover and stay highlighted when open.
-        c. Exercise description displays the content created with Summernote editor.
-        d. Music tracks are displayed in collection elements and can be clicked to follow the link. Link opens on a blank page.
-        e. Video links are displayed in collection elements and can be clicked to follow the link. Link opens on a blank page.
-        f. Users can add Music tracks by clicking the add music track button and add video links by clicking the add video link button.
-        g. Users can delete tracks and links by clicking the delete button in a collection element of each item.
-        h. Users can edit exercise by clicking the edit exercise button.
+    a. Clicking an exercise accordion header opens the exercise. The header highlights when hovered and stays highlighted when open.
+    b. Exercise content is displayed in the form of accordion, so that each section can be opened or closed to save space. The first element, exercise description is open when exercise is opened. The headers highlight on hover and stay highlighted when open.
+    c. Exercise description displays the content created with Summernote editor.
+    d. Music tracks are displayed in collection elements and can be clicked to follow the link. Link opens on a blank page.
+    e. Video links are displayed in collection elements and can be clicked to follow the link. Link opens on a blank page.
+    f. Users can add Music tracks by clicking the add music track button and add video links by clicking the add video link button.
+    g. Users can delete tracks and links by clicking the delete button in a collection element of each item.
+    h. Users can edit exercise by clicking the edit exercise button.
+
 8. Logs are presented in an accordion list. The accordion headers highlight when hovered and stay highlighted when opened. When opened logs display content created in Summernote. Users can edit logs by clicking an edit button at the left side bottom of the log content or delete the log by clicking the delete log button.
 
 ### Edit class view
@@ -381,17 +399,17 @@ To test the Python installation and the environment path:
 1. Create a test.py file in root directory
 2. In test.py file write:
 
-    ```python
+```python
 import sys
-    # this line prints if python is installed correctly
+    # this line is printed if python is installed correctly
     def greet(greetings_to):
     greeting = 'Hello, { }'.format(greetings_to)
     return greeting
 
-    # this line will print out the current python path 
+    # this line will print out the current python path
     # and the version of the python print(sys.executable)
     print(greet('World!'))
-    ```
+```
 
 To run the file, type:
 
@@ -399,9 +417,9 @@ To run the file, type:
 
 You should see the following output in your terminal:
 
-    ```bash
-    Hello, World!
-    ```
+```bash
+Hello, World!
+```
 
 *Test result: Passed**
 
@@ -463,10 +481,10 @@ To install Flask to your work environment, in Terminal type:
 
 *The system reports I am using older version of pip.*
 
-    ```bash
+```bash
     WARNING: You are using pip version 19.2.3, however version 20.0.2 is available.
     You should consider upgrading via the 'pip install --upgrade pip' command.
-    ```
+```
 
 *After upgrade I run the code again.*
 
@@ -495,8 +513,8 @@ Werkzeug==1.0.0
 
 In test.py I created a script to test the working of Flask in VSCode IDE.
 
-    ```python
-    # Functionalities to import from modules
+```python
+# Functionalities to import from modules
 import os                   # Imports operating system dependent functionality.
 from flask import Flask     # Imports Flask class from flask module.
 
@@ -519,7 +537,7 @@ if __name__ == '__main__':  # tells the global namespace __name__ is set to equa
         # Gets PORT we want to open, which in this case is set to 5000.
         # Enable reloader and debugger by setting it to True, 
         # which is the recommended value for the development phase
-    ```
+```
 
 Run the script:
 
@@ -527,7 +545,7 @@ Run the script:
 
 Terminal output:
 
-    ```bash
+```bash
     * Serving Flask app "test" (lazy loading)
     * Environment: production
         WARNING: This is a development server. Do not use it in a production deployment.
@@ -537,7 +555,7 @@ Terminal output:
     * Restarting with stat
     * Debugger is active!
     * Debugger PIN: 263-007-180
-    ```
+```
 
 Following the link (option + click) opens the browser and 'Welcome Flask" is rendered on the screen.
 
@@ -617,9 +635,9 @@ Testing the navigation and the data rendering, I followed the navigation link to
 
 - Terminal output states.
 
-    ```bash
+```bash
     jinja2.exceptions.TemplateSyntaxError: Encountered unknown tag 'endfor'. Jinja was looking for the following tags:  'endblock'.
-    ```
+```
 
 I created a dummy data for series and run the test again.
 
@@ -687,42 +705,42 @@ MongoDB has a practical dashboard utility where the user can create databases, a
 In MongoDB dashboard I created a new cluster and a project context for Classapp and added a new database.
 In the database I then created a new collection 'clasess' and in the classes collection a new 'class' document.
 
-    ``python
-    _id:ObjectId("5e519eb9ba2dfb000006dfe1")
-    class_name:"Monday Groove"
-    class_description:"Let it loose and sweat it out!"
-    main_elements:"Shaky shake moves"
-    other_elements:"Shovel the toes, Slide with grace"
-    playlist_title:"Billie Eilish"
-    playlist_url:"https://www.youtube.com/watch?v=xNV38nq1fqc"
-    class_notes:"This class makes you SWEAT, bring water and a towel"
-    exercises:Array
-        0:Object
-            _id:ObjectId("5e51a370ba2dfb000006dfe6")
-            exercise_name:"Get it going"
-            exercise_description:"Wiggle the toes, while you touch your nose"
-            exercise_comment:"Slow cooking makes the best stew"
-            exercise_aim:"Gets your toes moving, while maintaining focus to that which is the ne..."
-            tracks:Array
-                0:Object
-                    _id:ObjectId("5e51a3ebba2dfb000006dfe7")
-                    track_title:"Billie Eilish/ Bad Guy"
-                    track_link:"https://www.youtube.com/watch?v=DyDfgMOUjCI"
-                    track_comment:"It ain't salsa, but... I like Billie Eilish, ok"
-            links:Array
-                0:Object
-                    _id:ObjectId("5e51a454ba2dfb000006dfe8")
-                    video_title:"Say salsa/ Quick Feet Studio"
-                    video_link:"https://www.youtube.com/watch?v=vfpajx2uemE"
-                    video_comment:"The Quick & Dirty Guide to Salsa, Part 1. All the lessons put together..."
-    logs:Array
-        0:Object
-            _id:ObjectId("5e51a32dba2dfb000006dfe5")
-            log_date:"07/01/2020"
-            log_text:"Was wonderful class. Remember to start slow and ALWAYS smile"
-            log_tag:"1st class for DanceFloor"
-            user_id:"5e568ade0938db6d0519c69f
-            username:"userOne"
+    ```python
+_id:ObjectId("5e519eb9ba2dfb000006dfe1")
+class_name:"Monday Groove"
+class_description:"Let it loose and sweat it out!"
+main_elements:"Shaky shake moves"
+other_elements:"Shovel the toes, Slide with grace"
+playlist_title:"Billie Eilish"
+playlist_url:"https://www.youtube.com/watch?v=xNV38nq1fqc"
+class_notes:"This class makes you SWEAT, bring water and a towel"
+exercises:Array
+    0:Object
+        _id:ObjectId("5e51a370ba2dfb000006dfe6")
+        exercise_name:"Get it going"
+        exercise_description:"Wiggle the toes, while you touch your nose"
+        exercise_comment:"Slow cooking makes the best stew"
+        exercise_aim:"Gets your toes moving, while maintaining focus to that which is the ne..."
+        tracks:Array
+            0:Object
+                _id:ObjectId("5e51a3ebba2dfb000006dfe7")
+                track_title:"Billie Eilish/ Bad Guy"
+                track_link:"https://www.youtube.com/watch?v=DyDfgMOUjCI"
+                track_comment:"It ain't salsa, but... I like Billie Eilish, ok"
+        links:Array
+            0:Object
+                _id:ObjectId("5e51a454ba2dfb000006dfe8")
+                video_title:"Say salsa/ Quick Feet Studio"
+                video_link:"https://www.youtube.com/watch?v=vfpajx2uemE"
+                video_comment:"The Quick & Dirty Guide to Salsa, Part 1. All the lessons put together..."
+logs:Array
+    0:Object
+        _id:ObjectId("5e51a32dba2dfb000006dfe5")
+        log_date:"07/01/2020"
+        log_text:"Was wonderful class. Remember to start slow and ALWAYS smile"
+        log_tag:"1st class for DanceFloor"
+        user_id:"5e568ade0938db6d0519c69f
+        username:"userOne"
     ```
 
 To connect to the database, in MongoDB in the application CONTEXT Classapp and in the Clusters view, select CONNECT.
@@ -733,11 +751,11 @@ You will be asked to enter the password.
 
 If the connection is successful, the terminal output should be something along the line:
 
-    ```bash
+```bash
     Implicit session: session { "id" : UUID("dfie1392-7138-4662-9cf4-a271hf31f47f") }
     MongoDB server version: 4.2.3
     MongoDB Enterprise Cluster2-shard-0:PRIMARY>
-    ```
+```
 
 ### Preparing VSCode for MongoDB
 
@@ -762,22 +780,22 @@ To start teh service type.
 
 In terminal we can now connect to to MongoDB by typing.
 
-    ```bash
+```bash
     $ mongo  'mongodb+srv://<db_user>:<db_password>@cluster2-8wde6.mongodb.net/<your_database>?retryWrites=true&w=majority'
-    ```
+```
 
 (In place of db_user, use your own MongoDB username, in place of db_password, use your password and in place of
 your_database, use the name of your database)
 
 This should give a following terminal output:
 
-    ```bash
+```bash
     MongoDB shell version v4.2.2
     connecting to: mongodb://cluster2-shard-00-02-8wde6.mongodb.net:27017
     Implicit session: session { "id" : UUID("421af287-fa81-4bcf-a827-4f2a91525585") }
     MongoDB server version: 4.2.5
     MongoDB Enterprise Cluster2-shard-0:PRIMARY> 
-    ```
+```
 
 To test the connection to the cluster type:
 
@@ -826,7 +844,7 @@ To install Config, in Terminal type:
 
 Create config.py file and add the configuration vars into the file:
 
-    ```python
+```python
     # os is used to to link the config.py and app.py
 import os
     # the vars are stored into a class object
@@ -839,11 +857,11 @@ FLASK_APP = os.environ.get('FLASK_APP')
     # Database config
 MONGO_URI = os.environ.get('MONGO_URI', 'mongodb+srv://<db_user>:<db_password>@cluster2-8wde6.mongodb.net/<database_name>?retryWrites=true&w=majority')
 MONGO_DBNAME = os.environ.get('<database_name>')
-    ```
+```
 
 To test Flask connection to the MongoDB I used following test in test.py environment:
 
-    ```python
+```python
 import os
 import pymongo
 from pymongo import MongoClient
@@ -872,7 +890,7 @@ def mongo_connect(url):
         print('Could not connect to MongoDB: %s') % e
 
 conn = mongo_connect(MONGO_URI)
-    ```
+```
 
 *Test result: Passed**
 
@@ -882,13 +900,13 @@ conn = mongo_connect(MONGO_URI)
 
 By now the following libraries should be added to the app.py file:
 
-    ```python
+```python
 import os
 import pymongo
 from pymongo import MongoClient
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
-    ```
+```
 
 ### Adding to the collections
 
@@ -936,10 +954,10 @@ Next, create the app in Heroku by typing.
 
 *Test result: passed**
 
-    ```bash
+```bash
     Creating ⬢ flask-classapp... done
     https://flask-classapp.herokuapp.com/ | https://git.heroku.com/flask-classapp.git
-    ```
+```
 
 - Application was created in Heroku
 
@@ -951,12 +969,12 @@ This will add a new remote.
 
 *Test result: passed**
 
-    ```bash
+```bash
     heroku  https://git.heroku.com/flask-classapp.git (fetch)
     heroku  https://git.heroku.com/flask-classapp.git (push)
     origin  https://github.com/Junon72/Milestone3.git (fetch)
     origin  https://github.com/Junon72/Milestone3.git (push)
-    ```
+```
 
 - The application is connected to two remotes now.
 
@@ -986,13 +1004,13 @@ After creating Procfile, create the requirements.txt file to your .venv base dir
 
 In app.py file change the debug mode to True and remove the IP and PORT values.
 
-    ```python
+```python
 if __name__ == '__main__':
 
     app.run(host = os.environ.get('IP'),
         port = int(os.environ.get('PORT')),
         debug = True)
-    ```
+```
 
 ### Finish the application configuration in Heroku
 
@@ -1020,13 +1038,13 @@ You should see now Heroku deploying the app and verifying it.
 
 *Test result: passed**
 
-    ```bash
+```bash
     remote: Verifying deploy...
     (... a long list of lines explaining the stages in Heroku deployment process ...)
     ...done.
     address_to_heroku_application_git
     * [new branch]      master -> master
-    ```
+```
 
 - Deployment is verified
 
@@ -1096,7 +1114,7 @@ Install the required modules:
 
 Create a config.py file in your root directory with following content:
 
-    ```python
+```python
 import os
 class Config(object):
 
@@ -1108,7 +1126,7 @@ class Config(object):
     # Database config
     MONGO_URI = os.environ.get('MONGO_URI', 'mongodb+srv://<db_username>:<db_password>@cluster2-8wde6.mongodb.net/classapp?retryWrites=true&w=majority')
     MONGO_DBNAME = os.environ.get('classapp')
-    ```
+```
 Add config.py file and .venv file to the .gitignore, so they don't get pushed to the git repository and will stay hidden, as they contain sensitive information, such as your db username and password.
 
 You can now run the application locally, by typing:
