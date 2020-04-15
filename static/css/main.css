@@ -44,10 +44,14 @@ main {
     z-index: 10;
 }
 
+.index-content {
+        height: calc(100vh - 106px);
+}
+
+.register-card,
 .login-card {
-    position: fixed;
+    position: relative;
     z-index: 800;
-    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
@@ -58,33 +62,22 @@ main {
     font-size: .8rem;
 }
 
-#login {
+#login,
+#register {
     position: absolute;
     height: 50vh;
-    margin-top: 15vh;
-    margin-left: 50vw;
     min-height: 364px;
 }
 
 #register {
     position: absolute;
     height: 50vh;
-    margin-top: 20vh;
-    margin-left: 45vw;
     min-height: 364px;
 }
 
 /* MEDIA QUERIES */
 
 @media screen and (min-width: 993px)  {
-    .index-content {
-        height: calc(100vh - 106px);
-        min-height: 498px;
-    }
-    .register-content {
-        height: calc(100vh - 106px);
-        min-height: 650px;
-    }
     .brand-logo {
         margin-left: 3rem;
     }
@@ -97,6 +90,30 @@ main {
         height:  42px;
     }
 
+    #register { 
+        margin-top: 15vh;
+        margin-left: 60vw;
+    }
+
+    #login {
+        margin-top: 20vh;
+        margin-left: 50vw;
+    }
+
+
+    .index-content {
+        height: calc(100vh - 106px);
+    }
+
+    .register-content {
+        height: calc(100vh - 106px);
+        min-height: 650px;
+    }
+
+    .register-card,
+    .login-card {
+        top: 35%
+    }
     .main-content {
         min-height: calc(100vh - 106px);
     }
@@ -124,22 +141,23 @@ main {
     }
 
     .index-content {
-        height: calc(100vh - 106px);
-        min-height: 498px;
+        min-height: 600px;
     }
 
     #logo {
         height: 64px;
     }
 
-    .login-card {
-    position: fixed;
-    z-index: 800;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
+    #register { 
+        margin-top: 15vh;
+        margin-left: 45vw;
     }
+
+    #login {
+        margin-top: 20vh;
+        margin-left: 48vw;
+    }
+
 
     .register-content {
         height: calc(100vh - 106px);
@@ -174,6 +192,11 @@ main {
 
     #login {
         display: none;
+    }
+
+    .register-card,
+    .login-card {
+        top: 35%
     }
 
     .index-content { 
@@ -235,12 +258,7 @@ main {
 
     .login-card,
     .register-card {
-    position: relative;
-    z-index: 800;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
+    top: 25%;
     }
 
     .card {
@@ -293,16 +311,18 @@ main {
     }
 
     .login-card {
-        display: absolute;
+        position: relative;
         transform: translate(-50%, 1%);
         -webkit-transform: translate(-50%, 1%);
 }
-        #login {
-        display: absolute;
-        height: 50vh;
+    #login {
         margin-top: 4vh;
         margin-left: 60vw;
-        min-height: 365px;
+    }
+
+    #register {
+        margin-top: 20;
+        margin-left: 45;
     }
 }
 
