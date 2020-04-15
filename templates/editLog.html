@@ -1,73 +1,74 @@
 {% extends "base.html"%}
 
 {% block content %}
-<!-- EDIT LOG VIEW -->
-<div class="main-content">
-    {% for log in log %}
-    <div class="row">
-        <div class="col mb-4 mt-2">
-            <h3>Edit log - {{ log.log_date }} </h3>
-        </div>
-    </div>
-    <!-- EDIT LOG -->
-    <form class="col s12" method="POST"
-        action="{{ url_for('update_log', username=session['user'], class_id = class_id, log_id = log_id  ) }}"
-        id="edit_log_form" autocomplete="off">
-
-        <!-- EDIT LOG DATE-->
+<div class="container">
+    <!-- EDIT LOG VIEW -->
+    <div class="main-content">
+        {% for log in log %}
         <div class="row">
-            <div class="input-field col" id="matfix">
-                <i class="material-icons prefix">today</i>
-                <input id="log_date" name="log_date" type="text" class="datepicker" value="{{ log.log_date }}"
-                    placeholder="">
-                <label for="log_date" class="">Log date</label>
+            <div class="col mb-4 mt-2">
+                <h3>Edit log - {{ log.log_date }} </h3>
             </div>
         </div>
-        <!-- EDIT LOG CONTENT-->
-        <div class="row">
-            <div class="input-field col">
-                <i class="material-icons prefix">label_outline</i>
-                <input type="text" class="form-control text-capitalize validate" id="tag_log" name="log_tag"
-                    required="required" value="{{ log.log_tag }}" placeholder="">
-                <label for="tag_log" class="">Log Tag</label>
-            </div>
-        </div>
-        <br>
-        <!-- EDIT LOG CONTENT-->
-        <div class="row mb-2">
-            <i class="material-icons prefix ml-3">event_note</i>
-            <label for="summernotes" class="list-label ml-3">Log</label>
-        </div>
-        <div class="row">
-            <div class="col">
-                <textarea class="form-control summernote editor" id="summernotes"
-                    name="editordata">{{ log.log_text | safe }}</textarea>
+        <!-- EDIT LOG -->
+        <form class="col s12" method="POST"
+            action="{{ url_for('update_log', username=session['user'], class_id = class_id, log_id = log_id  ) }}"
+            id="edit_log_form" autocomplete="off">
 
-            </div>
-        </div>
-        <br>
-
-        {% endfor %}
-        <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
-        <!-- SAVE updates the content and returns to CLASS VIEW  - .update_one() -->
-        <!-- CANCEL does not save the content and returns to the CLASS VIEW - .find_one() the class without changes -->
-        <div class="divider"> </div>
-        <div class="container bottom_actions p-0 w-100">
-            <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
-                <div class="col d-flex mt-3 p-0 justify-content-end">
-                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                        name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
-                        <i class="material-icons left">save</i>Save</button>
-
-                    <!-- Check the class_id and repopulate the add_class form -->
-                    <a href="{{ url_for('view_class', class_id = class_id) }}"
-                        class="btn-small waves-effect waves-light grey tooltipped cancel" data-position="top" data-delay="50"
-                        data-tooltip="Cancel and go back">
-                        Cancel</a>
+            <!-- EDIT LOG DATE-->
+            <div class="row">
+                <div class="input-field col" id="matfix">
+                    <i class="material-icons prefix">today</i>
+                    <input id="log_date" name="log_date" type="text" class="datepicker" value="{{ log.log_date }}"
+                        placeholder="">
+                    <label for="log_date" class="">Log date</label>
                 </div>
             </div>
-        </div>
-    </form>
-</div>
+            <!-- EDIT LOG CONTENT-->
+            <div class="row">
+                <div class="input-field col">
+                    <i class="material-icons prefix">label_outline</i>
+                    <input type="text" class="form-control text-capitalize validate" id="tag_log" name="log_tag"
+                        required="required" value="{{ log.log_tag }}" placeholder="">
+                    <label for="tag_log" class="">Log Tag</label>
+                </div>
+            </div>
+            <br>
+            <!-- EDIT LOG CONTENT-->
+            <div class="row mb-2">
+                <i class="material-icons prefix ml-3">event_note</i>
+                <label for="summernotes" class="list-label ml-3">Log</label>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <textarea class="form-control summernote editor" id="summernotes"
+                        name="editordata">{{ log.log_text | safe }}</textarea>
 
+                </div>
+            </div>
+            <br>
+
+            {% endfor %}
+            <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
+            <!-- SAVE updates the content and returns to CLASS VIEW  - .update_one() -->
+            <!-- CANCEL does not save the content and returns to the CLASS VIEW - .find_one() the class without changes -->
+            <div class="divider"> </div>
+            <div class="container bottom_actions p-0 w-100">
+                <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
+                    <div class="col d-flex mt-3 p-0 justify-content-end">
+                        <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                            name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                            <i class="material-icons left">save</i>Save</button>
+
+                        <!-- Check the class_id and repopulate the add_class form -->
+                        <a href="{{ url_for('view_class', class_id = class_id) }}"
+                            class="btn-small waves-effect waves-light grey tooltipped cancel" data-position="top"
+                            data-delay="50" data-tooltip="Cancel and go back">
+                            Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

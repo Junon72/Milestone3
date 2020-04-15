@@ -1,19 +1,20 @@
 {% extends "base.html"%}
 {% block content %}
-<div class="row">
-    <div class="col mb-4 mt-2">
-        <h3>Add a New Exercise</h3>
+<div class="container">
+    <div class="row">
+        <div class="col mb-4 mt-2">
+            <h3>Add a New Exercise</h3>
+        </div>
     </div>
-</div>
 
-<!-- ADD EXERCISE FORM  -->
-<div class="main-content">
-    <form class="col s12" method="POST" action="{{ url_for('insert_exercise', class_id=class_id) }}"
-        id="add_exercise_form" autocomplete="off">
-        <!-- Disabled autocompletion -->
+    <!-- ADD EXERCISE FORM  -->
+    <div class="main-content">
+        <form class="col s12" method="POST" action="{{ url_for('insert_exercise', class_id=class_id) }}"
+            id="add_exercise_form" autocomplete="off">
+            <!-- Disabled autocompletion -->
 
-        <!-- FORM SECTIONS-->
-        <!-- EXERCISE FORM SECTIONs -->
+            <!-- FORM SECTIONS-->
+            <!-- EXERCISE FORM SECTIONs -->
             <!-- ADD EXERCISE NAME -->
             <div class="row w-100">
                 <div class="input-field col s12 m10 l6">
@@ -53,25 +54,26 @@
                 </div>
             </div>
 
-        <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
-        <!-- SAVE inserts the content and returns to CLASS FORM  - .insert() new document with new exercise _id and possible sub-document _id,s-->
-        <!-- CANCEL does not save the content and returns to the CLASS FORM - .get() the class without changes -->
-        <div class="divider"> </div>
-        <div class="container bottom_actions p-0 w-100">
-            <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
-                <div class="col d-flex mt-3 p-0 justify-content-end">
-                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                        name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
-                        <i class="material-icons left">save</i>Save</button>
+            <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
+            <!-- SAVE inserts the content and returns to CLASS FORM  - .insert() new document with new exercise _id and possible sub-document _id,s-->
+            <!-- CANCEL does not save the content and returns to the CLASS FORM - .get() the class without changes -->
+            <div class="divider"> </div>
+            <div class="container bottom_actions p-0 w-100">
+                <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
+                    <div class="col d-flex mt-3 p-0 justify-content-end">
+                        <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                            name="save_log" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                            <i class="material-icons left">save</i>Save</button>
 
-                    <!-- Return to classes view -->
-                    <a href="{{ url_for('view_class', class_id = class_id) }}"
-                        class="btn-small waves-effect waves-light grey tooltipped cancel" data-position="top" data-delay="50"
-                        data-tooltip="Cancel and go back">
-                        Cancel</a>
+                        <!-- Return to classes view -->
+                        <a href="{{ url_for('view_class', class_id = class_id) }}"
+                            class="btn-small waves-effect waves-light grey tooltipped cancel" data-position="top"
+                            data-delay="50" data-tooltip="Cancel and go back">
+                            Cancel</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 {% endblock content %}

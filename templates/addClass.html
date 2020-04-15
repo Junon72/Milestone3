@@ -2,127 +2,129 @@
 {% block content %}
 
 <!-- ADD CLASS VIEW -->
-<div class="main-content">
-    <div class="row">
-        <div class="col mb-4 mt-2">
-            <h3>Create a New Class</h3>
+<div class="container">
+    <div class="main-content">
+        <div class="row">
+            <div class="col mb-4 mt-2">
+                <h3>Create a New Class</h3>
+            </div>
         </div>
-    </div>
-    <!-- CLASS FORM -->
-    <form class="col s12" method="POST"
-        action="{{ url_for('insert_class', username = username, series = series, series_doc = series._id) }}"
-        id="add_class_form" autocomplete="off">
-        <!-- Disabled autocompletion -->
+        <!-- CLASS FORM -->
+        <form class="col s12" method="POST"
+            action="{{ url_for('insert_class', username = username, series = series, series_doc = series._id) }}"
+            id="add_class_form" autocomplete="off">
+            <!-- Disabled autocompletion -->
 
-        <!-- HIDDEN INPUTS 
+            <!-- HIDDEN INPUTS 
         <input type="hidden" id="username" name="username" value="{{ user.username }}">-->
-        <input type="hidden" id="user_id" name="user_id" value="{{ user._id }}">
+            <input type="hidden" id="user_id" name="user_id" value="{{ user._id }}">
 
-        <!-- FORM SECTIONS -->
-        <!-- CLASS FORM SECTIONS -->
-        <!-- ADD CLASS NAME -->
-        <div class="row">
-            <div class="input-field col s12 l10">
-                <i class="material-icons prefix">bookmark</i>
-                <input type="text" class="form-control text-capitalize validate" id="add_class_name" name="class_name"
-                    placeholder="Class name" required="required">
-                <label for="add_class_name" class="ml-2">Class name</label>
-            </div>
-        </div>
-
-        <!-- ADD CLASS DESCRIPTION -->
-        <div class="row">
-            <div class="input-field col s12 l10">
-                <i class="material-icons prefix">description</i>
-                <textarea class="materialize-textarea form-control required validate" id="add_class_description"
-                    name="class_description" placeholder="Class description" required></textarea>
-                <label for="add_class_description" class="ml-2">Class description</label>
-            </div>
-        </div>
-
-        <!-- ADD MAIN ELEMENTS -->
-        <div class="row mb-2">
-            <i class="material-icons prefix ml-3">vpn_key</i>
-            <label for="summernotes" class="list-label ml-3">Elements</label>
-        </div>
-        <div class="row">
-            <div class="col s12 l6">
-                <textarea class="form-control summernote" id="summernotes" name="editordata"></textarea>
-
-            </div>
-        </div>
-        <br>
-
-        <!-- ADD OTHER ELEMENTS -->
-        <div class="row">
-            <div class="input-field col s12 l10">
-                <i class="material-icons prefix">more</i>
-                <textarea class="materialize-textarea form-control" id="other_elements" name="other_elements"
-                    placeholder="Other helpful elements to work with"></textarea>
-                <label for="other_elements" class="ml-2">Helpers</label>
-            </div>
-        </div>
-
-        <!--ADD NOTES -->
-        <div class="row">
-            <div class="input-field col s12 l10">
-                <i class="material-icons prefix">note</i>
-                <textarea class="form-control materialize-textarea" id="class_notes" name="class_notes"
-                    placeholder="Notes"></textarea>
-                <label for="class_notes" class="ml-2">Notes</label>
-            </div>
-        </div>
-
-        <!-- ADD SERIES SELECTION -->
-        <div class="divider"> </div>
-        <br>
-        <div class="row">
-            <div class="input-field col s12 l10 class-series">
-                <i class="material-icons prefix">playlist_add_check</i>
-                <select multiple name="series" id="series">
-                    <option value="" disabled>Select series</option>
-                    {% for name in series.class_series %}
-                    <option value="{{ name._id }}"> {{ name.series_name }} </option>
-                    {% endfor %}
-                </select>
-                <label for="series" class="ml-2">Select class series</label>
-            </div>
-        </div>
-        <br>
-
-
-        <!-- ADD PLAYLIST LINK -->
-        <div class="row">
-            <div class="input-field col s12 l10">
-                <i class="material-icons prefix">featured_play_list</i>
-                <input type="url" class="form-control text-capitalize validate" id="playlist_title"
-                    name="playlist_title" placeholder="Add a playlist Title">
-                <label for="playlist_link" class="ml-2">Playlist</label>
-                <input type="text" class="form-control text-capitalize validate" id="playlist_link" name="playlist_link"
-                    placeholder="Add a playlist Link">
-            </div>
-        </div>
-
-
-        <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
-        <!-- SAVE inserts the content and returns to CLASSES VIEW  - .insert() new document with new class _id and sub-document _id,s-->
-        <!-- CANCEL does not save the content and returns to the CLASSes VIEW - .get() classes without changes -->
-        <div class="divider"> </div>
-        <div class="container bottom_actions p-0 w-100">
-            <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
-                <div class="col d-flex mt-3 p-0 justify-content-end">
-                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                        name="action" data-position="top" data-delay="50" data-tooltip="Save and view">
-                        <i class="material-icons left">save</i>Save</button>
-
-                    <!-- Return to classes view -->
-                    <a href="{{ url_for('classes', username=username) }}"
-                        class="btn-small waves-effect waves-light grey tooltipped cancel" data-position="top"
-                        data-delay="50" data-tooltip="Cancel and go back">
-                        Cancel</a>
+            <!-- FORM SECTIONS -->
+            <!-- CLASS FORM SECTIONS -->
+            <!-- ADD CLASS NAME -->
+            <div class="row">
+                <div class="input-field col s12 l10">
+                    <i class="material-icons prefix">bookmark</i>
+                    <input type="text" class="form-control text-capitalize validate" id="add_class_name"
+                        name="class_name" placeholder="Class name" required="required">
+                    <label for="add_class_name" class="ml-2">Class name</label>
                 </div>
             </div>
-        </div>
-    </form>
+
+            <!-- ADD CLASS DESCRIPTION -->
+            <div class="row">
+                <div class="input-field col s12 l10">
+                    <i class="material-icons prefix">description</i>
+                    <textarea class="materialize-textarea form-control required validate" id="add_class_description"
+                        name="class_description" placeholder="Class description" required></textarea>
+                    <label for="add_class_description" class="ml-2">Class description</label>
+                </div>
+            </div>
+
+            <!-- ADD MAIN ELEMENTS -->
+            <div class="row mb-2">
+                <i class="material-icons prefix ml-3">vpn_key</i>
+                <label for="summernotes" class="list-label ml-3">Elements</label>
+            </div>
+            <div class="row">
+                <div class="col s12 l6">
+                    <textarea class="form-control summernote" id="summernotes" name="editordata"></textarea>
+
+                </div>
+            </div>
+            <br>
+
+            <!-- ADD OTHER ELEMENTS -->
+            <div class="row">
+                <div class="input-field col s12 l10">
+                    <i class="material-icons prefix">more</i>
+                    <textarea class="materialize-textarea form-control" id="other_elements" name="other_elements"
+                        placeholder="Other helpful elements to work with"></textarea>
+                    <label for="other_elements" class="ml-2">Helpers</label>
+                </div>
+            </div>
+
+            <!--ADD NOTES -->
+            <div class="row">
+                <div class="input-field col s12 l10">
+                    <i class="material-icons prefix">note</i>
+                    <textarea class="form-control materialize-textarea" id="class_notes" name="class_notes"
+                        placeholder="Notes"></textarea>
+                    <label for="class_notes" class="ml-2">Notes</label>
+                </div>
+            </div>
+
+            <!-- ADD SERIES SELECTION -->
+            <div class="divider"> </div>
+            <br>
+            <div class="row">
+                <div class="input-field col s12 l10 class-series">
+                    <i class="material-icons prefix">playlist_add_check</i>
+                    <select multiple name="series" id="series">
+                        <option value="" disabled>Select series</option>
+                        {% for name in series.class_series %}
+                        <option value="{{ name._id }}"> {{ name.series_name }} </option>
+                        {% endfor %}
+                    </select>
+                    <label for="series" class="ml-2">Select class series</label>
+                </div>
+            </div>
+            <br>
+
+
+            <!-- ADD PLAYLIST LINK -->
+            <div class="row">
+                <div class="input-field col s12 l10">
+                    <i class="material-icons prefix">featured_play_list</i>
+                    <input type="text" class="form-control text-capitalize validate" id="playlist_title"
+                        name="playlist_title" placeholder="Add a playlist Title">
+                    <label for="playlist_link" class="ml-2">Playlist</label>
+                    <input type="url" class="form-control text-capitalize validate" id="playlist_link"
+                        name="playlist_link" placeholder="Add a playlist Link">
+                </div>
+            </div>
+
+
+            <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
+            <!-- SAVE inserts the content and returns to CLASSES VIEW  - .insert() new document with new class _id and sub-document _id,s-->
+            <!-- CANCEL does not save the content and returns to the CLASSes VIEW - .get() classes without changes -->
+            <div class="divider"> </div>
+            <div class="container bottom_actions p-0 w-100">
+                <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
+                    <div class="col d-flex mt-3 p-0 justify-content-end">
+                        <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                            name="action" data-position="top" data-delay="50" data-tooltip="Save and view">
+                            <i class="material-icons left">save</i>Save</button>
+
+                        <!-- Return to classes view -->
+                        <a href="{{ url_for('classes', username=username) }}"
+                            class="btn-small waves-effect waves-light grey tooltipped cancel" data-position="top"
+                            data-delay="50" data-tooltip="Cancel and go back">
+                            Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock content %}

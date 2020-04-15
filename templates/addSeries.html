@@ -1,55 +1,57 @@
 {% extends "base.html"%}
 {% block content %}
-<!-- ADD SERIES VIEW -->
-<div class="main-content">
-    <div class="row w-100">
-        <div class="page-title col mb-4 mt-2">
-            <h3>Add Class Series</h3>
-        </div>
-    </div>
-    <!-- ADD CLASS SERIES-->
-    <form class="col s12 l6" method="POST" action="{{ url_for('insert_series', username=session['user']) }}"
-        id="add_series_form" autocomplete="off">
-
-        <!-- ADD SERIES NAME -->
+<div class="container">
+    <!-- ADD SERIES VIEW -->
+    <div class="main-content">
         <div class="row w-100">
-            <div class="input-field col s12 l10">
-                <i class="material-icons prefix">title</i>
-                <input type="text" class="form-control text-capitalize validate" id="add_series_name" name="series_name"
-                    placeholder="Name" required="required">
-                <label for="add_series_name" class="ml-2">Class Series Name</label>
+            <div class="page-title col mb-4 mt-2">
+                <h3>Add Class Series</h3>
             </div>
         </div>
+        <!-- ADD CLASS SERIES-->
+        <form class="col s12 l6" method="POST" action="{{ url_for('insert_series', username=session['user']) }}"
+            id="add_series_form" autocomplete="off">
 
-        <!-- ADD SERIES DESCRIPTION-->
-        <div class="row w-100">
-            <div class="input-field col s12 l6">
-                <i class="material-icons prefix">description</i>
-                <textarea class="materialize-textarea form-control" id="add_series_description"
-                    name="series_description" placeholder="Description"></textarea>
-                <label for="add_series_description" class="ml-2">Description</label>
-            </div>
-        </div>
-
-        <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
-        <!-- SAVE inserts the content and returns to SERIES VIEW  - .insert() new document with new series _id -->
-        <!-- CANCEL does not save the content and returns to the SERIES VIEW - .get() SERIES without changes -->
-        <div class="divider"> </div>
-        <div class="container bottom_actions p-0 w-100">
-            <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
-                <div class="col d-flex mt-3 p-0 justify-content-end">
-                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                        data-position="top" data-delay="50" data-tooltip="Save and view">
-                        <i class="material-icons left">save</i>Save</button>
-
-                    <!-- Check the exercise _id and repopulate the add_exercise form -->
-                    <a href="{{ url_for('series') }}"
-                        class="btn-small waves-effect waves-light grey tooltipped cancel" data-position="bottom"
-                        data-delay="50" data-tooltip="Cancel and go back">
-                        Cancel</a>
+            <!-- ADD SERIES NAME -->
+            <div class="row w-100">
+                <div class="input-field col s12 l10">
+                    <i class="material-icons prefix">title</i>
+                    <input type="text" class="form-control text-capitalize validate" id="add_series_name"
+                        name="series_name" placeholder="Name" required="required">
+                    <label for="add_series_name" class="ml-2">Class Series Name</label>
                 </div>
             </div>
-        </div>
-    </form>
+
+            <!-- ADD SERIES DESCRIPTION-->
+            <div class="row w-100">
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">description</i>
+                    <textarea class="materialize-textarea form-control" id="add_series_description"
+                        name="series_description" placeholder="Description"></textarea>
+                    <label for="add_series_description" class="ml-2">Description</label>
+                </div>
+            </div>
+
+            <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
+            <!-- SAVE inserts the content and returns to SERIES VIEW  - .insert() new document with new series _id -->
+            <!-- CANCEL does not save the content and returns to the SERIES VIEW - .get() SERIES without changes -->
+            <div class="divider"> </div>
+            <div class="container bottom_actions p-0 w-100">
+                <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
+                    <div class="col d-flex mt-3 p-0 justify-content-end">
+                        <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                            data-position="top" data-delay="50" data-tooltip="Save and view">
+                            <i class="material-icons left">save</i>Save</button>
+
+                        <!-- Check the exercise _id and repopulate the add_exercise form -->
+                        <a href="{{ url_for('series') }}"
+                            class="btn-small waves-effect waves-light grey tooltipped cancel" data-position="bottom"
+                            data-delay="50" data-tooltip="Cancel and go back">
+                            Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock content %}

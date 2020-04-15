@@ -1,71 +1,74 @@
 {% extends "base.html"%}
 
 {% block content %}
-<!-- SERIES VIEW-->
-<div class="main-content">
-    <div class="row">
-        <div class="page-title col mb-4 mt-2">
-            <h3>Series</h3>
+<div class="container">
+    <!-- SERIES VIEW-->
+    <div class="main-content">
+        <div class="row">
+            <div class="page-title col mb-4 mt-2">
+                <h3>Series</h3>
+            </div>
         </div>
-    </div>
-    <ul class="collapsible collapsible-main" data-collapsible="accordion">
-        {% for serial in all_series.class_series %}
-        <li class="accordion_list">
-            <div class="collapsible-header level-1">
-                <div class="list_header col">
-                    <!---<i class="material-icons accordion_arrow">expand_more</i>-->
-                    <strong>{{ serial.series_name | title}}</strong>
+        <ul class="collapsible collapsible-main" data-collapsible="accordion">
+            {% for serial in all_series.class_series %}
+            <li class="accordion_list">
+                <div class="collapsible-header level-1">
+                    <div class="list_header col">
+                        <!---<i class="material-icons accordion_arrow">expand_more</i>-->
+                        <strong>{{ serial.series_name | title}}</strong>
+                    </div>
                 </div>
-            </div>
-            <div class="collapsible-body waves-effect waves-brown waves-ripple collapsible-link">
-                <a href="{{ url_for('view_classes_in_series', series_id=serial._id, series_doc=all_series._id, username=username) }}"
-                    class="collapsible-link-ref tooltipped" data-position="left" data-delay="50"
-                    data-tooltip="View class series">
-                    <pre class="link-text">{{ serial.series_description | capitalize}}</pre>
-                </a>
+                <div class="collapsible-body waves-effect waves-brown waves-ripple collapsible-link">
+                    <a href="{{ url_for('view_classes_in_series', series_id=serial._id, series_doc=all_series._id, username=username) }}"
+                        class="collapsible-link-ref tooltipped" data-position="left" data-delay="50"
+                        data-tooltip="View class series">
+                        <pre class="link-text">{{ serial.series_description | capitalize}}</pre>
+                    </a>
 
-                <!-- Tool buttons for series -->
-                <div class="fixed-action-btn vertical">
-                    <a class="btn-floating btn-large master-button btn-large indigo darken-4 tooltipped z-depth-5"
-                        data-position="left" data-delay="50" data-tooltip="Editor tools">
-                        <i class="medium material-icons">build</i></a>
-                    <ul>
-                        <li><a href="{{ url_for('view_classes_in_series', series_id=serial._id, series_doc=all_series._id, username=username) }}"
-                                class="btn-floating yellow darken-2 tooltipped" data-position="left" data-delay="50"
-                                data-tooltip="View class series">
-                                <i class="material-icons">
-                                    remove_red_eye</i></a></li>
-                        <li><a href="{{ url_for('edit_series', series_id=serial._id, series_doc=all_series._id, username=username) }}"
-                                class="btn-floating green tooltipped" data-position="left" data-delay="50"
-                                data-tooltip="Edit series">
-                                <i class="material-icons">edit</i></a></li>
-                        <li><a href="{{ url_for('delete_series', series_id=serial._id, series_doc=all_series._id) }}"
-                                class="btn-floating red accent-4 tooltipped modal-trigger" data-position="left"
-                                data-delay="50" data-tooltip="Delete class series">
-                                <i class="material-icons">delete</i></a></li>
-                    </ul>
+                    <!-- Tool buttons for series -->
+                    <div class="fixed-action-btn vertical">
+                        <a class="btn-floating btn-large master-button btn-large indigo darken-4 tooltipped z-depth-5"
+                            data-position="left" data-delay="50" data-tooltip="Editor tools">
+                            <i class="medium material-icons">build</i></a>
+                        <ul>
+                            <li><a href="{{ url_for('view_classes_in_series', series_id=serial._id, series_doc=all_series._id, username=username) }}"
+                                    class="btn-floating yellow darken-2 tooltipped" data-position="left" data-delay="50"
+                                    data-tooltip="View class series">
+                                    <i class="material-icons">
+                                        remove_red_eye</i></a></li>
+                            <li><a href="{{ url_for('edit_series', series_id=serial._id, series_doc=all_series._id, username=username) }}"
+                                    class="btn-floating green tooltipped" data-position="left" data-delay="50"
+                                    data-tooltip="Edit series">
+                                    <i class="material-icons">edit</i></a></li>
+                            <li><a href="{{ url_for('delete_series', series_id=serial._id, series_doc=all_series._id) }}"
+                                    class="btn-floating red accent-4 tooltipped modal-trigger" data-position="left"
+                                    data-delay="50" data-tooltip="Delete class series">
+                                    <i class="material-icons">delete</i></a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </li>
-        {% else %}
-        <li class="accordion_list header-alt">
-            <div class="collapsible-header">
-                <div class="list_header col">
-                    <strong class="not-yet">You haven't created any class series yet</strong>
+            </li>
+            {% else %}
+            <li class="accordion_list header-alt">
+                <div class="collapsible-header">
+                    <div class="list_header col">
+                        <strong class="not-yet">You haven't created any class series yet</strong>
+                    </div>
                 </div>
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
-    <br>
-    <!-- Button to add a new class -->
-    <div class="divider"></div>
-    <div class="container bottom_actions p-0 w-100">
-        <div class="row w-100 mb-5 mt-5 no-gutters p-0 mx-0">
-            <div class="col m-0 p-0">
-                <a href="{{ url_for('add_series') }}" class="btn-small waves-effect waves-light z-depth-5 blue tooltipped"
-                    data-position="right" data-delay="50" data-tooltip="Add a new class series">
-                    <i class="material-icons left">library_add</i>Add New Series</a>
+            </li>
+            {% endfor %}
+        </ul>
+        <br>
+        <!-- Button to add a new class -->
+        <div class="divider"></div>
+        <div class="container bottom_actions p-0 w-100">
+            <div class="row w-100 mb-5 mt-5 no-gutters p-0 mx-0">
+                <div class="col m-0 p-0">
+                    <a href="{{ url_for('add_series') }}"
+                        class="btn-small waves-effect waves-light z-depth-5 blue tooltipped" data-position="right"
+                        data-delay="50" data-tooltip="Add a new class series">
+                        <i class="material-icons left">library_add</i>Add New Series</a>
+                </div>
             </div>
         </div>
     </div>

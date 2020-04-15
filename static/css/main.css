@@ -11,7 +11,7 @@ body {
     width: auto;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow-x: hidden!important;
 
 }
 
@@ -61,7 +61,7 @@ main {
 #login {
     position: absolute;
     height: 50vh;
-    margin-top: 5vh;
+    margin-top: 20vh;
     margin-left: 50vw;
     min-height: 364px;
 }
@@ -70,7 +70,7 @@ main {
     position: absolute;
     height: 50vh;
     margin-top: 20vh;
-    margin-left: 50vw;
+    margin-left: 45vw;
     min-height: 364px;
 }
 
@@ -123,7 +123,6 @@ main {
         padding-left: 8rem;
     }
 
-
     .index-content {
         height: calc(100vh - 106px);
         min-height: 498px;
@@ -131,6 +130,15 @@ main {
 
     #logo {
         height: 64px;
+    }
+
+    .login-card {
+    position: fixed;
+    z-index: 800;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
     }
 
     .register-content {
@@ -155,8 +163,7 @@ main {
     }
 }
 
-
-@media screen and (max-width: 630px) and (min-width: 315px) {
+@media screen and (max-width: 630px) and (min-width: 415px) {
     .sidenav {
         max-width: 66vw;
     }
@@ -176,7 +183,7 @@ main {
 
     .register-content {
         height: calc(100vh - 90px);
-        min-height: 560px
+        min-height: 628px
     }
 
     .footer-content {
@@ -206,6 +213,101 @@ main {
     .container {
         padding: 0;
     }
+}
+
+@media screen and (max-width: 414px) and (min-width: 315px) {
+    .sidenav {
+        max-width: 66vw;
+    }
+
+    #register { 
+        display: none; 
+    }
+
+    #login {
+        display: none;
+    }
+
+    .login-card {
+        position: absolute;
+    }
+
+    .register-card {
+    position: relative;
+    z-index: 800;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    }
+
+    .index-content { 
+        background: none;
+        height: calc(100vh - 90px);
+        min-height: 590px;
+    }
+
+    .register-content {
+        height: calc(100vh - 90px);
+        min-height: 600px
+    }
+
+    .footer-content {
+        height:  34px;
+    }
+
+    .copyright {
+        font-size: .85rem;
+    }
+
+    .log-title>h4 {
+        padding-left: 2rem;
+    }
+
+    #logo {
+        height: 60px;
+    }
+
+    #messages {
+        width: 100vw;
+    }
+
+    .main-content {
+        min-height: calc(100vh - 90px);
+    }
+
+    .container {
+        padding: 0;
+    }
+}
+
+@media only screen and (max-width: 415px) and (min-height: 631px) and (orientation: portrait) {
+    .register-content,
+    .index-content {
+        min-height: 590px;
+    }
+
+    .login-card {
+        display: absolute;
+        transform: translate(-50%, 1%);
+        -webkit-transform: translate(-50%, 1%);
+}
+
+}
+
+@media only screen and (max-width: 415px) and (max-height: 630px) and (orientation: portrait) {
+    .register-content,
+    .index-content {
+        min-height: 590px;
+    }
+    #login {
+        display: hidden;
+    }
+    .login-card {
+        display: absolute;
+        transform: translate(-50%, 1%);
+        -webkit-transform: translate(-50%, 1%);
+}
 }
 
 /* VIEW CLASS */

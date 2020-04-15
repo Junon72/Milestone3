@@ -1,58 +1,62 @@
 {% extends "base.html"%}
 {% block content %}
-<!-- EDIT CLASS VIEW -->
-<div class="main-content">
-    <div class="row">
-        <div class="class-title col s12 m10 l6">
-            {% for serial in this_series.class_series %}
-            <h3>Edit - {{ serial.series_name | title}}</h3>
-        </div>
-    </div>
-
-    <!-- EDIT CLASS SERIES-->
-    <form class="col s12 l6" method="POST"
-        action="{{ url_for('update_series', series_doc = series_doc, series_id=series_id)  }}" id="add_series_form"
-        autocomplete="off">
-        <!-- ADD SERIES NAME -->
+<div class="container">
+    <!-- EDIT CLASS VIEW -->
+    <div class="main-content">
         <div class="row">
-            <div class="input-field col s12">
-                <i class="material-icons prefix">bookmark</i>
-                <input id="series_name" name="series_name" value="{{ serial.series_name }}" type="text"
-                    class="form-control text-capitalize validate" placeholder="Class series name" required="required">
-                <label for="series_name" class="ml-2">Class Series Name</label>
+            <div class="class-title col s12 m10 l6">
+                {% for serial in this_series.class_series %}
+                <h3>Edit - {{ serial.series_name | title}}</h3>
             </div>
         </div>
 
-        <!-- ADD SERIES DESCRIPTION -->
-        <div class="row">
-            <div class="input-field col s12 l6">
-                <i class="material-icons prefix">description</i>
-                <textarea class="materialize-textarea form-control" id="series_description" name="series_description"
-                    placeholder="Description" required="required">{{ serial.series_description }}</textarea>
-                <label for="series_description" class="ml-2">Description</label>
-            </div>
-        </div>
-        {% endfor %}
-        <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
-        <!-- SAVE inserts the content and returns to SERIES VIEW  - .save() the changes to an existing exercise with an existing _id and sub-document _id,s-->
-        <!-- CANCEL does not save the content and returns to the SERIES VIEW- .get() series without changes -->
-        <div class="divider"> </div>
-        <div class="container bottom_actions p-0 w-100">
-            <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
-                <div class="col d-flex mt-3 p-0 justify-content-end">
-                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                        name="action" data-position="top" data-delay="50" data-tooltip="Save and go back">
-                        <i class="material-icons left">save</i>Save
-                    </button>
-
-                    <!-- Return to classes view -->
-                    <a href="{{ url_for('series') }}" class="btn-small waves-effect waves-light grey tooltipped cancel"
-                        data-position="bottom" data-delay="50"
-                        data-tooltip="Cancel and go back">
-                        Cancel</a>
+        <!-- EDIT CLASS SERIES-->
+        <form class="col s12 l6" method="POST"
+            action="{{ url_for('update_series', series_doc = series_doc, series_id=series_id)  }}" id="add_series_form"
+            autocomplete="off">
+            <!-- ADD SERIES NAME -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">bookmark</i>
+                    <input id="series_name" name="series_name" value="{{ serial.series_name }}" type="text"
+                        class="form-control text-capitalize validate" placeholder="Class series name"
+                        required="required">
+                    <label for="series_name" class="ml-2">Class Series Name</label>
                 </div>
             </div>
-        </div>
-    </form>
+
+            <!-- ADD SERIES DESCRIPTION -->
+            <div class="row">
+                <div class="input-field col s12 l6">
+                    <i class="material-icons prefix">description</i>
+                    <textarea class="materialize-textarea form-control" id="series_description"
+                        name="series_description" placeholder="Description"
+                        required="required">{{ serial.series_description }}</textarea>
+                    <label for="series_description" class="ml-2">Description</label>
+                </div>
+            </div>
+            {% endfor %}
+            <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
+            <!-- SAVE inserts the content and returns to SERIES VIEW  - .save() the changes to an existing exercise with an existing _id and sub-document _id,s-->
+            <!-- CANCEL does not save the content and returns to the SERIES VIEW- .get() series without changes -->
+            <div class="divider"> </div>
+            <div class="container bottom_actions p-0 w-100">
+                <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
+                    <div class="col d-flex mt-3 p-0 justify-content-end">
+                        <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                            name="action" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                            <i class="material-icons left">save</i>Save
+                        </button>
+
+                        <!-- Return to classes view -->
+                        <a href="{{ url_for('series') }}"
+                            class="btn-small waves-effect waves-light grey tooltipped cancel" data-position="bottom"
+                            data-delay="50" data-tooltip="Cancel and go back">
+                            Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock content %}

@@ -1,83 +1,85 @@
 {% extends "base.html"%}
 
 {% block content %}
-<!-- CLASSES IN SERIES VIEW -->
-<div class="main-content">
-    <div class="row">
-        {% for name in serial_name.class_series %}
-        <h3>Classes in {{ name.series_name}}</h3>
-    </div>
-    <ul class="collapsible collapsible-main" data-collapsible="accordion">
-        {% if name.classes is defined and name.classes|length > 0 %}
-        {% for items in serial.class_series %}
-        {% for class in all_classes recursive %}
-        {% for item in items.classes %}
-        {% if class._id|string in item %}
-        <li class="accordion_list">
-            <div class="collapsible-header level-1">
-                <div class="list_header col">
-                    <!---<i class="material-icons accordion_arrow">expand_more</i>-->
-                    <strong>{{ class.class_name }}</strong>
+<div class="container">
+    <!-- CLASSES IN SERIES VIEW -->
+    <div class="main-content">
+        <div class="row">
+            {% for name in serial_name.class_series %}
+            <h3>Classes in {{ name.series_name}}</h3>
+        </div>
+        <ul class="collapsible collapsible-main" data-collapsible="accordion">
+            {% if name.classes is defined and name.classes|length > 0 %}
+            {% for items in serial.class_series %}
+            {% for class in all_classes recursive %}
+            {% for item in items.classes %}
+            {% if class._id|string in item %}
+            <li class="accordion_list">
+                <div class="collapsible-header level-1">
+                    <div class="list_header col">
+                        <!---<i class="material-icons accordion_arrow">expand_more</i>-->
+                        <strong>{{ class.class_name }}</strong>
+                    </div>
                 </div>
-            </div>
-            <div class="collapsible-body waves-effect waves-brown waves-ripple collapsible-link">
-                <a href="{{ url_for('view_class', class_id=class._id, username=username) }}"
-                    class="collapsible-link-ref tooltipped" data-position="left" data-delay="50"
-                    data-tooltip="View class">
-                    <pre class="link-text">{{ class.class_description }} </pre>
-                </a>
+                <div class="collapsible-body waves-effect waves-brown waves-ripple collapsible-link">
+                    <a href="{{ url_for('view_class', class_id=class._id, username=username) }}"
+                        class="collapsible-link-ref tooltipped" data-position="left" data-delay="50"
+                        data-tooltip="View class">
+                        <pre class="link-text">{{ class.class_description }} </pre>
+                    </a>
 
-                <!-- TOOLS BUTTON FOR THE TOOLS: EDIT/DELETE/DUPLICATE/ADD EXERCISE/ ADD LOG-->
-                <div class="fixed-action-btn vertical">
-                    <a class="btn-floating btn-large master-button btn-large indigo darken-4 tooltipped z-depth-5"
-                        id="class-tools" data-position="left" data-delay="50" data-tooltip="Editor tools">
-                        <i class="medium material-icons">build</i></a>
-                    <ul>
-                        <li><a href="{{ url_for('view_class', class_id=class._id, username = username) }}"
-                                class="btn-floating yellow darken-2 tooltipped" data-position="left" data-delay="50"
-                                data-tooltip="View class">
-                                <i class="material-icons">remove_red_eye</i></a></li>
-                        <li><a href="{{ url_for('edit_class', class_id=class._id, username=username) }}"
-                                class="btn-floating green tooltipped" data-position="left" data-delay="50"
-                                data-tooltip="Edit class">
-                                <i class="material-icons">edit</i></a></li>
-                        <li><a href="{{ url_for('delete_class', class_id=class._id, series_doc = series._id, username=username) }}"
-                                class="btn-floating red tooltipped" data-position="left" data-delay="50"
-                                data-tooltip="Delete class">
-                                <i class="material-icons">delete</i></a></li>
-                        <li><a href="{{ url_for('copy_class', class_id=class._id, username=username) }}"
-                                class="btn-floating teal darken-1 tooltipped" data-position="left" data-delay="50"
-                                data-tooltip="Duplicate class">
-                                <i class="material-icons">content_copy</i></a></li>
-                    </ul>
+                    <!-- TOOLS BUTTON FOR THE TOOLS: EDIT/DELETE/DUPLICATE/ADD EXERCISE/ ADD LOG-->
+                    <div class="fixed-action-btn vertical">
+                        <a class="btn-floating btn-large master-button btn-large indigo darken-4 tooltipped z-depth-5"
+                            id="class-tools" data-position="left" data-delay="50" data-tooltip="Editor tools">
+                            <i class="medium material-icons">build</i></a>
+                        <ul>
+                            <li><a href="{{ url_for('view_class', class_id=class._id, username = username) }}"
+                                    class="btn-floating yellow darken-2 tooltipped" data-position="left" data-delay="50"
+                                    data-tooltip="View class">
+                                    <i class="material-icons">remove_red_eye</i></a></li>
+                            <li><a href="{{ url_for('edit_class', class_id=class._id, username=username) }}"
+                                    class="btn-floating green tooltipped" data-position="left" data-delay="50"
+                                    data-tooltip="Edit class">
+                                    <i class="material-icons">edit</i></a></li>
+                            <li><a href="{{ url_for('delete_class', class_id=class._id, series_doc = series._id, username=username) }}"
+                                    class="btn-floating red tooltipped" data-position="left" data-delay="50"
+                                    data-tooltip="Delete class">
+                                    <i class="material-icons">delete</i></a></li>
+                            <li><a href="{{ url_for('copy_class', class_id=class._id, username=username) }}"
+                                    class="btn-floating teal darken-1 tooltipped" data-position="left" data-delay="50"
+                                    data-tooltip="Duplicate class">
+                                    <i class="material-icons">content_copy</i></a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </li>
-        {% endif %}
-        {% endfor %}
-        {% endfor %}
-        {% endfor %}
-        {% else %}
-        <li class="accordion_list header-alt">
-            <div class="collapsible-header">
-                <div class="list_header col">
-                    <strong class="not-yet">No classes added to this series</strong>
+            </li>
+            {% endif %}
+            {% endfor %}
+            {% endfor %}
+            {% endfor %}
+            {% else %}
+            <li class="accordion_list header-alt">
+                <div class="collapsible-header">
+                    <div class="list_header col">
+                        <strong class="not-yet">No classes added to this series</strong>
+                    </div>
                 </div>
-            </div>
-        </li>
-        {% endif %}
-        {% endfor %}
-    </ul>
-    <br>
-    <!-- BOTTOM BUTTON  'BACK TO series' TO NAVIGATE TO THE PREVIOUS PAGE CLASSES VIEW -->
-    <div class="divider"></div>
-    <div class="container bottom_actions w-100">
-        <div class="row w-100 no-gutters mt-5 mb-5">
-            <div class="col ml-n4 d-flex justify-content-beginning">
-                <a href="{{ url_for('series') }}"
-                    class="btn-small waves-effect waves-light black z-depth-5 tooltipped go_back" data-position="top"
-                    data-delay="50" data-tooltip="Go back">
-                    <i class="material-icons left">chevron_left</i>Back to Series</a>
+            </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+        <br>
+        <!-- BOTTOM BUTTON  'BACK TO series' TO NAVIGATE TO THE PREVIOUS PAGE CLASSES VIEW -->
+        <div class="divider"></div>
+        <div class="container bottom_actions w-100">
+            <div class="row w-100 no-gutters mt-5 mb-5">
+                <div class="col ml-n4 d-flex justify-content-beginning">
+                    <a href="{{ url_for('series') }}"
+                        class="btn-small waves-effect waves-light black z-depth-5 tooltipped go_back"
+                        data-position="top" data-delay="50" data-tooltip="Go back">
+                        <i class="material-icons left">chevron_left</i>Back to Series</a>
+                </div>
             </div>
         </div>
     </div>

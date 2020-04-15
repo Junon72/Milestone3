@@ -1,38 +1,39 @@
 {% extends "base.html"%}
 {% block content %}
-<!-- CLASS FORM -->
-<form class="col s12" method="POST"
-    action="{{ url_for('save_class', class_id = this_class._id, series = series, series_doc = series._id, username=username) }}"
-    id="edit_class_form" autocomplete="off">
-    <!-- Disabled autocompletion -->
-    <!-- Page Title for Edit class mode -->
+<div class="container">
+    <!-- CLASS FORM -->
+    <form class="col s12" method="POST"
+        action="{{ url_for('save_class', class_id = this_class._id, series = series, series_doc = series._id, username=username) }}"
+        id="edit_class_form" autocomplete="off">
+        <!-- Disabled autocompletion -->
+        <!-- Page Title for Edit class mode -->
         <div class="row">
             <div class="class-title col s12 m10 l6">
                 <h3>Edit - {{ this_class.class_name | title}}</h3>
             </div>
         </div>
-    <!-- MAIN CLASS INFO -->
-    {% include 'classForm.html' %}
+        <!-- MAIN CLASS INFO -->
+        {% include 'classForm.html' %}
 
-    <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
-    <!-- SAVE inserts the content and returns to CLASSES VIEW  - .insert() new document with new class _id and sub-document _id,s-->
-    <!-- CANCEL does not save the content and returns to the CLASSes VIEW - .get() classes without changes -->
-    <div class="divider"> </div>
-    <div class="container bottom_actions p-0 w-100">
-        <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
-            <div class="col d-flex mt-3 p-0 justify-content-end">
-                <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
-                    name="action" data-position="top" data-delay="50" data-tooltip="Save and go back">
-                    <i class="material-icons left">save</i>Save</button>
+        <!-- BOTTOM BUTTONS SAVE/ CANCEL-->
+        <!-- SAVE inserts the content and returns to CLASSES VIEW  - .insert() new document with new class _id and sub-document _id,s-->
+        <!-- CANCEL does not save the content and returns to the CLASSes VIEW - .get() classes without changes -->
+        <div class="divider"> </div>
+        <div class="container bottom_actions p-0 w-100">
+            <div class="row no-gutters w-100 mb-5 mt-5 mx-0">
+                <div class="col d-flex mt-3 p-0 justify-content-end">
+                    <button class="btn-small waves-effect waves-light green tooltipped save mr-2" type="submit"
+                        name="action" data-position="top" data-delay="50" data-tooltip="Save and go back">
+                        <i class="material-icons left">save</i>Save</button>
 
-                <!-- Return to classes view -->
-                <a href="{{ url_for('view_class', class_id = class_id) }}"
-                    class="btn-small waves-effect waves-light grey tooltipped cancel" type="submit"
-                    data-position="top" data-delay="50"
-                    data-tooltip="Cancel and go back">
-                    Cancel</a>
+                    <!-- Return to classes view -->
+                    <a href="{{ url_for('view_class', class_id = class_id) }}"
+                        class="btn-small waves-effect waves-light grey tooltipped cancel" type="submit"
+                        data-position="top" data-delay="50" data-tooltip="Cancel and go back">
+                        Cancel</a>
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 {% endblock content %}
