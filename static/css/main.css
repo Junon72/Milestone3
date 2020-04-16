@@ -91,13 +91,13 @@ main {
     }
 
     #register { 
-        margin-top: 15vh;
-        margin-left: 60vw;
+        margin-top: 20vh;
+        margin-left: 50vw;
     }
 
     #login {
-        margin-top: 20vh;
-        margin-left: 50vw;
+        margin-top: 18vh;
+        margin-left: 60vw;
     }
 
 
@@ -112,7 +112,7 @@ main {
 
     .register-card,
     .login-card {
-        top: 35%
+        top: 30%
     }
     .main-content {
         min-height: calc(100vh - 106px);
@@ -149,7 +149,7 @@ main {
     }
 
     #register { 
-        margin-top: 15vh;
+        margin-top: 20vh;
         margin-left: 45vw;
     }
 
@@ -158,6 +158,10 @@ main {
         margin-left: 48vw;
     }
 
+    .register-card,
+    .login-card {
+        top: 30%
+    }
 
     .register-content {
         height: calc(100vh - 106px);
@@ -194,9 +198,12 @@ main {
         display: none;
     }
 
-    .register-card,
-    .login-card {
-        top: 35%
+    .register-card {
+        top: 30%
+    }
+
+    .register-card {
+    top: 35%;
     }
 
     .index-content { 
@@ -211,7 +218,7 @@ main {
 
     .register-content {
         height: calc(100vh - 90px);
-        min-height: 628px
+        min-height: 650px
     }
 
     .footer-content {
@@ -256,23 +263,16 @@ main {
         display: none;
     }
 
-    .login-card,
-    .register-card {
+    .login-card {
     top: 25%;
+    }
+
+    .register-card {
+    top: 35%;
     }
 
     .card {
         width: 85vw;
-    }
-
-    .index-content { 
-        background: none;
-        height: calc(100vh - 90px);
-    }
-
-    .register-content {
-        height: calc(100vh - 90px);
-        min-height: 580px
     }
 
     .footer-content {
@@ -310,10 +310,9 @@ main {
         min-height: 590px;
     }
 
-    .login-card {
-        position: relative;
-        transform: translate(-50%, 1%);
-        -webkit-transform: translate(-50%, 1%);
+    .login-card,
+    .register-card {
+        top: 25%;
 }
     #login {
         margin-top: 4vh;
