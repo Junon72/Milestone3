@@ -85,7 +85,7 @@ main {
     }
 
     #register {
-        margin-top: 20vh;
+        margin-top: 18vh;
         margin-left: 50vw;
     }
 
@@ -164,12 +164,12 @@ main {
     }
 
     .index-content {
-        height: calc(100vh - 106px);
+        height: calc(100vh - 90px);
         min-height: 420px;
     }
 
     .register-content {
-        height: calc(100vh - 106px);
+        height: calc(100vh - 90px);
         min-height: 560px;
     }
 
@@ -195,6 +195,16 @@ main {
         max-width: 66vw;
     }
 
+    .index-content {
+        height: calc(100vh - 90px);
+        min-height: 420px;
+    }
+
+    .register-content {
+        height: calc(100vh - 90px);
+        min-height: 650px
+    }
+
     #register {
         display: none;
     }
@@ -209,6 +219,10 @@ main {
 
     .login-card {
         top: 35%;
+    }
+
+    .card {
+        width: 70vw;
     }
 
     .footer-content {
