@@ -18,11 +18,79 @@ The project was created as Milestone project for the Data Centric Development mo
 ## Table of Content
 
 - ['Project brief'](#Project-brief)
+- ['Contextualizing the need'](##Contextualizing-the-need)
+- ['Project overview](##Project-Overview)
 - ['UX](#UX)
+- ['Who is this application for?'](##Who-is-this-application-for?)
+- ['Possible user types'](###Possible-users-types)
+- ['User stories'](##User-stories)
+- ['Planning](##Planning)
+- ['Database schema'](##Database-schema)
 - ['Functional flow and Features'](#Functional-Flow-And-Features)
+- ['Accessing the app'](##Accessing-the-app)
+- ['Registration instructions'](###Registration-instructions)
+- ['Home'](##Home)
+- ['Selecting and adding classes'](###Selecting-and-adding-classes)
+- ['Other available options for managing classes'](###Other-available-options-for-managing-classes)
+- ['Viewing a class'](###Viewing-a-class)
+- ['Editing classes'](###Editing-classes)
+- ['Duplicating classes'](###Duplicating-classes)
+- ['Adding-exercises'](###Adding-exercises)
+- ['Editing exercises'](###Editing-exercises)
+- ['Adding logs'](###Adding-logs)
+- ['Editing logs'](###Editing-logs)
+- ['Adding links for music tracks'](###Adding-links-for-music-tracks)
+- ['Add links for videos'](###Add-links-for-videos)
+- ['Series'](##Series)
+- ['Viewing and adding series'](###Viewing-and-adding-series)
+- ['Other available options for managing series'](####Other-available-options-for-managing-series)
+- ['Editing series'](###Editing-series)
+- ['Viewing classes in series'](###Viewing-classes-in-series)
+- ['Other available options'](####Other-available-options)
+- ['Features and functions planned but not implemented-yet'](##Features-and-functions-planned-but-not-implemented-yet)
 - ['Technologies Used'](#Technologies-Used)
 - ['Project Setup'](#Project-Setup)
+- ['Setting up IDE'](##Setting-up-IDE)
+- ['Working with VSCode and Python'](###Working-with-VSCode-and-Python)
+- ['Testing Python installation'](###Testing-Python-installation)
+- ['Setting up git for version control and connecting to GitHub'](#Setting-up-git-for-version-control-and-connecting-to-GitHub)
+- ['Installing and testing Flask'](##Installing-and-testing-Flask)
+- ['Welcome Flask test'](###Welcome-Flask-test)
+- ['Testing the route decorator'](###Testing-the-route-decorator)
+- ['Working with templates and Jinja2'](##Working-with-templates-and-Jinja2)
+- ['Flask url module'](##Flask-url-module)
+- ['Displaying Classes on classes.html'](##Displaying-Classes-on-classes.html)
+- ['MongoDB Atlas'](##MongoDB-Atlas)
+- ['Getting the MongoDB working together with Python'](###-Getting-the-MongoDB-working-together-with-Python)
+- ['Connecting the application'](###Connecting-the-application)
+- ['Preparing VSCode for MongoDB'](###Preparing-VSCode-for-MongoDB)
+- ['Connecting to MongoDB Atlas from IDE terminal'](###Connecting-to-MongoDB-Atlas-from-IDE-terminal)
+- ['Pymongo'](###Pymongo)
+- ['Flask-Pymongo'](###Flask-Pymongo)
+- ['Libraries'](###Libraries)
+- ['Adding to the collections'](###Adding-to-the-collections)
+- ['Heroku'](##Heroku)
+- ['Heroku and VSCode'](###Heroku-and-VSCode)
+- ['Deployment to Heroku hosting site'](###Deployment-to-Heroku-hosting-site)
+- ['Signing up to Heroku'](###Signing-up-to-Heroku)
+- ['Login to Heroku'](####Login-to-Heroku)
+- ['Connecting to Heroku and creating the app'](###Connecting-to-Heroku-and-creating-the-app)
+- ['Adding Procfile and requirements file'](###Adding-Procfile-and-requirements.txt-file)
+- ['Prepare the application for deployment'](###Prepare-the-application-for-deployment)
+- ['Complete the application configuration in Heroku'](###Complete-the-application-configuration-in-Heroku)
+- ['Commit the application to Heroku and open it'](###Commit-the-application-to-Heroku-and-open-it)
+- ['Connecting Heroku and GitHub after deployment'](###Connecting-Heroku-and-GitHub-after-deployment)
+- ['How to run the project locally'](##How-to-run-the-project-locally)
+- ['Clone the project to your IDE'](###Clone-the-project-to-your-IDE)
+- ['Install the required modules'](###Install-the-required-modules)
+- ['Creating a local git repository'](###Creating-a-local-git-repository)
+- ['Create a new project in GitHub'](###Create-a-new-project-in-GitHub)
+- ['Create a new project through command line'](###Create-a-new-project-through-command-line)
 - ['Testing](#Testing)
+- ['Python code'](##Python-code)
+- ['HTML'](##HTML)
+- ['CSS'](##CSS)
+- ['JavaScript'](##JavaScript)
 - ['Media and Content Origin](#Media-and-Content-Origin)
 - ['References'](#References)
 - ['Special Thanks'](#Special-Thanks)
@@ -95,7 +163,7 @@ I considered following features essential for application to fulfill its purpose
 
 # UX
 
-## Who is this application for ?
+## Who is this application for?
 
 ### Possible users types
 
@@ -149,9 +217,9 @@ Users are separated layer from the classes, to avoid repeating data. same is the
 
 3. series collection contains series documents. Embedded in a series are class series. Within a class series is embedded a list of associated classes. A series can be associated with many classes, but only one user.
 
-The embedded structure is justified by the cardinality of the relationships. The class data will need to be accessible only in the context of an individual user. The exercises data will need to be accessible only in the context of the class they belong to. The music track and video data will need to be accessible only in the context of the exercise they belong to. Document data is also not expected to grow ad infinitum. Denormalized data is a MongoDB recommendation in this case.
+The embedded structure is justified by the cardinality of the relationships. The class data will need to be accessible only in the context of an individual user. The exercises data will need to be accessible only in the context of the class they belong to. The music track and video data will need to be accessible only in the context of the exercise they belong to. Document data is also not expected to grow ad infinitum. De-normalized data is a MongoDB recommendation in this case.
 
-The series is really used only as a filter for document reading and to create perhaps temporary association. They also represent a clear many-to-many relationships regarding the classes. According to MongoDB documentation, data denormalization would not be required in this case. It also makes accessing the data and managing the documents less complex in practice.
+The series is really used only as a filter for document reading and to create perhaps temporary association. They also represent a clear many-to-many relationships regarding the classes. According to MongoDB documentation, data de-normalization would not be required in this case. It also makes accessing the data and managing the documents less complex in practice.
 
 [MongoDB Data Modeling Introduction](https://docs.mongodb.com/manual/core/data-modeling-introduction/)
 
@@ -189,11 +257,11 @@ Password:
 
 After login in User have two hubs available through the navigation. Home (Classes) route is used for managing Classes.
 
-### Classes view and adding classes
+### Selecting and adding classes
 
 Route one starts from the classes Home page, which is an access hub for the individual classes in classes collection and allows a user to add new classes using an add button. Clicking the add button opens an Add class form with empty fields. Users can fill in a form and save the content or cancel and go back. Submitting a new class with the Save button will create a new class document in the classes collection and takes the user to the class view page. Cancel button takes user back to the Home page
 
-### Other options in classes
+### Other available options for managing classes
 
 Hovering over the accordion highlights the classes. Users can view a class in accordion list by clicking the accordion header. This reveals the class description and a master tool button at the right down corner of the page and highlights the selected class header. Users may click the description field to view a class. Alternatively, hovering over the tool button, reveals a set of options to choose from: View class, Edit class, Delete class and Duplicate class.
 
@@ -202,7 +270,7 @@ Hovering over the accordion highlights the classes. Users can view a class in ac
 3. Delete button deletes the class and returns to the classes page.
 4. Duplicate class creates a duplicate of the class content and opens the class in edit class view.
 
-### Class view
+### Viewing a class
 
 Class view displays the class content:
 
@@ -232,42 +300,45 @@ Class view displays the class content:
 
 8. Logs are presented in an accordion list. The accordion headers highlight when hovered and stay highlighted when opened. When opened logs display content created in Summernote. Users can edit logs by clicking an edit button at the left side bottom of the log content or delete the log by clicking the delete log button.
 
-### Edit class view
+### Editing classes
 
-Edit class view allows users to edit the content of prefilled input fields to make changes to a class. The Element field is again Summernote editor allowing the default editor options. Users can Save the changes to the class or click Cancel, which both direct the user back to the class view. The page header displays Edit - and the class name. Also the Exercises accordions are displayed, as well as Logs but for viewing only.
+Edit class view allows users to edit the content of pre-filled input fields to make changes to a class. The Element field is again Summernote editor allowing the default editor options. Users can Save the changes to the class or click Cancel, which both direct the user back to the class view. The page header displays Edit - and the class name. Also the Exercises accordions are displayed, as well as Logs but for viewing only.
 
-### Duplicate class view
+### Duplicating classes
 
 Duplicate class view is using the same form as edit the class view. The only difference is that the page header displays this time Edit - the name of the class (copy). Users can Save the changes to the class or click Cancel, which both direct the user to the class view of the copied class.
 
-### Add exercise view
+### Adding exercises
 
 Add exercise view allows users to create an exercise for a class. The view displays an empty form for users to fill in. Users can save the exercise by clicking Save or cancel by Clicking Cancel, which both direct the users back to the class view.
 
-### Edit exercise view
-Edit exercise view allows users to edit the content of prefilled input fields to make changes to an exercise. The Description field is again Summernote editor allowing the default editor options. Users can Save the changes to the exercise or click Cancel, which both direct the user back to the class view. The page header displays Edit - and the exercise name. Also the Music Tracks and Video Links collection elements are displayed, but the links do not work.
+### Editing exercises
 
-### Add log view
+Edit exercise view allows users to edit the content of pre-filled input fields to make changes to an exercise. The Description field is again Summernote editor allowing the default editor options. Users can Save the changes to the exercise or click Cancel, which both direct the user back to the class view. The page header displays Edit - and the exercise name. Also the Music Tracks and Video Links collection elements are displayed, but the links do not work.
+
+### Adding logs
 
 Add log view allows users to create a log for a class. The view displays an empty form for users to fill in. Users can select a log date from a date picker, tag the log for easier reference when later and write a log with a rich text editor. Users can save the log by clicking Save or cancel by Clicking Cancel, which both direct the users back to the class view.
 
-### Edit log view
+### Editing logs
 
-Edit log view allows users to edit the content of prefilled input fields to make changes to a log. The Log field is again Summernote editor allowing the default editor options. Users can Save the changes to the log or click Cancel, which both direct the user back to the class view. The page header displays Edit log from - and the log date. Also the Music Tracks and Video Links collection elements are displayed, but the links do not work.
+Edit log view allows users to edit the content of pre-filled input fields to make changes to a log. The Log field is again Summernote editor allowing the default editor options. Users can Save the changes to the log or click Cancel, which both direct the user back to the class view. The page header displays Edit log from - and the log date. Also the Music Tracks and Video Links collection elements are displayed, but the links do not work.
 
-### Add music track view
+### Adding links for music tracks
+
 Add music track view allows users to add a music track link to an exercise. The view displays an empty form for users to fill in. Users can save the track link by clicking Save or cancel by Clicking Cancel, which both direct the users back to the class view.
 
-### Add video link view
+### Add links for videos
+
 Add video link view allows users to add a video link to an exercise. The view displays an empty form for users to fill in. Users can save the exercise by clicking Save or cancel by Clicking Cancel, which both direct the users back to the class view.
 
 ## Series
 
-### Series view and adding series
+### Viewing and adding series
 
 Route two starts from the series page, which is an access hub for the class series in series collection and allows a user to add a new series using an add button. Series are displayed in accordion elements. Clicking the add button opens an Add series form with empty fields. Users can fill in a form and save the content or cancel and go back. Submitting a new series with the Save button will create a new series document in the classes collection and takes the user to the series view page. Cancel button takes users back to the series page as well.
 
-#### Other options in series
+#### Other available options for managing series
 
 Hovering over the accordion highlights the series. Users can view a series in the accordion list by clicking the accordion header. This reveals the series description and a master tool button at the right down corner of the page and highlights the selected series header. Users may click the description field to view the series. Alternatively, hovering over the tool button, reveals a set of options to choose from: View series, Edit series and Delete series.
 
@@ -276,15 +347,15 @@ Hovering over the accordion highlights the series. Users can view a series in th
 3. Delete button deletes the class and returns to the classes page.
 4. Duplicate class creates a duplicate of the class content and opens the class in edit class view.
 
-### Edit series view
+### Editing series
 
 Edit log view allows users to edit the content of prefilled input fields to make changes to a log. Users can Save the changes to the series or click Cancel, which both direct the user back to the series view. The page header displays Edit - and series name.
 
-### View classes in series view
+### Viewing classes in series
 
 View classes in series view is an access hub for the individual classes in series, which are displayed in accordion elements.  Users can select a class from the series by clicking the accordion header, which opens the element and displays the class description. Users can navigate back to the series view by clicking the Back to series button at the bottom left of the View classes in series content.
 
-#### Other options in View Classes in Series
+#### Other available options
 
 Hovering over the accordion highlights the classes. Users can view a class in accordion list by clicking the accordion header. This reveals the class description and a master tool button at the right down corner of the page and highlights the selected class header. Users may click the description field to view a class. Alternatively, hovering over the tool button, reveals a set of options to choose from: View class, Edit class, Delete class and Duplicate class.
 
@@ -349,11 +420,11 @@ Technologies used building this project include,
 ### Working with VSCode and Python
 
 The project was developed using [VSCode IDE](https://code.visualstudio.com/ "VSCode IDE") with Mac OS High Sierra operating system.
-For the version control, the code was pushed to local git repository and then to [GitHub](https://github.com/ "GitHub") repository. The application was then autodeployed through [Heroku](https://www.heroku.com "Heroku") from the GItHub Master.
+For the version control, the code was pushed to local git repository and then to [GitHub](https://github.com/ "GitHub") repository. The application was then auto-deployed through [Heroku](https://www.heroku.com "Heroku") from the GitHub Master.
 
 To work with python, Python3 library was first installed locally to the root directory with [Homebrew package manager](https://brew.sh/ "Homebrew package manager"). [Install Homebrew](https://brew.sh/#install "Install Homebrew") has instructions how to install brew to Mac.
 
-To check if and which versio of Python you have installed (Mac comes Python2 preinstalled) globally, you can open the Terminal and type:
+To check if and which version of Python you have installed (Mac comes Python2 preinstalled) globally, you can open the Terminal and type:
 
 `$ python --version`  # this will give you the version of python2
 
@@ -363,7 +434,7 @@ To check if and which versio of Python you have installed (Mac comes Python2 pre
 
  I wrote the application using Python3.7.6
 
-It is good to aknowledge the fact that [from 2020 January on, Python2 does not recieve further official support](https://wiki.python.org/moin/Python2orPython3 "from 2020 January on, Python2 does not recieve further official support"). Here you can find instructions [how to install the latest version of Python on your Mac](https://docs.python-guide.org/starting/install3/osx/ "how to install the latest version of Python, or to upgrade to Python3").
+It is good to acknowledge the fact that [from 2020 January on, Python2 does not receive further official support](https://wiki.python.org/moin/Python2orPython3 "from 2020 January on, Python2 does not receive further official support"). Here you can find instructions [how to install the latest version of Python on your Mac](https://docs.python-guide.org/starting/install3/osx/ "how to install the latest version of Python, or to upgrade to Python3").
 
 VSCode uses Python interpreter extensions to read Python code. Extensions include helpful features for the developers, such as [editing helpers, debugging, linting and testing.](https://code.visualstudio.com/docs/python/python-tutorial "editing helpers, debugging and linting.")
 
@@ -434,7 +505,7 @@ You would want to do the development work in your virtual environment!
 
 ## Setting up git for version control and connecting to GitHub
 
-For version control I have used GirHub open source version control system. You can alos yous Git or any other version control system provider. To make a GitHub account you can [follow the instructions here](https://help.github.com/en/github/getting-started-with-github).
+For version control I have used GirHub open source version control system. You can also yous Git or any other version control system provider. To make a GitHub account you can [follow the instructions here](https://help.github.com/en/github/getting-started-with-github).
 
 Before establishing the connection to GitHub, I created a .gitignore with the help of [Gitignore](http://https://www.gitignore.io/ "gitignore") in order to avoid pushing Operating System, IDE, Programming language and virtual environment folders and files to the public domain. It also safer to put the configurations to a separate file from
 the main Python file and add the file path to the .gitignore.
@@ -509,7 +580,7 @@ MarkupSafe==1.1.1
 Werkzeug==1.0.0
 ```
 
-### Flask test script
+### Welcome Flask test
 
 In test.py I created a script to test the working of Flask in VSCode IDE.
 
@@ -530,12 +601,12 @@ if __name__ == '__main__':  # tells the global namespace __name__ is set to equa
 
     # If conditional statement is satisfied
     app.run(host=os.environ.get('IP'),  
-        # launches the Flask built-in development web server and   
+        # launches the Flask built-in development web server and
         # gets the IP Address from the operating system.
-        port=int(os.environ.get('PORT', 5000)), 
+        port=int(os.environ.get('PORT', 5000)),
         debug=True)
         # Gets PORT we want to open, which in this case is set to 5000.
-        # Enable reloader and debugger by setting it to True, 
+        # Enable reloader and debugger by setting it to True,
         # which is the recommended value for the development phase
 ```
 
@@ -565,7 +636,7 @@ Now that I know flask is installed and works in the os as well, I created the ac
 In the file I modified the message to Hello World!
 I run app.py to confirm the code works proper.
 
-### Testing the routes
+### Testing the route decorator
 
 I created a new route to Classes page to test the routing decorator function and html.
 
@@ -617,7 +688,7 @@ After testing that the routing works, I added own html page for the links in 'he
 
 - the links, navigation and scripts work as they should
 
-## url_for routing
+## Flask url module
 
 To avoid hard coding of URLs in flask, the href links can be routed using url_for module of flask.
 After changing the css routing, I created the actual webpages the user can navigate to from the navigation bar,
@@ -776,7 +847,7 @@ To start teh service type.
 
 `$ brew services start mongodB`
 
-### Connecting to MonogoDB Atlas from IDE terminal
+### Connecting to MongoDB Atlas from IDE terminal
 
 In terminal we can now connect to to MongoDB by typing.
 
@@ -794,7 +865,7 @@ This should give a following terminal output:
     connecting to: mongodb://cluster2-shard-00-02-8wde6.mongodb.net:27017
     Implicit session: session { "id" : UUID("421af287-fa81-4bcf-a827-4f2a91525585") }
     MongoDB server version: 4.2.5
-    MongoDB Enterprise Cluster2-shard-0:PRIMARY> 
+    MongoDB Enterprise Cluster2-shard-0:PRIMARY>
 ```
 
 To test the connection to the cluster type:
@@ -833,7 +904,7 @@ To connect to the MongoDB with Flask application and perform CRUD operations you
 
 `$ sudo pip3 install flask_pymongo`
 
-**!! SECURITY !!**
+**SECURITY**
 
 It is important to make sure that the connection configurations with passwords and other connecions strings stay safely hidden from the user.
 I put the MongoDB URI with the username and the password into a separate environment file config.py and added it to the .gitignore. The project uses Config module for the configuration schema.
@@ -920,9 +991,9 @@ Then add collection name and click **Create**.
 To use Heroku with VSCode, I installed Heroku and Heroku-cli extensions from the VSCode market place.
 Heroku has its own version control system. You can also connect you GitHub repository to your Heroku application. You can find the instruction how to do that at the end of this Heroku deployment section. Connecting at later state is best to do after the actual deployment, otherwise the Heroku might mis some essential configurations to run the application. The following steps are for Mac OS and VSCode with GitHub version control, Heroku and Heroku-cli set up.
 
-### Deployment procedure for [Heroku](https://www.heroku.com/ "Heroku") hosting site
+### Deployment to Heroku hosting site
 
-To begin with deployment on Heroku go to [Heroku landing page](https://www.heroku.com/ "Heroku"). There you will find an option to either Sign in or Sign up.  If you have not signed up for Heroku platform before you can start here, otherwise you can continue from Login.
+To begin with deployment on [Heroku](https://www.heroku.com/ "Heroku") go to [Heroku landing page](https://www.heroku.com/ "Heroku"). There you will find an option to either Sign in or Sign up.  If you have not signed up for Heroku platform before you can start here, otherwise you can continue from Login.
 
 #### Signing up to Heroku
 
@@ -981,7 +1052,7 @@ This will add a new remote.
 Since I have set my VSCode working environment to use GitHub for version control it is added automatically.
 Otherwise you will see only Heroku git address.
 
-### Adding Procfile and requirements file
+### Adding Procfile and requirements.txt file
 
 Before adding the Procfile you need to install gunicorn.
 
@@ -1000,7 +1071,7 @@ After creating Procfile, create the requirements.txt file to your .venv base dir
 
 `$ pip3 freeze --local > requirements.txt`
 
-### Prepare your application
+### Prepare the application for deployment
 
 In app.py file change the debug mode to True and remove the IP and PORT values.
 
@@ -1012,7 +1083,7 @@ if __name__ == '__main__':
         debug = True)
 ```
 
-### Finish the application configuration in Heroku
+### Complete the application configuration in Heroku
 
 To finish with Heroku configuration, in Heroku dashboard go to **Settings**. 
 
@@ -1024,7 +1095,7 @@ Add another key value pair and set the key as PORT and value as 5000.
 
 Add SECRET key with the value of the SECRET_KEY you have created for the application in your configurations file.
 
-### Commit your application to Heroku and open the application
+### Commit the application to Heroku and open it
 
 At this point commit and push the application to Heroku.
 
@@ -1059,7 +1130,7 @@ After this you can go to your Heroku account and open your application. On right
 
 You can do this from your Heroku application dashboard **Deploy**. There you find **Deployment method** section and an option **Connect to GitHub**. When selected, Heroku asks you to **Search** and define the path to your GitHub repository. **Connect** and your GitHub and Heroku version controls are now linked.
 
-## You can for the project from GitHub to run the application locally
+## How to run the project locally
 
 To run this project on your own IDE follow the instructions below:
 
@@ -1154,9 +1225,7 @@ Summernote editor gives a lot of errors, but which point to the editor internal 
 
 Css validation was performed online with ['Jigsaw W3 CSS validator'](https://jigsaw.w3.org/css-validator).
 The browser and device compatibility was tested using different browsers and browser development tools.
-Some issues came up on testing the site on actual devices. For example, dynamically created tool buttons don't show up on iPad, but on phone they do.
-
-
+Some issues came up on testing the site on actual mobile devices. For example, dynamically created tool buttons which were behaving expectedly on desktop and laptop browsers don't show up on iPad, but on phone they do. Also the hidden overflow on x axis of the body element does not seem to work on actual mobile devices, which makes the image on the register page spill over on small screens.
 
 ## JavaScript
 
