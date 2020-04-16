@@ -400,6 +400,11 @@ footer {
     color: teal;
 }
 
+.hide-registerForm {
+    display: none;
+}
+
+
 .hide-info {
     display: none;
 }

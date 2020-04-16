@@ -93,9 +93,11 @@ $(document).ready(function() {
 	/* Password info modal */
 	$('#password-info').on('click', function() {
 		$('.password-info-wrap').removeClass('hide-info');
+		$('.register-visible').addClass('hide-registerForm');
   });
   
 	$('#close-modal').on('click', function() {
+		$('.register-visible').removeClass('hide-registerForm');
 		$('.password-info-wrap').addClass('hide-info');
 	});
 
