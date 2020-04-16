@@ -1153,6 +1153,10 @@ Summernote editor gives a lot of errors, but which point to the editor internal 
 ## CSS
 
 Css validation was performed online with ['Jigsaw W3 CSS validator'](https://jigsaw.w3.org/css-validator).
+The browser and device compatibility was tested using different browsers and browser development tools.
+Some issues came up on testing the site on actual devices. For example, dynamically created tool buttons don't show up on iPad, but on phone they do.
+
+
 
 ## JavaScript
 
