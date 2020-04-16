@@ -91,12 +91,12 @@ main {
 
     #login {
         margin-top: 18vh;
-        margin-left: 60vw;
+        margin-left: 55vw;
     }
-
 
     .index-content {
         height: calc(100vh - 106px);
+        min-height: 620px;
     }
 
     .register-content {
@@ -137,7 +137,7 @@ main {
     }
 
     .index-content {
-        min-height: 600px;
+        min-height: 620px;
     }
 
     #logo {
@@ -150,13 +150,13 @@ main {
     }
 
     #login {
-        margin-top: 20vh;
-        margin-left: 48vw;
+        margin-top: 18vh;
+        margin-left: 54vw;
     }
 
 
     .login-card {
-        top: 40%
+        top: 30%
     }
 
     .register-card {
@@ -165,7 +165,7 @@ main {
 
     .index-content {
         height: calc(100vh - 90px);
-        min-height: 420px;
+        min-height: 550px;
     }
 
     .register-content {
@@ -340,21 +340,6 @@ main {
         margin-left: 45;
     }
 }
-
-/*@media only screen and (max-width: 415px) and (orientation: landscape) {
-    .register-content,
-    .index-content {
-        min-height: 590px;
-    }
-    #login {
-        display: hidden;
-    }
-    .login-card {
-        display: absolute;
-        transform: translate(-50%, 1%);
-        -webkit-transform: translate(-50%, 1%);
-}
-}*/
 
 /* VIEW CLASS */
 .element-wrap {
