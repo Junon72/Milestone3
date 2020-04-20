@@ -262,7 +262,7 @@ Add log view allows users to create a log for a class. The view displays an empt
 
 Edit log view allows users to edit the content of pre-filled input fields to make changes to a log. The Log field is again Summernote editor allowing the default editor options. Users can Save the changes to the log or click Cancel, which both direct the user back to the class view. The page header displays Edit log from - and the log date. Also the Music Tracks and Video Links collection elements are displayed, but the links do not work.
 
-### Adding links for music tracks
+### Adding links for music tracks
 
 Add music track view allows users to add a music track link to an exercise. The view displays an empty form for users to fill in. Users can save the track link by clicking Save or cancel by Clicking Cancel, which both direct the users back to the class view.
 
@@ -714,7 +714,7 @@ MongoDB has a practical dashboard utility where the user can create databases, a
 In MongoDB dashboard I created a new cluster and a project context for Classapp and added a new database.
 In the database I then created a new collection 'clasess' and in the classes collection a new 'class' document.
 
-    ```python
+```python
 _id:ObjectId("5e519eb9ba2dfb000006dfe1")
 class_name:"Monday Groove"
 class_description:"Let it loose and sweat it out!"
@@ -750,7 +750,7 @@ logs:Array
         log_tag:"1st class for DanceFloor"
         user_id:"5e568ade0938db6d0519c69f
         username:"userOne"
-    ```
+```
 
 To connect to the database, in MongoDB in the application CONTEXT Classapp and in the Clusters view, select CONNECT.
 This will pop up a dialogue. To test the connection choose the Connect With Mongo Shell option.
@@ -990,7 +990,7 @@ This will add a new remote.
 Since I have set my VSCode working environment to use GitHub for version control it is added automatically.
 Otherwise you will see only Heroku git address.
 
-### Adding Procfile and requirements.txt file
+### Adding Procfile and requirements.txt file
 
 Before adding the Procfile you need to install gunicorn.
 
