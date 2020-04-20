@@ -266,7 +266,7 @@ Edit log view allows users to edit the content of pre-filled input fields to mak
 
 Add music track view allows users to add a music track link to an exercise. The view displays an empty form for users to fill in. Users can save the track link by clicking Save or cancel by Clicking Cancel, which both direct the users back to the class view.
 
-### Add links for videos
+### Adding links for videos
 
 Add video link view allows users to add a video link to an exercise. The view displays an empty form for users to fill in. Users can save the exercise by clicking Save or cancel by Clicking Cancel, which both direct the users back to the class view.
 
