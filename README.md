@@ -108,7 +108,7 @@ I considered following features essential for application to fulfill its purpose
     b. view classes associated with the series
 
     c. edit series
-    
+
     d. delete series
 
 ['Back to top'](#Table-of-content)
@@ -230,9 +230,13 @@ Class view displays the class content:
 2. A master tool button at the right hand bottom of the page with tools to add log, add exercise, edit class, delete class and duplicate class:
 
     a. Add log directs the user to the add log page
+
     b. Add exercise directs user to the add exercise page
+
     c. Edit class directs user to the edit class page
+
     d. Delete class deletes the class and returns to the classes page
+
     e. Duplicate class creates a duplicate of the class content and opens the class in edit class view.
 
 3. A button to navigate back to the classes view at the left side bottom of the class content.
@@ -242,12 +246,19 @@ Class view displays the class content:
 7. Exercises are displayed in an accordion element, which can be opened and closed.
 
     a. Clicking an exercise accordion header opens the exercise. The header highlights when hovered and stays highlighted when open.
+
     b. Exercise content is displayed in the form of accordion, so that each section can be opened or closed to save space. The first element, exercise description is open when exercise is opened. The headers highlight on hover and stay highlighted when open.
+
     c. Exercise description displays the content created with Summernote editor.
+
     d. Music tracks are displayed in collection elements and can be clicked to follow the link. Link opens on a blank page.
+
     e. Video links are displayed in collection elements and can be clicked to follow the link. Link opens on a blank page.
+
     f. Users can add Music tracks by clicking the add music track button and add video links by clicking the add video link button.
+
     g. Users can delete tracks and links by clicking the delete button in a collection element of each item.
+    
     h. Users can edit exercise by clicking the edit exercise button.
 
 8. Logs are presented in an accordion list. The accordion headers highlight when hovered and stay highlighted when opened. When opened logs display content created in Summernote. Users can edit logs by clicking an edit button at the left side bottom of the log content or delete the log by clicking the delete log button.
