@@ -57,8 +57,8 @@ I considered following features essential for application to fulfill its purpose
 
     For this the user can:
 
-        1. create an account with a username and password
-        2. login with the username and password
+    a. create an account with a username and password
+    b. login with the username and password
 
 2. Users can create classes
 
