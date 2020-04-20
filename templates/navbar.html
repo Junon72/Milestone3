@@ -3,7 +3,7 @@
 	{% if 'user' in session %}
 	<nav>
 		<div class="nav-wrapper col grey darken-4">
-			<a href="{{ url_for('classes', username=username) }}" class="brand-logo"><img
+			<a href="{{ url_for('classes', username=username) }}" class="brand-logo tooltipped" data-position="bottom" data-delay="50" data-tooltip="Home"><img
 					src="/static/img/classapp_logo.png" alt="Logo" id="logo" class="img-responsive"></a>
 			<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
 					class="material-icons small menu">menu</i></a>

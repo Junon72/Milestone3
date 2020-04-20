@@ -385,6 +385,10 @@ footer {
     color: teal;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 .hide-registerForm {
     display: none;
 }
