@@ -58,6 +58,7 @@ I considered following features essential for application to fulfill its purpose
     For this the user can:
 
     a. create an account with a username and password
+
     b. login with the username and password
 
 2. Users can create classes
@@ -65,10 +66,15 @@ I considered following features essential for application to fulfill its purpose
     Once a class is created user can:
 
     a. view class
+
     b. edit class
+
     c. delete class
+
     d. duplicate class
+
     e. associate the class with class series user has created
+
     f. de-associate the class with class series user has created
 
 3. User can create exercises for a class
@@ -76,8 +82,11 @@ I considered following features essential for application to fulfill its purpose
     Once an exercise is created, user can:
 
     a. view exercise
+
     b. edit exercise
+
     c. delete exercise
+
     d. add and delete links to music tracks and videos
 
 4. User can create logs for the classes
@@ -85,7 +94,9 @@ I considered following features essential for application to fulfill its purpose
     Once a log is created, user can:
 
     a. view log
+
     b. edit log
+
     c. delete log
 
 5. User can create series of classes for various purposes
@@ -93,8 +104,11 @@ I considered following features essential for application to fulfill its purpose
     Once a series is created, user can:
 
     a. view series
+
     b. view classes associated with the series
+
     c. edit series
+    
     d. delete series
 
 ['Back to top'](#Table-of-content)
