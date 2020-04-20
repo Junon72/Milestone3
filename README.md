@@ -18,7 +18,8 @@ The project was created as Milestone project for the Data Centric Development mo
 ## Table of Content
 
 1.['Project brief'](#Project-brief)
-1.1. ['Contextualizing the need'](#Contextualizing-the-need)
+
+    1.1. ['Contextualizing the need'](#Contextualizing-the-need)
 - ['Project overview](##Project-Overview)
 - ['UX](#UX)
 - ['Who is this application for?'](##Who-is-this-application-for?)
