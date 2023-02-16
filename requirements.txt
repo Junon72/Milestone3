@@ -20,4 +20,4 @@ pymongo==3.10.1
 python-dotenv==0.11.0
 python-form==0.2.3
 six==1.14.0
-Werkzeug==1.0.0
+Werkzeug==2.2.3
